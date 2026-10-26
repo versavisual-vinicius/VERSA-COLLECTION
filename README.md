@@ -1,10 +1,17 @@
 # VERSA-COLLECTION
 
-Galeria digital para clientes, inspirada em experiências editoriais de fotos com capa imersiva, grade responsiva e lightbox.
+Galeria digital para clientes com foco em fotografia editorial, responsividade e experiência imersiva.
 
 ## Visão geral
 
-Este repositório inicia a implementação do produto descrito na especificação funcional do projeto: uma galeria de fotos pública com suporte a coleção, favoritos, download, compartilhamento, autenticação por senha, slideshow e navegação por URL.
+Este repositório passou a concentrar uma base funcional de galeria digital para clientes, com:
+
+- capa editorial em tela cheia;
+- cabeçalho contextual com comportamento responsivo;
+- grid de imagens adaptável em colunas;
+- lightbox com navegação por teclado e URL;
+- ações de favorite, compartilhamento e download;
+- estrutura preparada para evolução em direção à especificação completa do projeto.
 
 ## Stack
 
@@ -18,26 +25,16 @@ Este repositório inicia a implementação do produto descrito na especificaçã
 - Node.js 18+
 - npm 9+
 
-## Começando
+## Como rodar
 
-1. Instale as dependências:
-   ```bash
-   npm install
-   ```
-2. Inicie o ambiente de desenvolvimento:
-   ```bash
-   npm run dev -- --host
-   ```
-3. Acesse a aplicação em:
-   ```bash
-   http://localhost:5173
-   ```
-4. Para gerar build de produção:
-   ```bash
-   npm run build
-   ```
+```bash
+npm install
+npm run dev -- --host
+```
 
-## Estrutura inicial
+Acesse a aplicação em `http://localhost:5173`.
+
+## Estrutura atual
 
 ```text
 .
@@ -47,7 +44,7 @@ Este repositório inicia a implementação do produto descrito na especificaçã
 ├── postcss.config.js
 ├── tailwind.config.js
 ├── tsconfig.json
-├���─ tsconfig.node.json
+├── tsconfig.node.json
 ├── vite.config.ts
 ├── .gitignore
 ├── public/
@@ -62,26 +59,21 @@ Este repositório inicia a implementação do produto descrito na especificaçã
 │   │   └── fixtures.ts
 │   └── types/
 │       └── gallery.ts
-└── docs/
-    └── architecture.md
+├── docs/
+│   └── architecture.md
+└── .editorconfig
 ```
 
-## Progresso esperado
+## Status do desenvolvimento
 
-A estrutura atual serve como base para:
+A implementação atual já entrega uma versão funcional inicial de apresentação da coleção e navegação de imagens, servindo como base para os próximos módulos:
 
-- definições de tipos e contratos de dados;
-- fixtures de coleção para desenvolvimento e testes visuais;
-- capa editorial e header;
-- grade masonry responsiva;
-- lightbox e estado por URL;
-- paginação progressiva e gerenciamento de favoritos;
-- preparação para hooks, contextos e integração com API.
+1. masonry refinado e paginação progressiva;
+2. favoritos persistentes;
+3. download e compartilhamento;
+4. slideshow e acessibilidade;
+5. integração com API e autenticação.
 
-## Referência documental
+## Observação
 
-A especificação funcional completa está no contexto do projeto e deve ser usada como guia de implementação e critérios de aceite.
-
-## Observações
-
-O projeto foi montado para permitir evolução incremental sem perder a compatibilidade com a proposta de desenho editorial, acessibilidade e performance da galeria.
+A estrutura foi organizada para atender à especificação funcional descrita para a galeria digital e pode ser evoluída de forma incremental sem quebrar a base visual e de UX estabelecida.

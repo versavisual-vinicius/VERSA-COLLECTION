@@ -1,11 +1,11 @@
-import type { GalleryCollection, GalleryPhoto } from './types/gallery';
+import type { GalleryCollection, GalleryPhoto } from '../types/gallery';
 
 export const collectionFixture: GalleryCollection = {
   id: 'collection-nat',
   slug: 'nat',
   title: 'OTICAS ELOY – NAT',
   businessName: 'Óticas Eloy',
-  businessUrl: 'https://www.example.com',
+  businessUrl: 'https://example.com',
   cover: {
     alt: 'Capa editorial da coleção de óculos e estilo.',
     width: 1600,
@@ -75,14 +75,7 @@ export const photosFixture: GalleryPhoto[] = photoSet.map((url, index) => ({
   width: 900,
   height: index % 2 === 0 ? 1200 : 900,
   dominantColor: '#d4d4d8',
-  sources: [
-    {
-      url,
-      width: 900,
-      height: index % 2 === 0 ? 1200 : 900,
-      format: 'jpeg',
-    },
-  ],
+  sources: [{ url, width: 900, height: index % 2 === 0 ? 1200 : 900, format: 'jpeg' }],
   shareUrl: `https://example.com/g/nat?photo=photo-${index + 1}`,
   caption: index % 3 === 0 ? 'Editorial natural com foco em forma e leveza.' : undefined,
   position: index + 1,

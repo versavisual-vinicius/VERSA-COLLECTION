@@ -1,51 +1,113 @@
-# Arquitetura e estrutura de desenvolvimento
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-## Objetivo
+:root {
+  font-family: Inter, system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.95);
+  background-color: #0a0a0a;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-A base do projeto foi organizada para atender ao fluxo de desenvolvimento de uma galeria digital focada em fotografia, com experiência editorial, responsiva e preparada para lightbox, favoritos, download e compartilhamento.
+html {
+  scroll-behavior: smooth;
+}
 
-## Stack escolhida
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #0a0a0a;
+}
 
-- React
-- Vite
-- TypeScript
-- Tailwind CSS
+img {
+  display: block;
+  max-width: 100%;
+}
 
-## Diretrizes da implementação
+button {
+  cursor: pointer;
+}
 
-1. preservar a experiência visual principal da referência;
-2. manter a navegação por URL como parte central do estado;
-3. priorizar carregamento progressivo e dimensões conhecidas;
-4. manter acessibilidade e estados de erro explícitos;
-5. separar contratos de dados da camada visual.
+#root {
+  min-height: 100vh;
+}
 
-## Estrutura esperada
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+}
 
-```text
-src/
-├── components/
-│   └── GalleryPage.tsx
-├── data/
-│   └── fixtures.ts
-├── types/
-│   └── gallery.ts
-├── App.tsx
-├── main.tsx
-└── index.css
-```
+@media (min-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+}
 
-## Próximo passo recomendado
+@media (min-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+}
 
-Implementar os módulos em ordem:
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+}
 
-1. tipos e fixtures de domínio;
-2. capa e header responsivos;
-3. masonry e paginação progressiva;
-4. lightbox com URL e teclado;
-5. favoritos, compartilhamento e download;
-6. slideshow e acessibilidade;
-7. telemetry e validações finais.
+.gallery-item .photo-actions {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0.75rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72), transparent);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
 
-## Observação
+.gallery-item:hover .photo-actions,
+.gallery-item:focus-within .photo-actions {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-Este documento funciona como guia inicial para a organização do repositório e para o andamento do projeto até a primeira versão funcional.
+.action-button {
+  display: inline-flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.34);
+  color: white;
+  backdrop-filter: blur(6px);
+  transition: transform 200ms ease-out, background-color 200ms ease-out;
+}
+
+.action-button:hover,
+.action-button:focus-visible {
+  transform: translateY(-1px);
+  background: rgba(0, 0, 0, 0.52);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
