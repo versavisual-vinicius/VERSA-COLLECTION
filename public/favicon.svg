@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="VERSA COLLECTION">
+  <rect width="64" height="64" rx="14" fill="#111827"/>
+  <path d="M18 19h28v26H18z" fill="#f5f5f4" opacity="0.08"/>
+  <path d="M22 43V21h4l9 11 9-11h4v22h-4V31l-9 11-9-11v12z" fill="#f5f5f4"/>
+</svg>

@@ -1,0 +1,90 @@
+import type { GalleryCollection, GalleryPhoto } from './types/gallery';
+
+export const collectionFixture: GalleryCollection = {
+  id: 'collection-nat',
+  slug: 'nat',
+  title: 'OTICAS ELOY – NAT',
+  businessName: 'Óticas Eloy',
+  businessUrl: 'https://www.example.com',
+  cover: {
+    alt: 'Capa editorial da coleção de óculos e estilo.',
+    width: 1600,
+    height: 1000,
+    dominantColor: '#1f2937',
+    sources: [
+      {
+        url: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80',
+        width: 1200,
+        height: 800,
+        format: 'jpeg',
+      },
+    ],
+  },
+  coverFocalPoint: { x: 50, y: 30 },
+  visibility: 'public',
+  passwordRequired: false,
+  favoritesEnabled: true,
+  downloads: {
+    enabled: true,
+    individualEnabled: true,
+    collectionEnabled: true,
+    requiresEmail: false,
+    requiresPin: false,
+    allowedSizes: ['original', '2048', '1024', '640'],
+  },
+  sharingEnabled: true,
+  slideshowEnabled: true,
+  totalItems: 18,
+  locale: 'pt-BR',
+  theme: {
+    headingFont: 'Cormorant Garamond, Georgia, serif',
+    bodyFont: 'Inter, Arial, sans-serif',
+    foreground: '#f5f5f4',
+    background: '#0f172a',
+    gridGapDesktop: 6,
+    gridGapMobile: 4,
+    coverOverlayOpacity: 0.6,
+  },
+};
+
+const photoSet = [
+  'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80',
+];
+
+export const photosFixture: GalleryPhoto[] = photoSet.map((url, index) => ({
+  id: `photo-${index + 1}`,
+  fileName: `photo-${index + 1}.jpg`,
+  alt: `Fotografia ${index + 1} da coleção`,
+  width: 900,
+  height: index % 2 === 0 ? 1200 : 900,
+  dominantColor: '#d4d4d8',
+  sources: [
+    {
+      url,
+      width: 900,
+      height: index % 2 === 0 ? 1200 : 900,
+      format: 'jpeg',
+    },
+  ],
+  shareUrl: `https://example.com/g/nat?photo=photo-${index + 1}`,
+  caption: index % 3 === 0 ? 'Editorial natural com foco em forma e leveza.' : undefined,
+  position: index + 1,
+  positionTieBreaker: `photo-${String(index + 1).padStart(4, '0')}`,
+}));
