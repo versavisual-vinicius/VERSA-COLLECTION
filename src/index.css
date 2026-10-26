@@ -1,243 +1,391 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { collectionFixture, photosFixture } from '../data/fixtures';
-import type { GalleryPhoto } from '../types/gallery';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-const toPhotoIndexById = (items: GalleryPhoto[]) =>
-  new Map(items.map((photo) => [photo.id, items.indexOf(photo)]));
+:root {
+  color: rgba(255, 255, 255, 0.96);
+  background: #0b0c0e;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-export function GalleryPage() {
-  const [selectedPhotoId, setSelectedPhotoId] = useState<string | null>(null);
-  const [headerVisible, setHeaderVisible] = useState(true);
+html {
+  scroll-behavior: smooth;
+}
 
-  const photoMap = useMemo(() => toPhotoIndexById(photosFixture), []);
-  const selectedPhoto = selectedPhotoId ? photosFixture.find((photo) => photo.id === selectedPhotoId) ?? null : null;
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #0b0c0e;
+}
 
-  const syncFromUrl = useCallback(() => {
-    const params = new URLSearchParams(window.location.search);
-    const photoId = params.get('photo');
-    const isValid = photoId ? photoMap.has(photoId) : false;
-    setSelectedPhotoId(isValid ? photoId : null);
-  }, [photoMap]);
+button {
+  font: inherit;
+}
 
-  useEffect(() => {
-    syncFromUrl();
-    const onPopState = () => syncFromUrl();
-    window.addEventListener('popstate', onPopState);
-    return () => window.removeEventListener('popstate', onPopState);
-  }, [syncFromUrl]);
+img {
+  display: block;
+  max-width: 100%;
+}
 
-  useEffect(() => {
-    let lastScrollY = window.scrollY;
-    const handleScroll = () => {
-      const current = window.scrollY;
-      const delta = current - lastScrollY;
+#root {
+  min-height: 100vh;
+}
 
-      if (Math.abs(delta) < 4) return;
-      setHeaderVisible(delta <= 0 || current < 24);
-      lastScrollY = current;
-    };
+.gallery-app {
+  min-height: 100vh;
+  background: #0b0c0e;
+  color: #f5f5f4;
+}
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+.gallery-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  height: 78px;
+  transition: transform 200ms ease-in-out;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(11, 12, 14, 0.72);
+  backdrop-filter: blur(10px);
+}
 
-  useEffect(() => {
-    document.body.style.overflow = selectedPhoto ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [selectedPhoto]);
+.header-hidden {
+  transform: translateY(-100%);
+}
 
-  const openPhoto = (photoId: string) => {
-    const nextUrl = new URL(window.location.href);
-    nextUrl.searchParams.set('photo', photoId);
-    window.history.pushState({}, '', nextUrl);
-    setSelectedPhotoId(photoId);
-  };
+.header-visible {
+  transform: translateY(0);
+}
 
-  const closePhoto = () => {
-    const nextUrl = new URL(window.location.href);
-    nextUrl.searchParams.delete('photo');
-    window.history.pushState({}, '', nextUrl);
-    setSelectedPhotoId(null);
-  };
+.header-inner {
+  max-width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  const navigatePhoto = (direction: number) => {
-    if (!selectedPhotoId) return;
+.brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
 
-    const currentIndex = photoMap.get(selectedPhotoId) ?? -1;
-    const nextIndex = Math.min(Math.max(currentIndex + direction, 0), photosFixture.length - 1);
-    const nextPhoto = photosFixture[nextIndex];
-    if (!nextPhoto) return;
+.brand-kicker {
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: rgba(255, 255, 255, 0.7);
+}
 
-    openPhoto(nextPhoto.id);
-  };
+.brand-name {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+}
 
-  useEffect(() => {
-    if (!selectedPhotoId) return;
+.header-nav {
+  display: none;
+  align-items: center;
+  gap: 1.5rem;
+}
 
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        closePhoto();
-        return;
-      }
+.header-nav button {
+  background: transparent;
+  border: 0;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+}
 
-      if (event.key === 'ArrowRight') {
-        navigatePhoto(1);
-      }
+.gallery-cover {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 100dvh;
+  background-size: cover;
+  background-position: center center;
+}
 
-      if (event.key === 'ArrowLeft') {
-        navigatePhoto(-1);
-      }
-    };
-
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [selectedPhotoId, photoMap]);
-
-  const goToGallery = () => {
-    document.getElementById('gallery-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
-  const currentIndex = selectedPhoto ? photoMap.get(selectedPhoto.id) ?? 0 : 0;
-
-  return (
-    <div className="min-h-screen bg-[#0b0c0e] text-stone-100">
-      <header
-        className={`fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[#0b0c0e]/80 backdrop-blur-md transition-transform duration-200 ease-in-out ${
-          headerVisible ? 'translate-y-0' : '-translate-y-full'
-        }`}
-      >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6">
-          <div>
-            <p className="text-[10px] uppercase tracking-[0.35em] text-stone-400">VERSA</p>
-            <h1 className="text-sm font-medium tracking-[0.2em] text-white">COLLECTION</h1>
-          </div>
-
-          <div className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
-            <span>Galeria</span>
-            <span>Favoritos</span>
-            <span>Download</span>
-          </div>
-        </div>
-      </header>
-
-      <main>
-        <section
-          className="relative flex min-h-[100dvh] items-end justify-center overflow-hidden"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.08) 45%, rgba(0,0,0,0.5) 90%, rgba(0,0,0,0.7)), url(${collectionFixture.cover.sources[0].url})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-
-          <div className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-16 text-center md:pb-20">
-            <p className="mb-3 text-[10px] uppercase tracking-[0.5em] text-stone-200/80">Coleção editorial</p>
-            <h2
-              className="mx-auto max-w-4xl text-5xl leading-none text-white md:text-[76px]"
-              style={{ fontFamily: collectionFixture.theme.headingFont }}
-            >
-              {collectionFixture.title}
-            </h2>
-            <p className="mt-6 text-base text-stone-200 md:text-lg">
-              por <span className="font-medium text-white">{collectionFixture.businessName}</span>
-            </p>
-            <button
-              type="button"
-              onClick={goToGallery}
-              className="mt-10 inline-flex items-center justify-center rounded-full border border-white/40 bg-white/10 px-8 py-3 text-sm font-medium uppercase tracking-[0.2em] text-white transition duration-250 ease-out hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/80"
-            >
-              Entrar na galeria
-            </button>
-          </div>
-        </section>
-
-        <section id="gallery-grid" className="mx-auto max-w-[1440px] px-1 py-6 md:px-5">
-          <div className="mb-5 flex items-center justify-between px-2 text-[10px] uppercase tracking-[0.26em] text-stone-400 md:text-xs">
-            <span>{collectionFixture.totalItems} fotos</span>
-            <span>modo editorial</span>
-          </div>
-
-          <div className="gallery-grid">
-            {photosFixture.map((photo) => (
-              <article key={photo.id} className="gallery-item group overflow-hidden rounded-[18px] border border-white/10 bg-white/5">
-                <button
-                  type="button"
-                  aria-label={`Abrir foto ${photo.position}`}
-                  onClick={() => openPhoto(photo.id)}
-                  className="block w-full text-left"
-                >
-                  <div className="relative aspect-[3/4] overflow-hidden">
-                    <img
-                      src={photo.sources[0].url}
-                      alt={photo.alt}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-full w-full object-cover transition duration-200 ease-out group-hover:scale-[1.02]"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/70 to-transparent" />
-                  </div>
-                </button>
-
-                <div className="photo-actions">
-                  <button type="button" aria-label="Favoritar foto" className="action-button">♥</button>
-                  <button type="button" aria-label="Baixar foto" className="action-button">↓</button>
-                  <button type="button" aria-label="Compartilhar foto" className="action-button">⇪</button>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      </main>
-
-      {selectedPhoto && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-3 md:p-5" role="dialog" aria-modal="true" aria-label="Visualização da foto">
-          <button
-            type="button"
-            aria-label="Fechar visualização"
-            onClick={closePhoto}
-            className="absolute right-4 top-4 z-10 rounded-full border border-white/20 bg-black/40 px-3 py-2 text-sm text-white hover:bg-black/60"
-          >
-            Fechar
-          </button>
-
-          <div className="relative flex h-full w-full max-w-6xl items-center justify-center">
-            <button
-              type="button"
-              onClick={() => navigatePhoto(-1)}
-              aria-label="Foto anterior"
-              className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/20 bg-black/30 px-3 py-2 text-xl text-white hover:bg-black/50 md:left-8"
-            >
-              ‹
-            </button>
-
-            <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-[20px] bg-black">
-              <img
-                src={selectedPhoto.sources[0].url}
-                alt={selectedPhoto.alt}
-                className="max-h-[90vh] w-full object-contain"
-              />
-            </div>
-
-            <button
-              type="button"
-              onClick={() => navigatePhoto(1)}
-              aria-label="Próxima foto"
-              className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/20 bg-black/30 px-3 py-2 text-xl text-white hover:bg-black/50 md:right-8"
-            >
-              ›
-            </button>
-          </div>
-
-          <div className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-center gap-3 bg-gradient-to-t from-black to-transparent px-4 pb-5 pt-14 text-sm text-white">
-            <span>{currentIndex + 1}</span>
-            <span className="text-stone-300">/</span>
-            <span>{photosFixture.length}</span>
-          </div>
-        </div>
-      )}
-    </div>
+.cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.2) 42%,
+    rgba(0, 0, 0, 0.12) 52%,
+    rgba(0, 0, 0, 0.2) 100%
   );
+}
+
+.cover-content {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1024px);
+  padding: 6rem 1.5rem 4rem;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 0.8rem;
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.cover-title {
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 5.6rem);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: #ffffff;
+}
+
+.cover-subtitle {
+  margin: 1.2rem 0 0;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.cover-cta {
+  margin-top: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.9rem 1.8rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 250ms ease-out, transform 250ms ease-out;
+}
+
+.cover-cta:hover,
+.cover-cta:focus-visible {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(-1px);
+}
+
+.gallery-shell {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 1rem 0.25rem 2.5rem;
+}
+
+.gallery-meta {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0.5rem 1rem;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.masonry-grid {
+  column-count: 2;
+  column-gap: 4px;
+}
+
+.masonry-item {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 4px;
+  break-inside: avoid;
+}
+
+.photo-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 0;
+  padding: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.photo-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 200ms ease-out;
+}
+
+.photo-card:hover img,
+.photo-card:focus-visible img {
+  transform: scale(1.02);
+}
+
+.photo-gradient {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 4.5rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72), transparent);
+}
+
+.photo-actions {
+  position: absolute;
+  right: 0.7rem;
+  bottom: 0.7rem;
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+.masonry-item:hover .photo-actions,
+.masonry-item:focus-within .photo-actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.photo-actions button {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.36);
+  color: #fff;
+  cursor: pointer;
+}
+
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 1rem;
+}
+
+.lightbox-panel {
+  position: relative;
+  width: min(100%, 1200px);
+  height: min(92vh, 900px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.32);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.28);
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.lightbox-nav.left { left: 1rem; }
+.lightbox-nav.right { right: 1rem; }
+
+.lightbox-media-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 4rem 2.5rem;
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 18px;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.35);
+}
+
+.lightbox-footer {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1rem 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+}
+
+@media (min-width: 600px) {
+  .header-inner {
+    padding: 0 1.25rem;
+  }
+
+  .header-nav {
+    display: flex;
+  }
+
+  .masonry-grid {
+    column-count: 3;
+    column-gap: 6px;
+  }
+
+  .masonry-item {
+    margin-bottom: 6px;
+  }
+
+  .gallery-shell {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .masonry-grid {
+    column-count: 4;
+    column-gap: 6px;
+  }
+
+  .lightbox-close {
+    right: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

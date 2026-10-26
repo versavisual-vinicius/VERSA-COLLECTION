@@ -1,79 +1,52 @@
 # VERSA-COLLECTION
 
-Galeria digital para clientes com foco em fotografia editorial, responsividade e experiência imersiva.
+Galeria digital editorial para clientes com foco em experiência imersiva, responsividade e foco em fotografia.
 
 ## Visão geral
 
-Este repositório passou a concentrar uma base funcional de galeria digital para clientes, com:
+Este repositório foi reestruturado para seguir uma arquitetura de módulos mais clara, com separação entre:
 
+- tipos de domínio e contratos;
+- fixtures e dados de coleção;
+- componentes de apresentação;
+- lógica de estado e sincronização de URL;
+- estilos globais e layout responsivo.
+
+## Arquitetura atual
+
+```text
+src/
+├── App.tsx
+├── components/
+│   └── GalleryPage.tsx
+├── data/
+│   └── fixtures.ts
+├── index.css
+├── main.tsx
+├── types/
+│   └── gallery.ts
+└── lib/
+    └── gallery.ts
+```
+
+## Objetivo da base
+
+A estrutura atual foi organizada para apoiar:
+
+- cobertura inicial da especificação funcional;
 - capa editorial em tela cheia;
-- cabeçalho contextual com comportamento responsivo;
-- grid de imagens adaptável em colunas;
-- lightbox com navegação por teclado e URL;
-- ações de favorite, compartilhamento e download;
-- estrutura preparada para evolução em direção à especificação completa do projeto.
+- grid masonry responsivo;
+- URL state com `photo` em query string;
+- lightbox com navegação por teclado;
+- arquitetura pronta para expansão em favoritos, downloads, slideshow e autenticação.
 
-## Stack
-
-- React
-- Vite
-- TypeScript
-- Tailwind CSS
-
-## Requisitos
-
-- Node.js 18+
-- npm 9+
-
-## Como rodar
+## Execução local
 
 ```bash
 npm install
 npm run dev -- --host
 ```
 
-Acesse a aplicação em `http://localhost:5173`.
+## Observaç��o
 
-## Estrutura atual
-
-```text
-.
-├── README.md
-├── index.html
-├── package.json
-├── postcss.config.js
-├── tailwind.config.js
-├── tsconfig.json
-├── tsconfig.node.json
-├── vite.config.ts
-├── .gitignore
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── App.tsx
-│   ├── main.tsx
-│   ├── index.css
-│   ├── components/
-│   │   └── GalleryPage.tsx
-│   ├── data/
-│   │   └── fixtures.ts
-│   └── types/
-│       └── gallery.ts
-├── docs/
-│   └── architecture.md
-└── .editorconfig
-```
-
-## Status do desenvolvimento
-
-A implementação atual já entrega uma versão funcional inicial de apresentação da coleção e navegação de imagens, servindo como base para os próximos módulos:
-
-1. masonry refinado e paginação progressiva;
-2. favoritos persistentes;
-3. download e compartilhamento;
-4. slideshow e acessibilidade;
-5. integração com API e autenticação.
-
-## Observação
-
-A estrutura foi organizada para atender à especificação funcional descrita para a galeria digital e pode ser evoluída de forma incremental sem quebrar a base visual e de UX estabelecida.
+A reestruturação foi feita no mesmo repositório principal (`main`) conforme solicitado, com foco em manter a base funcional evoluindo de forma contínua em uma única linha de trabalho.

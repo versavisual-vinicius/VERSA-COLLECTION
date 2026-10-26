@@ -69,3 +69,20 @@ export interface GalleryPhoto {
   position: number;
   positionTieBreaker: string;
 }
+
+export type GalleryScreenState =
+  | { type: 'loading-collection' }
+  | { type: 'password-required' }
+  | { type: 'ready'; collection: GalleryCollection }
+  | { type: 'loading-more'; loaded: number; total: number }
+  | { type: 'partial-error'; retryCursor: string }
+  | { type: 'empty' }
+  | { type: 'not-found' }
+  | { type: 'unavailable' };
+
+export type LightboxState =
+  | { type: 'closed' }
+  | { type: 'opening'; photoId: string }
+  | { type: 'open'; photoId: string }
+  | { type: 'slideshow'; photoId: string; paused: boolean }
+  | { type: 'closing'; photoId: string };
