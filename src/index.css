@@ -190,37 +190,38 @@ img {
   color: rgba(255, 255, 255, 0.52);
 }
 
-.masonry-grid {
-  column-count: 2;
-  column-gap: 4px;
+.calculated-masonry-container {
+  position: relative;
+  width: 100%;
+  contain: layout;
 }
 
-.masonry-item {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  margin: 0 0 4px;
-  break-inside: avoid;
+.masonry-card {
+  position: absolute;
+  border-radius: 14px;
+  overflow: hidden;
+  will-change: transform;
 }
 
 .photo-card {
   position: relative;
   display: block;
   width: 100%;
+  height: 100%;
   background: rgba(255, 255, 255, 0.04);
   border: 0;
   padding: 0;
-  border-radius: 18px;
+  border-radius: 14px;
   overflow: hidden;
   cursor: pointer;
 }
 
 .photo-card img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   object-fit: cover;
-  transition: transform 200ms ease-out;
+  transition: transform 250ms ease-out;
 }
 
 .photo-card:hover img,
@@ -233,33 +234,53 @@ img {
   inset: auto 0 0 0;
   height: 4.5rem;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.72), transparent);
+  pointer-events: none;
 }
 
 .photo-actions {
   position: absolute;
-  right: 0.7rem;
-  bottom: 0.7rem;
+  right: 0.5rem;
+  bottom: 0.5rem;
   display: flex;
-  gap: 0.5rem;
+  gap: 0.35rem;
   opacity: 0;
-  transform: translateY(0.5rem);
+  transform: translateY(0.35rem);
   transition: opacity 200ms ease-out, transform 200ms ease-out;
+  z-index: 10;
 }
 
-.masonry-item:hover .photo-actions,
-.masonry-item:focus-within .photo-actions {
+.masonry-card:hover .photo-actions,
+.masonry-card:focus-within .photo-actions {
   opacity: 1;
   transform: translateY(0);
 }
 
-.photo-actions button {
-  width: 2.75rem;
-  height: 2.75rem;
+.photo-action-btn {
+  min-width: 44px;
+  min-height: 44px;
+  width: 44px;
+  height: 44px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(0, 0, 0, 0.36);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
   color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  touch-action: manipulation;
+  transition: background 150ms ease-out, transform 150ms ease-out;
+}
+
+.photo-action-btn:hover,
+.photo-action-btn:focus-visible {
+  background: rgba(0, 0, 0, 0.75);
+  transform: scale(1.05);
+}
+
+.photo-action-btn.favorite-active {
+  border-color: rgba(239, 68, 68, 0.4);
 }
 
 .lightbox-backdrop {
@@ -355,15 +376,6 @@ img {
     display: flex;
   }
 
-  .masonry-grid {
-    column-count: 3;
-    column-gap: 6px;
-  }
-
-  .masonry-item {
-    margin-bottom: 6px;
-  }
-
   .gallery-shell {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
@@ -371,11 +383,6 @@ img {
 }
 
 @media (min-width: 900px) {
-  .masonry-grid {
-    column-count: 4;
-    column-gap: 6px;
-  }
-
   .lightbox-close {
     right: 1.5rem;
   }

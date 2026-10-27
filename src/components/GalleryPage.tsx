@@ -1,73 +1,133 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { collectionFixture, galleryPhotos } from '../data/fixtures';
+import type { GalleryPhoto } from '../types/gallery';
+import { AutoHideGalleryHeader } from './Header/AutoHideGalleryHeader';
+import { GalleryHero } from './GalleryHero/GalleryHero';
+import { InfiniteMasonryGrid } from './Masonry/InfiniteMasonryGrid';
+import { useGalleryProgressivePhotos } from './Masonry/useGalleryProgressivePhotos';
+import { PhotoLightbox } from './Lightbox/PhotoLightbox';
+import { ShareDialog } from './Dialogs/ShareDialog';
+import { DownloadDialog } from './Dialogs/DownloadDialog';
+import { FavoritesDialog } from './Dialogs/FavoritesDialog';
+import { ToastRegion } from './Feedback/ToastRegion';
+import { BrandingFooter } from './Footer/BrandingFooter';
+import { useFavorites } from '../lib/useFavorites';
+import { telemetry } from '../lib/telemetry';
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
-const getPhotoById = (photoId: string | null) =>
-  photoId ? galleryPhotos.find((photo) => photo.id === photoId) ?? null : null;
+interface GalleryPageProps {
+  isOwnerPreview?: boolean;
+}
 
-export function GalleryPage() {
+export function GalleryPage({ isOwnerPreview = false }: GalleryPageProps) {
   const [activePhotoId, setActivePhotoId] = useState<string | null>(null);
-  const [headerVisible, setHeaderVisible] = useState(true);
-  const dialogRef = useRef<HTMLDivElement | null>(null);
-  const previousFocusRef = useRef<HTMLElement | null>(null);
+  const [isSlideshowActive, setIsSlideshowActive] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const selectedPhoto = useMemo(() => getPhotoById(activePhotoId), [activePhotoId]);
-  const currentIndex = selectedPhoto ? galleryPhotos.findIndex((photo) => photo.id === selectedPhoto.id) : -1;
+  // Registra se a sessão atual teve entrada direta por URL profunda (Seção 6)
+  const isDeepLinkOriginRef = useRef<boolean>(false);
+  const initialMountRef = useRef<boolean>(true);
 
+  // Hook de favoritos com persistência local e otimismo reversível (RF-010)
+  const {
+    favoriteIds,
+    toggleFavorite: toggleFavAction,
+    removeFavorite: removeFavAction,
+  } = useFavorites(collectionFixture.id);
+
+  // Hook de fotos com carregamento progressivo determinístico (RF-006)
+  const {
+    photos: loadedPhotos,
+    status: loadingStatus,
+    hasMore,
+    error: loadError,
+    loadMore,
+    retry,
+  } = useGalleryProgressivePhotos({
+    collectionId: collectionFixture.id,
+    initialLimit: 16,
+    batchLimit: 8,
+  });
+
+  // Diálogos
+  const [isShareOpen, setIsShareOpen] = useState(false);
+  const [shareData, setShareData] = useState<{ title: string; url: string }>({
+    title: collectionFixture.title,
+    url: typeof window !== 'undefined' ? window.location.href : '',
+  });
+
+  const [isDownloadOpen, setIsDownloadOpen] = useState(false);
+  const [downloadTargetPhoto, setDownloadTargetPhoto] = useState<GalleryPhoto | null>(null);
+  const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
+
+  // Telemetria: registro de visualização inicial da galeria
+  useEffect(() => {
+    telemetry.track('gallery_viewed', {
+      collectionId: collectionFixture.id,
+      metadata: { totalItems: collectionFixture.totalItems },
+    });
+  }, []);
+
+  const selectedPhoto = useMemo(() => {
+    if (!activePhotoId) return null;
+    return (
+      loadedPhotos.find((p) => p.id === activePhotoId) ??
+      galleryPhotos.find((p) => p.id === activePhotoId) ??
+      null
+    );
+  }, [activePhotoId, loadedPhotos]);
+
+  const currentIndex = selectedPhoto
+    ? galleryPhotos.findIndex((photo) => photo.id === selectedPhoto.id)
+    : -1;
+
+  const showToast = useCallback((message: string) => {
+    setToastMessage(message);
+    setTimeout(() => {
+      setToastMessage((current) => (current === message ? null : current));
+    }, 3000);
+  }, []);
+
+  // Sincronização estrita de URL e histórico (Seção 6)
   const syncFromUrl = useCallback(() => {
     const params = new URLSearchParams(window.location.search);
-    const nextPhotoId = params.get('photo');
-    setActivePhotoId(nextPhotoId && galleryPhotos.some((photo) => photo.id === nextPhotoId) ? nextPhotoId : null);
+    const photoId = params.get('photo');
+    const mode = params.get('mode');
+
+    if (initialMountRef.current) {
+      initialMountRef.current = false;
+      if (photoId) {
+        isDeepLinkOriginRef.current = true;
+      }
+    }
+
+    if (photoId && galleryPhotos.some((p) => p.id === photoId)) {
+      setActivePhotoId(photoId);
+      setIsSlideshowActive(mode === 'slideshow');
+    } else {
+      setActivePhotoId(null);
+      setIsSlideshowActive(false);
+    }
   }, []);
 
   useEffect(() => {
     syncFromUrl();
-    const listener = () => syncFromUrl();
-    window.addEventListener('popstate', listener);
-    return () => window.removeEventListener('popstate', listener);
+    const handlePopState = () => syncFromUrl();
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, [syncFromUrl]);
 
-  useEffect(() => {
-    let lastScrollY = window.scrollY;
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const delta = currentScrollY - lastScrollY;
-
-      if (Math.abs(delta) < 4) return;
-      setHeaderVisible(delta <= 0 || currentScrollY < 24);
-      lastScrollY = currentScrollY;
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (!selectedPhoto) {
-      document.body.style.overflow = '';
-      return;
-    }
-
-    const previous = document.activeElement as HTMLElement | null;
-    previousFocusRef.current = previous;
-    document.body.style.overflow = 'hidden';
-
-    const focusTimer = window.setTimeout(() => {
-      dialogRef.current?.focus();
-    }, 40);
-
-    return () => {
-      window.clearTimeout(focusTimer);
-      document.body.style.overflow = '';
-      previousFocusRef.current?.focus();
-    };
-  }, [selectedPhoto]);
-
-  const updatePhotoInUrl = useCallback((photoId: string | null, mode: 'push' | 'replace') => {
+  const updateUrl = useCallback((photoId: string | null, mode: 'push' | 'replace', isSlideshow = false) => {
     const nextUrl = new URL(window.location.href);
+
     if (photoId) {
       nextUrl.searchParams.set('photo', photoId);
+      if (isSlideshow) {
+        nextUrl.searchParams.set('mode', 'slideshow');
+      } else {
+        nextUrl.searchParams.delete('mode');
+      }
     } else {
       nextUrl.searchParams.delete('photo');
       nextUrl.searchParams.delete('mode');
@@ -80,170 +140,256 @@ export function GalleryPage() {
     }
   }, []);
 
-  const openPhoto = useCallback((photoId: string) => {
-    setActivePhotoId(photoId);
-    updatePhotoInUrl(photoId, 'push');
-  }, [updatePhotoInUrl]);
+  const openPhoto = useCallback(
+    (photoId: string) => {
+      setActivePhotoId(photoId);
+      setIsSlideshowActive(false);
+      updateUrl(photoId, 'push', false);
+
+      telemetry.track('photo_opened', {
+        collectionId: collectionFixture.id,
+        photoId,
+      });
+    },
+    [updateUrl],
+  );
 
   const closePhoto = useCallback(() => {
+    const closedPhotoId = activePhotoId;
     setActivePhotoId(null);
-    updatePhotoInUrl(null, 'replace');
-  }, [updatePhotoInUrl]);
+    setIsSlideshowActive(false);
+
+    // Se a sessão iniciou por deep link direto, fecha removendo o parâmetro com replaceState (Seção 6)
+    if (isDeepLinkOriginRef.current) {
+      updateUrl(null, 'replace', false);
+    } else {
+      updateUrl(null, 'replace', false);
+    }
+
+    // Restaura foco acessível no elemento de origem
+    if (closedPhotoId) {
+      const cardEl = document.getElementById(`photo-card-${closedPhotoId}`);
+      cardEl?.focus();
+    }
+  }, [activePhotoId, updateUrl]);
 
   const navigatePhoto = useCallback(
     (direction: number) => {
       if (!selectedPhoto) return;
-      const current = galleryPhotos.findIndex((photo) => photo.id === selectedPhoto.id);
-      const next = clamp(current + direction, 0, galleryPhotos.length - 1);
-      const targetPhoto = galleryPhotos[next];
+      const current = galleryPhotos.findIndex((p) => p.id === selectedPhoto.id);
+      const nextIndex = clamp(current + direction, 0, galleryPhotos.length - 1);
+      const targetPhoto = galleryPhotos[nextIndex];
       if (!targetPhoto) return;
-      openPhoto(targetPhoto.id);
+
+      setActivePhotoId(targetPhoto.id);
+      // Navegação entre fotos usa replaceState para evitar poluir o histórico (Seção 6)
+      updateUrl(targetPhoto.id, 'replace', isSlideshowActive);
+
+      telemetry.track('photo_navigated', {
+        collectionId: collectionFixture.id,
+        photoId: targetPhoto.id,
+        metadata: { direction },
+      });
     },
-    [openPhoto, selectedPhoto],
+    [isSlideshowActive, selectedPhoto, updateUrl],
   );
 
-  useEffect(() => {
-    if (!selectedPhoto) return;
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        closePhoto();
-        return;
+  const toggleFavorite = useCallback(
+    (photoId: string) => {
+      const added = toggleFavAction(photoId);
+      if (added) {
+        showToast('Fotografia adicionada aos favoritos');
+        telemetry.track('photo_favorited', {
+          collectionId: collectionFixture.id,
+          photoId,
+        });
+      } else {
+        showToast('Fotografia removida dos favoritos');
+        telemetry.track('photo_unfavorited', {
+          collectionId: collectionFixture.id,
+          photoId,
+        });
       }
+    },
+    [showToast, toggleFavAction],
+  );
 
-      if (event.key === 'ArrowRight') {
-        event.preventDefault();
-        navigatePhoto(1);
-      }
+  const handleSharePhoto = useCallback((photo: GalleryPhoto) => {
+    setShareData({
+      title: `${photo.alt} — ${collectionFixture.title}`,
+      url: `${window.location.origin}${window.location.pathname}?photo=${photo.id}`,
+    });
+    setIsShareOpen(true);
 
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault();
-        navigatePhoto(-1);
-      }
+    telemetry.track('share_opened', {
+      collectionId: collectionFixture.id,
+      photoId: photo.id,
+    });
+  }, []);
 
-      if (event.key === 'Tab' && dialogRef.current) {
-        const focusable = Array.from(
-          dialogRef.current.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'),
-        ).filter((element) => !element.hasAttribute('disabled'));
+  const handleShareCollection = useCallback(() => {
+    setShareData({
+      title: `${collectionFixture.title} — ${collectionFixture.businessName}`,
+      url: `${window.location.origin}${window.location.pathname}`,
+    });
+    setIsShareOpen(true);
 
-        if (focusable.length === 0) {
-          event.preventDefault();
-          return;
-        }
+    telemetry.track('share_opened', {
+      collectionId: collectionFixture.id,
+    });
+  }, []);
 
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
+  const handleDownloadPhoto = useCallback((photo: GalleryPhoto) => {
+    setDownloadTargetPhoto(photo);
+    setIsDownloadOpen(true);
 
-        if (event.shiftKey && document.activeElement === first) {
-          event.preventDefault();
-          last.focus();
-        } else if (!event.shiftKey && document.activeElement === last) {
-          event.preventDefault();
-          first.focus();
-        }
-      }
-    };
+    telemetry.track('photo_download_started', {
+      collectionId: collectionFixture.id,
+      photoId: photo.id,
+    });
+  }, []);
 
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [closePhoto, navigatePhoto, selectedPhoto]);
+  const handleDownloadCollection = useCallback(() => {
+    setDownloadTargetPhoto(null);
+    setIsDownloadOpen(true);
 
-  const scrollToGallery = () => {
-    document.getElementById('gallery-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
+    telemetry.track('collection_download_started', {
+      collectionId: collectionFixture.id,
+    });
+  }, []);
+
+  const handleStartSlideshow = useCallback(() => {
+    const firstPhoto = loadedPhotos[0] ?? galleryPhotos[0];
+    if (firstPhoto) {
+      setActivePhotoId(firstPhoto.id);
+      setIsSlideshowActive(true);
+      updateUrl(firstPhoto.id, 'push', true);
+
+      telemetry.track('slideshow_started', {
+        collectionId: collectionFixture.id,
+        photoId: firstPhoto.id,
+      });
+    }
+  }, [loadedPhotos, updateUrl]);
+
+  const favoritePhotosList = useMemo(
+    () => galleryPhotos.filter((p) => favoriteIds.has(p.id)),
+    [favoriteIds],
+  );
 
   return (
-    <div className="gallery-app">
-      <header className={`gallery-header ${headerVisible ? 'header-visible' : 'header-hidden'}`}>
-        <div className="header-inner">
-          <div className="brand-block">
-            <span className="brand-kicker">VERSA</span>
-            <span className="brand-name">COLLECTION</span>
-          </div>
-
-          <nav className="header-nav" aria-label="Navegação principal">
-            <button type="button">Galeria</button>
-            <button type="button">Favoritos</button>
-            <button type="button">Download</button>
-          </nav>
-        </div>
-      </header>
+    <div className="gallery-app bg-[#0b0c0e] text-[#f5f5f4] min-h-screen">
+      <AutoHideGalleryHeader
+        collectionTitle={collectionFixture.title}
+        favoriteCount={favoriteIds.size}
+        downloadsEnabled={collectionFixture.downloads.enabled}
+        isOwnerPreview={isOwnerPreview}
+        onOpenFavorites={() => setIsFavoritesOpen(true)}
+        onOpenDownload={handleDownloadCollection}
+        onStartSlideshow={handleStartSlideshow}
+        onShareCollection={handleShareCollection}
+      />
 
       <main>
-        <section
-          className="gallery-cover"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.52) 90%, rgba(0,0,0,0.7)), url(${collectionFixture.cover.sources[0].url})`,
-          }}
-        >
-          <div className="cover-overlay" />
-          <div className="cover-content">
-            <p className="eyebrow">Coleção editorial</p>
-            <h1 className="cover-title" style={{ fontFamily: collectionFixture.theme.headingFont }}>
-              {collectionFixture.title}
-            </h1>
-            <p className="cover-subtitle">
-              por <strong>{collectionFixture.businessName}</strong>
-            </p>
+        <GalleryHero
+          collection={collectionFixture}
+          isOwnerPreview={isOwnerPreview}
+        />
 
-            <button type="button" className="cover-cta" onClick={scrollToGallery}>
-              Entrar na galeria
-            </button>
-          </div>
-        </section>
-
-        <section id="gallery-grid" className="gallery-shell">
-          <div className="gallery-meta">
-            <span>{collectionFixture.totalItems} fotos</span>
-            <span>modo editorial</span>
+        <section id="gallery-grid" className="gallery-shell max-w-[1440px] mx-auto py-8 px-2 sm:px-4">
+          <div className="gallery-meta flex justify-between items-center px-4 py-3 text-xs tracking-widest uppercase text-white/50 border-b border-white/5 mb-6">
+            <span>
+              {loadedPhotos.length} de {collectionFixture.totalItems} fotografias
+            </span>
+            <span>Modo Editorial</span>
           </div>
 
-          <div className="masonry-grid" aria-live="polite">
-            {galleryPhotos.map((photo) => (
-              <article key={photo.id} className="masonry-item">
-                <button type="button" className="photo-card" onClick={() => openPhoto(photo.id)} aria-label={`Abrir foto ${photo.position}`}>
-                  <img src={photo.sources[0].url} alt={photo.alt} loading="lazy" decoding="async" />
-                  <span className="photo-gradient" />
-                </button>
-
-                <div className="photo-actions" aria-label="Ações da foto">
-                  <button type="button" aria-label="Favoritar foto">♥</button>
-                  <button type="button" aria-label="Baixar foto">↓</button>
-                  <button type="button" aria-label="Compartilhar foto">⇪</button>
-                </div>
-              </article>
-            ))}
-          </div>
+          <InfiniteMasonryGrid
+            photos={loadedPhotos}
+            status={loadingStatus}
+            hasMore={hasMore}
+            errorMessage={loadError}
+            favoriteIds={favoriteIds}
+            onOpenPhoto={openPhoto}
+            onLoadMore={loadMore}
+            onRetry={retry}
+            onToggleFavorite={toggleFavorite}
+            onDownload={handleDownloadPhoto}
+            onShare={handleSharePhoto}
+          />
         </section>
       </main>
 
+      <BrandingFooter
+        businessName={collectionFixture.businessName}
+        totalItems={collectionFixture.totalItems}
+      />
+
       {selectedPhoto && (
-        <div className="lightbox-backdrop" role="dialog" aria-modal="true" aria-label="Visualização da foto">
-          <div ref={dialogRef} tabIndex={-1} className="lightbox-panel">
-            <button type="button" className="lightbox-close" onClick={closePhoto} aria-label="Fechar visualização">
-              Fechar
-            </button>
-
-            <button type="button" className="lightbox-nav left" onClick={() => navigatePhoto(-1)} aria-label="Foto anterior">
-              ‹
-            </button>
-
-            <div className="lightbox-media-wrap">
-              <img src={selectedPhoto.sources[0].url} alt={selectedPhoto.alt} className="lightbox-image" />
-            </div>
-
-            <button type="button" className="lightbox-nav right" onClick={() => navigatePhoto(1)} aria-label="Próxima foto">
-              ›
-            </button>
-
-            <div className="lightbox-footer">
-              <span>{currentIndex + 1}</span>
-              <span>/</span>
-              <span>{galleryPhotos.length}</span>
-            </div>
-          </div>
-        </div>
+        <PhotoLightbox
+          photo={selectedPhoto}
+          currentIndex={currentIndex}
+          totalPhotos={galleryPhotos.length}
+          isFavorite={favoriteIds.has(selectedPhoto.id)}
+          isSlideshowActive={isSlideshowActive}
+          onClose={closePhoto}
+          onPrevious={() => navigatePhoto(-1)}
+          onNext={() => navigatePhoto(1)}
+          onToggleFavorite={toggleFavorite}
+          onDownload={handleDownloadPhoto}
+          onShare={handleSharePhoto}
+          onToggleSlideshow={() => {
+            setIsSlideshowActive((prev) => {
+              const next = !prev;
+              telemetry.track(next ? 'slideshow_started' : 'slideshow_paused', {
+                collectionId: collectionFixture.id,
+                photoId: selectedPhoto.id,
+              });
+              return next;
+            });
+          }}
+          onPauseSlideshow={() => {
+            setIsSlideshowActive(false);
+            telemetry.track('slideshow_paused', {
+              collectionId: collectionFixture.id,
+              photoId: selectedPhoto.id,
+            });
+          }}
+        />
       )}
+
+      <ShareDialog
+        isOpen={isShareOpen}
+        title={shareData.title}
+        url={shareData.url}
+        onClose={() => setIsShareOpen(false)}
+        onShowToast={showToast}
+      />
+
+      <DownloadDialog
+        isOpen={isDownloadOpen}
+        photo={downloadTargetPhoto}
+        collectionTitle={collectionFixture.title}
+        allowedSizes={collectionFixture.downloads.allowedSizes}
+        requiresPin={collectionFixture.downloads.requiresPin}
+        requiresEmail={collectionFixture.downloads.requiresEmail}
+        onClose={() => setIsDownloadOpen(false)}
+        onShowToast={showToast}
+      />
+
+      <FavoritesDialog
+        isOpen={isFavoritesOpen}
+        favorites={favoritePhotosList}
+        onClose={() => setIsFavoritesOpen(false)}
+        onOpenPhoto={openPhoto}
+        onRemoveFavorite={removeFavAction}
+        onDownloadFavorites={() => {
+          setIsFavoritesOpen(false);
+          setIsDownloadOpen(true);
+        }}
+      />
+
+      <ToastRegion message={toastMessage} />
     </div>
   );
 }

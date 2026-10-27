@@ -1,5 +1,7 @@
 export type CollectionVisibility = 'public' | 'password' | 'client-only' | 'hidden';
 
+export type PageCursor = string;
+
 export interface ImageSource {
   url: string;
   width: number;
@@ -60,6 +62,7 @@ export interface GalleryPhoto {
   alt: string;
   width: number;
   height: number;
+  focalPoint?: { x: number; y: number };
   dominantColor?: string;
   blurDataUrl?: string;
   sources: ImageSource[];
@@ -68,6 +71,46 @@ export interface GalleryPhoto {
   caption?: string;
   position: number;
   positionTieBreaker: string;
+}
+
+export interface GalleryPageResponse {
+  items: GalleryPhoto[];
+  nextCursor: PageCursor | null;
+  totalItems: number;
+}
+
+export interface FavoriteRecord {
+  photoId: string;
+  selected: boolean;
+  updatedAt: string;
+}
+
+export type DownloadJobStatus = 'idle' | 'validating' | 'queued' | 'preparing' | 'ready' | 'failed' | 'expired';
+
+export interface DownloadJob {
+  id: string;
+  status: DownloadJobStatus;
+  progress?: number;
+  expiresAt?: string;
+  signedUrl?: string;
+  errorCode?: string;
+}
+
+export interface ApiError {
+  code:
+    | 'NOT_FOUND'
+    | 'HIDDEN'
+    | 'PASSWORD_REQUIRED'
+    | 'INVALID_PASSWORD'
+    | 'CLIENT_AUTH_REQUIRED'
+    | 'INVALID_PIN'
+    | 'DOWNLOAD_DISABLED'
+    | 'SIZE_UNAVAILABLE'
+    | 'RATE_LIMITED'
+    | 'TEMPORARILY_UNAVAILABLE';
+  message: string;
+  retryAfterSeconds?: number;
+  requestId: string;
 }
 
 export type GalleryScreenState =

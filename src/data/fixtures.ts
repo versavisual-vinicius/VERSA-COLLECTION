@@ -1,14 +1,46 @@
-import type { GalleryCollection, GalleryPhoto } from '../types/gallery';
+import type { GalleryCollection, GalleryPhoto, GalleryPageResponse, PageCursor } from '../types/gallery';
 
 const photoSeeds = [
-  'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80',
-  'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80',
-  'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80',
-  'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80',
-  'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80',
-  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
-  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
-  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
+  {
+    url: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80',
+    dominantColor: '#2d2d2a',
+    aspect: 'portrait' as const,
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80',
+    dominantColor: '#4f4f46',
+    aspect: 'landscape' as const,
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1200&q=80',
+    dominantColor: '#e0c9a6',
+    aspect: 'portrait' as const,
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=80',
+    dominantColor: '#8a7d71',
+    aspect: 'square' as const,
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80',
+    dominantColor: '#ecc07d',
+    aspect: 'portrait' as const,
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80',
+    dominantColor: '#785b4b',
+    aspect: 'landscape' as const,
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80',
+    dominantColor: '#3d3432',
+    aspect: 'portrait' as const,
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80',
+    dominantColor: '#9c8c83',
+    aspect: 'landscape' as const,
+  },
 ];
 
 export const collectionFixture: GalleryCollection = {
@@ -18,11 +50,24 @@ export const collectionFixture: GalleryCollection = {
   businessName: 'Óticas Eloy',
   businessUrl: 'https://example.com',
   cover: {
-    alt: 'Capa editorial da coleção de óculos e estilo.',
+    alt: 'Capa editorial da coleção OTICAS ELOY – NAT com óculos e estilo autoral.',
     width: 1600,
-    height: 1000,
+    height: 1067,
     dominantColor: '#1f2937',
-    sources: [{ url: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1400&q=80', width: 1400, height: 1000, format: 'jpeg' }],
+    sources: [
+      {
+        url: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1600&q=80',
+        width: 1600,
+        height: 1067,
+        format: 'jpeg',
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1024&q=80',
+        width: 1024,
+        height: 683,
+        format: 'jpeg',
+      },
+    ],
   },
   coverFocalPoint: { x: 50, y: 28 },
   visibility: 'public',
@@ -51,27 +96,81 @@ export const collectionFixture: GalleryCollection = {
   },
 };
 
-const buildGalleryPhotos = (totalItems: number): GalleryPhoto[] =>
+const getDimensionsByAspect = (aspect: 'portrait' | 'landscape' | 'square', index: number) => {
+  switch (aspect) {
+    case 'portrait':
+      return { width: 800, height: 1200 }; // 2:3
+    case 'landscape':
+      return { width: 1200, height: 800 }; // 3:2
+    case 'square':
+    default:
+      return { width: 900, height: 900 };  // 1:1
+  }
+};
+
+const buildGalleryPhotos = (totalItems: number, collectionTitle: string): GalleryPhoto[] =>
   Array.from({ length: totalItems }, (_, index) => {
     const seed = photoSeeds[index % photoSeeds.length];
-    const isPortrait = index % 3 === 0;
-    const width = 900;
-    const height = isPortrait ? 1200 : 900;
+    const { width, height } = getDimensionsByAspect(seed.aspect, index);
+    const photoId = `photo-${String(index + 1).padStart(3, '0')}`;
+    const focalX = 45 + ((index * 7) % 15); // Variação suave entre 45% e 60%
+    const focalY = 30 + ((index * 11) % 25); // Variação suave entre 30% e 55%
 
     return {
-      id: `photo-${String(index + 1).padStart(3, '0')}`,
-      fileName: `photo-${String(index + 1).padStart(3, '0')}.jpg`,
-      alt: `Fotografia ${index + 1} da coleção`,
+      id: photoId,
+      fileName: `${photoId}.jpg`,
+      alt: `Fotografia ${index + 1} da coleção ${collectionTitle}`,
       width,
       height,
-      dominantColor: '#d4d4d8',
-      sources: [{ url: seed, width, height, format: 'jpeg' }],
-      downloadUrl: `https://example.com/download/${index + 1}`,
-      shareUrl: `https://example.com/g/nat?photo=photo-${String(index + 1).padStart(3, '0')}`,
-      caption: index % 4 === 0 ? 'Editorial natural com foco em forma e leveza.' : undefined,
+      focalPoint: { x: focalX, y: focalY },
+      dominantColor: seed.dominantColor,
+      sources: [
+        {
+          url: seed.url,
+          width,
+          height,
+          format: 'jpeg',
+        },
+      ],
+      downloadUrl: `https://example.com/download/${photoId}`,
+      shareUrl: `https://example.com/g/nat?photo=${photoId}`,
+      caption: index % 6 === 0 ? `Ensaio editorial fotográfico — Quadro #${index + 1}` : undefined,
       position: index + 1,
-      positionTieBreaker: `photo-${String(index + 1).padStart(3, '0')}`,
+      positionTieBreaker: photoId,
     };
   });
 
-export const galleryPhotos = buildGalleryPhotos(collectionFixture.totalItems);
+export const galleryPhotos: GalleryPhoto[] = buildGalleryPhotos(collectionFixture.totalItems, collectionFixture.title);
+
+/**
+ * Mock determinístico de paginação de fotografias da galeria com suporte a cursor opaco.
+ * Primeira requisição: limit padrão de 16 itens.
+ * Requisições subsequentes: limit padrão de 8 itens.
+ */
+export function getGalleryPageMock(cursor?: PageCursor | null, limit?: number): GalleryPageResponse {
+  let startIndex = 0;
+
+  if (cursor) {
+    try {
+      const parsedIndex = parseInt(cursor.replace(/^cursor_pos_/, ''), 10);
+      if (!Number.isNaN(parsedIndex) && parsedIndex >= 0) {
+        startIndex = parsedIndex;
+      }
+    } catch {
+      startIndex = 0;
+    }
+  }
+
+  const effectiveLimit = limit !== undefined ? limit : cursor ? 8 : 16;
+  const endIndex = Math.min(startIndex + effectiveLimit, galleryPhotos.length);
+  const items = galleryPhotos.slice(startIndex, endIndex);
+
+  const nextCursor: PageCursor | null =
+    endIndex < galleryPhotos.length ? `cursor_pos_${endIndex}` : null;
+
+  return {
+    items,
+    nextCursor,
+    totalItems: galleryPhotos.length,
+  };
+}
