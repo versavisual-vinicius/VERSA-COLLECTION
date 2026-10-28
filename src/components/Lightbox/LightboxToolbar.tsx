@@ -5,22 +5,30 @@ interface LightboxToolbarProps {
   photo: GalleryPhoto;
   isFavorite?: boolean;
   isSlideshowActive?: boolean;
+  isPrivate?: boolean;
+  hasNote?: boolean;
   onClose: () => void;
   onToggleFavorite?: (photoId: string) => void;
   onDownload?: (photo: GalleryPhoto) => void;
   onShare?: (photo: GalleryPhoto) => void;
   onToggleSlideshow?: () => void;
+  onTogglePrivate?: (photoId: string) => void;
+  onOpenNoteEditor?: () => void;
 }
 
 export function LightboxToolbar({
   photo,
   isFavorite = false,
   isSlideshowActive = false,
+  isPrivate = false,
+  hasNote = false,
   onClose,
   onToggleFavorite,
   onDownload,
   onShare,
   onToggleSlideshow,
+  onTogglePrivate,
+  onOpenNoteEditor,
 }: LightboxToolbarProps) {
   return (
     <div className="lightbox-toolbar absolute top-4 right-4 z-20 flex items-center gap-2">
@@ -33,6 +41,39 @@ export function LightboxToolbar({
           aria-pressed={isSlideshowActive}
         >
           {isSlideshowActive ? '⏸' : '▶'}
+        </button>
+      )}
+
+      {/* Botão de Anotação do Cliente (paridade Pixieset isNoteOn / #sv-note-btn) */}
+      {onOpenNoteEditor && (
+        <button
+          id="sv-note-btn"
+          type="button"
+          onClick={onOpenNoteEditor}
+          className={`w-10 h-10 rounded-full border border-white/20 hover:bg-black/60 flex items-center justify-center transition-colors text-sm ${
+            hasNote ? 'bg-[#5E7F8C] text-white border-[#5E7F8C]' : 'bg-black/40 text-white'
+          }`}
+          aria-label={hasNote ? 'Editar nota da fotografia' : 'Adicionar nota à fotografia'}
+          title="Adicionar ou editar observação"
+        >
+          <span aria-hidden="true">💬</span>
+        </button>
+      )}
+
+      {/* Botão de Foto Particular / Oculta (paridade Pixieset isMarkPrivateOn / #sv-lock-btn) */}
+      {onTogglePrivate && (
+        <button
+          id="sv-lock-btn"
+          type="button"
+          onClick={() => onTogglePrivate(photo.id)}
+          className={`w-10 h-10 rounded-full border border-white/20 hover:bg-black/60 flex items-center justify-center transition-colors text-sm ${
+            isPrivate ? 'bg-amber-600/80 text-white border-amber-500' : 'bg-black/40 text-white'
+          }`}
+          aria-label={isPrivate ? 'Foto marcada como particular (visível apenas para você)' : 'Marcar foto como particular'}
+          aria-pressed={isPrivate}
+          title={isPrivate ? 'Foto particular' : 'Tornar foto particular'}
+        >
+          <span aria-hidden="true">{isPrivate ? '🔒' : '🔓'}</span>
         </button>
       )}
 

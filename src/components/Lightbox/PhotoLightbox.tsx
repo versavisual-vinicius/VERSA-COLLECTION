@@ -12,6 +12,8 @@ interface PhotoLightboxProps {
   totalPhotos: number;
   isFavorite?: boolean;
   isSlideshowActive?: boolean;
+  note?: string;
+  isPrivate?: boolean;
   onClose: () => void;
   onPrevious: () => void;
   onNext: () => void;
@@ -20,6 +22,8 @@ interface PhotoLightboxProps {
   onShare?: (photo: GalleryPhoto) => void;
   onToggleSlideshow?: () => void;
   onPauseSlideshow?: () => void;
+  onUpdateNote?: (photoId: string, note: string) => void;
+  onTogglePrivate?: (photoId: string) => void;
 }
 
 /**
@@ -35,6 +39,8 @@ export function PhotoLightbox({
   totalPhotos,
   isFavorite = false,
   isSlideshowActive = false,
+  note = '',
+  isPrivate = false,
   onClose,
   onPrevious,
   onNext,
@@ -43,11 +49,20 @@ export function PhotoLightbox({
   onShare,
   onToggleSlideshow,
   onPauseSlideshow,
+  onUpdateNote,
+  onTogglePrivate,
 }: PhotoLightboxProps) {
   const panelRef = useRef<HTMLDivElement | null>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const [controlsVisible, setControlsVisible] = useState(true);
   const inactivityTimerRef = useRef<number | null>(null);
+  const [isNoteEditorOpen, setIsNoteEditorOpen] = useState(false);
+  const [noteDraft, setNoteDraft] = useState(note);
+
+  useEffect(() => {
+    setNoteDraft(note);
+    setIsNoteEditorOpen(false);
+  }, [photo?.id, note]);
 
   // Focus lock e restore
   useEffect(() => {
@@ -180,12 +195,72 @@ export function PhotoLightbox({
             photo={photo}
             isFavorite={isFavorite}
             isSlideshowActive={isSlideshowActive}
+            isPrivate={isPrivate}
+            hasNote={Boolean(note && note.trim().length > 0)}
             onClose={onClose}
             onToggleFavorite={onToggleFavorite}
             onDownload={onDownload}
             onShare={onShare}
             onToggleSlideshow={onToggleSlideshow}
+            onTogglePrivate={onTogglePrivate}
+            onOpenNoteEditor={() => setIsNoteEditorOpen((prev) => !prev)}
           />
+
+          {/* Popover Inline de Anotação (Pixieset isNoteOn) */}
+          {isNoteEditorOpen && onUpdateNote && (
+            <div
+              className="absolute top-16 right-4 z-30 w-80 p-4 rounded-xl bg-[#111418]/95 border border-white/20 shadow-2xl backdrop-blur-md"
+              role="dialog"
+              aria-label="Editor de anotação da fotografia"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-semibold uppercase tracking-wider text-white/90">
+                  Anotação do Cliente
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setIsNoteEditorOpen(false)}
+                  className="text-xs text-white/50 hover:text-white"
+                >
+                  ✕
+                </button>
+              </div>
+              <textarea
+                value={noteDraft}
+                onChange={(e) => setNoteDraft(e.target.value)}
+                placeholder="Ex: Gostei dessa para o porta-retrato / clarear sombras..."
+                rows={3}
+                className="w-full p-2.5 rounded-lg bg-black/60 border border-white/10 text-xs text-white placeholder-white/40 focus:border-[#5E7F8C] outline-none resize-none mb-3"
+                autoFocus
+              />
+              <div className="flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    onUpdateNote(photo.id, '');
+                    setNoteDraft('');
+                    setIsNoteEditorOpen(false);
+                  }}
+                  className="px-3 py-1.5 rounded-lg text-xs text-white/60 hover:text-white"
+                >
+                  Limpar
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onUpdateNote(photo.id, noteDraft);
+                    if (!isFavorite && onToggleFavorite) {
+                      onToggleFavorite(photo.id);
+                    }
+                    setIsNoteEditorOpen(false);
+                  }}
+                  className="px-3 py-1.5 rounded-lg bg-[#5E7F8C] hover:bg-[#6e919f] text-white text-xs font-semibold"
+                >
+                  Salvar Nota
+                </button>
+              </div>
+            </div>
+          )}
 
           <PreviousNextNavigation
             hasPrevious={currentIndex > 0}

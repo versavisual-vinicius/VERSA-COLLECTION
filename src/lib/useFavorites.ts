@@ -6,8 +6,10 @@ const FAVORITES_STORAGE_PREFIX = 'versa_gallery_favs_';
 
 export interface UseFavoritesResult {
   favoriteIds: Set<string>;
+  favoriteNotes: Record<string, string>;
   toggleFavorite: (photoId: string) => boolean; // retorna true se adicionou, false se removeu
   removeFavorite: (photoId: string) => void;
+  updateFavoriteNote: (photoId: string, note: string) => void;
   clearFavorites: () => void;
   isFavorite: (photoId: string) => boolean;
   syncPending: boolean;
@@ -44,6 +46,13 @@ export function useFavorites(collectionId: string): UseFavoritesResult {
   const favoriteIds = new Set(
     favoriteRecords.filter((rec) => rec.selected).map((rec) => rec.photoId),
   );
+
+  const favoriteNotes = favoriteRecords
+    .filter((rec) => rec.selected && rec.note)
+    .reduce<Record<string, string>>((acc, rec) => {
+      acc[rec.photoId] = rec.note!;
+      return acc;
+    }, {});
 
   const isFavorite = useCallback(
     (photoId: string) => favoriteIds.has(photoId),
@@ -116,10 +125,37 @@ export function useFavorites(collectionId: string): UseFavoritesResult {
     );
   }, []);
 
+  const updateFavoriteNote = useCallback((photoId: string, note: string) => {
+    setFavoriteRecords((prev) => {
+      const now = new Date().toISOString();
+      const existingIndex = prev.findIndex((r) => r.photoId === photoId);
+      if (existingIndex >= 0) {
+        const updated = [...prev];
+        updated[existingIndex] = {
+          ...prev[existingIndex],
+          note: note.trim() || undefined,
+          updatedAt: now,
+        };
+        return updated;
+      }
+      return [
+        ...prev,
+        {
+          photoId,
+          selected: true,
+          note: note.trim() || undefined,
+          updatedAt: now,
+        },
+      ];
+    });
+  }, []);
+
   return {
     favoriteIds,
+    favoriteNotes,
     toggleFavorite,
     removeFavorite,
+    updateFavoriteNote,
     clearFavorites,
     isFavorite,
     syncPending,

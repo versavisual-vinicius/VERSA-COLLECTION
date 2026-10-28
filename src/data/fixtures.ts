@@ -85,6 +85,26 @@ export const collectionFixture: GalleryCollection = {
   slideshowEnabled: true,
   totalItems: 127,
   locale: 'pt-BR',
+  sets: [
+    {
+      id: 'set-destaques',
+      title: 'Destaques',
+      slug: 'destaques',
+      photoCount: 16,
+    },
+    {
+      id: 'set-editorial',
+      title: 'Editorial Principal',
+      slug: 'editorial',
+      photoCount: 60,
+    },
+    {
+      id: 'set-detalhes',
+      title: 'Detalhes & Estilo',
+      slug: 'detalhes',
+      photoCount: 51,
+    },
+  ],
   theme: {
     headingFont: 'Cormorant Garamond, Georgia, serif',
     bodyFont: 'Inter, Arial, sans-serif',
@@ -116,6 +136,14 @@ const buildGalleryPhotos = (totalItems: number, collectionTitle: string): Galler
     const focalX = 45 + ((index * 7) % 15); // Variação suave entre 45% e 60%
     const focalY = 30 + ((index * 11) % 25); // Variação suave entre 30% e 55%
 
+    // Atribuição de sub-conjuntos/sets (paridade Pixieset)
+    let setId = 'set-destaques';
+    if (index >= 16 && index < 76) {
+      setId = 'set-editorial';
+    } else if (index >= 76) {
+      setId = 'set-detalhes';
+    }
+
     return {
       id: photoId,
       fileName: `${photoId}.jpg`,
@@ -137,6 +165,7 @@ const buildGalleryPhotos = (totalItems: number, collectionTitle: string): Galler
       caption: index % 6 === 0 ? `Ensaio editorial fotográfico — Quadro #${index + 1}` : undefined,
       position: index + 1,
       positionTieBreaker: photoId,
+      setId,
     };
   });
 

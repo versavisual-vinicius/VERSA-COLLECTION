@@ -9,7 +9,7 @@ interface SlideshowControllerProps {
 
 export function SlideshowController({
   isActive,
-  intervalMs = 4000,
+  intervalMs = 3000,
   onNext,
   onPause,
 }: SlideshowControllerProps) {

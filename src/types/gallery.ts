@@ -39,6 +39,15 @@ export interface GalleryTheme {
   coverOverlayOpacity: number;
 }
 
+export interface GallerySet {
+  id: string;
+  title: string;
+  slug: string;
+  photoCount?: number;
+  photoIds?: string[];
+  coverPhotoUrl?: string;
+}
+
 export interface GalleryCollection {
   id: string;
   slug: string;
@@ -60,6 +69,7 @@ export interface GalleryCollection {
   locale: string;
   theme: GalleryTheme;
   clientNotes?: string;
+  sets?: GallerySet[];
 }
 
 export interface GalleryPhoto {
@@ -77,6 +87,8 @@ export interface GalleryPhoto {
   caption?: string;
   position: number;
   positionTieBreaker: string;
+  setId?: string;
+  isPrivate?: boolean;
 }
 
 export interface GalleryPageResponse {
@@ -88,6 +100,7 @@ export interface GalleryPageResponse {
 export interface FavoriteRecord {
   photoId: string;
   selected: boolean;
+  note?: string;
   updatedAt: string;
 }
 

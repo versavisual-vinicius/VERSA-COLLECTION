@@ -22,6 +22,7 @@ export function ShareDialog({
   onShowToast,
 }: ShareDialogProps) {
   const [copied, setCopied] = useState(false);
+  const [showQr, setShowQr] = useState(false);
   const modalRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -124,7 +125,7 @@ export function ShareDialog({
         <p className="text-xs text-white/60 mb-4 truncate">{title}</p>
 
         {/* Input de cópia de link */}
-        <div className="flex items-center gap-2 mb-6 bg-white/5 border border-white/10 rounded-lg p-2">
+        <div className="flex items-center gap-2 mb-4 bg-white/5 border border-white/10 rounded-lg p-2">
           <input
             type="text"
             readOnly
@@ -139,6 +140,30 @@ export function ShareDialog({
           >
             {copied ? 'Copiado!' : 'Copiar'}
           </button>
+        </div>
+
+        {/* Exibição de QR Code para escaneamento rápido (paridade Pixieset Composer) */}
+        <div className="mb-6 text-center">
+          <button
+            type="button"
+            onClick={() => setShowQr((prev) => !prev)}
+            className="text-xs text-[#5E7F8C] hover:text-[#769bad] font-semibold underline underline-offset-4 inline-flex items-center justify-center gap-1.5 cursor-pointer"
+          >
+            <span>📱</span>
+            <span>{showQr ? 'Ocultar QR Code' : 'Escanear QR Code no celular'}</span>
+          </button>
+
+          {showQr && (
+            <div className="mt-3 p-3 bg-white rounded-xl inline-block shadow-lg">
+              <img
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedUrl}&margin=4&color=050A0D&bgcolor=ffffff`}
+                alt={`QR Code para ${title}`}
+                className="w-36 h-36 mx-auto rounded"
+                loading="lazy"
+              />
+              <span className="text-[10px] text-zinc-600 block mt-1.5 font-medium">Aponte a câmera para abrir</span>
+            </div>
+          )}
         </div>
 
         {/* Destinos Sociais Rápidos */}

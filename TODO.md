@@ -165,37 +165,37 @@
 > Levantamento cirúrgico de gaps identificados após engenharia reversa via CDP (`http://[::1]:9222`) da galeria Pixieset (*DEMO — ENGENHARIA REVERSA*).
 
 ### 10.1 Navegação e Roteamento
-- [ ] **Compatibilidade Bidirecional de Deep Linking (`?pid=` e `?photo=`)**:
+- [x] **Compatibilidade Bidirecional de Deep Linking (`?pid=` e `?photo=`)**:
   - Atualizar `syncFromUrl` e `updateUrl` em `src/components/GalleryPage.tsx` para aceitar `?pid=` (padrão Pixieset) como alias transparente de `?photo=`.
-- [ ] **Página Inicial Pública do Fotógrafo (`/`)**:
+- [x] **Página Inicial Pública do Fotógrafo (`/`)**:
   - Remover hardcode em `src/App.tsx` que redireciona `/` para a primeira coleção.
   - Criar componente `PhotographerHomePage.tsx` exibindo grid editorial com todas as coleções públicas ativas da Versa Visual.
   - Atualizar `CollectionIdentity.tsx` para linkar para `/` (Homepage do fotógrafo) com target opcional.
 
 ### 10.2 Apresentação e Grade
-- [ ] **Navegação Circular no Slideshow (Paridade `Gamma.settings.circular`)**:
+- [x] **Navegação Circular no Slideshow (Paridade `Gamma.settings.circular`)**:
   - Em `GalleryPage.tsx`, substituir `clamp()` por wrap circular `(current + direction + total) % total` durante o modo slideshow, evitando travamento na última foto.
   - Ajustar `intervalMs` padrão de 4000ms para 3000ms em `SlideshowController.tsx` (`slideshowSpeed: 3000`).
-- [ ] **Suporte a Múltiplos Conjuntos / Sets (`allGalleries`)**:
+- [x] **Suporte a Múltiplos Conjuntos / Sets (`allGalleries`)**:
   - Expandir modelo em `src/types/gallery.ts` para suportar `sets?: GallerySet[]` (ex.: *Destaques*, *Cerimônia*, *Recepção*).
   - Adicionar barra de navegação de sub-galerias (`#nav-galleries`) abaixo do cabeçalho com contagem de fotos por set.
-- [ ] **Ações Rápidas Diretas no Cabeçalho Desktop**:
+- [x] **Ações Rápidas Diretas no Cabeçalho Desktop**:
   - Em `AutoHideGalleryHeader.tsx`, expor botões dedicados de `Apresentação de slides` e `Compartilhar` na viewport desktop (`lg:` / `xl:`), mantendo o `OverflowMenu` (`...`) apenas para mobile e telas compactas.
 
 ### 10.3 Engajamento do Cliente (Favoritos, Notas e Privacidade)
-- [ ] **Anotações do Cliente em Fotos Favoritas (`isNoteOn` / `#sv-note-btn`)**:
+- [x] **Anotações do Cliente em Fotos Favoritas (`isNoteOn` / `#sv-note-btn`)**:
   - Expandir `FavoriteRecord` para incluir `note?: string`.
   - Adicionar botão de observação no `PhotoLightbox.tsx` e campo editável no `FavoritesDialog.tsx`.
-- [ ] **Marcação de Fotos Particulares (`isMarkPrivateOn`)**:
+- [x] **Marcação de Fotos Particulares (`isMarkPrivateOn`)**:
   - Adicionar flag `isPrivate?: boolean` no modelo `GalleryPhoto` e botão de alternância no Lightbox.
   - Ocultar fotos marcadas como particulares quando o visitante acessar via senha geral de convidado.
-- [ ] **Empacotamento ZIP Client-Side de Favoritos**:
+- [x] **Empacotamento ZIP Client-Side de Favoritos**:
   - Implementar botão "Baixar Meus Favoritos (.ZIP)" no `FavoritesDialog.tsx` utilizando `jszip` para download imediato em lote.
 
 ### 10.4 Compartilhamento e Operações
-- [ ] **QR Code no Modal de Compartilhamento**:
+- [x] **QR Code no Modal de Compartilhamento**:
   - Integrar gerador SVG de QR Code no `ShareDialog.tsx` e no `AdminPanel.tsx` para escaneamento rápido presencial via smartphone.
-- [ ] **Persistência de Configurações Administrativas em Arquivo JSON**:
+- [x] **Persistência de Configurações Administrativas em Arquivo JSON**:
   - Criar rotina/botão no `AdminPanel` para exportar o JSON atualizado da coleção ou sincronizar via CLI com `src/data/collections/<slug>.json`, evitando dependência exclusiva do `localStorage` do Mac do Vini.
 
 

@@ -4,6 +4,7 @@ import { getCollectionData, getCollectionPage, availableCollections } from '../d
 import { hasClientSession } from '../lib/collectionSettings';
 import { AutoHideGalleryHeader } from './Header/AutoHideGalleryHeader';
 import { GalleryHero } from './GalleryHero/GalleryHero';
+import { GallerySetsNav } from './Navigation/GallerySetsNav';
 import { InfiniteMasonryGrid } from './Masonry/InfiniteMasonryGrid';
 import { useGalleryProgressivePhotos } from './Masonry/useGalleryProgressivePhotos';
 import { PhotoLightbox } from './Lightbox/PhotoLightbox';
@@ -82,15 +83,57 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
   const [isSlideshowActive, setIsSlideshowActive] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Sub-conjuntos e Sub-galerias (Paridade Pixieset #nav-galleries / sets)
+  const [activeSetId, setActiveSetId] = useState<string | null>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('set');
+    }
+    return null;
+  });
+
+  // Marcação de fotos particulares do cliente (Paridade Pixieset isMarkPrivateOn / #sv-lock-btn)
+  const [privatePhotoIds, setPrivatePhotoIds] = useState<Set<string>>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const raw = localStorage.getItem(`versa_private_${collection.id}`);
+        if (raw) return new Set(JSON.parse(raw));
+      } catch {}
+    }
+    return new Set();
+  });
+
+  const togglePrivatePhoto = useCallback(
+    (photoId: string) => {
+      setPrivatePhotoIds((prev) => {
+        const next = new Set(prev);
+        if (next.has(photoId)) {
+          next.delete(photoId);
+          showToast('Foto desmarcada como particular');
+        } else {
+          next.add(photoId);
+          showToast('Foto marcada como particular');
+        }
+        try {
+          localStorage.setItem(`versa_private_${collection.id}`, JSON.stringify(Array.from(next)));
+        } catch {}
+        return next;
+      });
+    },
+    [collection.id],
+  );
+
   // Registra se a sessão atual teve entrada direta por URL profunda (Seção 6)
   const isDeepLinkOriginRef = useRef<boolean>(false);
   const initialMountRef = useRef<boolean>(true);
 
-  // Hook de favoritos com persistência local e otimismo reversível (RF-010)
+  // Hook de favoritos com persistência local e otimismo reversível (RF-010 e Paridade Pixieset isNoteOn)
   const {
     favoriteIds,
+    favoriteNotes,
     toggleFavorite: toggleFavAction,
     removeFavorite: removeFavAction,
+    updateFavoriteNote,
   } = useFavorites(collection.id);
 
   // Fetcher progressivo determinístico baseado na coleção ativa
@@ -159,10 +202,40 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
     }, 3000);
   }, []);
 
-  // Sincronização estrita de URL e histórico (Seção 6)
+  // Seleção e sincronização de Sub-conjuntos/Sets (Pixieset #nav-galleries)
+  const handleSelectSet = useCallback((setId: string | null) => {
+    setActiveSetId(setId);
+    const nextUrl = new URL(window.location.href);
+    if (setId) {
+      nextUrl.searchParams.set('set', setId);
+    } else {
+      nextUrl.searchParams.delete('set');
+    }
+    window.history.replaceState({}, '', `${nextUrl.pathname}${nextUrl.search}`);
+  }, []);
+
+  // Filtragem de fotos pelo conjunto ativo
+  const filteredPhotosBySet = useMemo(() => {
+    if (!activeSetId) return allPhotos;
+    const currentSet = collection.sets?.find((s) => s.id === activeSetId || s.slug === activeSetId);
+    return allPhotos.filter((p) => {
+      if (currentSet?.photoIds && currentSet.photoIds.length > 0) {
+        return currentSet.photoIds.includes(p.id);
+      }
+      return p.setId === activeSetId || (currentSet && p.setId === currentSet.id);
+    });
+  }, [allPhotos, activeSetId, collection.sets]);
+
+  // Lista de fotos a exibir no grid: se houver set ativo exibe o set; caso contrário carregamento progressivo
+  const displayedPhotos = useMemo(() => {
+    if (activeSetId) return filteredPhotosBySet;
+    return loadedPhotos;
+  }, [activeSetId, filteredPhotosBySet, loadedPhotos]);
+
+  // Sincronização estrita de URL e histórico (Seção 6 e Paridade Pixieset com suporte a ?photo= e ?pid=)
   const syncFromUrl = useCallback(() => {
     const params = new URLSearchParams(window.location.search);
-    const photoId = params.get('photo');
+    const photoId = params.get('photo') || params.get('pid');
     const mode = params.get('mode');
 
     if (initialMountRef.current) {
@@ -193,6 +266,7 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
 
     if (photoId) {
       nextUrl.searchParams.set('photo', photoId);
+      nextUrl.searchParams.delete('pid'); // Higieniza mantendo padrão canônico photo
       if (isSlideshow) {
         nextUrl.searchParams.set('mode', 'slideshow');
       } else {
@@ -200,6 +274,7 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       }
     } else {
       nextUrl.searchParams.delete('photo');
+      nextUrl.searchParams.delete('pid');
       nextUrl.searchParams.delete('mode');
     }
 
@@ -247,7 +322,10 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
     (direction: number) => {
       if (!selectedPhoto) return;
       const current = allPhotos.findIndex((p) => p.id === selectedPhoto.id);
-      const nextIndex = clamp(current + direction, 0, allPhotos.length - 1);
+      // Slideshow opera em loop circular (paridade Pixieset circular: true); navegação manual usa clamp nas bordas
+      const nextIndex = isSlideshowActive
+        ? (current + direction + allPhotos.length) % allPhotos.length
+        : clamp(current + direction, 0, allPhotos.length - 1);
       const targetPhoto = allPhotos[nextIndex];
       if (!targetPhoto) return;
 
@@ -385,18 +463,30 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
           isOwnerPreview={isOwnerPreview}
         />
 
+        {collection.sets && collection.sets.length > 0 && (
+          <div className="max-w-[1440px] mx-auto">
+            <GallerySetsNav
+              sets={collection.sets}
+              activeSetId={activeSetId}
+              totalPhotos={collection.totalItems}
+              onSelectSet={handleSelectSet}
+            />
+          </div>
+        )}
+
         <section id="gallery-grid" className="gallery-shell max-w-[1440px] mx-auto py-8 px-2 sm:px-4">
           <div className="gallery-meta flex justify-between items-center px-4 py-3 text-xs tracking-widest uppercase text-white/50 border-b border-white/5 mb-6">
             <span>
-              {loadedPhotos.length} de {collection.totalItems} fotografias
+              {displayedPhotos.length} de {collection.totalItems} fotografias
+              {activeSetId && ' (Filtrado por conjunto)'}
             </span>
             <span>Modo Editorial</span>
           </div>
 
           <InfiniteMasonryGrid
-            photos={loadedPhotos}
+            photos={displayedPhotos}
             status={loadingStatus}
-            hasMore={hasMore}
+            hasMore={activeSetId ? false : hasMore}
             errorMessage={loadError}
             favoriteIds={favoriteIds}
             onOpenPhoto={openPhoto}
@@ -422,12 +512,16 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
           totalPhotos={allPhotos.length}
           isFavorite={favoriteIds.has(selectedPhoto.id)}
           isSlideshowActive={isSlideshowActive}
+          note={favoriteNotes[selectedPhoto.id] || ''}
+          isPrivate={privatePhotoIds.has(selectedPhoto.id)}
           onClose={closePhoto}
           onPrevious={() => navigatePhoto(-1)}
           onNext={() => navigatePhoto(1)}
           onToggleFavorite={toggleFavorite}
           onDownload={handleDownloadPhoto}
           onShare={handleSharePhoto}
+          onUpdateNote={updateFavoriteNote}
+          onTogglePrivate={togglePrivatePhoto}
           onToggleSlideshow={() => {
             setIsSlideshowActive((prev) => {
               const next = !prev;
@@ -473,9 +567,12 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       <FavoritesDialog
         isOpen={isFavoritesOpen}
         favorites={favoritePhotosList}
+        favoriteNotes={favoriteNotes}
         onClose={() => setIsFavoritesOpen(false)}
         onOpenPhoto={openPhoto}
         onRemoveFavorite={removeFavAction}
+        onUpdateNote={updateFavoriteNote}
+        onZipDownloaded={(count) => showToast(`Arquivo ZIP com ${count} foto(s) gerado com sucesso!`)}
         onDownloadFavorites={() => {
           setIsFavoritesOpen(false);
           setIsDownloadOpen(true);

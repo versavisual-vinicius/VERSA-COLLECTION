@@ -54,6 +54,7 @@ export function AdminPanel({
   const [directFolderUrl, setDirectFolderUrl] = useState(baseCol.downloads.directFolderUrl || '');
   const [clientNotes, setClientNotes] = useState(baseCol.clientNotes || '');
   const [saveToast, setSaveToast] = useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
   // Solicitações de exportação
   const [exportRequests, setExportRequests] = useState<ExportRequest[]>([]);
@@ -131,6 +132,95 @@ export function AdminPanel({
       setSaveToast('Configurações restauradas para o padrão.');
       setTimeout(() => setSaveToast(null), 3000);
     }
+  };
+
+  // Exportação e Persistência de Configurações em JSON (Paridade Pixieset / Offline Sync)
+  const handleExportJson = () => {
+    const payload = {
+      collectionSlug: selectedSlug,
+      exportedAt: new Date().toISOString(),
+      collection: {
+        ...baseCol,
+        title,
+        passwordRequired,
+        clientPassword: clientPassword.trim(),
+        clientEmail: clientEmail.trim(),
+        visibility,
+        clientNotes: clientNotes.trim(),
+        downloads: {
+          ...baseCol.downloads,
+          enabled: downloadEnabled,
+          requiresPin,
+          pin: downloadPin.trim(),
+          requiresEmail,
+          directFolderUrl: directFolderUrl.trim(),
+        },
+      },
+    };
+
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const downloadUrl = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = downloadUrl;
+    anchor.download = `config-${selectedSlug}.json`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+    URL.revokeObjectURL(downloadUrl);
+
+    setSaveToast('Configuração JSON exportada com sucesso!');
+    setTimeout(() => setSaveToast(null), 3000);
+  };
+
+  const handleImportJson = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const parsed = JSON.parse(event.target?.result as string);
+        const col = parsed.collection || parsed;
+
+        if (col.title) setTitle(col.title);
+        if (col.passwordRequired !== undefined) setPasswordRequired(Boolean(col.passwordRequired));
+        if (col.clientPassword !== undefined) setClientPassword(col.clientPassword || '');
+        if (col.clientEmail !== undefined) setClientEmail(col.clientEmail || '');
+        if (col.visibility) setVisibility(col.visibility);
+        if (col.clientNotes !== undefined) setClientNotes(col.clientNotes || '');
+        if (col.downloads) {
+          if (col.downloads.enabled !== undefined) setDownloadEnabled(Boolean(col.downloads.enabled));
+          if (col.downloads.requiresPin !== undefined) setRequiresPin(Boolean(col.downloads.requiresPin));
+          if (col.downloads.pin !== undefined) setDownloadPin(col.downloads.pin || '');
+          if (col.downloads.requiresEmail !== undefined) setRequiresEmail(Boolean(col.downloads.requiresEmail));
+          if (col.downloads.directFolderUrl !== undefined) setDirectFolderUrl(col.downloads.directFolderUrl || '');
+        }
+
+        const update: CollectionConfigUpdate = {
+          title: col.title || title,
+          passwordRequired: col.passwordRequired !== undefined ? Boolean(col.passwordRequired) : passwordRequired,
+          clientPassword: (col.clientPassword || '').trim(),
+          clientEmail: (col.clientEmail || '').trim(),
+          visibility: col.visibility || visibility,
+          clientNotes: (col.clientNotes || '').trim(),
+          downloads: {
+            enabled: col.downloads?.enabled !== undefined ? Boolean(col.downloads.enabled) : downloadEnabled,
+            requiresPin: col.downloads?.requiresPin !== undefined ? Boolean(col.downloads.requiresPin) : requiresPin,
+            pin: (col.downloads?.pin || '').trim(),
+            requiresEmail: col.downloads?.requiresEmail !== undefined ? Boolean(col.downloads.requiresEmail) : requiresEmail,
+            directFolderUrl: (col.downloads?.directFolderUrl || '').trim(),
+          },
+        };
+
+        saveCollectionConfig(selectedSlug, update);
+        setSaveToast('Configuração importada e sincronizada!');
+        setTimeout(() => setSaveToast(null), 3000);
+      } catch (err) {
+        alert('Erro ao importar JSON: arquivo inválido.');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
   };
 
   // Gerador de mensagem WhatsApp padronizada (Versa Visual)
@@ -547,14 +637,44 @@ Pode navegar, favoritar as preferidas e baixar em alta resolução. Quando posta
               </div>
 
               {/* Botões de Ação */}
-              <div className="flex items-center justify-between pt-2">
-                <button
-                  type="button"
-                  onClick={handleResetConfig}
-                  className="px-4 py-2.5 rounded-lg border border-red-500/20 hover:bg-red-500/10 text-red-300 text-xs font-medium transition-colors"
-                >
-                  Restaurar Padrões da Coleção
-                </button>
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleResetConfig}
+                    className="px-4 py-2.5 rounded-lg border border-red-500/20 hover:bg-red-500/10 text-red-300 text-xs font-medium transition-colors"
+                  >
+                    Restaurar Padrões
+                  </button>
+
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleImportJson}
+                    accept=".json"
+                    className="hidden"
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="px-3.5 py-2.5 rounded-lg border border-white/10 hover:border-white/20 text-white/80 hover:text-white text-xs font-medium transition-colors flex items-center gap-1.5"
+                    title="Importa arquivo JSON com as configurações desta coleção"
+                  >
+                    <span>⬆</span>
+                    <span>Importar JSON</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleExportJson}
+                    className="px-3.5 py-2.5 rounded-lg border border-white/10 hover:border-white/20 text-white/80 hover:text-white text-xs font-medium transition-colors flex items-center gap-1.5"
+                    title="Exporta arquivo JSON para backup ou sincronização no repositório"
+                  >
+                    <span>⬇</span>
+                    <span>Exportar JSON</span>
+                  </button>
+                </div>
 
                 <button
                   type="button"
@@ -613,7 +733,7 @@ Pode navegar, favoritar as preferidas e baixar em alta resolução. Quando posta
                 />
               </div>
 
-              <div className="flex gap-3 pt-2">
+              <div className="flex flex-wrap items-center gap-4 pt-2">
                 <a
                   href={`https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`}
                   target="_blank"
@@ -622,6 +742,20 @@ Pode navegar, favoritar as preferidas e baixar em alta resolução. Quando posta
                 >
                   <span>Abrir no WhatsApp Web ↗</span>
                 </a>
+
+                {/* QR Code Presencial (Pixieset Composer Parity) */}
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+                  <img
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(galleryUrl)}&margin=2&color=050A0D&bgcolor=ffffff`}
+                    alt="QR Code da Galeria"
+                    className="w-14 h-14 rounded bg-white p-1"
+                    loading="lazy"
+                  />
+                  <div>
+                    <span className="text-xs font-bold text-white block">QR Code Presencial</span>
+                    <span className="text-[10px] text-white/50 block">Aponte o celular do cliente para abrir</span>
+                  </div>
+                </div>
               </div>
             </div>
           )}
