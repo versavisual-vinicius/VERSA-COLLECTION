@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { GalleryPhoto, GalleryPageResponse, PageCursor } from '../types/gallery';
 import { getCollectionData, getCollectionPage, availableCollections } from '../data/collectionsRegistry';
 import { hasClientSession } from '../lib/collectionSettings';
@@ -17,6 +17,13 @@ import { GalleryPasswordGate } from './Security/GalleryPasswordGate';
 import { AdminPanel } from './Admin/AdminPanel';
 import { useFavorites } from '../lib/useFavorites';
 import { telemetry } from '../lib/telemetry';
+import {
+  BackendError,
+  backendEnabled,
+  fetchCollectionBundle,
+  unlockCollection,
+  type ProtectedCollectionError,
+} from '../lib/backend';
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
@@ -37,8 +44,43 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
     return 'fixture';
   }, [propSlug]);
 
-  const { collection, photos: allPhotos } = useMemo(() => {
+  const staticData = useMemo(() => {
     return getCollectionData(activeSlug);
+  }, [activeSlug]);
+  const [runtimeData, setRuntimeData] = useState(staticData);
+  const [backendStatus, setBackendStatus] = useState<'loading' | 'ready' | 'error'>(
+    backendEnabled ? 'loading' : 'ready',
+  );
+  const [backendError, setBackendError] = useState<string | null>(null);
+  const [requiresAccessEmail, setRequiresAccessEmail] = useState(false);
+  const { collection, photos: allPhotos } = backendEnabled ? runtimeData : staticData;
+  const [isUnlocked, setIsUnlocked] = useState<boolean>(() => {
+    if (backendEnabled) return false;
+    if (isOwnerPreview) return true;
+    return !collection.passwordRequired || hasClientSession(collection.id);
+  });
+
+  const loadBackendCollection = useCallback(async () => {
+    setBackendStatus('loading');
+    setBackendError(null);
+    try {
+      const bundle = await fetchCollectionBundle(activeSlug);
+      setRuntimeData(bundle);
+      setIsUnlocked(true);
+      setRequiresAccessEmail(false);
+      setBackendStatus('ready');
+    } catch (reason) {
+      if (reason instanceof BackendError && reason.code === 'PASSWORD_REQUIRED') {
+        const challenge = reason.details as ProtectedCollectionError;
+        setRuntimeData({ collection: challenge.collection, photos: [] });
+        setRequiresAccessEmail(challenge.requiresEmail);
+        setIsUnlocked(false);
+        setBackendStatus('ready');
+        return;
+      }
+      setBackendError(reason instanceof Error ? reason.message : 'Coleção indisponível.');
+      setBackendStatus('error');
+    }
   }, [activeSlug]);
 
   // Controle do Painel Administrativo do Vini
@@ -51,18 +93,19 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
   });
 
   // Controle de liberação de senha para o cliente
-  const [isUnlocked, setIsUnlocked] = useState<boolean>(() => {
-    if (isOwnerPreview) return true;
-    return !collection.passwordRequired || hasClientSession(collection.id);
-  });
-
   useEffect(() => {
+    if (backendEnabled) return;
     if (isOwnerPreview) {
       setIsUnlocked(true);
       return;
     }
     setIsUnlocked(!collection.passwordRequired || hasClientSession(collection.id));
   }, [collection.id, collection.passwordRequired, isOwnerPreview]);
+
+  useEffect(() => {
+    if (!backendEnabled) return;
+    void loadBackendCollection();
+  }, [loadBackendCollection]);
 
   // Atalho de teclado: Shift + A para abrir/fechar Painel do Vini
   useEffect(() => {
@@ -82,6 +125,12 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
   const [activePhotoId, setActivePhotoId] = useState<string | null>(null);
   const [isSlideshowActive, setIsSlideshowActive] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const showToast = useCallback((message: string) => {
+    setToastMessage(message);
+    setTimeout(() => {
+      setToastMessage((current) => (current === message ? null : current));
+    }, 3000);
+  }, []);
 
   // Sub-conjuntos e Sub-galerias (Paridade Pixieset #nav-galleries / sets)
   const [activeSetId, setActiveSetId] = useState<string | null>(() => {
@@ -98,7 +147,9 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       try {
         const raw = localStorage.getItem(`versa_private_${collection.id}`);
         if (raw) return new Set(JSON.parse(raw));
-      } catch {}
+      } catch {
+        // Armazenamento pode estar indisponível em modo privado.
+      }
     }
     return new Set();
   });
@@ -116,11 +167,13 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
         }
         try {
           localStorage.setItem(`versa_private_${collection.id}`, JSON.stringify(Array.from(next)));
-        } catch {}
+        } catch {
+          // A marcação continua válida em memória.
+        }
         return next;
       });
     },
-    [collection.id],
+    [collection.id, showToast],
   );
 
   // Registra se a sessão atual teve entrada direta por URL profunda (Seção 6)
@@ -194,13 +247,6 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
   const currentIndex = selectedPhoto
     ? allPhotos.findIndex((photo) => photo.id === selectedPhoto.id)
     : -1;
-
-  const showToast = useCallback((message: string) => {
-    setToastMessage(message);
-    setTimeout(() => {
-      setToastMessage((current) => (current === message ? null : current));
-    }, 3000);
-  }, []);
 
   // Seleção e sincronização de Sub-conjuntos/Sets (Pixieset #nav-galleries)
   const handleSelectSet = useCallback((setId: string | null) => {
@@ -425,12 +471,22 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
     [allPhotos, favoriteIds],
   );
 
+  if (backendEnabled && backendStatus === 'loading') {
+    return <div className="min-h-screen bg-[#050A0D] text-white grid place-items-center">Carregando galeria…</div>;
+  }
+
+  if (backendEnabled && backendStatus === 'error') {
+    return <div role="alert" className="min-h-screen bg-[#050A0D] text-white grid place-items-center p-6 text-center">{backendError}</div>;
+  }
+
   if (!isUnlocked) {
     return (
       <>
         <GalleryPasswordGate
           collection={collection}
-          onUnlocked={() => setIsUnlocked(true)}
+          requiresEmail={requiresAccessEmail}
+          onAuthenticate={backendEnabled ? (password, email) => unlockCollection(activeSlug, password, email) : undefined}
+          onUnlocked={backendEnabled ? loadBackendCollection : () => setIsUnlocked(true)}
           onOpenAdmin={() => setIsAdminOpen(true)}
         />
         {isAdminOpen && (
@@ -557,7 +613,6 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
         collectionSlug={collection.slug}
         allowedSizes={collection.downloads.allowedSizes}
         requiresPin={collection.downloads.requiresPin}
-        expectedPin={collection.downloads.pin}
         requiresEmail={collection.downloads.requiresEmail}
         directFolderUrl={collection.downloads.directFolderUrl}
         onClose={() => setIsDownloadOpen(false)}

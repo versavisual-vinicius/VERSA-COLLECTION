@@ -2,6 +2,9 @@ node_modules
 .DS_Store
 dist
 .vite
+.vercel
+.supabase
+coverage
 *.log
 *.local
 .env*

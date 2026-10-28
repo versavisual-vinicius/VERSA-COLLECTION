@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, act } from '@testing-library/react';
-import React from 'react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import {
   saveCollectionConfig,
   getStoredCollectionConfig,
@@ -9,7 +8,6 @@ import {
   saveExportRequest,
   getAllExportRequests,
   clearExportRequests,
-  verifyAdminPassword,
 } from '../lib/collectionSettings';
 import { GalleryPasswordGate } from '../components/Security/GalleryPasswordGate';
 import { AdminPanel } from '../components/Admin/AdminPanel';
@@ -89,15 +87,10 @@ describe('Fase 9: Segurança do Cliente, Painel do Vini & Solicitações de Expo
       expect(getAllExportRequests()).toHaveLength(0);
     });
 
-    it('deve validar a senha mestra do fotógrafo Vini', () => {
-      expect(verifyAdminPassword('versa2026')).toBe(true);
-      expect(verifyAdminPassword('senha-errada')).toBe(false);
-    });
   });
 
   describe('GalleryPasswordGate (Desafio de Senha do Cliente)', () => {
     it('deve bloquear acesso e exibir erro ao submeter senha incorreta', async () => {
-      vi.useFakeTimers();
       const onUnlockedMock = vi.fn();
 
       const col: GalleryCollection = {
@@ -117,18 +110,11 @@ describe('Fase 9: Segurança do Cliente, Painel do Vini & Solicitações de Expo
       const submitBtn = screen.getByRole('button', { name: /entrar na galeria/i });
       fireEvent.click(submitBtn);
 
-      act(() => {
-        vi.advanceTimersByTime(300);
-      });
-
-      expect(screen.getByRole('alert')).toHaveTextContent(/senha incorreta/i);
+      await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent(/senha incorreta/i));
       expect(onUnlockedMock).not.toHaveBeenCalled();
-
-      vi.useRealTimers();
     });
 
-    it('deve desbloquear a galeria ao submeter a senha correta', () => {
-      vi.useFakeTimers();
+    it('deve desbloquear a galeria ao submeter a senha correta', async () => {
       const onUnlockedMock = vi.fn();
 
       const col: GalleryCollection = {
@@ -145,47 +131,19 @@ describe('Fase 9: Segurança do Cliente, Painel do Vini & Solicitações de Expo
       const submitBtn = screen.getByRole('button', { name: /entrar na galeria/i });
       fireEvent.click(submitBtn);
 
-      act(() => {
-        vi.advanceTimersByTime(300);
-      });
-
-      expect(onUnlockedMock).toHaveBeenCalledTimes(1);
-      vi.useRealTimers();
+      await waitFor(() => expect(onUnlockedMock).toHaveBeenCalledTimes(1));
     });
   });
 
   describe('AdminPanel (Painel do Vini)', () => {
-    it('deve exigir login com senha mestra e liberar o painel após autenticação', () => {
+    it('deve desativar autenticação local quando o backend seguro não está configurado', () => {
       const onCloseMock = vi.fn();
       render(<AdminPanel onClose={onCloseMock} />);
 
-      expect(screen.getByText(/painel do fotógrafo/i)).toBeInTheDocument();
-
-      const passInput = screen.getByPlaceholderText(/digite a senha mestra/i);
-      fireEvent.change(passInput, { target: { value: 'versa2026' } });
-
-      const loginBtn = screen.getByRole('button', { name: /acessar painel/i });
-      fireEvent.click(loginBtn);
-
-      // Agora deve estar dentro do painel
-      expect(screen.getByText(/painel do vini — gestão de galerias/i)).toBeInTheDocument();
-      expect(screen.getByText(/segurança & acesso do cliente/i)).toBeInTheDocument();
+      expect(screen.getByText(/Backend seguro ainda não configurado/i)).toBeInTheDocument();
+      expect(screen.queryByText(/senha mestra/i)).not.toBeInTheDocument();
     });
 
-    it('deve permitir configurar senha, PIN de download e copiar mensagem de WhatsApp', () => {
-      localStorage.setItem('versa_admin_auth_v1', 'true');
-      const onCloseMock = vi.fn();
-
-      render(<AdminPanel onClose={onCloseMock} />);
-
-      // Abre aba de WhatsApp
-      const whatsappTab = screen.getByRole('button', { name: /mensagem whatsapp do cliente/i });
-      fireEvent.click(whatsappTab);
-
-      expect(screen.getByText(/alinhamento & envio ao cliente/i)).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /copiar mensagem/i })).toBeInTheDocument();
-      expect(screen.getByText(/abrir no whatsapp web/i)).toBeInTheDocument();
-    });
   });
 });
 

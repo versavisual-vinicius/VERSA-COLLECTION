@@ -1,0 +1,22 @@
+# Alterações de Ambiente de Terminal
+
+## Extensão: googlecloudtools.datacloud
+
+- `DATA_CLOUD_CURR_IDE_NAME=antigravityide`
+
+## Extensão: vscode.git
+
+Habilita os seguintes recursos: git auth provider
+
+- `GIT_ASKPASS=/Applications/Antigravity IDE.app/Contents/Resources/app/extensions/git/dist/askpass.sh`
+- `VSCODE_GIT_ASKPASS_NODE=/Applications/Antigravity IDE.app/Contents/Frameworks/Antigravity IDE Helper (Plugin).app/Contents/MacOS/Antigravity IDE Helper (Plugin)`
+- `VSCODE_GIT_ASKPASS_EXTRA_ARGS=`
+- `VSCODE_GIT_ASKPASS_MAIN=/Applications/Antigravity IDE.app/Contents/Resources/app/extensions/git/dist/askpass-main.js`
+- `VSCODE_GIT_IPC_HANDLE=/var/folders/7q/grxxck290xld9fpyz92_nt1h0000gn/T/vscode-git-deeaa3dbda.sock`
+
+## Extensão: ms-python.python
+
+Enables `python.terminal.shellIntegration.enabled` by modifying `PYTHONSTARTUP` and `PYTHON_BASIC_REPL`
+
+- `PYTHONSTARTUP=/Users/viniciuscunha/Library/Application Support/Antigravity IDE/User/workspaceStorage/32c19dd1e36a7f8d3eb354cd31e7401c/ms-python.python/pythonrc.py`
+- `PYTHON_BASIC_REPL=1`

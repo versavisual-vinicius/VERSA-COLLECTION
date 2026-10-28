@@ -1,4 +1,3 @@
-import React from 'react';
 import type { GallerySet } from '../../types/gallery';
 
 interface GallerySetsNavProps {

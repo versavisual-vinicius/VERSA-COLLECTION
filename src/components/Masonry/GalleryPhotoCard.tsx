@@ -1,4 +1,3 @@
-import React from 'react';
 import type { GalleryPhoto } from '../../types/gallery';
 import type { MasonryLayoutItem } from './useMasonryLayout';
 import { ResponsivePhoto } from './ResponsivePhoto';

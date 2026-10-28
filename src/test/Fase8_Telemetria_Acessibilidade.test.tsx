@@ -1,9 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import React from 'react';
 import { telemetry } from '../lib/telemetry';
 import { ShareDialog } from '../components/Dialogs/ShareDialog';
-import { DownloadDialog } from '../components/Dialogs/DownloadDialog';
 import { collectionFixture, galleryPhotos } from '../data/fixtures';
 
 describe('Fase 8: Acessibilidade & Telemetria Segura (Seção 13 e 15)', () => {

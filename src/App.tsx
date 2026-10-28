@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { GalleryPage } from './components/GalleryPage';
 import { PhotographerHomePage } from './components/PhotographerHomePage';
 import { AdminPanel } from './components/Admin/AdminPanel';

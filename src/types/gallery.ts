@@ -58,8 +58,11 @@ export interface GalleryCollection {
   coverFocalPoint: { x: number; y: number };
   visibility: CollectionVisibility;
   passwordRequired: boolean;
+  /** @deprecated Compatibilidade temporária para importação local. Nunca preencher em payloads da API. */
   clientPassword?: string;
+  /** @deprecated Compatibilidade temporária para importação local. Nunca preencher em payloads da API. */
   clientEmail?: string;
+  /** @deprecated Compatibilidade temporária para importação local. Nunca preencher em payloads da API. */
   clientEmails?: string[];
   favoritesEnabled: boolean;
   downloads: DownloadPolicy;
@@ -157,7 +160,6 @@ export interface ExportRequest {
   photoId?: string;
   photoFileName?: string;
   clientEmail: string;
-  pinUsed?: string;
   requestedSize: string;
   status: 'pending' | 'processing' | 'ready' | 'completed' | 'failed';
   requestedAt: string;

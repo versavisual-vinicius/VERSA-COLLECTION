@@ -1,6 +1,7 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { availableCollections } from '../data/collectionsRegistry';
 import { BrandingFooter } from './Footer/BrandingFooter';
+import { backendEnabled, fetchPublicCollections, type PublicCollectionCard } from '../lib/backend';
 
 interface PhotographerHomePageProps {
   onSelectCollection: (slug: string) => void;
@@ -11,10 +12,18 @@ export function PhotographerHomePage({
   onSelectCollection,
   onOpenAdmin,
 }: PhotographerHomePageProps) {
-  const collectionsList = Object.entries(availableCollections).map(([slug, data]) => ({
+  const staticCollections = Object.entries(availableCollections).map(([slug, data]) => ({
     ...data.collection,
     slug: data.collection.slug || slug,
   }));
+  const [collectionsList, setCollectionsList] = useState<Array<PublicCollectionCard & { businessName?: string }>>(
+    backendEnabled ? [] : staticCollections,
+  );
+
+  useEffect(() => {
+    if (!backendEnabled) return;
+    void fetchPublicCollections().then(setCollectionsList).catch(() => setCollectionsList([]));
+  }, []);
 
   const totalDeliveredPhotos = collectionsList.reduce((acc, col) => acc + (col.totalItems || 0), 0);
 

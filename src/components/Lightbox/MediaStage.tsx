@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import type { GalleryPhoto } from '../../types/gallery';
 
 interface MediaStageProps {

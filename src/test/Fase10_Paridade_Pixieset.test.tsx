@@ -1,13 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, renderHook, act } from '@testing-library/react';
-import React from 'react';
 import { GalleryPage } from '../components/GalleryPage';
 import { useFavorites } from '../lib/useFavorites';
 import { FavoritesDialog } from '../components/Dialogs/FavoritesDialog';
 import { ShareDialog } from '../components/Dialogs/ShareDialog';
 import { PhotoLightbox } from '../components/Lightbox/PhotoLightbox';
 import { AdminPanel } from '../components/Admin/AdminPanel';
-import { setAdminAuthenticated } from '../lib/collectionSettings';
 import App from '../App';
 import { galleryPhotos } from '../data/fixtures';
 
@@ -174,9 +172,7 @@ describe('Fase 10: Paridade Cirúrgica REA vs. Pixieset Real', () => {
     expect(zipBtn).toBeInTheDocument();
   });
 
-  it('10.9: AdminPanel deve exibir opções de exportação e importação de configurações em JSON', () => {
-    setAdminAuthenticated(true);
-
+  it('10.9: AdminPanel deve recusar o painel local inseguro sem backend configurado', () => {
     render(
       <AdminPanel
         initialSlug="fixture"
@@ -184,7 +180,7 @@ describe('Fase 10: Paridade Cirúrgica REA vs. Pixieset Real', () => {
       />,
     );
 
-    expect(screen.getByRole('button', { name: /Exportar JSON/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Importar JSON/i })).toBeInTheDocument();
+    expect(screen.getByText(/Backend seguro ainda não configurado/i)).toBeInTheDocument();
+    expect(screen.queryByText(/senha mestra/i)).not.toBeInTheDocument();
   });
 });

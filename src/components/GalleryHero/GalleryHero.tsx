@@ -1,4 +1,3 @@
-import React from 'react';
 import type { GalleryCollection } from '../../types/gallery';
 import { ResponsiveCoverImage } from './ResponsiveCoverImage';
 import { CoverOverlay } from './CoverOverlay';

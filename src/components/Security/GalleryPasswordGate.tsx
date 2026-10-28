@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { GalleryCollection } from '../../types/gallery';
 import { verifyClientAccess, setClientSession } from '../../lib/collectionSettings';
 
 interface GalleryPasswordGateProps {
   collection: GalleryCollection;
-  onUnlocked: () => void;
+  onUnlocked: () => void | Promise<void>;
   onOpenAdmin?: () => void;
+  requiresEmail?: boolean;
+  onAuthenticate?: (password: string, email?: string) => Promise<void>;
 }
 
 export function GalleryPasswordGate({
   collection,
   onUnlocked,
   onOpenAdmin,
+  requiresEmail: requiresEmailProp,
+  onAuthenticate,
 }: GalleryPasswordGateProps) {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -24,25 +28,29 @@ export function GalleryPasswordGate({
     collection.cover.sources[0]?.url ||
     '';
 
-  const requiresEmail = Boolean(
+  const requiresEmail = requiresEmailProp ?? Boolean(
     collection.clientEmail || (collection.clientEmails && collection.clientEmails.length > 0),
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      const result = verifyClientAccess(collection, password, requiresEmail ? email : undefined);
-      if (result.success) {
-        setClientSession(collection.id, email || undefined);
-        onUnlocked();
+    try {
+      if (onAuthenticate) {
+        await onAuthenticate(password, requiresEmail ? email : undefined);
       } else {
-        setError(result.error || 'Acesso negado. Verifique os dados informados.');
+        const result = verifyClientAccess(collection, password, requiresEmail ? email : undefined);
+        if (!result.success) throw new Error(result.error || 'Acesso negado.');
+        setClientSession(collection.id, email || undefined);
       }
+      await onUnlocked();
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : 'Acesso negado. Verifique os dados informados.');
+    } finally {
       setIsSubmitting(false);
-    }, 250);
+    }
   };
 
   return (

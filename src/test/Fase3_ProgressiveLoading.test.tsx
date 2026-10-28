@@ -1,9 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen, renderHook, act, fireEvent } from '@testing-library/react';
-import React from 'react';
 import { useGalleryProgressivePhotos } from '../components/Masonry/useGalleryProgressivePhotos';
 import { InfiniteMasonryGrid } from '../components/Masonry/InfiniteMasonryGrid';
-import type { GalleryPageResponse } from '../types/gallery';
 import { galleryPhotos } from '../data/fixtures';
 
 describe('Fase 3: Infinite Masonry Grid & Carregamento Progressivo (RF-006)', () => {
@@ -89,7 +87,7 @@ describe('Fase 3: Infinite Masonry Grid & Carregamento Progressivo (RF-006)', ()
 
     it('deve tratar falha com partial-error e permitir recuperação via retry()', async () => {
       let failOnce = true;
-      const failingFetcher = vi.fn().mockImplementation(async (cursor, limit) => {
+      const failingFetcher = vi.fn().mockImplementation(async (cursor) => {
         if (cursor && failOnce) {
           failOnce = false;
           throw new Error('Falha de rede simulada');

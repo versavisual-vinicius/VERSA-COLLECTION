@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { GalleryPhoto } from '../../types/gallery';
 import { useMasonryLayout, type MasonryLayoutOptions } from './useMasonryLayout';
 import { GalleryPhotoCard } from './GalleryPhotoCard';

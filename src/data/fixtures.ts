@@ -116,7 +116,7 @@ export const collectionFixture: GalleryCollection = {
   },
 };
 
-const getDimensionsByAspect = (aspect: 'portrait' | 'landscape' | 'square', index: number) => {
+const getDimensionsByAspect = (aspect: 'portrait' | 'landscape' | 'square') => {
   switch (aspect) {
     case 'portrait':
       return { width: 800, height: 1200 }; // 2:3
@@ -131,7 +131,7 @@ const getDimensionsByAspect = (aspect: 'portrait' | 'landscape' | 'square', inde
 const buildGalleryPhotos = (totalItems: number, collectionTitle: string): GalleryPhoto[] =>
   Array.from({ length: totalItems }, (_, index) => {
     const seed = photoSeeds[index % photoSeeds.length];
-    const { width, height } = getDimensionsByAspect(seed.aspect, index);
+    const { width, height } = getDimensionsByAspect(seed.aspect);
     const photoId = `photo-${String(index + 1).padStart(3, '0')}`;
     const focalX = 45 + ((index * 7) % 15); // Variação suave entre 45% e 60%
     const focalY = 30 + ((index * 11) % 25); // Variação suave entre 30% e 55%

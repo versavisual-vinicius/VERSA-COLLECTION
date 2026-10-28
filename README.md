@@ -13,8 +13,8 @@ O **VERSA-COLLECTION** foi concebido para entrega fotográfica profissional de a
 1. **Capa Editorial em 100dvh**: focalPoint dinâmico, vinheta tipográfica calculada e tipografia autoral da Versa Visual (`Outfit` para títulos e `DM Sans` para leitura/interface).
 2. **Masonry Calculado Determinístico**: distribuição de fotos por menor altura acumulada em 4/3/2 colunas com proporção reservada (Zero Layout Shift).
 3. **Fotos em Alta Fidelidade (Google Drive CDN)**: integração nativa com o acervo do Google Drive (`lh3.googleusercontent.com`), com fontes responsivas em 640px, 1024px, 2048px, 3600px e original sem compressão destrutiva.
-4. **Segurança do Cliente & Desafio de Senha (`GalleryPasswordGate`)**: telas de acesso com senha do cliente e e-mail autorizado, com persistência de sessão de 12 horas.
-5. **Painel do Fotógrafo Vini (`AdminPanel`)**: gestão de credenciais das galerias, controle de download (PIN de 4 dígitos, exigência de e-mail), links diretos do Drive, auditoria em tempo real de quem baixou fotos e gerador de mensagem pronta de WhatsApp com 1 clique.
+4. **Segurança do Cliente & Desafio de Senha (`GalleryPasswordGate`)**: senha e e-mail validados em Vercel Functions, segredo hasheado no Supabase e sessão `HttpOnly` de 12 horas.
+5. **Painel do Fotógrafo Vini (`AdminPanel`)**: autenticação Supabase por magic link, gestão server-side de credenciais, downloads e auditoria.
 6. **Download Real & Exportações**: suporte a download individual de arquivo em alta resolução e link de pacote completo no Drive/Nuvem.
 7. **Lightbox & Slideshow Imersivo**: navegação por teclado (`ArrowLeft`, `ArrowRight`, `Space`, `Escape`), auto-hide de controles e suporte a gestos touch.
 8. **Favoritos com Otimismo Reversível**: persistência em `localStorage` e exportação/compartilhamento de fotos selecionadas.
@@ -32,7 +32,8 @@ subgraph group_collection["Collection and access"]
   node_app["URL collection routing<br/>[App.tsx]"]
   node_page["Gallery orchestration<br/>[GalleryPage.tsx]"]
   node_registry["Collection registry<br/>[collectionsRegistry.ts]"]
-  node_settings[("Access settings and export log<br/>[collectionSettings.ts]")]
+  node_settings[("Collections, sessions and export log<br/>[Supabase PostgreSQL]")]
+  node_api["Authorization boundary<br/>[Vercel Functions]"]
   node_gate["Password and email gate<br/>[GalleryPasswordGate.tsx]"]
 end
 
@@ -65,8 +66,8 @@ node_visitor_storage[("Browser storage")]
 
 node_visitor -->|"opens collection"| node_app
 node_app -->|"routes to"| node_page
-node_page -->|"resolves collection"| node_registry
-node_registry -->|"applies overrides"| node_settings
+node_page -->|"loads collection"| node_api
+node_api -->|"enforces access"| node_settings
 node_page -.->|"checks access"| node_gate
 node_page -->|"renders"| node_hero
 node_page -->|"renders"| node_header
@@ -81,11 +82,10 @@ node_page -->|"tracks selections"| node_favorites
 node_page -->|"renders"| node_favorite_dialog
 node_page -->|"renders"| node_share
 node_page -->|"renders"| node_download_dialog
-node_download_dialog -->|"records export request"| node_settings
+node_download_dialog -->|"requests authorized export"| node_api
 node_download_dialog -.->|"delivers files"| node_drive
 node_photographer -->|"manages gallery"| node_admin
-node_admin -->|"selects collection"| node_registry
-node_admin -->|"saves settings and reviews exports"| node_settings
+node_admin -->|"authenticates and manages"| node_api
 node_favorites -->|"persists favorites"| node_visitor_storage
 node_settings -.->|"persists browser settings"| node_visitor_storage
 node_favorites -->|"gets visitor identifier"| node_telemetry
@@ -151,11 +151,12 @@ src/
 │   ├── collectionsRegistry.ts           # Registro dinâmico e compilação de coleções
 │   └── fixtures.ts                      # Fixture base de teste (127 fotos)
 ├── lib/
-│   ├── collectionSettings.ts            # Persistência de senhas, PINs e auditoria de exportações
+│   ├── backend.ts                       # Cliente de API, Auth e migração legada
+│   ├── collectionSettings.ts            # Compatibilidade local para dados legados/favoritos
 │   ├── useFavorites.ts                  # Hook de favoritos com otimismo reversível
 │   ├── telemetry.ts                     # Telemetria anônima estrita
 │   └── gallery.tsx
-└── test/                                # 12 suítes de testes automatizados (65 testes)
+└── test/                                # 14 suítes Vitest / 75 testes
 ```
 
 ---
@@ -186,4 +187,14 @@ pnpm sync:drive
 - **URL**: `/?collection=modec-dia-das-criancas-2026&admin=true` (ou rota `/admin`).
 - **Atalho de Teclado**: `Shift + A` em qualquer página.
 - **Menu**: Opção "Painel do Fotógrafo" no menu superior `⋯` ou no rodapé.
-- **Senha Mestra do Estúdio**: `versa2026`.
+- **Autenticação**: magic link do Supabase para usuário previamente criado com `app_metadata.role = "owner"`.
+
+## Ativação do backend seguro
+
+1. Crie um projeto Supabase e aplique a migration em `supabase/migrations/`.
+2. Crie o usuário administrador sem cadastro público e defina `app_metadata.role = "owner"`.
+3. Configure na Vercel as variáveis de `.env.example`; segredos nunca usam prefixo `VITE_`.
+4. Execute `pnpm sync:supabase` para importar as coleções versionadas.
+5. Ative `VITE_API_ENABLED=true`, publique primeiro em Preview e use “Migrar dados locais” no painel.
+
+Enquanto `VITE_API_ENABLED=false`, a galeria pública funciona com fixtures locais, mas o painel administrativo inseguro permanece desativado.

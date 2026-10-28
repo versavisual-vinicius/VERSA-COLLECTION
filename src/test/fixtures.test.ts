@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { collectionFixture, galleryPhotos, getGalleryPageMock } from '../data/fixtures';
-import type { GalleryPhoto, GalleryCollection } from '../types/gallery';
+import type { GalleryPhoto } from '../types/gallery';
 
 describe('Fase 1: Contratos e Fixtures da Galeria', () => {
   it('deve conter a coleção fixture com todos os metadados canônicos', () => {

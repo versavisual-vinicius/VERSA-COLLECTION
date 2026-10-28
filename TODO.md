@@ -148,9 +148,9 @@
   - Sessão persistente por coleção no `sessionStorage` e desbloqueio suave.
 - [x] **Painel do Fotógrafo Vini (`AdminPanel`)**:
   - Painel de gestão acessível por URL (`?admin=true`), atalho de teclado (`Shift + A`) e rodapé.
-  - Proteção de acesso com senha mestra do estúdio (`versa2026`).
+  - Fluxo client-side original preservado apenas como histórico; substituído na Fase 11 por magic link e backend seguro.
   - Configuração dinâmica de senha da galeria, e-mail do cliente, visibilidade, PIN de download e link de entrega do Google Drive / Nuvem.
-  - Persistência reativa em `localStorage` com reflexo imediato na visualização do cliente sem necessidade de redeploy.
+  - Persistência legada em `localStorage`, migrável de forma idempotente para o backend da Fase 11.
   - Gerador de mensagem pronta de WhatsApp para handoff rápido ao cliente ("Fala, [Nome]...").
 - [x] **Exportação Solicitada do Cliente & Download Real**:
   - Suporte a download de arquivo real via link direto/fontes em alta resolução.
@@ -197,5 +197,19 @@
   - Integrar gerador SVG de QR Code no `ShareDialog.tsx` e no `AdminPanel.tsx` para escaneamento rápido presencial via smartphone.
 - [x] **Persistência de Configurações Administrativas em Arquivo JSON**:
   - Criar rotina/botão no `AdminPanel` para exportar o JSON atualizado da coleção ou sincronizar via CLI com `src/data/collections/<slug>.json`, evitando dependência exclusiva do `localStorage` do Mac do Vini.
+
+---
+
+## Fase 11: Higienização Completa & Backend Seguro
+
+- [x] Padronizar Node 24 LTS, pnpm 12, lockfile único, lint, typecheck e CI.
+- [x] Remover senha administrativa hardcoded e desativar painel local inseguro.
+- [x] Implementar magic link Supabase com autorização por `app_metadata.role = owner`.
+- [x] Criar migration com RLS, grants fechados, sessões, rate limit e auditoria de exportações.
+- [x] Implementar Vercel Functions para coleções, sessão, admin, downloads e migração legada.
+- [x] Hash de senha/PIN com `scrypt`; cookies `HttpOnly`, `Secure`, `SameSite=Lax` por 12 horas.
+- [x] Preservar e importar configurações/solicitações do navegador sem apagar o backup local.
+- [ ] Criar projeto Supabase, aplicar migration, executar advisors e cadastrar usuário owner — depende do Vini.
+- [ ] Vincular Vercel, configurar variáveis e homologar Preview — após criação do Supabase.
 
 

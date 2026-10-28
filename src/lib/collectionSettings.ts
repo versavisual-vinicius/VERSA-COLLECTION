@@ -3,8 +3,6 @@ import type { CollectionConfigUpdate, ExportRequest, GalleryCollection } from '.
 const SETTINGS_PREFIX = 'versa_col_config_';
 const EXPORT_REQUESTS_KEY = 'versa_export_requests_v1';
 const CLIENT_SESSION_PREFIX = 'versa_client_session_';
-const ADMIN_AUTH_KEY = 'versa_admin_auth_v1';
-const DEFAULT_ADMIN_PASSWORD = 'versa2026';
 
 /**
  * Recupera configurações customizadas de uma coleção salvas no navegador
@@ -195,34 +193,5 @@ export function clearExportRequests(): void {
   } catch (err) {
     console.error('Erro ao limpar solicitações:', err);
   }
-}
-
-/**
- * Autenticação do Vini / Fotógrafo (Painel de Administração)
- */
-export function isAdminAuthenticated(): boolean {
-  if (typeof window === 'undefined') return false;
-  try {
-    return localStorage.getItem(ADMIN_AUTH_KEY) === 'true';
-  } catch {
-    return false;
-  }
-}
-
-export function setAdminAuthenticated(auth: boolean): void {
-  if (typeof window === 'undefined') return;
-  try {
-    if (auth) {
-      localStorage.setItem(ADMIN_AUTH_KEY, 'true');
-    } else {
-      localStorage.removeItem(ADMIN_AUTH_KEY);
-    }
-  } catch (err) {
-    console.error('Erro ao salvar auth de admin:', err);
-  }
-}
-
-export function verifyAdminPassword(password: string): boolean {
-  return password.trim() === DEFAULT_ADMIN_PASSWORD;
 }
 

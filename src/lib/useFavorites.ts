@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { FavoriteRecord } from '../types/gallery';
-import { getOrCreateVisitorId } from './telemetry';
 
 const FAVORITES_STORAGE_PREFIX = 'versa_gallery_favs_';
 

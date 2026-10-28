@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { GalleryPhoto, DownloadJobStatus } from '../../types/gallery';
 import { saveExportRequest } from '../../lib/collectionSettings';
+import { backendEnabled, createExportRequest } from '../../lib/backend';
 
 interface DownloadDialogProps {
   isOpen: boolean;
@@ -66,13 +67,13 @@ export function DownloadDialog({
 
   const isIndividual = Boolean(photo);
 
-  const startDownloadJob = () => {
+  const startDownloadJob = async () => {
     if (requiresPin && !pinInput.trim()) {
       setErrorMessage('Por favor, informe o PIN de autorização.');
       return;
     }
 
-    if (requiresPin && expectedPin && pinInput.trim() !== expectedPin.trim()) {
+    if (!backendEnabled && requiresPin && expectedPin && pinInput.trim() !== expectedPin.trim()) {
       setErrorMessage('PIN de autorização incorreto. Verifique os dados recebidos.');
       return;
     }
@@ -85,25 +86,42 @@ export function DownloadDialog({
     setErrorMessage(null);
     setStatus('validating');
 
+    if (backendEnabled) {
+      try {
+        const result = await createExportRequest({
+          collectionSlug,
+          type: photo ? 'single' : 'collection',
+          photoId: photo?.id,
+          clientEmail: emailInput.trim() || undefined,
+          pin: pinInput.trim() || undefined,
+          requestedSize: selectedSize,
+        });
+        setSignedUrl(result.downloadUrl);
+        setStatus(result.downloadUrl ? 'ready' : 'preparing');
+        onShowToast?.(result.downloadUrl ? 'Download autorizado com sucesso!' : 'Solicitação registrada.');
+      } catch (reason) {
+        setStatus('failed');
+        setErrorMessage(reason instanceof Error ? reason.message : 'Não foi possível preparar o download.');
+      }
+      return;
+    }
+
     // Transição determinística do job: validating -> preparing -> ready
     setTimeout(() => {
       setStatus('preparing');
 
       setTimeout(() => {
-        let finalUrl = '';
-        if (photo) {
+        const finalUrl = photo
+          ? (() => {
           if (selectedSize === 'original') {
-            finalUrl = photo.downloadUrl || photo.sources[photo.sources.length - 1]?.url || '';
-          } else {
-            const targetWidth = parseInt(selectedSize, 10);
-            const matched = photo.sources.find((s) => s.width === targetWidth);
-            finalUrl = matched?.url || photo.downloadUrl || photo.sources[0]?.url || '';
+            return photo.downloadUrl || photo.sources[photo.sources.length - 1]?.url || '';
           }
-        } else {
-          finalUrl =
-            directFolderUrl ||
+          const targetWidth = parseInt(selectedSize, 10);
+          const matched = photo.sources.find((s) => s.width === targetWidth);
+          return matched?.url || photo.downloadUrl || photo.sources[0]?.url || '';
+        })()
+          : directFolderUrl ||
             `https://download.versa.gallery/dl/collection-all.zip?size=${selectedSize}&token=exp_${Date.now() + 15 * 60 * 1000}`;
-        }
 
         setSignedUrl(finalUrl);
         setStatus('ready');
@@ -116,7 +134,6 @@ export function DownloadDialog({
           photoId: photo?.id,
           photoFileName: photo?.fileName,
           clientEmail: emailInput.trim(),
-          pinUsed: pinInput.trim() || undefined,
           requestedSize: selectedSize,
           status: 'ready',
           downloadUrl: finalUrl,
@@ -131,7 +148,7 @@ export function DownloadDialog({
     setStatus('expired');
   };
 
-  const handleDownloadClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleDownloadClick = () => {
     onShowToast?.('Iniciando transferência...');
     // Se a foto tiver downloadUrl direto e navegável
     if (photo && signedUrl) {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { GalleryPhoto } from '../../types/gallery';
 import { MediaStage } from './MediaStage';
 import { LightboxToolbar } from './LightboxToolbar';

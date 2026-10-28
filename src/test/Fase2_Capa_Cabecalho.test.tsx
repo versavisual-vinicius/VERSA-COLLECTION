@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import React from 'react';
 import { GalleryHero } from '../components/GalleryHero/GalleryHero';
 import { AutoHideGalleryHeader } from '../components/Header/AutoHideGalleryHeader';
 import { collectionFixture } from '../data/fixtures';

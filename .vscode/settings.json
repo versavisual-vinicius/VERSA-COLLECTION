@@ -1,5 +1,10 @@
 {
-    "files.exclude": {
-        ".env.local": true
-    }
+  "files.exclude": {
+    ".env.local": true
+  },
+  "files.associations": {
+    "vite.config.ts": "typescript",
+    "*.ts": "typescript",
+    "*.tsx": "typescriptreact"
+  }
 }
