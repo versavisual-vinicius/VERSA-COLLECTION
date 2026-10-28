@@ -8,6 +8,7 @@
     "build": "tsc && vite build",
     "test": "vitest run",
     "test:watch": "vitest",
+    "sync:drive": "node scripts/sync-drive-collections.mjs",
     "preview": "vite preview --host"
   },
   "dependencies": {

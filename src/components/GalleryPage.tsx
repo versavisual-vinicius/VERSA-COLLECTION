@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { collectionFixture, galleryPhotos } from '../data/fixtures';
-import type { GalleryPhoto } from '../types/gallery';
+import type { GalleryPhoto, GalleryPageResponse, PageCursor } from '../types/gallery';
+import { getCollectionData, getCollectionPage, availableCollections } from '../data/collectionsRegistry';
 import { AutoHideGalleryHeader } from './Header/AutoHideGalleryHeader';
 import { GalleryHero } from './GalleryHero/GalleryHero';
 import { InfiniteMasonryGrid } from './Masonry/InfiniteMasonryGrid';
@@ -18,9 +18,25 @@ const clamp = (value: number, min: number, max: number) => Math.min(Math.max(val
 
 interface GalleryPageProps {
   isOwnerPreview?: boolean;
+  collectionSlug?: string;
 }
 
-export function GalleryPage({ isOwnerPreview = false }: GalleryPageProps) {
+export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }: GalleryPageProps) {
+  // Determina a coleção ativa: prop -> URL param -> fallback 'fixture'
+  const activeSlug = useMemo(() => {
+    if (propSlug) return propSlug;
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const urlSlug = params.get('collection');
+      if (urlSlug && availableCollections[urlSlug]) return urlSlug;
+    }
+    return 'fixture';
+  }, [propSlug]);
+
+  const { collection, photos: allPhotos } = useMemo(() => {
+    return getCollectionData(activeSlug);
+  }, [activeSlug]);
+
   const [activePhotoId, setActivePhotoId] = useState<string | null>(null);
   const [isSlideshowActive, setIsSlideshowActive] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -34,7 +50,19 @@ export function GalleryPage({ isOwnerPreview = false }: GalleryPageProps) {
     favoriteIds,
     toggleFavorite: toggleFavAction,
     removeFavorite: removeFavAction,
-  } = useFavorites(collectionFixture.id);
+  } = useFavorites(collection.id);
+
+  // Fetcher progressivo determinístico baseado na coleção ativa
+  const fetcher = useCallback(
+    async (cursor: PageCursor | null, limit: number): Promise<GalleryPageResponse> => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(getCollectionPage(allPhotos, cursor, limit));
+        }, 15);
+      });
+    },
+    [allPhotos],
+  );
 
   // Hook de fotos com carregamento progressivo determinístico (RF-006)
   const {
@@ -45,9 +73,10 @@ export function GalleryPage({ isOwnerPreview = false }: GalleryPageProps) {
     loadMore,
     retry,
   } = useGalleryProgressivePhotos({
-    collectionId: collectionFixture.id,
+    collectionId: collection.id,
     initialLimit: 16,
     batchLimit: 8,
+    fetcher: activeSlug !== 'fixture' ? fetcher : undefined,
   });
 
   // Diálogos
