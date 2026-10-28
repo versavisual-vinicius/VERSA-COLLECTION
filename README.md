@@ -1,5 +1,7 @@
 # VERSA-COLLECTION
 
+[![Architecture diagram](https://gitdiagram.com/diagram-badge.svg)](https://gitdiagram.com/versavisual-vinicius/versa-collection?utm_source=readme&utm_medium=badge)
+
 Galeria digital editorial para clientes com foco em experiência fotográfica imersiva, responsividade extrema, segurança de acesso e alta resolução.
 
 ---
@@ -16,6 +18,78 @@ O **VERSA-COLLECTION** foi concebido para entrega fotográfica profissional de a
 6. **Download Real & Exportações**: suporte a download individual de arquivo em alta resolução e link de pacote completo no Drive/Nuvem.
 7. **Lightbox & Slideshow Imersivo**: navegação por teclado (`ArrowLeft`, `ArrowRight`, `Space`, `Escape`), auto-hide de controles e suporte a gestos touch.
 8. **Favoritos com Otimismo Reversível**: persistência em `localStorage` e exportação/compartilhamento de fotos selecionadas.
+
+---
+
+## 🏛 Arquitetura do Sistema
+
+[![Diagrama Interativo](https://img.shields.io/badge/GitDiagram-Interactive%20Architecture-2563eb?style=for-the-badge&logo=git&logoColor=white)](https://gitdiagram.com/versavisual-vinicius/versa-collection)
+
+```mermaid
+flowchart TD
+
+subgraph group_collection["Collection and access"]
+  node_app["URL collection routing<br/>[App.tsx]"]
+  node_page["Gallery orchestration<br/>[GalleryPage.tsx]"]
+  node_registry["Collection registry<br/>[collectionsRegistry.ts]"]
+  node_settings[("Access settings and export log<br/>[collectionSettings.ts]")]
+  node_gate["Password and email gate<br/>[GalleryPasswordGate.tsx]"]
+end
+
+subgraph group_presentation["Gallery experience"]
+  node_hero["Editorial collection cover<br/>[GalleryHero.tsx]"]
+  node_header["Gallery header<br/>[AutoHideGalleryHeader.tsx]"]
+  node_progressive["Progressive photo loading<br/>[useGalleryProgressivePhotos.ts]"]
+  node_layout["Deterministic masonry layout<br/>[useMasonryLayout.ts]"]
+  node_grid["Infinite photo grid<br/>[InfiniteMasonryGrid.tsx]"]
+  node_lightbox["Lightbox and slideshow<br/>[PhotoLightbox.tsx]"]
+  node_slideshow["Slideshow timer<br/>[SlideshowController.tsx]"]
+end
+
+subgraph group_engagement["Visitor actions"]
+  node_favorites[("Favorite persistence<br/>[useFavorites.ts]")]
+  node_favorite_dialog["Favorites export dialog<br/>[FavoritesDialog.tsx]"]
+  node_share["Photo sharing dialog<br/>[ShareDialog.tsx]"]
+  node_download_dialog["Download request dialog<br/>[DownloadDialog.tsx]"]
+  node_drive["Google Drive delivery"]
+end
+
+subgraph group_operations["Photographer operations"]
+  node_admin["Photographer admin panel<br/>[AdminPanel.tsx]"]
+  node_telemetry[("Anonymous telemetry<br/>[telemetry.ts]")]
+end
+
+node_visitor(("Gallery visitor"))
+node_photographer(("Photographer"))
+node_visitor_storage[("Browser storage")]
+
+node_visitor -->|"opens collection"| node_app
+node_app -->|"routes to"| node_page
+node_page -->|"resolves collection"| node_registry
+node_registry -->|"applies overrides"| node_settings
+node_page -.->|"checks access"| node_gate
+node_page -->|"renders"| node_hero
+node_page -->|"renders"| node_header
+node_page -->|"loads photos"| node_progressive
+node_progressive -.->|"pages collection"| node_registry
+node_progressive -.->|"provides photos for"| node_layout
+node_grid -->|"calculates positions"| node_layout
+node_page -->|"renders"| node_grid
+node_page -->|"opens selected photo"| node_lightbox
+node_lightbox -->|"controls"| node_slideshow
+node_page -->|"tracks selections"| node_favorites
+node_page -->|"renders"| node_favorite_dialog
+node_page -->|"renders"| node_share
+node_page -->|"renders"| node_download_dialog
+node_download_dialog -->|"records export request"| node_settings
+node_download_dialog -.->|"delivers files"| node_drive
+node_photographer -->|"manages gallery"| node_admin
+node_admin -->|"selects collection"| node_registry
+node_admin -->|"saves settings and reviews exports"| node_settings
+node_favorites -->|"persists favorites"| node_visitor_storage
+node_settings -.->|"persists browser settings"| node_visitor_storage
+node_favorites -->|"gets visitor identifier"| node_telemetry
+```
 
 ---
 
