@@ -24,7 +24,9 @@ export interface DownloadPolicy {
   collectionEnabled: boolean;
   requiresEmail: boolean;
   requiresPin: boolean;
+  pin?: string;
   allowedSizes: Array<'original' | '3600' | '2048' | '1024' | '640'>;
+  directFolderUrl?: string;
 }
 
 export interface GalleryTheme {
@@ -47,6 +49,9 @@ export interface GalleryCollection {
   coverFocalPoint: { x: number; y: number };
   visibility: CollectionVisibility;
   passwordRequired: boolean;
+  clientPassword?: string;
+  clientEmail?: string;
+  clientEmails?: string[];
   favoritesEnabled: boolean;
   downloads: DownloadPolicy;
   sharingEnabled: boolean;
@@ -54,6 +59,7 @@ export interface GalleryCollection {
   totalItems: number;
   locale: string;
   theme: GalleryTheme;
+  clientNotes?: string;
 }
 
 export interface GalleryPhoto {
@@ -129,3 +135,30 @@ export type LightboxState =
   | { type: 'open'; photoId: string }
   | { type: 'slideshow'; photoId: string; paused: boolean }
   | { type: 'closing'; photoId: string };
+
+export interface ExportRequest {
+  id: string;
+  collectionSlug: string;
+  collectionTitle: string;
+  type: 'single' | 'collection' | 'favorites';
+  photoId?: string;
+  photoFileName?: string;
+  clientEmail: string;
+  pinUsed?: string;
+  requestedSize: string;
+  status: 'pending' | 'processing' | 'ready' | 'completed' | 'failed';
+  requestedAt: string;
+  completedAt?: string;
+  downloadUrl?: string;
+}
+
+export interface CollectionConfigUpdate {
+  title?: string;
+  visibility?: CollectionVisibility;
+  passwordRequired?: boolean;
+  clientPassword?: string;
+  clientEmail?: string;
+  clientEmails?: string[];
+  downloads?: Partial<DownloadPolicy>;
+  clientNotes?: string;
+}

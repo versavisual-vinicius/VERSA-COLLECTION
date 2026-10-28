@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import type { GalleryPhoto, DownloadJobStatus } from '../../types/gallery';
+import { saveExportRequest } from '../../lib/collectionSettings';
 
 interface DownloadDialogProps {
   isOpen: boolean;
   photo?: GalleryPhoto | null;
   collectionTitle: string;
+  collectionSlug?: string;
   allowedSizes?: Array<'original' | '3600' | '2048' | '1024' | '640'>;
   requiresPin?: boolean;
+  expectedPin?: string;
   requiresEmail?: boolean;
+  directFolderUrl?: string;
   onClose: () => void;
   onShowToast?: (message: string) => void;
 }
@@ -15,17 +19,20 @@ interface DownloadDialogProps {
 /**
  * DownloadDialog (RF-011):
  * - Máquina de estados do job: idle -> validating -> preparing -> ready -> expired / failed.
- * - Simulação de URL assinada temporária (15 min).
- * - Botão "Preparar novamente" caso expire.
- * - Validação opcional de PIN / e-mail.
+ * - Suporte a URL real da foto (Google Drive / CDN) e link direto de pasta.
+ * - Registro em tempo real de solicitações de exportação no painel administrativo.
+ * - Validação opcional de PIN / e-mail do cliente.
  */
 export function DownloadDialog({
   isOpen,
   photo,
   collectionTitle,
+  collectionSlug = 'default',
   allowedSizes = ['original', '2048', '1024', '640'],
   requiresPin = false,
+  expectedPin,
   requiresEmail = false,
+  directFolderUrl,
   onClose,
   onShowToast,
 }: DownloadDialogProps) {
@@ -64,6 +71,12 @@ export function DownloadDialog({
       setErrorMessage('Por favor, informe o PIN de autorização.');
       return;
     }
+
+    if (requiresPin && expectedPin && pinInput.trim() !== expectedPin.trim()) {
+      setErrorMessage('PIN de autorização incorreto. Verifique os dados recebidos.');
+      return;
+    }
+
     if (requiresEmail && !emailInput.trim()) {
       setErrorMessage('Por favor, informe um endereço de e-mail válido.');
       return;
@@ -72,17 +85,43 @@ export function DownloadDialog({
     setErrorMessage(null);
     setStatus('validating');
 
-    // Transição: validating -> preparing -> ready
+    // Transição determinística do job: validating -> preparing -> ready
     setTimeout(() => {
       setStatus('preparing');
 
       setTimeout(() => {
-        const fakeSignedUrl = photo
-          ? `https://download.versa.gallery/dl/${photo.id}?size=${selectedSize}&token=exp_${Date.now() + 15 * 60 * 1000}`
-          : `https://download.versa.gallery/dl/collection-all.zip?size=${selectedSize}&token=exp_${Date.now() + 15 * 60 * 1000}`;
+        let finalUrl = '';
+        if (photo) {
+          if (selectedSize === 'original') {
+            finalUrl = photo.downloadUrl || photo.sources[photo.sources.length - 1]?.url || '';
+          } else {
+            const targetWidth = parseInt(selectedSize, 10);
+            const matched = photo.sources.find((s) => s.width === targetWidth);
+            finalUrl = matched?.url || photo.downloadUrl || photo.sources[0]?.url || '';
+          }
+        } else {
+          finalUrl =
+            directFolderUrl ||
+            `https://download.versa.gallery/dl/collection-all.zip?size=${selectedSize}&token=exp_${Date.now() + 15 * 60 * 1000}`;
+        }
 
-        setSignedUrl(fakeSignedUrl);
+        setSignedUrl(finalUrl);
         setStatus('ready');
+
+        // Registra solicitação no feed de exportação
+        saveExportRequest({
+          collectionSlug,
+          collectionTitle,
+          type: photo ? 'single' : 'collection',
+          photoId: photo?.id,
+          photoFileName: photo?.fileName,
+          clientEmail: emailInput.trim(),
+          pinUsed: pinInput.trim() || undefined,
+          requestedSize: selectedSize,
+          status: 'ready',
+          downloadUrl: finalUrl,
+        });
+
         onShowToast?.('Pacote de download preparado com sucesso!');
       }, 700);
     }, 400);
@@ -90,6 +129,14 @@ export function DownloadDialog({
 
   const handleSimulateExpiration = () => {
     setStatus('expired');
+  };
+
+  const handleDownloadClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    onShowToast?.('Iniciando transferência...');
+    // Se a foto tiver downloadUrl direto e navegável
+    if (photo && signedUrl) {
+      // Deixar navegação padrão do <a> com download attribute
+    }
   };
 
   return (
@@ -101,10 +148,10 @@ export function DownloadDialog({
     >
       <div
         ref={modalRef}
-        className="dialog-panel w-full max-w-md rounded-2xl bg-[#111418] border border-white/10 p-6 shadow-2xl text-white"
+        className="dialog-panel w-full max-w-md rounded-2xl bg-[#111418] border border-white/10 p-6 shadow-2xl text-white font-['DM_Sans']"
       >
         <div className="flex items-center justify-between mb-4">
-          <h2 id="download-dialog-title" className="text-lg font-semibold">
+          <h2 id="download-dialog-title" className="text-lg font-semibold font-['Outfit']">
             {isIndividual ? 'Baixar Fotografia' : 'Baixar Coleção Completa'}
           </h2>
           <button
@@ -119,7 +166,7 @@ export function DownloadDialog({
 
         <p className="text-xs text-white/60 mb-4">
           {isIndividual
-            ? `Fotografia ${photo?.position} da coleção ${collectionTitle}`
+            ? `Fotografia ${photo?.position} (${photo?.fileName || 'alta fidelidade'}) da coleção ${collectionTitle}`
             : `Arquivo compactado contendo todo o acervo da coleção ${collectionTitle}`}
         </p>
 
@@ -229,14 +276,29 @@ export function DownloadDialog({
               </p>
             </div>
 
-            <a
-              href={signedUrl ?? '#'}
-              download={isIndividual ? `foto-${photo?.position}.jpg` : `${collectionTitle}.zip`}
-              onClick={() => onShowToast?.('Iniciando transferência...')}
-              className="w-full py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-bold uppercase tracking-wider text-center transition-colors"
-            >
-              Baixar Agora
-            </a>
+            <div className="w-full space-y-2">
+              <a
+                href={signedUrl ?? '#'}
+                download={isIndividual ? (photo?.fileName || `foto-${photo?.position}.jpg`) : `${collectionTitle}.zip`}
+                target={isIndividual ? undefined : '_blank'}
+                rel="noreferrer"
+                onClick={handleDownloadClick}
+                className="w-full block py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-bold uppercase tracking-wider text-center transition-colors shadow-lg shadow-emerald-500/20"
+              >
+                Baixar Agora
+              </a>
+
+              {directFolderUrl && !isIndividual && (
+                <a
+                  href={directFolderUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full block py-2 rounded-lg border border-white/15 hover:bg-white/10 text-white text-xs font-medium text-center transition-colors"
+                >
+                  Abrir Pasta Completa no Google Drive ↗
+                </a>
+              )}
+            </div>
 
             <button
               type="button"

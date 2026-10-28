@@ -1,6 +1,7 @@
 import type { GalleryCollection, GalleryPhoto } from '../types/gallery';
 import { collectionFixture, galleryPhotos as fixturePhotos } from './fixtures';
 import modecData from './collections/modec-dia-das-criancas-2026.json';
+import { applyCollectionSettings } from '../lib/collectionSettings';
 
 export interface CollectionData {
   collection: GalleryCollection;
@@ -21,10 +22,14 @@ export const availableCollections: Record<string, CollectionData> = {
 export const defaultCollectionSlug = 'modec-dia-das-criancas-2026';
 
 export function getCollectionData(slug?: string | null): CollectionData {
-  if (!slug) {
-    return availableCollections[defaultCollectionSlug] ?? availableCollections.fixture;
-  }
-  return availableCollections[slug] ?? availableCollections.fixture;
+  const base = !slug
+    ? (availableCollections[defaultCollectionSlug] ?? availableCollections.fixture)
+    : (availableCollections[slug] ?? availableCollections.fixture);
+
+  return {
+    ...base,
+    collection: applyCollectionSettings(base.collection),
+  };
 }
 
 export function getCollectionPage(

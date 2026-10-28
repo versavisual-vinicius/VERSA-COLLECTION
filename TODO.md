@@ -133,3 +133,28 @@
   - Verificação de paridade geométrica em 1154x875 (desktop) e 390x844 (mobile).
   - Zero scroll horizontal nos limites (599px, 600px, 899px, 900px, 1440px).
   - 100% dos testes Vitest automatizados passando (11 suítes, 57 testes).
+
+---
+
+## Fase 9: Higienização, Segurança do Cliente, Painel do Vini & Exportações Solicitadas
+
+- [x] **Higienização do Projeto & Resíduos**:
+  - Expurgo completo de resíduos mortos `.ignored_*` no `node_modules` (>50MB).
+  - Remoção limpa de `.devcontainer/devcontainer.json` órfão com snippet inconsistente.
+  - Sincronização e integridade de build limpo com pnpm e TypeScript sem warnings críticos.
+- [x] **Segurança do Cliente & Desafio de Senha (`GalleryPasswordGate`)**:
+  - Desafio editorial de senha de acesso à galeria privada com backdrop desfocado da foto de capa.
+  - Validação de senha do cliente e e-mail autorizado com restrição opcional.
+  - Sessão persistente por coleção no `sessionStorage` e desbloqueio suave.
+- [x] **Painel do Fotógrafo Vini (`AdminPanel`)**:
+  - Painel de gestão acessível por URL (`?admin=true`), atalho de teclado (`Shift + A`) e rodapé.
+  - Proteção de acesso com senha mestra do estúdio (`versa2026`).
+  - Configuração dinâmica de senha da galeria, e-mail do cliente, visibilidade, PIN de download e link de entrega do Google Drive / Nuvem.
+  - Persistência reativa em `localStorage` com reflexo imediato na visualização do cliente sem necessidade de redeploy.
+  - Gerador de mensagem pronta de WhatsApp para handoff rápido ao cliente ("Fala, [Nome]...").
+- [x] **Exportação Solicitada do Cliente & Download Real**:
+  - Suporte a download de arquivo real via link direto/fontes em alta resolução.
+  - Suporte a link de pasta direta no Google Drive para entregas volumosas.
+  - Registro em tempo real de solicitações de exportação (`ExportRequest`) com e-mail, tipo, resolução e status visíveis no painel de auditoria do Vini.
+  - Suíte completa de testes automatizados (`Fase9_Seguranca_Admin_Export.test.tsx`), totalizando 65 testes passando.
+

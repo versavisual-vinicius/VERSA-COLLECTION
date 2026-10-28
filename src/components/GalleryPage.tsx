@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { GalleryPhoto, GalleryPageResponse, PageCursor } from '../types/gallery';
 import { getCollectionData, getCollectionPage, availableCollections } from '../data/collectionsRegistry';
+import { hasClientSession } from '../lib/collectionSettings';
 import { AutoHideGalleryHeader } from './Header/AutoHideGalleryHeader';
 import { GalleryHero } from './GalleryHero/GalleryHero';
 import { InfiniteMasonryGrid } from './Masonry/InfiniteMasonryGrid';
@@ -11,6 +12,8 @@ import { DownloadDialog } from './Dialogs/DownloadDialog';
 import { FavoritesDialog } from './Dialogs/FavoritesDialog';
 import { ToastRegion } from './Feedback/ToastRegion';
 import { BrandingFooter } from './Footer/BrandingFooter';
+import { GalleryPasswordGate } from './Security/GalleryPasswordGate';
+import { AdminPanel } from './Admin/AdminPanel';
 import { useFavorites } from '../lib/useFavorites';
 import { telemetry } from '../lib/telemetry';
 
@@ -36,6 +39,44 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
   const { collection, photos: allPhotos } = useMemo(() => {
     return getCollectionData(activeSlug);
   }, [activeSlug]);
+
+  // Controle do Painel Administrativo do Vini
+  const [isAdminOpen, setIsAdminOpen] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('admin') === 'true';
+    }
+    return false;
+  });
+
+  // Controle de liberação de senha para o cliente
+  const [isUnlocked, setIsUnlocked] = useState<boolean>(() => {
+    if (isOwnerPreview) return true;
+    return !collection.passwordRequired || hasClientSession(collection.id);
+  });
+
+  useEffect(() => {
+    if (isOwnerPreview) {
+      setIsUnlocked(true);
+      return;
+    }
+    setIsUnlocked(!collection.passwordRequired || hasClientSession(collection.id));
+  }, [collection.id, collection.passwordRequired, isOwnerPreview]);
+
+  // Atalho de teclado: Shift + A para abrir/fechar Painel do Vini
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (
+        e.shiftKey &&
+        (e.key === 'A' || e.key === 'a') &&
+        !['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)
+      ) {
+        setIsAdminOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
 
   const [activePhotoId, setActivePhotoId] = useState<string | null>(null);
   const [isSlideshowActive, setIsSlideshowActive] = useState(false);
@@ -306,6 +347,24 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
     [allPhotos, favoriteIds],
   );
 
+  if (!isUnlocked) {
+    return (
+      <>
+        <GalleryPasswordGate
+          collection={collection}
+          onUnlocked={() => setIsUnlocked(true)}
+          onOpenAdmin={() => setIsAdminOpen(true)}
+        />
+        {isAdminOpen && (
+          <AdminPanel
+            initialSlug={activeSlug}
+            onClose={() => setIsAdminOpen(false)}
+          />
+        )}
+      </>
+    );
+  }
+
   return (
     <div className="gallery-app bg-[#0b0c0e] text-[#f5f5f4] min-h-screen">
       <AutoHideGalleryHeader
@@ -352,6 +411,7 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       <BrandingFooter
         businessName={collection.businessName}
         totalItems={collection.totalItems}
+        onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
       {selectedPhoto && (
@@ -399,9 +459,12 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
         isOpen={isDownloadOpen}
         photo={downloadTargetPhoto}
         collectionTitle={collection.title}
+        collectionSlug={collection.slug}
         allowedSizes={collection.downloads.allowedSizes}
         requiresPin={collection.downloads.requiresPin}
+        expectedPin={collection.downloads.pin}
         requiresEmail={collection.downloads.requiresEmail}
+        directFolderUrl={collection.downloads.directFolderUrl}
         onClose={() => setIsDownloadOpen(false)}
         onShowToast={showToast}
       />
@@ -419,6 +482,18 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       />
 
       <ToastRegion message={toastMessage} />
+
+      {isAdminOpen && (
+        <AdminPanel
+          initialSlug={activeSlug}
+          onClose={() => setIsAdminOpen(false)}
+          onSelectCollection={(slug) => {
+            const nextUrl = new URL(window.location.href);
+            nextUrl.searchParams.set('collection', slug);
+            window.history.pushState({}, '', nextUrl.toString());
+          }}
+        />
+      )}
     </div>
   );
 }
