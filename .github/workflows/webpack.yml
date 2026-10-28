@@ -1,4 +1,4 @@
-name: NodeJS with Webpack
+name: CI (Test & Build)
 
 on:
   push:
@@ -26,5 +26,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
+      - name: Run Tests (Vitest)
+        run: npm test
+
+      - name: Build (TypeScript + Vite)
         run: npm run build

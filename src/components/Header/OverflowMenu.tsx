@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 interface OverflowMenuProps {
   onStartSlideshow?: () => void;
   onShareCollection?: () => void;
+  onOpenAdmin?: () => void;
 }
 
-export function OverflowMenu({ onStartSlideshow, onShareCollection }: OverflowMenuProps) {
+export function OverflowMenu({ onStartSlideshow, onShareCollection, onOpenAdmin }: OverflowMenuProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -52,6 +53,20 @@ export function OverflowMenu({ onStartSlideshow, onShareCollection }: OverflowMe
               }}
             >
               ⇪ Compartilhar coleção
+            </button>
+          )}
+
+          {onOpenAdmin && (
+            <button
+              type="button"
+              className="w-full text-left px-4 py-2 hover:bg-white/10 transition-colors text-[#5E7F8C] hover:text-[#85aab8] border-t border-white/5"
+              role="menuitem"
+              onClick={() => {
+                setOpen(false);
+                onOpenAdmin();
+              }}
+            >
+              ⚙ Painel do Fotógrafo
             </button>
           )}
         </div>

@@ -4,16 +4,19 @@ export default {
   theme: {
     extend: {
       boxShadow: {
-        soft: '0 18px 45px rgba(15, 23, 42, 0.18)',
+        soft: '0 18px 45px rgba(0, 0, 0, 0.45)',
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['"DM Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        heading: ['Outfit', 'sans-serif'],
       },
       colors: {
         gallery: {
-          ink: '#111827',
+          bg: '#050A0D',
+          surface: '#0c1015',
           stone: '#f5f5f4',
-          accent: '#d97706',
+          accent: '#5E7F8C',
+          accentHover: '#6e919f',
         },
       },
     },

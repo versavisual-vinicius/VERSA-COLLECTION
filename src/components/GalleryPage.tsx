@@ -376,6 +376,7 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
         onOpenDownload={handleDownloadCollection}
         onStartSlideshow={handleStartSlideshow}
         onShareCollection={handleShareCollection}
+        onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
       <main>
