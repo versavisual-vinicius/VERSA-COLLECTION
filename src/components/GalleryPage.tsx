@@ -82,7 +82,7 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
   // Diálogos
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [shareData, setShareData] = useState<{ title: string; url: string }>({
-    title: collectionFixture.title,
+    title: collection.title,
     url: typeof window !== 'undefined' ? window.location.href : '',
   });
 
@@ -93,22 +93,22 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
   // Telemetria: registro de visualização inicial da galeria
   useEffect(() => {
     telemetry.track('gallery_viewed', {
-      collectionId: collectionFixture.id,
-      metadata: { totalItems: collectionFixture.totalItems },
+      collectionId: collection.id,
+      metadata: { totalItems: collection.totalItems },
     });
-  }, []);
+  }, [collection.id, collection.totalItems]);
 
   const selectedPhoto = useMemo(() => {
     if (!activePhotoId) return null;
     return (
       loadedPhotos.find((p) => p.id === activePhotoId) ??
-      galleryPhotos.find((p) => p.id === activePhotoId) ??
+      allPhotos.find((p) => p.id === activePhotoId) ??
       null
     );
-  }, [activePhotoId, loadedPhotos]);
+  }, [activePhotoId, loadedPhotos, allPhotos]);
 
   const currentIndex = selectedPhoto
-    ? galleryPhotos.findIndex((photo) => photo.id === selectedPhoto.id)
+    ? allPhotos.findIndex((photo) => photo.id === selectedPhoto.id)
     : -1;
 
   const showToast = useCallback((message: string) => {
@@ -131,14 +131,14 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       }
     }
 
-    if (photoId && galleryPhotos.some((p) => p.id === photoId)) {
+    if (photoId && allPhotos.some((p) => p.id === photoId)) {
       setActivePhotoId(photoId);
       setIsSlideshowActive(mode === 'slideshow');
     } else {
       setActivePhotoId(null);
       setIsSlideshowActive(false);
     }
-  }, []);
+  }, [allPhotos]);
 
   useEffect(() => {
     syncFromUrl();
@@ -176,11 +176,11 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       updateUrl(photoId, 'push', false);
 
       telemetry.track('photo_opened', {
-        collectionId: collectionFixture.id,
+        collectionId: collection.id,
         photoId,
       });
     },
-    [updateUrl],
+    [collection.id, updateUrl],
   );
 
   const closePhoto = useCallback(() => {
@@ -205,9 +205,9 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
   const navigatePhoto = useCallback(
     (direction: number) => {
       if (!selectedPhoto) return;
-      const current = galleryPhotos.findIndex((p) => p.id === selectedPhoto.id);
-      const nextIndex = clamp(current + direction, 0, galleryPhotos.length - 1);
-      const targetPhoto = galleryPhotos[nextIndex];
+      const current = allPhotos.findIndex((p) => p.id === selectedPhoto.id);
+      const nextIndex = clamp(current + direction, 0, allPhotos.length - 1);
+      const targetPhoto = allPhotos[nextIndex];
       if (!targetPhoto) return;
 
       setActivePhotoId(targetPhoto.id);
@@ -215,12 +215,12 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       updateUrl(targetPhoto.id, 'replace', isSlideshowActive);
 
       telemetry.track('photo_navigated', {
-        collectionId: collectionFixture.id,
+        collectionId: collection.id,
         photoId: targetPhoto.id,
         metadata: { direction },
       });
     },
-    [isSlideshowActive, selectedPhoto, updateUrl],
+    [allPhotos, collection.id, isSlideshowActive, selectedPhoto, updateUrl],
   );
 
   const toggleFavorite = useCallback(
@@ -229,89 +229,89 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       if (added) {
         showToast('Fotografia adicionada aos favoritos');
         telemetry.track('photo_favorited', {
-          collectionId: collectionFixture.id,
+          collectionId: collection.id,
           photoId,
         });
       } else {
         showToast('Fotografia removida dos favoritos');
         telemetry.track('photo_unfavorited', {
-          collectionId: collectionFixture.id,
+          collectionId: collection.id,
           photoId,
         });
       }
     },
-    [showToast, toggleFavAction],
+    [collection.id, showToast, toggleFavAction],
   );
 
   const handleSharePhoto = useCallback((photo: GalleryPhoto) => {
     setShareData({
-      title: `${photo.alt} — ${collectionFixture.title}`,
+      title: `${photo.alt} — ${collection.title}`,
       url: `${window.location.origin}${window.location.pathname}?photo=${photo.id}`,
     });
     setIsShareOpen(true);
 
     telemetry.track('share_opened', {
-      collectionId: collectionFixture.id,
+      collectionId: collection.id,
       photoId: photo.id,
     });
-  }, []);
+  }, [collection.id, collection.title]);
 
   const handleShareCollection = useCallback(() => {
     setShareData({
-      title: `${collectionFixture.title} — ${collectionFixture.businessName}`,
+      title: `${collection.title} — ${collection.businessName}`,
       url: `${window.location.origin}${window.location.pathname}`,
     });
     setIsShareOpen(true);
 
     telemetry.track('share_opened', {
-      collectionId: collectionFixture.id,
+      collectionId: collection.id,
     });
-  }, []);
+  }, [collection.businessName, collection.id, collection.title]);
 
   const handleDownloadPhoto = useCallback((photo: GalleryPhoto) => {
     setDownloadTargetPhoto(photo);
     setIsDownloadOpen(true);
 
     telemetry.track('photo_download_started', {
-      collectionId: collectionFixture.id,
+      collectionId: collection.id,
       photoId: photo.id,
     });
-  }, []);
+  }, [collection.id]);
 
   const handleDownloadCollection = useCallback(() => {
     setDownloadTargetPhoto(null);
     setIsDownloadOpen(true);
 
     telemetry.track('collection_download_started', {
-      collectionId: collectionFixture.id,
+      collectionId: collection.id,
     });
-  }, []);
+  }, [collection.id]);
 
   const handleStartSlideshow = useCallback(() => {
-    const firstPhoto = loadedPhotos[0] ?? galleryPhotos[0];
+    const firstPhoto = loadedPhotos[0] ?? allPhotos[0];
     if (firstPhoto) {
       setActivePhotoId(firstPhoto.id);
       setIsSlideshowActive(true);
       updateUrl(firstPhoto.id, 'push', true);
 
       telemetry.track('slideshow_started', {
-        collectionId: collectionFixture.id,
+        collectionId: collection.id,
         photoId: firstPhoto.id,
       });
     }
-  }, [loadedPhotos, updateUrl]);
+  }, [allPhotos, collection.id, loadedPhotos, updateUrl]);
 
   const favoritePhotosList = useMemo(
-    () => galleryPhotos.filter((p) => favoriteIds.has(p.id)),
-    [favoriteIds],
+    () => allPhotos.filter((p) => favoriteIds.has(p.id)),
+    [allPhotos, favoriteIds],
   );
 
   return (
     <div className="gallery-app bg-[#0b0c0e] text-[#f5f5f4] min-h-screen">
       <AutoHideGalleryHeader
-        collectionTitle={collectionFixture.title}
+        collectionTitle={collection.title}
         favoriteCount={favoriteIds.size}
-        downloadsEnabled={collectionFixture.downloads.enabled}
+        downloadsEnabled={collection.downloads.enabled}
         isOwnerPreview={isOwnerPreview}
         onOpenFavorites={() => setIsFavoritesOpen(true)}
         onOpenDownload={handleDownloadCollection}
@@ -321,14 +321,14 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
 
       <main>
         <GalleryHero
-          collection={collectionFixture}
+          collection={collection}
           isOwnerPreview={isOwnerPreview}
         />
 
         <section id="gallery-grid" className="gallery-shell max-w-[1440px] mx-auto py-8 px-2 sm:px-4">
           <div className="gallery-meta flex justify-between items-center px-4 py-3 text-xs tracking-widest uppercase text-white/50 border-b border-white/5 mb-6">
             <span>
-              {loadedPhotos.length} de {collectionFixture.totalItems} fotografias
+              {loadedPhotos.length} de {collection.totalItems} fotografias
             </span>
             <span>Modo Editorial</span>
           </div>
@@ -350,15 +350,15 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       </main>
 
       <BrandingFooter
-        businessName={collectionFixture.businessName}
-        totalItems={collectionFixture.totalItems}
+        businessName={collection.businessName}
+        totalItems={collection.totalItems}
       />
 
       {selectedPhoto && (
         <PhotoLightbox
           photo={selectedPhoto}
           currentIndex={currentIndex}
-          totalPhotos={galleryPhotos.length}
+          totalPhotos={allPhotos.length}
           isFavorite={favoriteIds.has(selectedPhoto.id)}
           isSlideshowActive={isSlideshowActive}
           onClose={closePhoto}
@@ -371,7 +371,7 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
             setIsSlideshowActive((prev) => {
               const next = !prev;
               telemetry.track(next ? 'slideshow_started' : 'slideshow_paused', {
-                collectionId: collectionFixture.id,
+                collectionId: collection.id,
                 photoId: selectedPhoto.id,
               });
               return next;
@@ -380,7 +380,7 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
           onPauseSlideshow={() => {
             setIsSlideshowActive(false);
             telemetry.track('slideshow_paused', {
-              collectionId: collectionFixture.id,
+              collectionId: collection.id,
               photoId: selectedPhoto.id,
             });
           }}
@@ -398,10 +398,10 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       <DownloadDialog
         isOpen={isDownloadOpen}
         photo={downloadTargetPhoto}
-        collectionTitle={collectionFixture.title}
-        allowedSizes={collectionFixture.downloads.allowedSizes}
-        requiresPin={collectionFixture.downloads.requiresPin}
-        requiresEmail={collectionFixture.downloads.requiresEmail}
+        collectionTitle={collection.title}
+        allowedSizes={collection.downloads.allowedSizes}
+        requiresPin={collection.downloads.requiresPin}
+        requiresEmail={collection.downloads.requiresEmail}
         onClose={() => setIsDownloadOpen(false)}
         onShowToast={showToast}
       />
