@@ -25,6 +25,7 @@ export function ResponsiveCoverImage({ cover, focalPoint = { x: 50, y: 50 } }: R
       height={cover.height}
       loading="eager"
       decoding="sync"
+      referrerPolicy="no-referrer"
       className="absolute inset-0 w-full h-full object-cover"
       style={{
         objectPosition: `${focalPoint.x}% ${focalPoint.y}%`,

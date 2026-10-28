@@ -61,6 +61,7 @@ export function MediaStage({ photo, onPrevious, onNext }: MediaStageProps) {
       <img
         src={src}
         alt={photo.alt}
+        referrerPolicy="no-referrer"
         className="max-h-[85vh] max-w-[92vw] w-auto h-auto object-contain rounded-lg shadow-2xl transition-all duration-200 pointer-events-none"
         style={{
           backgroundColor: photo.dominantColor ?? '#0b0c0e',

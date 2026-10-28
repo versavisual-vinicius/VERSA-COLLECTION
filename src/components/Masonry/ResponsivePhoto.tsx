@@ -32,6 +32,7 @@ export function ResponsivePhoto({ photo, priority = false }: ResponsivePhotoProp
       height={photo.height}
       loading={priority ? 'eager' : 'lazy'}
       decoding={priority ? 'sync' : 'async'}
+      referrerPolicy="no-referrer"
       className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.02] group-focus-visible:scale-[1.02]"
       style={{
         ...focalStyle,
