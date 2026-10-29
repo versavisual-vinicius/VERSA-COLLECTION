@@ -209,7 +209,9 @@
 - [x] Implementar Vercel Functions para coleções, sessão, admin, downloads e migração legada.
 - [x] Hash de senha/PIN com `scrypt`; cookies `HttpOnly`, `Secure`, `SameSite=Lax` por 12 horas.
 - [x] Preservar e importar configurações/solicitações do navegador sem apagar o backup local.
-- [ ] Criar projeto Supabase, aplicar migration, executar advisors e cadastrar usuário owner — depende do Vini.
-- [ ] Vincular Vercel, configurar variáveis e homologar Preview — após criação do Supabase.
+- [x] Migrar backend de Supabase/Vercel para Google Cloud Run + AlloyDB for PostgreSQL 17.
+- [x] Criar servidor unificado `server.mjs`, Dockerfile multi-stage e build de produção.
+- [x] Provisionar banco `versa_collection` no AlloyDB, aplicar schema DDL e semente com 158 fotos.
+- [x] Configurar Cloud Run (`versa-collection-git`) com acesso público (`allUsers`), SSL seguro e integração Google Drive CDN.
 
 
