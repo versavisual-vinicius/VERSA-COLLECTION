@@ -1,0 +1,107 @@
+{
+  "collection": {
+    "id": "col-barbearia",
+    "slug": "barbearia",
+    "title": "BARBEARIA",
+    "businessName": "Versa Visual",
+    "businessUrl": "https://instagram.com/v1ncsc",
+    "cover": {
+      "alt": "Capa da coleção BARBEARIA",
+      "width": 890,
+      "height": 1583,
+      "dominantColor": "#12151a",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1i5GPXvlV8QqlZakFS2iaDBuAvYOZ9hdt=w640",
+          "width": 640,
+          "height": 1138,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1i5GPXvlV8QqlZakFS2iaDBuAvYOZ9hdt=w1024",
+          "width": 1024,
+          "height": 1821,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1i5GPXvlV8QqlZakFS2iaDBuAvYOZ9hdt=s0",
+          "width": 890,
+          "height": 1583,
+          "format": "jpeg"
+        }
+      ]
+    },
+    "coverFocalPoint": {
+      "x": 50,
+      "y": 35
+    },
+    "visibility": "public",
+    "passwordRequired": false,
+    "favoritesEnabled": true,
+    "downloads": {
+      "enabled": true,
+      "individualEnabled": true,
+      "collectionEnabled": true,
+      "requiresEmail": false,
+      "requiresPin": false,
+      "allowedSizes": [
+        "original",
+        "3600",
+        "2048",
+        "1024",
+        "640"
+      ]
+    },
+    "sharingEnabled": true,
+    "slideshowEnabled": true,
+    "totalItems": 1,
+    "locale": "pt-BR",
+    "theme": {
+      "headingFont": "Outfit, sans-serif",
+      "bodyFont": "DM Sans, sans-serif",
+      "foreground": "#f5f5f4",
+      "background": "#050A0D",
+      "gridGapDesktop": 6,
+      "gridGapMobile": 4,
+      "coverOverlayOpacity": 0.65
+    }
+  },
+  "photos": [
+    {
+      "id": "photo-barbearia-001",
+      "fileName": "MAESTRO-1017.jpg",
+      "alt": "Fotografia 1 de BARBEARIA",
+      "width": 890,
+      "height": 1583,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1i5GPXvlV8QqlZakFS2iaDBuAvYOZ9hdt=w640",
+          "width": 640,
+          "height": 1138,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1i5GPXvlV8QqlZakFS2iaDBuAvYOZ9hdt=w1024",
+          "width": 1024,
+          "height": 1821,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1i5GPXvlV8QqlZakFS2iaDBuAvYOZ9hdt=s0",
+          "width": 890,
+          "height": 1583,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1i5GPXvlV8QqlZakFS2iaDBuAvYOZ9hdt=s0",
+      "shareUrl": "1i5GPXvlV8QqlZakFS2iaDBuAvYOZ9hdt",
+      "position": 1,
+      "positionTieBreaker": "MAESTRO-1017.jpg"
+    }
+  ]
+}

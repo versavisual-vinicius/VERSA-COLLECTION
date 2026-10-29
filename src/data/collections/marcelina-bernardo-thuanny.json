@@ -1,0 +1,119 @@
+{
+  "collection": {
+    "id": "col-marcelina-bernardo-thuanny",
+    "slug": "marcelina-bernardo-thuanny",
+    "title": "MARCELINA & BERNARDO THUANNY",
+    "businessName": "Versa Visual",
+    "businessUrl": "https://instagram.com/v1ncsc",
+    "cover": {
+      "alt": "Capa da coleção MARCELINA & BERNARDO THUANNY",
+      "width": 231,
+      "height": 154,
+      "dominantColor": "#12151a",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1HG37dq6It2lZtYOg6cHqBgnKGnagfYK9=s0",
+          "width": 231,
+          "height": 154,
+          "format": "jpeg"
+        }
+      ]
+    },
+    "coverFocalPoint": {
+      "x": 50,
+      "y": 35
+    },
+    "visibility": "public",
+    "passwordRequired": false,
+    "favoritesEnabled": true,
+    "downloads": {
+      "enabled": true,
+      "individualEnabled": true,
+      "collectionEnabled": true,
+      "requiresEmail": false,
+      "requiresPin": false,
+      "allowedSizes": [
+        "original",
+        "3600",
+        "2048",
+        "1024",
+        "640"
+      ]
+    },
+    "sharingEnabled": true,
+    "slideshowEnabled": true,
+    "totalItems": 2,
+    "locale": "pt-BR",
+    "theme": {
+      "headingFont": "Outfit, sans-serif",
+      "bodyFont": "DM Sans, sans-serif",
+      "foreground": "#f5f5f4",
+      "background": "#050A0D",
+      "gridGapDesktop": 6,
+      "gridGapMobile": 4,
+      "coverOverlayOpacity": 0.65
+    }
+  },
+  "photos": [
+    {
+      "id": "photo-marcelina-bernardo-thuanny-001",
+      "fileName": "B&M-247.jpg",
+      "alt": "Fotografia 1 de MARCELINA & BERNARDO THUANNY",
+      "width": 231,
+      "height": 154,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1HG37dq6It2lZtYOg6cHqBgnKGnagfYK9=s0",
+          "width": 231,
+          "height": 154,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1HG37dq6It2lZtYOg6cHqBgnKGnagfYK9=s0",
+      "shareUrl": "1HG37dq6It2lZtYOg6cHqBgnKGnagfYK9",
+      "position": 1,
+      "positionTieBreaker": "B&M-247.jpg"
+    },
+    {
+      "id": "photo-marcelina-bernardo-thuanny-002",
+      "fileName": "B&M-406.jpg",
+      "alt": "Fotografia 2 de MARCELINA & BERNARDO THUANNY",
+      "width": 1072,
+      "height": 1608,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IlKuKHnju3OjHXrH1YeZxMVVms4I0yZ_=w640",
+          "width": 640,
+          "height": 960,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IlKuKHnju3OjHXrH1YeZxMVVms4I0yZ_=w1024",
+          "width": 1024,
+          "height": 1536,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IlKuKHnju3OjHXrH1YeZxMVVms4I0yZ_=s0",
+          "width": 1072,
+          "height": 1608,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1IlKuKHnju3OjHXrH1YeZxMVVms4I0yZ_=s0",
+      "shareUrl": "1IlKuKHnju3OjHXrH1YeZxMVVms4I0yZ_",
+      "position": 2,
+      "positionTieBreaker": "B&M-406.jpg"
+    }
+  ]
+}

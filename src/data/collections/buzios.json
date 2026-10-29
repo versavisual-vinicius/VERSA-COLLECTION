@@ -1,0 +1,611 @@
+{
+  "collection": {
+    "id": "col-buzios",
+    "slug": "buzios",
+    "title": "Buzios",
+    "businessName": "Versa Visual",
+    "businessUrl": "https://instagram.com/v1ncsc",
+    "cover": {
+      "alt": "Capa da coleção Buzios",
+      "width": 3840,
+      "height": 2560,
+      "dominantColor": "#12151a",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1uAPvdHIue2eailGfgbdWrRhFGkw9qQ_s=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1uAPvdHIue2eailGfgbdWrRhFGkw9qQ_s=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1uAPvdHIue2eailGfgbdWrRhFGkw9qQ_s=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1uAPvdHIue2eailGfgbdWrRhFGkw9qQ_s=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1uAPvdHIue2eailGfgbdWrRhFGkw9qQ_s=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ]
+    },
+    "coverFocalPoint": {
+      "x": 50,
+      "y": 35
+    },
+    "visibility": "public",
+    "passwordRequired": false,
+    "favoritesEnabled": true,
+    "downloads": {
+      "enabled": true,
+      "individualEnabled": true,
+      "collectionEnabled": true,
+      "requiresEmail": false,
+      "requiresPin": false,
+      "allowedSizes": [
+        "original",
+        "3600",
+        "2048",
+        "1024",
+        "640"
+      ]
+    },
+    "sharingEnabled": true,
+    "slideshowEnabled": true,
+    "totalItems": 11,
+    "locale": "pt-BR",
+    "theme": {
+      "headingFont": "Outfit, sans-serif",
+      "bodyFont": "DM Sans, sans-serif",
+      "foreground": "#f5f5f4",
+      "background": "#050A0D",
+      "gridGapDesktop": 6,
+      "gridGapMobile": 4,
+      "coverOverlayOpacity": 0.65
+    }
+  },
+  "photos": [
+    {
+      "id": "photo-buzios-001",
+      "fileName": "._BZ-7212.jpg",
+      "alt": "Fotografia 1 de Buzios",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1uAPvdHIue2eailGfgbdWrRhFGkw9qQ_s=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1uAPvdHIue2eailGfgbdWrRhFGkw9qQ_s=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1uAPvdHIue2eailGfgbdWrRhFGkw9qQ_s=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1uAPvdHIue2eailGfgbdWrRhFGkw9qQ_s=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1uAPvdHIue2eailGfgbdWrRhFGkw9qQ_s=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1uAPvdHIue2eailGfgbdWrRhFGkw9qQ_s=s0",
+      "shareUrl": "1uAPvdHIue2eailGfgbdWrRhFGkw9qQ_s",
+      "position": 1,
+      "positionTieBreaker": "._BZ-7212.jpg"
+    },
+    {
+      "id": "photo-buzios-002",
+      "fileName": "._BZ-7213.jpg",
+      "alt": "Fotografia 2 de Buzios",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1lUsID5eHtLv_XTKf0-gDDmdn-JA2sjcB=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1lUsID5eHtLv_XTKf0-gDDmdn-JA2sjcB=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1lUsID5eHtLv_XTKf0-gDDmdn-JA2sjcB=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1lUsID5eHtLv_XTKf0-gDDmdn-JA2sjcB=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1lUsID5eHtLv_XTKf0-gDDmdn-JA2sjcB=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1lUsID5eHtLv_XTKf0-gDDmdn-JA2sjcB=s0",
+      "shareUrl": "1lUsID5eHtLv_XTKf0-gDDmdn-JA2sjcB",
+      "position": 2,
+      "positionTieBreaker": "._BZ-7213.jpg"
+    },
+    {
+      "id": "photo-buzios-003",
+      "fileName": "._BZ-7214.jpg",
+      "alt": "Fotografia 3 de Buzios",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iS0uSGQaj3atM3WD5YmSGwprZVG8bGBp=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iS0uSGQaj3atM3WD5YmSGwprZVG8bGBp=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iS0uSGQaj3atM3WD5YmSGwprZVG8bGBp=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iS0uSGQaj3atM3WD5YmSGwprZVG8bGBp=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iS0uSGQaj3atM3WD5YmSGwprZVG8bGBp=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1iS0uSGQaj3atM3WD5YmSGwprZVG8bGBp=s0",
+      "shareUrl": "1iS0uSGQaj3atM3WD5YmSGwprZVG8bGBp",
+      "position": 3,
+      "positionTieBreaker": "._BZ-7214.jpg"
+    },
+    {
+      "id": "photo-buzios-004",
+      "fileName": "._BZ-7217.jpg",
+      "alt": "Fotografia 4 de Buzios",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1gygGsJS9NApISwhXU5AMmNwKB_2EMpx2=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1gygGsJS9NApISwhXU5AMmNwKB_2EMpx2=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1gygGsJS9NApISwhXU5AMmNwKB_2EMpx2=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1gygGsJS9NApISwhXU5AMmNwKB_2EMpx2=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1gygGsJS9NApISwhXU5AMmNwKB_2EMpx2=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1gygGsJS9NApISwhXU5AMmNwKB_2EMpx2=s0",
+      "shareUrl": "1gygGsJS9NApISwhXU5AMmNwKB_2EMpx2",
+      "position": 4,
+      "positionTieBreaker": "._BZ-7217.jpg"
+    },
+    {
+      "id": "photo-buzios-005",
+      "fileName": "._BZ-7218.jpg",
+      "alt": "Fotografia 5 de Buzios",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Px0pPHof-HVBBWzTonIYfbLw4oJoxgTP=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Px0pPHof-HVBBWzTonIYfbLw4oJoxgTP=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Px0pPHof-HVBBWzTonIYfbLw4oJoxgTP=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Px0pPHof-HVBBWzTonIYfbLw4oJoxgTP=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Px0pPHof-HVBBWzTonIYfbLw4oJoxgTP=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1Px0pPHof-HVBBWzTonIYfbLw4oJoxgTP=s0",
+      "shareUrl": "1Px0pPHof-HVBBWzTonIYfbLw4oJoxgTP",
+      "position": 5,
+      "positionTieBreaker": "._BZ-7218.jpg"
+    },
+    {
+      "id": "photo-buzios-006",
+      "fileName": "._BZ-7219.jpg",
+      "alt": "Fotografia 6 de Buzios",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qFZd28xTl4boUp-7lEAvM2k4nTe-MXhs=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qFZd28xTl4boUp-7lEAvM2k4nTe-MXhs=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qFZd28xTl4boUp-7lEAvM2k4nTe-MXhs=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qFZd28xTl4boUp-7lEAvM2k4nTe-MXhs=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qFZd28xTl4boUp-7lEAvM2k4nTe-MXhs=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1qFZd28xTl4boUp-7lEAvM2k4nTe-MXhs=s0",
+      "shareUrl": "1qFZd28xTl4boUp-7lEAvM2k4nTe-MXhs",
+      "position": 6,
+      "positionTieBreaker": "._BZ-7219.jpg"
+    },
+    {
+      "id": "photo-buzios-007",
+      "fileName": "._BZ-7220.jpg",
+      "alt": "Fotografia 7 de Buzios",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Q7hOXbsq5Cm-8zjXrNZUlG6pAKydO71A=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Q7hOXbsq5Cm-8zjXrNZUlG6pAKydO71A=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Q7hOXbsq5Cm-8zjXrNZUlG6pAKydO71A=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Q7hOXbsq5Cm-8zjXrNZUlG6pAKydO71A=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Q7hOXbsq5Cm-8zjXrNZUlG6pAKydO71A=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1Q7hOXbsq5Cm-8zjXrNZUlG6pAKydO71A=s0",
+      "shareUrl": "1Q7hOXbsq5Cm-8zjXrNZUlG6pAKydO71A",
+      "position": 7,
+      "positionTieBreaker": "._BZ-7220.jpg"
+    },
+    {
+      "id": "photo-buzios-008",
+      "fileName": "._BZ-7221.jpg",
+      "alt": "Fotografia 8 de Buzios",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1A8PNWEDzW08F8b0x0_0t9ol2OEPxhJj2=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1A8PNWEDzW08F8b0x0_0t9ol2OEPxhJj2=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1A8PNWEDzW08F8b0x0_0t9ol2OEPxhJj2=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1A8PNWEDzW08F8b0x0_0t9ol2OEPxhJj2=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1A8PNWEDzW08F8b0x0_0t9ol2OEPxhJj2=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1A8PNWEDzW08F8b0x0_0t9ol2OEPxhJj2=s0",
+      "shareUrl": "1A8PNWEDzW08F8b0x0_0t9ol2OEPxhJj2",
+      "position": 8,
+      "positionTieBreaker": "._BZ-7221.jpg"
+    },
+    {
+      "id": "photo-buzios-009",
+      "fileName": "._BZ-7222.jpg",
+      "alt": "Fotografia 9 de Buzios",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1PDkTIr6NPsIGu_wdEQv22yjrqJBWmwKL=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1PDkTIr6NPsIGu_wdEQv22yjrqJBWmwKL=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1PDkTIr6NPsIGu_wdEQv22yjrqJBWmwKL=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1PDkTIr6NPsIGu_wdEQv22yjrqJBWmwKL=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1PDkTIr6NPsIGu_wdEQv22yjrqJBWmwKL=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1PDkTIr6NPsIGu_wdEQv22yjrqJBWmwKL=s0",
+      "shareUrl": "1PDkTIr6NPsIGu_wdEQv22yjrqJBWmwKL",
+      "position": 9,
+      "positionTieBreaker": "._BZ-7222.jpg"
+    },
+    {
+      "id": "photo-buzios-010",
+      "fileName": "._BZ-7223.jpg",
+      "alt": "Fotografia 10 de Buzios",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/15bSkaiHVjzN71mFidNEItSJzTc_4-BQe=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/15bSkaiHVjzN71mFidNEItSJzTc_4-BQe=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/15bSkaiHVjzN71mFidNEItSJzTc_4-BQe=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/15bSkaiHVjzN71mFidNEItSJzTc_4-BQe=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/15bSkaiHVjzN71mFidNEItSJzTc_4-BQe=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/15bSkaiHVjzN71mFidNEItSJzTc_4-BQe=s0",
+      "shareUrl": "15bSkaiHVjzN71mFidNEItSJzTc_4-BQe",
+      "position": 10,
+      "positionTieBreaker": "._BZ-7223.jpg"
+    },
+    {
+      "id": "photo-buzios-011",
+      "fileName": "._BZ-7224.jpg",
+      "alt": "Fotografia 11 de Buzios",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Gv2yDe3n9R2kSRaIUjLRNYMTbuXwCEGn=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Gv2yDe3n9R2kSRaIUjLRNYMTbuXwCEGn=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Gv2yDe3n9R2kSRaIUjLRNYMTbuXwCEGn=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Gv2yDe3n9R2kSRaIUjLRNYMTbuXwCEGn=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Gv2yDe3n9R2kSRaIUjLRNYMTbuXwCEGn=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1Gv2yDe3n9R2kSRaIUjLRNYMTbuXwCEGn=s0",
+      "shareUrl": "1Gv2yDe3n9R2kSRaIUjLRNYMTbuXwCEGn",
+      "position": 11,
+      "positionTieBreaker": "._BZ-7224.jpg"
+    }
+  ]
+}

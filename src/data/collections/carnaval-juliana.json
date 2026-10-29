@@ -1,0 +1,179 @@
+{
+  "collection": {
+    "id": "col-carnaval-juliana",
+    "slug": "carnaval-juliana",
+    "title": "CARNAVAL - JULIANA",
+    "businessName": "Versa Visual",
+    "businessUrl": "https://instagram.com/v1ncsc",
+    "cover": {
+      "alt": "Capa da coleção CARNAVAL - JULIANA",
+      "width": 1261,
+      "height": 1895,
+      "dominantColor": "#12151a",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/10ZRfr0c885E_3vpao3Z1QpVogKueGjPD=w640",
+          "width": 640,
+          "height": 962,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/10ZRfr0c885E_3vpao3Z1QpVogKueGjPD=w1024",
+          "width": 1024,
+          "height": 1539,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/10ZRfr0c885E_3vpao3Z1QpVogKueGjPD=s0",
+          "width": 1261,
+          "height": 1895,
+          "format": "jpeg"
+        }
+      ]
+    },
+    "coverFocalPoint": {
+      "x": 50,
+      "y": 35
+    },
+    "visibility": "public",
+    "passwordRequired": false,
+    "favoritesEnabled": true,
+    "downloads": {
+      "enabled": true,
+      "individualEnabled": true,
+      "collectionEnabled": true,
+      "requiresEmail": false,
+      "requiresPin": false,
+      "allowedSizes": [
+        "original",
+        "3600",
+        "2048",
+        "1024",
+        "640"
+      ]
+    },
+    "sharingEnabled": true,
+    "slideshowEnabled": true,
+    "totalItems": 3,
+    "locale": "pt-BR",
+    "theme": {
+      "headingFont": "Outfit, sans-serif",
+      "bodyFont": "DM Sans, sans-serif",
+      "foreground": "#f5f5f4",
+      "background": "#050A0D",
+      "gridGapDesktop": 6,
+      "gridGapMobile": 4,
+      "coverOverlayOpacity": 0.65
+    }
+  },
+  "photos": [
+    {
+      "id": "photo-carnaval-juliana-001",
+      "fileName": "JU-6.jpg",
+      "alt": "Fotografia 1 de CARNAVAL - JULIANA",
+      "width": 1261,
+      "height": 1895,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/10ZRfr0c885E_3vpao3Z1QpVogKueGjPD=w640",
+          "width": 640,
+          "height": 962,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/10ZRfr0c885E_3vpao3Z1QpVogKueGjPD=w1024",
+          "width": 1024,
+          "height": 1539,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/10ZRfr0c885E_3vpao3Z1QpVogKueGjPD=s0",
+          "width": 1261,
+          "height": 1895,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/10ZRfr0c885E_3vpao3Z1QpVogKueGjPD=s0",
+      "shareUrl": "10ZRfr0c885E_3vpao3Z1QpVogKueGjPD",
+      "position": 1,
+      "positionTieBreaker": "JU-6.jpg"
+    },
+    {
+      "id": "photo-carnaval-juliana-002",
+      "fileName": "JU-16.jpg",
+      "alt": "Fotografia 2 de CARNAVAL - JULIANA",
+      "width": 938,
+      "height": 1667,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1a_OuFfz5agjg8C9OIf1mDyfxbP0NcBJH=w640",
+          "width": 640,
+          "height": 1137,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1a_OuFfz5agjg8C9OIf1mDyfxbP0NcBJH=w1024",
+          "width": 1024,
+          "height": 1820,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1a_OuFfz5agjg8C9OIf1mDyfxbP0NcBJH=s0",
+          "width": 938,
+          "height": 1667,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1a_OuFfz5agjg8C9OIf1mDyfxbP0NcBJH=s0",
+      "shareUrl": "1a_OuFfz5agjg8C9OIf1mDyfxbP0NcBJH",
+      "position": 2,
+      "positionTieBreaker": "JU-16.jpg"
+    },
+    {
+      "id": "photo-carnaval-juliana-003",
+      "fileName": "JU-17.jpg",
+      "alt": "Fotografia 3 de CARNAVAL - JULIANA",
+      "width": 1309,
+      "height": 2327,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ZarPiwhwSYluld0LamPRnO8z1dn2X7Tr=w640",
+          "width": 640,
+          "height": 1138,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ZarPiwhwSYluld0LamPRnO8z1dn2X7Tr=w1024",
+          "width": 1024,
+          "height": 1820,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ZarPiwhwSYluld0LamPRnO8z1dn2X7Tr=s0",
+          "width": 1309,
+          "height": 2327,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1ZarPiwhwSYluld0LamPRnO8z1dn2X7Tr=s0",
+      "shareUrl": "1ZarPiwhwSYluld0LamPRnO8z1dn2X7Tr",
+      "position": 3,
+      "positionTieBreaker": "JU-17.jpg"
+    }
+  ]
+}

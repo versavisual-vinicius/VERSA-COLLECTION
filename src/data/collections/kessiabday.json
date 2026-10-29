@@ -1,0 +1,131 @@
+{
+  "collection": {
+    "id": "col-kessiabday",
+    "slug": "kessiabday",
+    "title": "KESSIABDAY",
+    "businessName": "Versa Visual",
+    "businessUrl": "https://instagram.com/v1ncsc",
+    "cover": {
+      "alt": "Capa da coleção KESSIABDAY",
+      "width": 3840,
+      "height": 2560,
+      "dominantColor": "#12151a",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ]
+    },
+    "coverFocalPoint": {
+      "x": 50,
+      "y": 35
+    },
+    "visibility": "public",
+    "passwordRequired": false,
+    "favoritesEnabled": true,
+    "downloads": {
+      "enabled": true,
+      "individualEnabled": true,
+      "collectionEnabled": true,
+      "requiresEmail": false,
+      "requiresPin": false,
+      "allowedSizes": [
+        "original",
+        "3600",
+        "2048",
+        "1024",
+        "640"
+      ]
+    },
+    "sharingEnabled": true,
+    "slideshowEnabled": true,
+    "totalItems": 1,
+    "locale": "pt-BR",
+    "theme": {
+      "headingFont": "Outfit, sans-serif",
+      "bodyFont": "DM Sans, sans-serif",
+      "foreground": "#f5f5f4",
+      "background": "#050A0D",
+      "gridGapDesktop": 6,
+      "gridGapMobile": 4,
+      "coverOverlayOpacity": 0.65
+    }
+  },
+  "photos": [
+    {
+      "id": "photo-kessiabday-001",
+      "fileName": "._kessia-43.jpg",
+      "alt": "Fotografia 1 de KESSIABDAY",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=s0",
+      "shareUrl": "1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg",
+      "position": 1,
+      "positionTieBreaker": "._kessia-43.jpg"
+    }
+  ]
+}

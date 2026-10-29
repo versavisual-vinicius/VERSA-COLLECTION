@@ -1,0 +1,5891 @@
+{
+  "collection": {
+    "id": "col-cha-da-alice",
+    "slug": "cha-da-alice",
+    "title": "CHA DA ALICE",
+    "businessName": "Versa Visual",
+    "businessUrl": "https://instagram.com/v1ncsc",
+    "cover": {
+      "alt": "Capa da coleção CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "dominantColor": "#12151a",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AoMLCbcfgWwtzOqETPobhJYzxvA_psA-=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AoMLCbcfgWwtzOqETPobhJYzxvA_psA-=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AoMLCbcfgWwtzOqETPobhJYzxvA_psA-=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AoMLCbcfgWwtzOqETPobhJYzxvA_psA-=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AoMLCbcfgWwtzOqETPobhJYzxvA_psA-=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ]
+    },
+    "coverFocalPoint": {
+      "x": 50,
+      "y": 35
+    },
+    "visibility": "public",
+    "passwordRequired": false,
+    "favoritesEnabled": true,
+    "downloads": {
+      "enabled": true,
+      "individualEnabled": true,
+      "collectionEnabled": true,
+      "requiresEmail": false,
+      "requiresPin": false,
+      "allowedSizes": [
+        "original",
+        "3600",
+        "2048",
+        "1024",
+        "640"
+      ]
+    },
+    "sharingEnabled": true,
+    "slideshowEnabled": true,
+    "totalItems": 121,
+    "locale": "pt-BR",
+    "theme": {
+      "headingFont": "Outfit, sans-serif",
+      "bodyFont": "DM Sans, sans-serif",
+      "foreground": "#f5f5f4",
+      "background": "#050A0D",
+      "gridGapDesktop": 6,
+      "gridGapMobile": 4,
+      "coverOverlayOpacity": 0.65
+    }
+  },
+  "photos": [
+    {
+      "id": "photo-cha-da-alice-001",
+      "fileName": "._CHA DA ALICE-500.jpg",
+      "alt": "Fotografia 1 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AoMLCbcfgWwtzOqETPobhJYzxvA_psA-=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AoMLCbcfgWwtzOqETPobhJYzxvA_psA-=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AoMLCbcfgWwtzOqETPobhJYzxvA_psA-=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AoMLCbcfgWwtzOqETPobhJYzxvA_psA-=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AoMLCbcfgWwtzOqETPobhJYzxvA_psA-=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1AoMLCbcfgWwtzOqETPobhJYzxvA_psA-=s0",
+      "shareUrl": "1AoMLCbcfgWwtzOqETPobhJYzxvA_psA-",
+      "position": 1,
+      "positionTieBreaker": "._CHA DA ALICE-500.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-002",
+      "fileName": "._CHA DA ALICE-501.jpg",
+      "alt": "Fotografia 2 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1NDNx2acETXWux6tdModz0OiWX9RKS4Bg=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1NDNx2acETXWux6tdModz0OiWX9RKS4Bg=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1NDNx2acETXWux6tdModz0OiWX9RKS4Bg=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1NDNx2acETXWux6tdModz0OiWX9RKS4Bg=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1NDNx2acETXWux6tdModz0OiWX9RKS4Bg=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1NDNx2acETXWux6tdModz0OiWX9RKS4Bg=s0",
+      "shareUrl": "1NDNx2acETXWux6tdModz0OiWX9RKS4Bg",
+      "position": 2,
+      "positionTieBreaker": "._CHA DA ALICE-501.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-003",
+      "fileName": "._CHA DA ALICE-502.jpg",
+      "alt": "Fotografia 3 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Kd1jTCKDWeAKzCishvcHUCBKes9DM-eO=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Kd1jTCKDWeAKzCishvcHUCBKes9DM-eO=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Kd1jTCKDWeAKzCishvcHUCBKes9DM-eO=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Kd1jTCKDWeAKzCishvcHUCBKes9DM-eO=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Kd1jTCKDWeAKzCishvcHUCBKes9DM-eO=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1Kd1jTCKDWeAKzCishvcHUCBKes9DM-eO=s0",
+      "shareUrl": "1Kd1jTCKDWeAKzCishvcHUCBKes9DM-eO",
+      "position": 3,
+      "positionTieBreaker": "._CHA DA ALICE-502.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-004",
+      "fileName": "._CHA DA ALICE-503.jpg",
+      "alt": "Fotografia 4 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ELkAYBFa0Xh_BJMEi_TaKIedHta0R4eg=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ELkAYBFa0Xh_BJMEi_TaKIedHta0R4eg=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ELkAYBFa0Xh_BJMEi_TaKIedHta0R4eg=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ELkAYBFa0Xh_BJMEi_TaKIedHta0R4eg=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ELkAYBFa0Xh_BJMEi_TaKIedHta0R4eg=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1ELkAYBFa0Xh_BJMEi_TaKIedHta0R4eg=s0",
+      "shareUrl": "1ELkAYBFa0Xh_BJMEi_TaKIedHta0R4eg",
+      "position": 4,
+      "positionTieBreaker": "._CHA DA ALICE-503.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-005",
+      "fileName": "._CHA DA ALICE-504.jpg",
+      "alt": "Fotografia 5 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/11R0Z013VuKDUEvOAsktboC9TXWyjpbSB=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11R0Z013VuKDUEvOAsktboC9TXWyjpbSB=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11R0Z013VuKDUEvOAsktboC9TXWyjpbSB=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11R0Z013VuKDUEvOAsktboC9TXWyjpbSB=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11R0Z013VuKDUEvOAsktboC9TXWyjpbSB=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/11R0Z013VuKDUEvOAsktboC9TXWyjpbSB=s0",
+      "shareUrl": "11R0Z013VuKDUEvOAsktboC9TXWyjpbSB",
+      "position": 5,
+      "positionTieBreaker": "._CHA DA ALICE-504.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-006",
+      "fileName": "._CHA DA ALICE-505.jpg",
+      "alt": "Fotografia 6 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-csCA4MCplcIKi7xUD1a10GFP9wMd_EJ=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-csCA4MCplcIKi7xUD1a10GFP9wMd_EJ=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-csCA4MCplcIKi7xUD1a10GFP9wMd_EJ=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-csCA4MCplcIKi7xUD1a10GFP9wMd_EJ=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-csCA4MCplcIKi7xUD1a10GFP9wMd_EJ=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1-csCA4MCplcIKi7xUD1a10GFP9wMd_EJ=s0",
+      "shareUrl": "1-csCA4MCplcIKi7xUD1a10GFP9wMd_EJ",
+      "position": 6,
+      "positionTieBreaker": "._CHA DA ALICE-505.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-007",
+      "fileName": "._CHA DA ALICE-506.jpg",
+      "alt": "Fotografia 7 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1z-YGY-6zNooEy8So5V3vpnuSqWB7XIaH=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1z-YGY-6zNooEy8So5V3vpnuSqWB7XIaH=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1z-YGY-6zNooEy8So5V3vpnuSqWB7XIaH=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1z-YGY-6zNooEy8So5V3vpnuSqWB7XIaH=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1z-YGY-6zNooEy8So5V3vpnuSqWB7XIaH=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1z-YGY-6zNooEy8So5V3vpnuSqWB7XIaH=s0",
+      "shareUrl": "1z-YGY-6zNooEy8So5V3vpnuSqWB7XIaH",
+      "position": 7,
+      "positionTieBreaker": "._CHA DA ALICE-506.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-008",
+      "fileName": "._CHA DA ALICE-507.jpg",
+      "alt": "Fotografia 8 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1yhP40lYvMovS_1WUewpnrkfhds1J6a8l=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1yhP40lYvMovS_1WUewpnrkfhds1J6a8l=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1yhP40lYvMovS_1WUewpnrkfhds1J6a8l=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1yhP40lYvMovS_1WUewpnrkfhds1J6a8l=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1yhP40lYvMovS_1WUewpnrkfhds1J6a8l=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1yhP40lYvMovS_1WUewpnrkfhds1J6a8l=s0",
+      "shareUrl": "1yhP40lYvMovS_1WUewpnrkfhds1J6a8l",
+      "position": 8,
+      "positionTieBreaker": "._CHA DA ALICE-507.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-009",
+      "fileName": "._CHA DA ALICE-508.jpg",
+      "alt": "Fotografia 9 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qsRLwq6ftqZgzScy0iOhIkfDjppkMSUb=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qsRLwq6ftqZgzScy0iOhIkfDjppkMSUb=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qsRLwq6ftqZgzScy0iOhIkfDjppkMSUb=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qsRLwq6ftqZgzScy0iOhIkfDjppkMSUb=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qsRLwq6ftqZgzScy0iOhIkfDjppkMSUb=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1qsRLwq6ftqZgzScy0iOhIkfDjppkMSUb=s0",
+      "shareUrl": "1qsRLwq6ftqZgzScy0iOhIkfDjppkMSUb",
+      "position": 9,
+      "positionTieBreaker": "._CHA DA ALICE-508.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-010",
+      "fileName": "._CHA DA ALICE-509.jpg",
+      "alt": "Fotografia 10 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-cGb-w9vymSMs64YZy1WBL7HE3Wbg0RH=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-cGb-w9vymSMs64YZy1WBL7HE3Wbg0RH=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-cGb-w9vymSMs64YZy1WBL7HE3Wbg0RH=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-cGb-w9vymSMs64YZy1WBL7HE3Wbg0RH=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-cGb-w9vymSMs64YZy1WBL7HE3Wbg0RH=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1-cGb-w9vymSMs64YZy1WBL7HE3Wbg0RH=s0",
+      "shareUrl": "1-cGb-w9vymSMs64YZy1WBL7HE3Wbg0RH",
+      "position": 10,
+      "positionTieBreaker": "._CHA DA ALICE-509.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-011",
+      "fileName": "._CHA DA ALICE-510.jpg",
+      "alt": "Fotografia 11 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/18aKPq7hzQ7wUdilC-VA_glLjtCaK_9br=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/18aKPq7hzQ7wUdilC-VA_glLjtCaK_9br=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/18aKPq7hzQ7wUdilC-VA_glLjtCaK_9br=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/18aKPq7hzQ7wUdilC-VA_glLjtCaK_9br=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/18aKPq7hzQ7wUdilC-VA_glLjtCaK_9br=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/18aKPq7hzQ7wUdilC-VA_glLjtCaK_9br=s0",
+      "shareUrl": "18aKPq7hzQ7wUdilC-VA_glLjtCaK_9br",
+      "position": 11,
+      "positionTieBreaker": "._CHA DA ALICE-510.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-012",
+      "fileName": "._CHA DA ALICE-511.jpg",
+      "alt": "Fotografia 12 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1U3qd6oVX0ei8qveXgaC8egviUSiZ2Bd0=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1U3qd6oVX0ei8qveXgaC8egviUSiZ2Bd0=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1U3qd6oVX0ei8qveXgaC8egviUSiZ2Bd0=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1U3qd6oVX0ei8qveXgaC8egviUSiZ2Bd0=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1U3qd6oVX0ei8qveXgaC8egviUSiZ2Bd0=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1U3qd6oVX0ei8qveXgaC8egviUSiZ2Bd0=s0",
+      "shareUrl": "1U3qd6oVX0ei8qveXgaC8egviUSiZ2Bd0",
+      "position": 12,
+      "positionTieBreaker": "._CHA DA ALICE-511.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-013",
+      "fileName": "._CHA DA ALICE-512.jpg",
+      "alt": "Fotografia 13 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1RB6mv_5ghcWlF1Q3TtNyiJLe_GREGjsL=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1RB6mv_5ghcWlF1Q3TtNyiJLe_GREGjsL=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1RB6mv_5ghcWlF1Q3TtNyiJLe_GREGjsL=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1RB6mv_5ghcWlF1Q3TtNyiJLe_GREGjsL=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1RB6mv_5ghcWlF1Q3TtNyiJLe_GREGjsL=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1RB6mv_5ghcWlF1Q3TtNyiJLe_GREGjsL=s0",
+      "shareUrl": "1RB6mv_5ghcWlF1Q3TtNyiJLe_GREGjsL",
+      "position": 13,
+      "positionTieBreaker": "._CHA DA ALICE-512.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-014",
+      "fileName": "._CHA DA ALICE-513.jpg",
+      "alt": "Fotografia 14 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AGo--xz5f7EYcFjO_hBf3amLqgTWSWTL=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AGo--xz5f7EYcFjO_hBf3amLqgTWSWTL=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AGo--xz5f7EYcFjO_hBf3amLqgTWSWTL=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AGo--xz5f7EYcFjO_hBf3amLqgTWSWTL=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1AGo--xz5f7EYcFjO_hBf3amLqgTWSWTL=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1AGo--xz5f7EYcFjO_hBf3amLqgTWSWTL=s0",
+      "shareUrl": "1AGo--xz5f7EYcFjO_hBf3amLqgTWSWTL",
+      "position": 14,
+      "positionTieBreaker": "._CHA DA ALICE-513.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-015",
+      "fileName": "._CHA DA ALICE-514.jpg",
+      "alt": "Fotografia 15 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1n7B8kj-FazRoYYS69qRCmCGAdHg4DkRl=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1n7B8kj-FazRoYYS69qRCmCGAdHg4DkRl=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1n7B8kj-FazRoYYS69qRCmCGAdHg4DkRl=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1n7B8kj-FazRoYYS69qRCmCGAdHg4DkRl=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1n7B8kj-FazRoYYS69qRCmCGAdHg4DkRl=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1n7B8kj-FazRoYYS69qRCmCGAdHg4DkRl=s0",
+      "shareUrl": "1n7B8kj-FazRoYYS69qRCmCGAdHg4DkRl",
+      "position": 15,
+      "positionTieBreaker": "._CHA DA ALICE-514.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-016",
+      "fileName": "._CHA DA ALICE-515.jpg",
+      "alt": "Fotografia 16 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1eI_e0sclSkPp6AF3Fj9Pg4z18ixoQq1T=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1eI_e0sclSkPp6AF3Fj9Pg4z18ixoQq1T=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1eI_e0sclSkPp6AF3Fj9Pg4z18ixoQq1T=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1eI_e0sclSkPp6AF3Fj9Pg4z18ixoQq1T=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1eI_e0sclSkPp6AF3Fj9Pg4z18ixoQq1T=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1eI_e0sclSkPp6AF3Fj9Pg4z18ixoQq1T=s0",
+      "shareUrl": "1eI_e0sclSkPp6AF3Fj9Pg4z18ixoQq1T",
+      "position": 16,
+      "positionTieBreaker": "._CHA DA ALICE-515.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-017",
+      "fileName": "._CHA DA ALICE-516.jpg",
+      "alt": "Fotografia 17 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/11smJdn0T2FMgRxIhqEjS58IwpMT3yBfO=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11smJdn0T2FMgRxIhqEjS58IwpMT3yBfO=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11smJdn0T2FMgRxIhqEjS58IwpMT3yBfO=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11smJdn0T2FMgRxIhqEjS58IwpMT3yBfO=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11smJdn0T2FMgRxIhqEjS58IwpMT3yBfO=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/11smJdn0T2FMgRxIhqEjS58IwpMT3yBfO=s0",
+      "shareUrl": "11smJdn0T2FMgRxIhqEjS58IwpMT3yBfO",
+      "position": 17,
+      "positionTieBreaker": "._CHA DA ALICE-516.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-018",
+      "fileName": "._CHA DA ALICE-517.jpg",
+      "alt": "Fotografia 18 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/15qEhvmKQSLIIBqckPvolYV42y6WRClgv=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/15qEhvmKQSLIIBqckPvolYV42y6WRClgv=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/15qEhvmKQSLIIBqckPvolYV42y6WRClgv=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/15qEhvmKQSLIIBqckPvolYV42y6WRClgv=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/15qEhvmKQSLIIBqckPvolYV42y6WRClgv=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/15qEhvmKQSLIIBqckPvolYV42y6WRClgv=s0",
+      "shareUrl": "15qEhvmKQSLIIBqckPvolYV42y6WRClgv",
+      "position": 18,
+      "positionTieBreaker": "._CHA DA ALICE-517.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-019",
+      "fileName": "._CHA DA ALICE-518.jpg",
+      "alt": "Fotografia 19 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1W1eILsys2YfG6JKI6d8Fv5K9l9ox5-MC=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1W1eILsys2YfG6JKI6d8Fv5K9l9ox5-MC=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1W1eILsys2YfG6JKI6d8Fv5K9l9ox5-MC=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1W1eILsys2YfG6JKI6d8Fv5K9l9ox5-MC=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1W1eILsys2YfG6JKI6d8Fv5K9l9ox5-MC=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1W1eILsys2YfG6JKI6d8Fv5K9l9ox5-MC=s0",
+      "shareUrl": "1W1eILsys2YfG6JKI6d8Fv5K9l9ox5-MC",
+      "position": 19,
+      "positionTieBreaker": "._CHA DA ALICE-518.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-020",
+      "fileName": "._CHA DA ALICE-519.jpg",
+      "alt": "Fotografia 20 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1K69zg859omWV_SlxdDTDuHdRmWa7cEWT=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1K69zg859omWV_SlxdDTDuHdRmWa7cEWT=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1K69zg859omWV_SlxdDTDuHdRmWa7cEWT=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1K69zg859omWV_SlxdDTDuHdRmWa7cEWT=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1K69zg859omWV_SlxdDTDuHdRmWa7cEWT=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1K69zg859omWV_SlxdDTDuHdRmWa7cEWT=s0",
+      "shareUrl": "1K69zg859omWV_SlxdDTDuHdRmWa7cEWT",
+      "position": 20,
+      "positionTieBreaker": "._CHA DA ALICE-519.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-021",
+      "fileName": "._CHA DA ALICE-520.jpg",
+      "alt": "Fotografia 21 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1FWh5gWfTXSGTReG2BGimhO-ubC3fVczw=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1FWh5gWfTXSGTReG2BGimhO-ubC3fVczw=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1FWh5gWfTXSGTReG2BGimhO-ubC3fVczw=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1FWh5gWfTXSGTReG2BGimhO-ubC3fVczw=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1FWh5gWfTXSGTReG2BGimhO-ubC3fVczw=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1FWh5gWfTXSGTReG2BGimhO-ubC3fVczw=s0",
+      "shareUrl": "1FWh5gWfTXSGTReG2BGimhO-ubC3fVczw",
+      "position": 21,
+      "positionTieBreaker": "._CHA DA ALICE-520.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-022",
+      "fileName": "._CHA DA ALICE-521.jpg",
+      "alt": "Fotografia 22 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Qm5idgM4-TDZQdaPTqVM7PT13pVY86iK=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Qm5idgM4-TDZQdaPTqVM7PT13pVY86iK=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Qm5idgM4-TDZQdaPTqVM7PT13pVY86iK=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Qm5idgM4-TDZQdaPTqVM7PT13pVY86iK=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Qm5idgM4-TDZQdaPTqVM7PT13pVY86iK=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1Qm5idgM4-TDZQdaPTqVM7PT13pVY86iK=s0",
+      "shareUrl": "1Qm5idgM4-TDZQdaPTqVM7PT13pVY86iK",
+      "position": 22,
+      "positionTieBreaker": "._CHA DA ALICE-521.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-023",
+      "fileName": "._CHA DA ALICE-522.jpg",
+      "alt": "Fotografia 23 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QStIzX8k6G2DyYFyJsCQCVNog8G56k7K=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QStIzX8k6G2DyYFyJsCQCVNog8G56k7K=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QStIzX8k6G2DyYFyJsCQCVNog8G56k7K=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QStIzX8k6G2DyYFyJsCQCVNog8G56k7K=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QStIzX8k6G2DyYFyJsCQCVNog8G56k7K=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1QStIzX8k6G2DyYFyJsCQCVNog8G56k7K=s0",
+      "shareUrl": "1QStIzX8k6G2DyYFyJsCQCVNog8G56k7K",
+      "position": 23,
+      "positionTieBreaker": "._CHA DA ALICE-522.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-024",
+      "fileName": "._CHA DA ALICE-523.jpg",
+      "alt": "Fotografia 24 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OxwwOG6KHBLbd0PVyIRiS7DsRhOAB7yl=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OxwwOG6KHBLbd0PVyIRiS7DsRhOAB7yl=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OxwwOG6KHBLbd0PVyIRiS7DsRhOAB7yl=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OxwwOG6KHBLbd0PVyIRiS7DsRhOAB7yl=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OxwwOG6KHBLbd0PVyIRiS7DsRhOAB7yl=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1OxwwOG6KHBLbd0PVyIRiS7DsRhOAB7yl=s0",
+      "shareUrl": "1OxwwOG6KHBLbd0PVyIRiS7DsRhOAB7yl",
+      "position": 24,
+      "positionTieBreaker": "._CHA DA ALICE-523.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-025",
+      "fileName": "._CHA DA ALICE-524.jpg",
+      "alt": "Fotografia 25 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1cN7qjZjfJTcPNeB5ZeeNNIzZS7nhWQFH=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1cN7qjZjfJTcPNeB5ZeeNNIzZS7nhWQFH=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1cN7qjZjfJTcPNeB5ZeeNNIzZS7nhWQFH=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1cN7qjZjfJTcPNeB5ZeeNNIzZS7nhWQFH=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1cN7qjZjfJTcPNeB5ZeeNNIzZS7nhWQFH=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1cN7qjZjfJTcPNeB5ZeeNNIzZS7nhWQFH=s0",
+      "shareUrl": "1cN7qjZjfJTcPNeB5ZeeNNIzZS7nhWQFH",
+      "position": 25,
+      "positionTieBreaker": "._CHA DA ALICE-524.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-026",
+      "fileName": "._CHA DA ALICE-525.jpg",
+      "alt": "Fotografia 26 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ZQZQTL_UTh5G6Sq7LbqBM4j3W52vP2rD=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ZQZQTL_UTh5G6Sq7LbqBM4j3W52vP2rD=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ZQZQTL_UTh5G6Sq7LbqBM4j3W52vP2rD=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ZQZQTL_UTh5G6Sq7LbqBM4j3W52vP2rD=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ZQZQTL_UTh5G6Sq7LbqBM4j3W52vP2rD=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1ZQZQTL_UTh5G6Sq7LbqBM4j3W52vP2rD=s0",
+      "shareUrl": "1ZQZQTL_UTh5G6Sq7LbqBM4j3W52vP2rD",
+      "position": 26,
+      "positionTieBreaker": "._CHA DA ALICE-525.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-027",
+      "fileName": "._CHA DA ALICE-526.jpg",
+      "alt": "Fotografia 27 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1YrDmCYMGJ2F639VU-8H0BwqahRVhmI7W=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1YrDmCYMGJ2F639VU-8H0BwqahRVhmI7W=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1YrDmCYMGJ2F639VU-8H0BwqahRVhmI7W=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1YrDmCYMGJ2F639VU-8H0BwqahRVhmI7W=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1YrDmCYMGJ2F639VU-8H0BwqahRVhmI7W=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1YrDmCYMGJ2F639VU-8H0BwqahRVhmI7W=s0",
+      "shareUrl": "1YrDmCYMGJ2F639VU-8H0BwqahRVhmI7W",
+      "position": 27,
+      "positionTieBreaker": "._CHA DA ALICE-526.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-028",
+      "fileName": "._CHA DA ALICE-527.jpg",
+      "alt": "Fotografia 28 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iUwatUxndea_o2I_dzCscx58arEU28z2=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iUwatUxndea_o2I_dzCscx58arEU28z2=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iUwatUxndea_o2I_dzCscx58arEU28z2=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iUwatUxndea_o2I_dzCscx58arEU28z2=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iUwatUxndea_o2I_dzCscx58arEU28z2=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1iUwatUxndea_o2I_dzCscx58arEU28z2=s0",
+      "shareUrl": "1iUwatUxndea_o2I_dzCscx58arEU28z2",
+      "position": 28,
+      "positionTieBreaker": "._CHA DA ALICE-527.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-029",
+      "fileName": "._CHA DA ALICE-528.jpg",
+      "alt": "Fotografia 29 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1MTtZk8rDk5BWn1cnbZsx0ke2OW72ogI2=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1MTtZk8rDk5BWn1cnbZsx0ke2OW72ogI2=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1MTtZk8rDk5BWn1cnbZsx0ke2OW72ogI2=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1MTtZk8rDk5BWn1cnbZsx0ke2OW72ogI2=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1MTtZk8rDk5BWn1cnbZsx0ke2OW72ogI2=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1MTtZk8rDk5BWn1cnbZsx0ke2OW72ogI2=s0",
+      "shareUrl": "1MTtZk8rDk5BWn1cnbZsx0ke2OW72ogI2",
+      "position": 29,
+      "positionTieBreaker": "._CHA DA ALICE-528.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-030",
+      "fileName": "._CHA DA ALICE-529.jpg",
+      "alt": "Fotografia 30 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1G2qL9NIL8exHcMcdRm6kH3soFfOUX6XX=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1G2qL9NIL8exHcMcdRm6kH3soFfOUX6XX=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1G2qL9NIL8exHcMcdRm6kH3soFfOUX6XX=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1G2qL9NIL8exHcMcdRm6kH3soFfOUX6XX=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1G2qL9NIL8exHcMcdRm6kH3soFfOUX6XX=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1G2qL9NIL8exHcMcdRm6kH3soFfOUX6XX=s0",
+      "shareUrl": "1G2qL9NIL8exHcMcdRm6kH3soFfOUX6XX",
+      "position": 30,
+      "positionTieBreaker": "._CHA DA ALICE-529.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-031",
+      "fileName": "._CHA DA ALICE-530.jpg",
+      "alt": "Fotografia 31 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1K_W9uqyzws-nqyKaO5_HONwsgIJcxdzX=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1K_W9uqyzws-nqyKaO5_HONwsgIJcxdzX=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1K_W9uqyzws-nqyKaO5_HONwsgIJcxdzX=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1K_W9uqyzws-nqyKaO5_HONwsgIJcxdzX=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1K_W9uqyzws-nqyKaO5_HONwsgIJcxdzX=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1K_W9uqyzws-nqyKaO5_HONwsgIJcxdzX=s0",
+      "shareUrl": "1K_W9uqyzws-nqyKaO5_HONwsgIJcxdzX",
+      "position": 31,
+      "positionTieBreaker": "._CHA DA ALICE-530.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-032",
+      "fileName": "._CHA DA ALICE-531.jpg",
+      "alt": "Fotografia 32 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1erN3MFczZQafhTrqwwnx8kKuvJ0oznaG=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1erN3MFczZQafhTrqwwnx8kKuvJ0oznaG=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1erN3MFczZQafhTrqwwnx8kKuvJ0oznaG=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1erN3MFczZQafhTrqwwnx8kKuvJ0oznaG=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1erN3MFczZQafhTrqwwnx8kKuvJ0oznaG=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1erN3MFczZQafhTrqwwnx8kKuvJ0oznaG=s0",
+      "shareUrl": "1erN3MFczZQafhTrqwwnx8kKuvJ0oznaG",
+      "position": 32,
+      "positionTieBreaker": "._CHA DA ALICE-531.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-033",
+      "fileName": "._CHA DA ALICE-532.jpg",
+      "alt": "Fotografia 33 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/16-PW7rRHlLX7lvCB62-KpwK5w1p4BfZk=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/16-PW7rRHlLX7lvCB62-KpwK5w1p4BfZk=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/16-PW7rRHlLX7lvCB62-KpwK5w1p4BfZk=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/16-PW7rRHlLX7lvCB62-KpwK5w1p4BfZk=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/16-PW7rRHlLX7lvCB62-KpwK5w1p4BfZk=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/16-PW7rRHlLX7lvCB62-KpwK5w1p4BfZk=s0",
+      "shareUrl": "16-PW7rRHlLX7lvCB62-KpwK5w1p4BfZk",
+      "position": 33,
+      "positionTieBreaker": "._CHA DA ALICE-532.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-034",
+      "fileName": "._CHA DA ALICE-533.jpg",
+      "alt": "Fotografia 34 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1P55k8dyENOYyak6xFy4SnX1pMnvxy019=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1P55k8dyENOYyak6xFy4SnX1pMnvxy019=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1P55k8dyENOYyak6xFy4SnX1pMnvxy019=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1P55k8dyENOYyak6xFy4SnX1pMnvxy019=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1P55k8dyENOYyak6xFy4SnX1pMnvxy019=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1P55k8dyENOYyak6xFy4SnX1pMnvxy019=s0",
+      "shareUrl": "1P55k8dyENOYyak6xFy4SnX1pMnvxy019",
+      "position": 34,
+      "positionTieBreaker": "._CHA DA ALICE-533.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-035",
+      "fileName": "._CHA DA ALICE-534.jpg",
+      "alt": "Fotografia 35 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1x1to5TkJOp8e9z0cYqdb-a8r3xXBUhpv=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1x1to5TkJOp8e9z0cYqdb-a8r3xXBUhpv=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1x1to5TkJOp8e9z0cYqdb-a8r3xXBUhpv=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1x1to5TkJOp8e9z0cYqdb-a8r3xXBUhpv=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1x1to5TkJOp8e9z0cYqdb-a8r3xXBUhpv=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1x1to5TkJOp8e9z0cYqdb-a8r3xXBUhpv=s0",
+      "shareUrl": "1x1to5TkJOp8e9z0cYqdb-a8r3xXBUhpv",
+      "position": 35,
+      "positionTieBreaker": "._CHA DA ALICE-534.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-036",
+      "fileName": "._CHA DA ALICE-535.jpg",
+      "alt": "Fotografia 36 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vriF4OsRffb18JPxfrrhwszafmY8KTv-=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vriF4OsRffb18JPxfrrhwszafmY8KTv-=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vriF4OsRffb18JPxfrrhwszafmY8KTv-=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vriF4OsRffb18JPxfrrhwszafmY8KTv-=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vriF4OsRffb18JPxfrrhwszafmY8KTv-=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1vriF4OsRffb18JPxfrrhwszafmY8KTv-=s0",
+      "shareUrl": "1vriF4OsRffb18JPxfrrhwszafmY8KTv-",
+      "position": 36,
+      "positionTieBreaker": "._CHA DA ALICE-535.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-037",
+      "fileName": "._CHA DA ALICE-536.jpg",
+      "alt": "Fotografia 37 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1umJjDRFU-ZclyHqSG_eUFPNhivaGB6cy=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1umJjDRFU-ZclyHqSG_eUFPNhivaGB6cy=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1umJjDRFU-ZclyHqSG_eUFPNhivaGB6cy=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1umJjDRFU-ZclyHqSG_eUFPNhivaGB6cy=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1umJjDRFU-ZclyHqSG_eUFPNhivaGB6cy=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1umJjDRFU-ZclyHqSG_eUFPNhivaGB6cy=s0",
+      "shareUrl": "1umJjDRFU-ZclyHqSG_eUFPNhivaGB6cy",
+      "position": 37,
+      "positionTieBreaker": "._CHA DA ALICE-536.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-038",
+      "fileName": "._CHA DA ALICE-537.jpg",
+      "alt": "Fotografia 38 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1v-dHShlI1-Q1ZeW4rQoTwgBJ42RbfZQV=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1v-dHShlI1-Q1ZeW4rQoTwgBJ42RbfZQV=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1v-dHShlI1-Q1ZeW4rQoTwgBJ42RbfZQV=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1v-dHShlI1-Q1ZeW4rQoTwgBJ42RbfZQV=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1v-dHShlI1-Q1ZeW4rQoTwgBJ42RbfZQV=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1v-dHShlI1-Q1ZeW4rQoTwgBJ42RbfZQV=s0",
+      "shareUrl": "1v-dHShlI1-Q1ZeW4rQoTwgBJ42RbfZQV",
+      "position": 38,
+      "positionTieBreaker": "._CHA DA ALICE-537.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-039",
+      "fileName": "._CHA DA ALICE-538.jpg",
+      "alt": "Fotografia 39 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1WKyi1wCjlEokGwgz5LT7S7kMLndylax-=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1WKyi1wCjlEokGwgz5LT7S7kMLndylax-=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1WKyi1wCjlEokGwgz5LT7S7kMLndylax-=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1WKyi1wCjlEokGwgz5LT7S7kMLndylax-=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1WKyi1wCjlEokGwgz5LT7S7kMLndylax-=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1WKyi1wCjlEokGwgz5LT7S7kMLndylax-=s0",
+      "shareUrl": "1WKyi1wCjlEokGwgz5LT7S7kMLndylax-",
+      "position": 39,
+      "positionTieBreaker": "._CHA DA ALICE-538.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-040",
+      "fileName": "._CHA DA ALICE-539.jpg",
+      "alt": "Fotografia 40 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qdtcL73J_yM89om9ZvkxsVG4uw-X6UxK=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qdtcL73J_yM89om9ZvkxsVG4uw-X6UxK=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qdtcL73J_yM89om9ZvkxsVG4uw-X6UxK=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qdtcL73J_yM89om9ZvkxsVG4uw-X6UxK=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qdtcL73J_yM89om9ZvkxsVG4uw-X6UxK=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1qdtcL73J_yM89om9ZvkxsVG4uw-X6UxK=s0",
+      "shareUrl": "1qdtcL73J_yM89om9ZvkxsVG4uw-X6UxK",
+      "position": 40,
+      "positionTieBreaker": "._CHA DA ALICE-539.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-041",
+      "fileName": "._CHA DA ALICE-540.jpg",
+      "alt": "Fotografia 41 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1sAAzNs5t1YHmvm3Y2aQelo9flo4Yw7LG=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1sAAzNs5t1YHmvm3Y2aQelo9flo4Yw7LG=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1sAAzNs5t1YHmvm3Y2aQelo9flo4Yw7LG=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1sAAzNs5t1YHmvm3Y2aQelo9flo4Yw7LG=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1sAAzNs5t1YHmvm3Y2aQelo9flo4Yw7LG=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1sAAzNs5t1YHmvm3Y2aQelo9flo4Yw7LG=s0",
+      "shareUrl": "1sAAzNs5t1YHmvm3Y2aQelo9flo4Yw7LG",
+      "position": 41,
+      "positionTieBreaker": "._CHA DA ALICE-540.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-042",
+      "fileName": "._CHA DA ALICE-541.jpg",
+      "alt": "Fotografia 42 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qKzKDI8Y-l-ue57To22ip400ut3NHT0t=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qKzKDI8Y-l-ue57To22ip400ut3NHT0t=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qKzKDI8Y-l-ue57To22ip400ut3NHT0t=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qKzKDI8Y-l-ue57To22ip400ut3NHT0t=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1qKzKDI8Y-l-ue57To22ip400ut3NHT0t=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1qKzKDI8Y-l-ue57To22ip400ut3NHT0t=s0",
+      "shareUrl": "1qKzKDI8Y-l-ue57To22ip400ut3NHT0t",
+      "position": 42,
+      "positionTieBreaker": "._CHA DA ALICE-541.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-043",
+      "fileName": "._CHA DA ALICE-542.jpg",
+      "alt": "Fotografia 43 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1hiQF2KqJBx6Kwsit3Gym955jJO17tyj8=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1hiQF2KqJBx6Kwsit3Gym955jJO17tyj8=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1hiQF2KqJBx6Kwsit3Gym955jJO17tyj8=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1hiQF2KqJBx6Kwsit3Gym955jJO17tyj8=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1hiQF2KqJBx6Kwsit3Gym955jJO17tyj8=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1hiQF2KqJBx6Kwsit3Gym955jJO17tyj8=s0",
+      "shareUrl": "1hiQF2KqJBx6Kwsit3Gym955jJO17tyj8",
+      "position": 43,
+      "positionTieBreaker": "._CHA DA ALICE-542.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-044",
+      "fileName": "._CHA DA ALICE-543.jpg",
+      "alt": "Fotografia 44 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1jqC68O2_5Q-CS-5t6VH3wm58_-WBM-o0=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1jqC68O2_5Q-CS-5t6VH3wm58_-WBM-o0=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1jqC68O2_5Q-CS-5t6VH3wm58_-WBM-o0=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1jqC68O2_5Q-CS-5t6VH3wm58_-WBM-o0=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1jqC68O2_5Q-CS-5t6VH3wm58_-WBM-o0=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1jqC68O2_5Q-CS-5t6VH3wm58_-WBM-o0=s0",
+      "shareUrl": "1jqC68O2_5Q-CS-5t6VH3wm58_-WBM-o0",
+      "position": 44,
+      "positionTieBreaker": "._CHA DA ALICE-543.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-045",
+      "fileName": "._CHA DA ALICE-544.jpg",
+      "alt": "Fotografia 45 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1h65d9iKvsVInk3PAYRVOFLdt5qA7tpDh=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1h65d9iKvsVInk3PAYRVOFLdt5qA7tpDh=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1h65d9iKvsVInk3PAYRVOFLdt5qA7tpDh=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1h65d9iKvsVInk3PAYRVOFLdt5qA7tpDh=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1h65d9iKvsVInk3PAYRVOFLdt5qA7tpDh=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1h65d9iKvsVInk3PAYRVOFLdt5qA7tpDh=s0",
+      "shareUrl": "1h65d9iKvsVInk3PAYRVOFLdt5qA7tpDh",
+      "position": 45,
+      "positionTieBreaker": "._CHA DA ALICE-544.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-046",
+      "fileName": "._CHA DA ALICE-545.jpg",
+      "alt": "Fotografia 46 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1UrZHrsESPPTra6R5gElEgwYo5abwiSHm=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1UrZHrsESPPTra6R5gElEgwYo5abwiSHm=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1UrZHrsESPPTra6R5gElEgwYo5abwiSHm=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1UrZHrsESPPTra6R5gElEgwYo5abwiSHm=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1UrZHrsESPPTra6R5gElEgwYo5abwiSHm=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1UrZHrsESPPTra6R5gElEgwYo5abwiSHm=s0",
+      "shareUrl": "1UrZHrsESPPTra6R5gElEgwYo5abwiSHm",
+      "position": 46,
+      "positionTieBreaker": "._CHA DA ALICE-545.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-047",
+      "fileName": "._CHA DA ALICE-546.jpg",
+      "alt": "Fotografia 47 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1c_bnn2imaT8wvBEN_BJ5ZdfPZ240AXZ5=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1c_bnn2imaT8wvBEN_BJ5ZdfPZ240AXZ5=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1c_bnn2imaT8wvBEN_BJ5ZdfPZ240AXZ5=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1c_bnn2imaT8wvBEN_BJ5ZdfPZ240AXZ5=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1c_bnn2imaT8wvBEN_BJ5ZdfPZ240AXZ5=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1c_bnn2imaT8wvBEN_BJ5ZdfPZ240AXZ5=s0",
+      "shareUrl": "1c_bnn2imaT8wvBEN_BJ5ZdfPZ240AXZ5",
+      "position": 47,
+      "positionTieBreaker": "._CHA DA ALICE-546.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-048",
+      "fileName": "._CHA DA ALICE-547.jpg",
+      "alt": "Fotografia 48 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1pxEhw4lUj2bphQRdN2JuPdaSWREDFlnh=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1pxEhw4lUj2bphQRdN2JuPdaSWREDFlnh=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1pxEhw4lUj2bphQRdN2JuPdaSWREDFlnh=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1pxEhw4lUj2bphQRdN2JuPdaSWREDFlnh=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1pxEhw4lUj2bphQRdN2JuPdaSWREDFlnh=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1pxEhw4lUj2bphQRdN2JuPdaSWREDFlnh=s0",
+      "shareUrl": "1pxEhw4lUj2bphQRdN2JuPdaSWREDFlnh",
+      "position": 48,
+      "positionTieBreaker": "._CHA DA ALICE-547.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-049",
+      "fileName": "._CHA DA ALICE-548.jpg",
+      "alt": "Fotografia 49 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1wScI1yK1fc1q_BcSTsmvK8axLQNTz93_=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1wScI1yK1fc1q_BcSTsmvK8axLQNTz93_=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1wScI1yK1fc1q_BcSTsmvK8axLQNTz93_=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1wScI1yK1fc1q_BcSTsmvK8axLQNTz93_=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1wScI1yK1fc1q_BcSTsmvK8axLQNTz93_=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1wScI1yK1fc1q_BcSTsmvK8axLQNTz93_=s0",
+      "shareUrl": "1wScI1yK1fc1q_BcSTsmvK8axLQNTz93_",
+      "position": 49,
+      "positionTieBreaker": "._CHA DA ALICE-548.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-050",
+      "fileName": "._CHA DA ALICE-549.jpg",
+      "alt": "Fotografia 50 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CqNztrVV5u2Ze8Clod1L2lI9OGaTwrO1=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CqNztrVV5u2Ze8Clod1L2lI9OGaTwrO1=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CqNztrVV5u2Ze8Clod1L2lI9OGaTwrO1=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CqNztrVV5u2Ze8Clod1L2lI9OGaTwrO1=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CqNztrVV5u2Ze8Clod1L2lI9OGaTwrO1=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1CqNztrVV5u2Ze8Clod1L2lI9OGaTwrO1=s0",
+      "shareUrl": "1CqNztrVV5u2Ze8Clod1L2lI9OGaTwrO1",
+      "position": 50,
+      "positionTieBreaker": "._CHA DA ALICE-549.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-051",
+      "fileName": "._CHA DA ALICE-550.jpg",
+      "alt": "Fotografia 51 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1h1kydK_8W0Pugn-WWzX_8rGVz8ejMzNy=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1h1kydK_8W0Pugn-WWzX_8rGVz8ejMzNy=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1h1kydK_8W0Pugn-WWzX_8rGVz8ejMzNy=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1h1kydK_8W0Pugn-WWzX_8rGVz8ejMzNy=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1h1kydK_8W0Pugn-WWzX_8rGVz8ejMzNy=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1h1kydK_8W0Pugn-WWzX_8rGVz8ejMzNy=s0",
+      "shareUrl": "1h1kydK_8W0Pugn-WWzX_8rGVz8ejMzNy",
+      "position": 51,
+      "positionTieBreaker": "._CHA DA ALICE-550.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-052",
+      "fileName": "._CHA DA ALICE-551.jpg",
+      "alt": "Fotografia 52 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/148pWrrZ1yuIfbDBeolL493h5on3nZ_IV=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/148pWrrZ1yuIfbDBeolL493h5on3nZ_IV=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/148pWrrZ1yuIfbDBeolL493h5on3nZ_IV=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/148pWrrZ1yuIfbDBeolL493h5on3nZ_IV=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/148pWrrZ1yuIfbDBeolL493h5on3nZ_IV=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/148pWrrZ1yuIfbDBeolL493h5on3nZ_IV=s0",
+      "shareUrl": "148pWrrZ1yuIfbDBeolL493h5on3nZ_IV",
+      "position": 52,
+      "positionTieBreaker": "._CHA DA ALICE-551.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-053",
+      "fileName": "._CHA DA ALICE-552.jpg",
+      "alt": "Fotografia 53 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/11Voh1U1W2wI94NXqaJU0NhEt1augHOgk=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11Voh1U1W2wI94NXqaJU0NhEt1augHOgk=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11Voh1U1W2wI94NXqaJU0NhEt1augHOgk=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11Voh1U1W2wI94NXqaJU0NhEt1augHOgk=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11Voh1U1W2wI94NXqaJU0NhEt1augHOgk=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/11Voh1U1W2wI94NXqaJU0NhEt1augHOgk=s0",
+      "shareUrl": "11Voh1U1W2wI94NXqaJU0NhEt1augHOgk",
+      "position": 53,
+      "positionTieBreaker": "._CHA DA ALICE-552.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-054",
+      "fileName": "._CHA DA ALICE-553.jpg",
+      "alt": "Fotografia 54 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1_Gq6teVRqyI-vHpaAeQRfMm5zFDHGNd9=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1_Gq6teVRqyI-vHpaAeQRfMm5zFDHGNd9=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1_Gq6teVRqyI-vHpaAeQRfMm5zFDHGNd9=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1_Gq6teVRqyI-vHpaAeQRfMm5zFDHGNd9=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1_Gq6teVRqyI-vHpaAeQRfMm5zFDHGNd9=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1_Gq6teVRqyI-vHpaAeQRfMm5zFDHGNd9=s0",
+      "shareUrl": "1_Gq6teVRqyI-vHpaAeQRfMm5zFDHGNd9",
+      "position": 54,
+      "positionTieBreaker": "._CHA DA ALICE-553.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-055",
+      "fileName": "._CHA DA ALICE-554.jpg",
+      "alt": "Fotografia 55 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Ccs-nmZ3mITB_DqdpzYNPXgFKaJtNOyW=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Ccs-nmZ3mITB_DqdpzYNPXgFKaJtNOyW=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Ccs-nmZ3mITB_DqdpzYNPXgFKaJtNOyW=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Ccs-nmZ3mITB_DqdpzYNPXgFKaJtNOyW=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Ccs-nmZ3mITB_DqdpzYNPXgFKaJtNOyW=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1Ccs-nmZ3mITB_DqdpzYNPXgFKaJtNOyW=s0",
+      "shareUrl": "1Ccs-nmZ3mITB_DqdpzYNPXgFKaJtNOyW",
+      "position": 55,
+      "positionTieBreaker": "._CHA DA ALICE-554.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-056",
+      "fileName": "._CHA DA ALICE-555.jpg",
+      "alt": "Fotografia 56 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CctbiBowOiDMX4PnuTcq1n7fQ0FwcG7z=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CctbiBowOiDMX4PnuTcq1n7fQ0FwcG7z=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CctbiBowOiDMX4PnuTcq1n7fQ0FwcG7z=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CctbiBowOiDMX4PnuTcq1n7fQ0FwcG7z=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CctbiBowOiDMX4PnuTcq1n7fQ0FwcG7z=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1CctbiBowOiDMX4PnuTcq1n7fQ0FwcG7z=s0",
+      "shareUrl": "1CctbiBowOiDMX4PnuTcq1n7fQ0FwcG7z",
+      "position": 56,
+      "positionTieBreaker": "._CHA DA ALICE-555.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-057",
+      "fileName": "._CHA DA ALICE-556.jpg",
+      "alt": "Fotografia 57 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1mjVkJTdtaVSARRq9QVzkb5CoZ5nivXmX=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1mjVkJTdtaVSARRq9QVzkb5CoZ5nivXmX=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1mjVkJTdtaVSARRq9QVzkb5CoZ5nivXmX=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1mjVkJTdtaVSARRq9QVzkb5CoZ5nivXmX=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1mjVkJTdtaVSARRq9QVzkb5CoZ5nivXmX=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1mjVkJTdtaVSARRq9QVzkb5CoZ5nivXmX=s0",
+      "shareUrl": "1mjVkJTdtaVSARRq9QVzkb5CoZ5nivXmX",
+      "position": 57,
+      "positionTieBreaker": "._CHA DA ALICE-556.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-058",
+      "fileName": "._CHA DA ALICE-557.jpg",
+      "alt": "Fotografia 58 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/14KnIGenPQRLAktfU2GmjMMyCjSMgKu3n=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/14KnIGenPQRLAktfU2GmjMMyCjSMgKu3n=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/14KnIGenPQRLAktfU2GmjMMyCjSMgKu3n=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/14KnIGenPQRLAktfU2GmjMMyCjSMgKu3n=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/14KnIGenPQRLAktfU2GmjMMyCjSMgKu3n=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/14KnIGenPQRLAktfU2GmjMMyCjSMgKu3n=s0",
+      "shareUrl": "14KnIGenPQRLAktfU2GmjMMyCjSMgKu3n",
+      "position": 58,
+      "positionTieBreaker": "._CHA DA ALICE-557.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-059",
+      "fileName": "._CHA DA ALICE-558.jpg",
+      "alt": "Fotografia 59 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1kl4XNhDBEa74LOAHI_V7bFClu4r-U86H=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1kl4XNhDBEa74LOAHI_V7bFClu4r-U86H=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1kl4XNhDBEa74LOAHI_V7bFClu4r-U86H=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1kl4XNhDBEa74LOAHI_V7bFClu4r-U86H=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1kl4XNhDBEa74LOAHI_V7bFClu4r-U86H=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1kl4XNhDBEa74LOAHI_V7bFClu4r-U86H=s0",
+      "shareUrl": "1kl4XNhDBEa74LOAHI_V7bFClu4r-U86H",
+      "position": 59,
+      "positionTieBreaker": "._CHA DA ALICE-558.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-060",
+      "fileName": "._CHA DA ALICE-559.jpg",
+      "alt": "Fotografia 60 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1S8GCyn1DB37eW-budr0j3a6TVuHu6RGu=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1S8GCyn1DB37eW-budr0j3a6TVuHu6RGu=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1S8GCyn1DB37eW-budr0j3a6TVuHu6RGu=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1S8GCyn1DB37eW-budr0j3a6TVuHu6RGu=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1S8GCyn1DB37eW-budr0j3a6TVuHu6RGu=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1S8GCyn1DB37eW-budr0j3a6TVuHu6RGu=s0",
+      "shareUrl": "1S8GCyn1DB37eW-budr0j3a6TVuHu6RGu",
+      "position": 60,
+      "positionTieBreaker": "._CHA DA ALICE-559.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-061",
+      "fileName": "._CHA DA ALICE-560.jpg",
+      "alt": "Fotografia 61 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OIpMTbMQU2vKA6anMOFcCfXcBY4nWV37=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OIpMTbMQU2vKA6anMOFcCfXcBY4nWV37=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OIpMTbMQU2vKA6anMOFcCfXcBY4nWV37=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OIpMTbMQU2vKA6anMOFcCfXcBY4nWV37=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OIpMTbMQU2vKA6anMOFcCfXcBY4nWV37=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1OIpMTbMQU2vKA6anMOFcCfXcBY4nWV37=s0",
+      "shareUrl": "1OIpMTbMQU2vKA6anMOFcCfXcBY4nWV37",
+      "position": 61,
+      "positionTieBreaker": "._CHA DA ALICE-560.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-062",
+      "fileName": "._CHA DA ALICE-561.jpg",
+      "alt": "Fotografia 62 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/18puoEYWjsRJzxi2bG80rioG6K7Dpr6QP=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/18puoEYWjsRJzxi2bG80rioG6K7Dpr6QP=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/18puoEYWjsRJzxi2bG80rioG6K7Dpr6QP=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/18puoEYWjsRJzxi2bG80rioG6K7Dpr6QP=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/18puoEYWjsRJzxi2bG80rioG6K7Dpr6QP=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/18puoEYWjsRJzxi2bG80rioG6K7Dpr6QP=s0",
+      "shareUrl": "18puoEYWjsRJzxi2bG80rioG6K7Dpr6QP",
+      "position": 62,
+      "positionTieBreaker": "._CHA DA ALICE-561.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-063",
+      "fileName": "._CHA DA ALICE-562.jpg",
+      "alt": "Fotografia 63 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/11R34uhDi9TBRcB_HWX1_9Wpt2DWxBJWX=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11R34uhDi9TBRcB_HWX1_9Wpt2DWxBJWX=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11R34uhDi9TBRcB_HWX1_9Wpt2DWxBJWX=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11R34uhDi9TBRcB_HWX1_9Wpt2DWxBJWX=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/11R34uhDi9TBRcB_HWX1_9Wpt2DWxBJWX=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/11R34uhDi9TBRcB_HWX1_9Wpt2DWxBJWX=s0",
+      "shareUrl": "11R34uhDi9TBRcB_HWX1_9Wpt2DWxBJWX",
+      "position": 63,
+      "positionTieBreaker": "._CHA DA ALICE-562.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-064",
+      "fileName": "._CHA DA ALICE-563.jpg",
+      "alt": "Fotografia 64 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/18Ah2C49XiYz6tUEcYwXxI8wvjY2QYAHj=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/18Ah2C49XiYz6tUEcYwXxI8wvjY2QYAHj=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/18Ah2C49XiYz6tUEcYwXxI8wvjY2QYAHj=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/18Ah2C49XiYz6tUEcYwXxI8wvjY2QYAHj=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/18Ah2C49XiYz6tUEcYwXxI8wvjY2QYAHj=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/18Ah2C49XiYz6tUEcYwXxI8wvjY2QYAHj=s0",
+      "shareUrl": "18Ah2C49XiYz6tUEcYwXxI8wvjY2QYAHj",
+      "position": 64,
+      "positionTieBreaker": "._CHA DA ALICE-563.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-065",
+      "fileName": "._CHA DA ALICE-564.jpg",
+      "alt": "Fotografia 65 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QPzuzYdyVoLkIsZPxpsF_Uj2UtHKnem3=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QPzuzYdyVoLkIsZPxpsF_Uj2UtHKnem3=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QPzuzYdyVoLkIsZPxpsF_Uj2UtHKnem3=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QPzuzYdyVoLkIsZPxpsF_Uj2UtHKnem3=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QPzuzYdyVoLkIsZPxpsF_Uj2UtHKnem3=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1QPzuzYdyVoLkIsZPxpsF_Uj2UtHKnem3=s0",
+      "shareUrl": "1QPzuzYdyVoLkIsZPxpsF_Uj2UtHKnem3",
+      "position": 65,
+      "positionTieBreaker": "._CHA DA ALICE-564.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-066",
+      "fileName": "._CHA DA ALICE-565.jpg",
+      "alt": "Fotografia 66 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IV7ktAE_nWrPCsGlBTEY-2sZAHuARF5l=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IV7ktAE_nWrPCsGlBTEY-2sZAHuARF5l=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IV7ktAE_nWrPCsGlBTEY-2sZAHuARF5l=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IV7ktAE_nWrPCsGlBTEY-2sZAHuARF5l=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IV7ktAE_nWrPCsGlBTEY-2sZAHuARF5l=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1IV7ktAE_nWrPCsGlBTEY-2sZAHuARF5l=s0",
+      "shareUrl": "1IV7ktAE_nWrPCsGlBTEY-2sZAHuARF5l",
+      "position": 66,
+      "positionTieBreaker": "._CHA DA ALICE-565.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-067",
+      "fileName": "._CHA DA ALICE-566.jpg",
+      "alt": "Fotografia 67 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xAFngchpk0U_D28D3vjF0wrxXBiJA17l=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xAFngchpk0U_D28D3vjF0wrxXBiJA17l=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xAFngchpk0U_D28D3vjF0wrxXBiJA17l=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xAFngchpk0U_D28D3vjF0wrxXBiJA17l=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xAFngchpk0U_D28D3vjF0wrxXBiJA17l=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1xAFngchpk0U_D28D3vjF0wrxXBiJA17l=s0",
+      "shareUrl": "1xAFngchpk0U_D28D3vjF0wrxXBiJA17l",
+      "position": 67,
+      "positionTieBreaker": "._CHA DA ALICE-566.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-068",
+      "fileName": "._CHA DA ALICE-567.jpg",
+      "alt": "Fotografia 68 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xi8A6FcYJUw2PS7mubCdO6vpKuAT9rcr=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xi8A6FcYJUw2PS7mubCdO6vpKuAT9rcr=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xi8A6FcYJUw2PS7mubCdO6vpKuAT9rcr=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xi8A6FcYJUw2PS7mubCdO6vpKuAT9rcr=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xi8A6FcYJUw2PS7mubCdO6vpKuAT9rcr=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1xi8A6FcYJUw2PS7mubCdO6vpKuAT9rcr=s0",
+      "shareUrl": "1xi8A6FcYJUw2PS7mubCdO6vpKuAT9rcr",
+      "position": 68,
+      "positionTieBreaker": "._CHA DA ALICE-567.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-069",
+      "fileName": "._CHA DA ALICE-568.jpg",
+      "alt": "Fotografia 69 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/16IL9_sRFsGqr68tWD9c3Pls7-yH8yu4R=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/16IL9_sRFsGqr68tWD9c3Pls7-yH8yu4R=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/16IL9_sRFsGqr68tWD9c3Pls7-yH8yu4R=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/16IL9_sRFsGqr68tWD9c3Pls7-yH8yu4R=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/16IL9_sRFsGqr68tWD9c3Pls7-yH8yu4R=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/16IL9_sRFsGqr68tWD9c3Pls7-yH8yu4R=s0",
+      "shareUrl": "16IL9_sRFsGqr68tWD9c3Pls7-yH8yu4R",
+      "position": 69,
+      "positionTieBreaker": "._CHA DA ALICE-568.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-070",
+      "fileName": "._CHA DA ALICE-569.jpg",
+      "alt": "Fotografia 70 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Vm0ELLOehKg7DpvVUGze5yMpYyeepjEe=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Vm0ELLOehKg7DpvVUGze5yMpYyeepjEe=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Vm0ELLOehKg7DpvVUGze5yMpYyeepjEe=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Vm0ELLOehKg7DpvVUGze5yMpYyeepjEe=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Vm0ELLOehKg7DpvVUGze5yMpYyeepjEe=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1Vm0ELLOehKg7DpvVUGze5yMpYyeepjEe=s0",
+      "shareUrl": "1Vm0ELLOehKg7DpvVUGze5yMpYyeepjEe",
+      "position": 70,
+      "positionTieBreaker": "._CHA DA ALICE-569.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-071",
+      "fileName": "._CHA DA ALICE-570.jpg",
+      "alt": "Fotografia 71 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/19KYbxwW165RDfaDrlafu3VxuMy5nXLQZ=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/19KYbxwW165RDfaDrlafu3VxuMy5nXLQZ=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/19KYbxwW165RDfaDrlafu3VxuMy5nXLQZ=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/19KYbxwW165RDfaDrlafu3VxuMy5nXLQZ=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/19KYbxwW165RDfaDrlafu3VxuMy5nXLQZ=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/19KYbxwW165RDfaDrlafu3VxuMy5nXLQZ=s0",
+      "shareUrl": "19KYbxwW165RDfaDrlafu3VxuMy5nXLQZ",
+      "position": 71,
+      "positionTieBreaker": "._CHA DA ALICE-570.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-072",
+      "fileName": "._CHA DA ALICE-571.jpg",
+      "alt": "Fotografia 72 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Z4hDAiXEo_Fue9Hyv0pCai5s96OEMYcC=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Z4hDAiXEo_Fue9Hyv0pCai5s96OEMYcC=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Z4hDAiXEo_Fue9Hyv0pCai5s96OEMYcC=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Z4hDAiXEo_Fue9Hyv0pCai5s96OEMYcC=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Z4hDAiXEo_Fue9Hyv0pCai5s96OEMYcC=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1Z4hDAiXEo_Fue9Hyv0pCai5s96OEMYcC=s0",
+      "shareUrl": "1Z4hDAiXEo_Fue9Hyv0pCai5s96OEMYcC",
+      "position": 72,
+      "positionTieBreaker": "._CHA DA ALICE-571.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-073",
+      "fileName": "._CHA DA ALICE-572.jpg",
+      "alt": "Fotografia 73 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xtGXv371_5x4pHeElGg0dBpKlsi0M64j=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xtGXv371_5x4pHeElGg0dBpKlsi0M64j=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xtGXv371_5x4pHeElGg0dBpKlsi0M64j=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xtGXv371_5x4pHeElGg0dBpKlsi0M64j=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xtGXv371_5x4pHeElGg0dBpKlsi0M64j=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1xtGXv371_5x4pHeElGg0dBpKlsi0M64j=s0",
+      "shareUrl": "1xtGXv371_5x4pHeElGg0dBpKlsi0M64j",
+      "position": 73,
+      "positionTieBreaker": "._CHA DA ALICE-572.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-074",
+      "fileName": "._CHA DA ALICE-573.jpg",
+      "alt": "Fotografia 74 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1H8jMaAf9yN-TYGr4ON51CeH8deV3gRHX=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1H8jMaAf9yN-TYGr4ON51CeH8deV3gRHX=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1H8jMaAf9yN-TYGr4ON51CeH8deV3gRHX=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1H8jMaAf9yN-TYGr4ON51CeH8deV3gRHX=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1H8jMaAf9yN-TYGr4ON51CeH8deV3gRHX=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1H8jMaAf9yN-TYGr4ON51CeH8deV3gRHX=s0",
+      "shareUrl": "1H8jMaAf9yN-TYGr4ON51CeH8deV3gRHX",
+      "position": 74,
+      "positionTieBreaker": "._CHA DA ALICE-573.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-075",
+      "fileName": "._CHA DA ALICE-574.jpg",
+      "alt": "Fotografia 75 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1W730ekfu_lspWslnDR6Tiu_1UPpvpN7k=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1W730ekfu_lspWslnDR6Tiu_1UPpvpN7k=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1W730ekfu_lspWslnDR6Tiu_1UPpvpN7k=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1W730ekfu_lspWslnDR6Tiu_1UPpvpN7k=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1W730ekfu_lspWslnDR6Tiu_1UPpvpN7k=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1W730ekfu_lspWslnDR6Tiu_1UPpvpN7k=s0",
+      "shareUrl": "1W730ekfu_lspWslnDR6Tiu_1UPpvpN7k",
+      "position": 75,
+      "positionTieBreaker": "._CHA DA ALICE-574.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-076",
+      "fileName": "._CHA DA ALICE-575.jpg",
+      "alt": "Fotografia 76 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1UeKpSCGPcyQ37L_MJ2rtvctNhW1ozmAk=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1UeKpSCGPcyQ37L_MJ2rtvctNhW1ozmAk=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1UeKpSCGPcyQ37L_MJ2rtvctNhW1ozmAk=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1UeKpSCGPcyQ37L_MJ2rtvctNhW1ozmAk=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1UeKpSCGPcyQ37L_MJ2rtvctNhW1ozmAk=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1UeKpSCGPcyQ37L_MJ2rtvctNhW1ozmAk=s0",
+      "shareUrl": "1UeKpSCGPcyQ37L_MJ2rtvctNhW1ozmAk",
+      "position": 76,
+      "positionTieBreaker": "._CHA DA ALICE-575.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-077",
+      "fileName": "._CHA DA ALICE-576.jpg",
+      "alt": "Fotografia 77 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1BnvbqPS_Dse98J4zab6wppqBquIAo-us=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1BnvbqPS_Dse98J4zab6wppqBquIAo-us=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1BnvbqPS_Dse98J4zab6wppqBquIAo-us=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1BnvbqPS_Dse98J4zab6wppqBquIAo-us=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1BnvbqPS_Dse98J4zab6wppqBquIAo-us=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1BnvbqPS_Dse98J4zab6wppqBquIAo-us=s0",
+      "shareUrl": "1BnvbqPS_Dse98J4zab6wppqBquIAo-us",
+      "position": 77,
+      "positionTieBreaker": "._CHA DA ALICE-576.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-078",
+      "fileName": "._CHA DA ALICE-577.jpg",
+      "alt": "Fotografia 78 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CFaiEScYkS05WK1gxHzwV2StJSNAjedM=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CFaiEScYkS05WK1gxHzwV2StJSNAjedM=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CFaiEScYkS05WK1gxHzwV2StJSNAjedM=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CFaiEScYkS05WK1gxHzwV2StJSNAjedM=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CFaiEScYkS05WK1gxHzwV2StJSNAjedM=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1CFaiEScYkS05WK1gxHzwV2StJSNAjedM=s0",
+      "shareUrl": "1CFaiEScYkS05WK1gxHzwV2StJSNAjedM",
+      "position": 78,
+      "positionTieBreaker": "._CHA DA ALICE-577.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-079",
+      "fileName": "._CHA DA ALICE-578.jpg",
+      "alt": "Fotografia 79 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vkdY2CFXf5Emf4854xULN09VGnUr7Iyi=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vkdY2CFXf5Emf4854xULN09VGnUr7Iyi=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vkdY2CFXf5Emf4854xULN09VGnUr7Iyi=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vkdY2CFXf5Emf4854xULN09VGnUr7Iyi=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vkdY2CFXf5Emf4854xULN09VGnUr7Iyi=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1vkdY2CFXf5Emf4854xULN09VGnUr7Iyi=s0",
+      "shareUrl": "1vkdY2CFXf5Emf4854xULN09VGnUr7Iyi",
+      "position": 79,
+      "positionTieBreaker": "._CHA DA ALICE-578.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-080",
+      "fileName": "._CHA DA ALICE-579.jpg",
+      "alt": "Fotografia 80 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1sPpRo8gBRZnmvjkala6W3wXEXqYANgC8=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1sPpRo8gBRZnmvjkala6W3wXEXqYANgC8=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1sPpRo8gBRZnmvjkala6W3wXEXqYANgC8=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1sPpRo8gBRZnmvjkala6W3wXEXqYANgC8=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1sPpRo8gBRZnmvjkala6W3wXEXqYANgC8=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1sPpRo8gBRZnmvjkala6W3wXEXqYANgC8=s0",
+      "shareUrl": "1sPpRo8gBRZnmvjkala6W3wXEXqYANgC8",
+      "position": 80,
+      "positionTieBreaker": "._CHA DA ALICE-579.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-081",
+      "fileName": "._CHA DA ALICE-580.jpg",
+      "alt": "Fotografia 81 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1_yOh8Kjw7IGKF_bhB7QAh7sxVO8-B0AS=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1_yOh8Kjw7IGKF_bhB7QAh7sxVO8-B0AS=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1_yOh8Kjw7IGKF_bhB7QAh7sxVO8-B0AS=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1_yOh8Kjw7IGKF_bhB7QAh7sxVO8-B0AS=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1_yOh8Kjw7IGKF_bhB7QAh7sxVO8-B0AS=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1_yOh8Kjw7IGKF_bhB7QAh7sxVO8-B0AS=s0",
+      "shareUrl": "1_yOh8Kjw7IGKF_bhB7QAh7sxVO8-B0AS",
+      "position": 81,
+      "positionTieBreaker": "._CHA DA ALICE-580.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-082",
+      "fileName": "._CHA DA ALICE-581.jpg",
+      "alt": "Fotografia 82 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1whBPsHQOUX64G5T_-ClF16ZRuUHImXvw=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1whBPsHQOUX64G5T_-ClF16ZRuUHImXvw=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1whBPsHQOUX64G5T_-ClF16ZRuUHImXvw=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1whBPsHQOUX64G5T_-ClF16ZRuUHImXvw=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1whBPsHQOUX64G5T_-ClF16ZRuUHImXvw=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1whBPsHQOUX64G5T_-ClF16ZRuUHImXvw=s0",
+      "shareUrl": "1whBPsHQOUX64G5T_-ClF16ZRuUHImXvw",
+      "position": 82,
+      "positionTieBreaker": "._CHA DA ALICE-581.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-083",
+      "fileName": "._CHA DA ALICE-582.jpg",
+      "alt": "Fotografia 83 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OK_BER9BEPVy3rZAhTK2OTqhWKidJ6Eo=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OK_BER9BEPVy3rZAhTK2OTqhWKidJ6Eo=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OK_BER9BEPVy3rZAhTK2OTqhWKidJ6Eo=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OK_BER9BEPVy3rZAhTK2OTqhWKidJ6Eo=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OK_BER9BEPVy3rZAhTK2OTqhWKidJ6Eo=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1OK_BER9BEPVy3rZAhTK2OTqhWKidJ6Eo=s0",
+      "shareUrl": "1OK_BER9BEPVy3rZAhTK2OTqhWKidJ6Eo",
+      "position": 83,
+      "positionTieBreaker": "._CHA DA ALICE-582.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-084",
+      "fileName": "._CHA DA ALICE-583.jpg",
+      "alt": "Fotografia 84 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1oy3tfEaLOjGyhfx1B7gj0YNbKqXbufp5=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1oy3tfEaLOjGyhfx1B7gj0YNbKqXbufp5=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1oy3tfEaLOjGyhfx1B7gj0YNbKqXbufp5=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1oy3tfEaLOjGyhfx1B7gj0YNbKqXbufp5=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1oy3tfEaLOjGyhfx1B7gj0YNbKqXbufp5=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1oy3tfEaLOjGyhfx1B7gj0YNbKqXbufp5=s0",
+      "shareUrl": "1oy3tfEaLOjGyhfx1B7gj0YNbKqXbufp5",
+      "position": 84,
+      "positionTieBreaker": "._CHA DA ALICE-583.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-085",
+      "fileName": "._CHA DA ALICE-584.jpg",
+      "alt": "Fotografia 85 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iOaKOSOLVRMHDcsR0x5IJGNehQEhGdYh=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iOaKOSOLVRMHDcsR0x5IJGNehQEhGdYh=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iOaKOSOLVRMHDcsR0x5IJGNehQEhGdYh=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iOaKOSOLVRMHDcsR0x5IJGNehQEhGdYh=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1iOaKOSOLVRMHDcsR0x5IJGNehQEhGdYh=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1iOaKOSOLVRMHDcsR0x5IJGNehQEhGdYh=s0",
+      "shareUrl": "1iOaKOSOLVRMHDcsR0x5IJGNehQEhGdYh",
+      "position": 85,
+      "positionTieBreaker": "._CHA DA ALICE-584.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-086",
+      "fileName": "._CHA DA ALICE-585.jpg",
+      "alt": "Fotografia 86 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IKGpNKRO_aAf9Jbt_4bfwhtdHK2Qx0GZ=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IKGpNKRO_aAf9Jbt_4bfwhtdHK2Qx0GZ=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IKGpNKRO_aAf9Jbt_4bfwhtdHK2Qx0GZ=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IKGpNKRO_aAf9Jbt_4bfwhtdHK2Qx0GZ=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IKGpNKRO_aAf9Jbt_4bfwhtdHK2Qx0GZ=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1IKGpNKRO_aAf9Jbt_4bfwhtdHK2Qx0GZ=s0",
+      "shareUrl": "1IKGpNKRO_aAf9Jbt_4bfwhtdHK2Qx0GZ",
+      "position": 86,
+      "positionTieBreaker": "._CHA DA ALICE-585.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-087",
+      "fileName": "._CHA DA ALICE-586.jpg",
+      "alt": "Fotografia 87 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1LZeIpDKOUOy6XsoJtQ0s7_vpFGA31m5v=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1LZeIpDKOUOy6XsoJtQ0s7_vpFGA31m5v=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1LZeIpDKOUOy6XsoJtQ0s7_vpFGA31m5v=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1LZeIpDKOUOy6XsoJtQ0s7_vpFGA31m5v=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1LZeIpDKOUOy6XsoJtQ0s7_vpFGA31m5v=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1LZeIpDKOUOy6XsoJtQ0s7_vpFGA31m5v=s0",
+      "shareUrl": "1LZeIpDKOUOy6XsoJtQ0s7_vpFGA31m5v",
+      "position": 87,
+      "positionTieBreaker": "._CHA DA ALICE-586.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-088",
+      "fileName": "._CHA DA ALICE-587.jpg",
+      "alt": "Fotografia 88 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1JTzP3r5KbiqUqw0iroE0wUKY3WHIDrt_=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1JTzP3r5KbiqUqw0iroE0wUKY3WHIDrt_=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1JTzP3r5KbiqUqw0iroE0wUKY3WHIDrt_=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1JTzP3r5KbiqUqw0iroE0wUKY3WHIDrt_=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1JTzP3r5KbiqUqw0iroE0wUKY3WHIDrt_=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1JTzP3r5KbiqUqw0iroE0wUKY3WHIDrt_=s0",
+      "shareUrl": "1JTzP3r5KbiqUqw0iroE0wUKY3WHIDrt_",
+      "position": 88,
+      "positionTieBreaker": "._CHA DA ALICE-587.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-089",
+      "fileName": "._CHA DA ALICE-588.jpg",
+      "alt": "Fotografia 89 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1jYwX6WW6PnpuQCjwnE40MiJt9SsAwJqV=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1jYwX6WW6PnpuQCjwnE40MiJt9SsAwJqV=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1jYwX6WW6PnpuQCjwnE40MiJt9SsAwJqV=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1jYwX6WW6PnpuQCjwnE40MiJt9SsAwJqV=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1jYwX6WW6PnpuQCjwnE40MiJt9SsAwJqV=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1jYwX6WW6PnpuQCjwnE40MiJt9SsAwJqV=s0",
+      "shareUrl": "1jYwX6WW6PnpuQCjwnE40MiJt9SsAwJqV",
+      "position": 89,
+      "positionTieBreaker": "._CHA DA ALICE-588.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-090",
+      "fileName": "._CHA DA ALICE-589.jpg",
+      "alt": "Fotografia 90 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-8eCOkr4FUxp5qnyRkcUhTYayYQXJfbK=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-8eCOkr4FUxp5qnyRkcUhTYayYQXJfbK=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-8eCOkr4FUxp5qnyRkcUhTYayYQXJfbK=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-8eCOkr4FUxp5qnyRkcUhTYayYQXJfbK=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-8eCOkr4FUxp5qnyRkcUhTYayYQXJfbK=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1-8eCOkr4FUxp5qnyRkcUhTYayYQXJfbK=s0",
+      "shareUrl": "1-8eCOkr4FUxp5qnyRkcUhTYayYQXJfbK",
+      "position": 90,
+      "positionTieBreaker": "._CHA DA ALICE-589.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-091",
+      "fileName": "._CHA DA ALICE-590.jpg",
+      "alt": "Fotografia 91 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1shI3QNI4DD7wStuNAFEUTPDE5O3NsU8q=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1shI3QNI4DD7wStuNAFEUTPDE5O3NsU8q=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1shI3QNI4DD7wStuNAFEUTPDE5O3NsU8q=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1shI3QNI4DD7wStuNAFEUTPDE5O3NsU8q=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1shI3QNI4DD7wStuNAFEUTPDE5O3NsU8q=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1shI3QNI4DD7wStuNAFEUTPDE5O3NsU8q=s0",
+      "shareUrl": "1shI3QNI4DD7wStuNAFEUTPDE5O3NsU8q",
+      "position": 91,
+      "positionTieBreaker": "._CHA DA ALICE-590.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-092",
+      "fileName": "._CHA DA ALICE-591.jpg",
+      "alt": "Fotografia 92 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1StMM3aRkKEnibefmUwH691FY__vXJSdP=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1StMM3aRkKEnibefmUwH691FY__vXJSdP=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1StMM3aRkKEnibefmUwH691FY__vXJSdP=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1StMM3aRkKEnibefmUwH691FY__vXJSdP=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1StMM3aRkKEnibefmUwH691FY__vXJSdP=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1StMM3aRkKEnibefmUwH691FY__vXJSdP=s0",
+      "shareUrl": "1StMM3aRkKEnibefmUwH691FY__vXJSdP",
+      "position": 92,
+      "positionTieBreaker": "._CHA DA ALICE-591.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-093",
+      "fileName": "._CHA DA ALICE-592.jpg",
+      "alt": "Fotografia 93 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Ot6pPjnsiUIlgzvo_GIWrdcfepZgCVvk=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Ot6pPjnsiUIlgzvo_GIWrdcfepZgCVvk=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Ot6pPjnsiUIlgzvo_GIWrdcfepZgCVvk=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Ot6pPjnsiUIlgzvo_GIWrdcfepZgCVvk=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Ot6pPjnsiUIlgzvo_GIWrdcfepZgCVvk=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1Ot6pPjnsiUIlgzvo_GIWrdcfepZgCVvk=s0",
+      "shareUrl": "1Ot6pPjnsiUIlgzvo_GIWrdcfepZgCVvk",
+      "position": 93,
+      "positionTieBreaker": "._CHA DA ALICE-592.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-094",
+      "fileName": "._CHA DA ALICE-593.jpg",
+      "alt": "Fotografia 94 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1aS2W93Go8hyFS1GwIY3QYNXHW9hD0xJN=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1aS2W93Go8hyFS1GwIY3QYNXHW9hD0xJN=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1aS2W93Go8hyFS1GwIY3QYNXHW9hD0xJN=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1aS2W93Go8hyFS1GwIY3QYNXHW9hD0xJN=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1aS2W93Go8hyFS1GwIY3QYNXHW9hD0xJN=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1aS2W93Go8hyFS1GwIY3QYNXHW9hD0xJN=s0",
+      "shareUrl": "1aS2W93Go8hyFS1GwIY3QYNXHW9hD0xJN",
+      "position": 94,
+      "positionTieBreaker": "._CHA DA ALICE-593.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-095",
+      "fileName": "._CHA DA ALICE-594.jpg",
+      "alt": "Fotografia 95 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1lKTk1g1hVWsAWHm8iCknOwlspzMz_4xf=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1lKTk1g1hVWsAWHm8iCknOwlspzMz_4xf=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1lKTk1g1hVWsAWHm8iCknOwlspzMz_4xf=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1lKTk1g1hVWsAWHm8iCknOwlspzMz_4xf=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1lKTk1g1hVWsAWHm8iCknOwlspzMz_4xf=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1lKTk1g1hVWsAWHm8iCknOwlspzMz_4xf=s0",
+      "shareUrl": "1lKTk1g1hVWsAWHm8iCknOwlspzMz_4xf",
+      "position": 95,
+      "positionTieBreaker": "._CHA DA ALICE-594.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-096",
+      "fileName": "._CHA DA ALICE-595.jpg",
+      "alt": "Fotografia 96 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CqDVhQaC2D1pgnZq-q6jbfiOnp4bt-VW=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CqDVhQaC2D1pgnZq-q6jbfiOnp4bt-VW=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CqDVhQaC2D1pgnZq-q6jbfiOnp4bt-VW=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CqDVhQaC2D1pgnZq-q6jbfiOnp4bt-VW=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1CqDVhQaC2D1pgnZq-q6jbfiOnp4bt-VW=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1CqDVhQaC2D1pgnZq-q6jbfiOnp4bt-VW=s0",
+      "shareUrl": "1CqDVhQaC2D1pgnZq-q6jbfiOnp4bt-VW",
+      "position": 96,
+      "positionTieBreaker": "._CHA DA ALICE-595.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-097",
+      "fileName": "._CHA DA ALICE-596.jpg",
+      "alt": "Fotografia 97 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1tMu1UuuvoKYUMHdHb43Vr4regeLpfAnu=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1tMu1UuuvoKYUMHdHb43Vr4regeLpfAnu=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1tMu1UuuvoKYUMHdHb43Vr4regeLpfAnu=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1tMu1UuuvoKYUMHdHb43Vr4regeLpfAnu=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1tMu1UuuvoKYUMHdHb43Vr4regeLpfAnu=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1tMu1UuuvoKYUMHdHb43Vr4regeLpfAnu=s0",
+      "shareUrl": "1tMu1UuuvoKYUMHdHb43Vr4regeLpfAnu",
+      "position": 97,
+      "positionTieBreaker": "._CHA DA ALICE-596.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-098",
+      "fileName": "._CHA DA ALICE-597.jpg",
+      "alt": "Fotografia 98 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/13Dk9NH8iyGOhL_uNTWLWlctyBhRL-kYE=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/13Dk9NH8iyGOhL_uNTWLWlctyBhRL-kYE=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/13Dk9NH8iyGOhL_uNTWLWlctyBhRL-kYE=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/13Dk9NH8iyGOhL_uNTWLWlctyBhRL-kYE=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/13Dk9NH8iyGOhL_uNTWLWlctyBhRL-kYE=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/13Dk9NH8iyGOhL_uNTWLWlctyBhRL-kYE=s0",
+      "shareUrl": "13Dk9NH8iyGOhL_uNTWLWlctyBhRL-kYE",
+      "position": 98,
+      "positionTieBreaker": "._CHA DA ALICE-597.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-099",
+      "fileName": "._CHA DA ALICE-598.jpg",
+      "alt": "Fotografia 99 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1fe72dJbK0rTvYXQ5ihmxKRool_I8IhR-=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1fe72dJbK0rTvYXQ5ihmxKRool_I8IhR-=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1fe72dJbK0rTvYXQ5ihmxKRool_I8IhR-=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1fe72dJbK0rTvYXQ5ihmxKRool_I8IhR-=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1fe72dJbK0rTvYXQ5ihmxKRool_I8IhR-=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1fe72dJbK0rTvYXQ5ihmxKRool_I8IhR-=s0",
+      "shareUrl": "1fe72dJbK0rTvYXQ5ihmxKRool_I8IhR-",
+      "position": 99,
+      "positionTieBreaker": "._CHA DA ALICE-598.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-100",
+      "fileName": "._CHA DA ALICE-599.jpg",
+      "alt": "Fotografia 100 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1A5ntHG-EsdC9B2Saxc0fMcf4P9qbnReo=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1A5ntHG-EsdC9B2Saxc0fMcf4P9qbnReo=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1A5ntHG-EsdC9B2Saxc0fMcf4P9qbnReo=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1A5ntHG-EsdC9B2Saxc0fMcf4P9qbnReo=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1A5ntHG-EsdC9B2Saxc0fMcf4P9qbnReo=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1A5ntHG-EsdC9B2Saxc0fMcf4P9qbnReo=s0",
+      "shareUrl": "1A5ntHG-EsdC9B2Saxc0fMcf4P9qbnReo",
+      "position": 100,
+      "positionTieBreaker": "._CHA DA ALICE-599.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-101",
+      "fileName": "._CHA DA ALICE-600.jpg",
+      "alt": "Fotografia 101 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IZIeDD_kISncw1jDxT2utOYYVKBaMdFl=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IZIeDD_kISncw1jDxT2utOYYVKBaMdFl=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IZIeDD_kISncw1jDxT2utOYYVKBaMdFl=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IZIeDD_kISncw1jDxT2utOYYVKBaMdFl=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IZIeDD_kISncw1jDxT2utOYYVKBaMdFl=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1IZIeDD_kISncw1jDxT2utOYYVKBaMdFl=s0",
+      "shareUrl": "1IZIeDD_kISncw1jDxT2utOYYVKBaMdFl",
+      "position": 101,
+      "positionTieBreaker": "._CHA DA ALICE-600.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-102",
+      "fileName": "._CHA DA ALICE-601.jpg",
+      "alt": "Fotografia 102 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1z6plddB7uJQMchL8NpxJQQIqrKpCmBM0=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1z6plddB7uJQMchL8NpxJQQIqrKpCmBM0=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1z6plddB7uJQMchL8NpxJQQIqrKpCmBM0=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1z6plddB7uJQMchL8NpxJQQIqrKpCmBM0=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1z6plddB7uJQMchL8NpxJQQIqrKpCmBM0=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1z6plddB7uJQMchL8NpxJQQIqrKpCmBM0=s0",
+      "shareUrl": "1z6plddB7uJQMchL8NpxJQQIqrKpCmBM0",
+      "position": 102,
+      "positionTieBreaker": "._CHA DA ALICE-601.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-103",
+      "fileName": "._CHA DA ALICE-602.jpg",
+      "alt": "Fotografia 103 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-SaFD_jwofyDD7-zkXwNue13p3Ryy1Fm=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-SaFD_jwofyDD7-zkXwNue13p3Ryy1Fm=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-SaFD_jwofyDD7-zkXwNue13p3Ryy1Fm=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-SaFD_jwofyDD7-zkXwNue13p3Ryy1Fm=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1-SaFD_jwofyDD7-zkXwNue13p3Ryy1Fm=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1-SaFD_jwofyDD7-zkXwNue13p3Ryy1Fm=s0",
+      "shareUrl": "1-SaFD_jwofyDD7-zkXwNue13p3Ryy1Fm",
+      "position": 103,
+      "positionTieBreaker": "._CHA DA ALICE-602.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-104",
+      "fileName": "._CHA DA ALICE-603.jpg",
+      "alt": "Fotografia 104 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1dw6NWkvNJGFBYxMbmtLFyjJ5bvsaZyOr=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1dw6NWkvNJGFBYxMbmtLFyjJ5bvsaZyOr=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1dw6NWkvNJGFBYxMbmtLFyjJ5bvsaZyOr=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1dw6NWkvNJGFBYxMbmtLFyjJ5bvsaZyOr=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1dw6NWkvNJGFBYxMbmtLFyjJ5bvsaZyOr=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1dw6NWkvNJGFBYxMbmtLFyjJ5bvsaZyOr=s0",
+      "shareUrl": "1dw6NWkvNJGFBYxMbmtLFyjJ5bvsaZyOr",
+      "position": 104,
+      "positionTieBreaker": "._CHA DA ALICE-603.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-105",
+      "fileName": "._CHA DA ALICE-604.jpg",
+      "alt": "Fotografia 105 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1o9jFhg6406gvehed9I5bkhGyHCpkgo40=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1o9jFhg6406gvehed9I5bkhGyHCpkgo40=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1o9jFhg6406gvehed9I5bkhGyHCpkgo40=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1o9jFhg6406gvehed9I5bkhGyHCpkgo40=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1o9jFhg6406gvehed9I5bkhGyHCpkgo40=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1o9jFhg6406gvehed9I5bkhGyHCpkgo40=s0",
+      "shareUrl": "1o9jFhg6406gvehed9I5bkhGyHCpkgo40",
+      "position": 105,
+      "positionTieBreaker": "._CHA DA ALICE-604.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-106",
+      "fileName": "._CHA DA ALICE-605.jpg",
+      "alt": "Fotografia 106 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1rcdNJAEF5qXIZRm33v95astWfHe463-X=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1rcdNJAEF5qXIZRm33v95astWfHe463-X=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1rcdNJAEF5qXIZRm33v95astWfHe463-X=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1rcdNJAEF5qXIZRm33v95astWfHe463-X=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1rcdNJAEF5qXIZRm33v95astWfHe463-X=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1rcdNJAEF5qXIZRm33v95astWfHe463-X=s0",
+      "shareUrl": "1rcdNJAEF5qXIZRm33v95astWfHe463-X",
+      "position": 106,
+      "positionTieBreaker": "._CHA DA ALICE-605.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-107",
+      "fileName": "._CHA DA ALICE-606.jpg",
+      "alt": "Fotografia 107 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Xap6Mi2nhc4MW8wPcOaXdFwR1IZo0wgS=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Xap6Mi2nhc4MW8wPcOaXdFwR1IZo0wgS=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Xap6Mi2nhc4MW8wPcOaXdFwR1IZo0wgS=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Xap6Mi2nhc4MW8wPcOaXdFwR1IZo0wgS=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Xap6Mi2nhc4MW8wPcOaXdFwR1IZo0wgS=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1Xap6Mi2nhc4MW8wPcOaXdFwR1IZo0wgS=s0",
+      "shareUrl": "1Xap6Mi2nhc4MW8wPcOaXdFwR1IZo0wgS",
+      "position": 107,
+      "positionTieBreaker": "._CHA DA ALICE-606.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-108",
+      "fileName": "._CHA DA ALICE-607.jpg",
+      "alt": "Fotografia 108 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Lqu2tdlMNFXfn7tiE54XGJ049uWCKqv3=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Lqu2tdlMNFXfn7tiE54XGJ049uWCKqv3=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Lqu2tdlMNFXfn7tiE54XGJ049uWCKqv3=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Lqu2tdlMNFXfn7tiE54XGJ049uWCKqv3=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1Lqu2tdlMNFXfn7tiE54XGJ049uWCKqv3=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1Lqu2tdlMNFXfn7tiE54XGJ049uWCKqv3=s0",
+      "shareUrl": "1Lqu2tdlMNFXfn7tiE54XGJ049uWCKqv3",
+      "position": 108,
+      "positionTieBreaker": "._CHA DA ALICE-607.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-109",
+      "fileName": "._CHA DA ALICE-608.jpg",
+      "alt": "Fotografia 109 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/17wS-xltAepDaZRCaFjfF69-biZJ9uaZD=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/17wS-xltAepDaZRCaFjfF69-biZJ9uaZD=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/17wS-xltAepDaZRCaFjfF69-biZJ9uaZD=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/17wS-xltAepDaZRCaFjfF69-biZJ9uaZD=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/17wS-xltAepDaZRCaFjfF69-biZJ9uaZD=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/17wS-xltAepDaZRCaFjfF69-biZJ9uaZD=s0",
+      "shareUrl": "17wS-xltAepDaZRCaFjfF69-biZJ9uaZD",
+      "position": 109,
+      "positionTieBreaker": "._CHA DA ALICE-608.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-110",
+      "fileName": "._CHA DA ALICE-609.jpg",
+      "alt": "Fotografia 110 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vvaeiG7yBASSVqNXdnPVCf7_d2cZwot2=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vvaeiG7yBASSVqNXdnPVCf7_d2cZwot2=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vvaeiG7yBASSVqNXdnPVCf7_d2cZwot2=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vvaeiG7yBASSVqNXdnPVCf7_d2cZwot2=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1vvaeiG7yBASSVqNXdnPVCf7_d2cZwot2=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1vvaeiG7yBASSVqNXdnPVCf7_d2cZwot2=s0",
+      "shareUrl": "1vvaeiG7yBASSVqNXdnPVCf7_d2cZwot2",
+      "position": 110,
+      "positionTieBreaker": "._CHA DA ALICE-609.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-111",
+      "fileName": "._CHA DA ALICE-610.jpg",
+      "alt": "Fotografia 111 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ijbPfAxTMIzOwhSMMVwmyQAYzOwMlgTI=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ijbPfAxTMIzOwhSMMVwmyQAYzOwMlgTI=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ijbPfAxTMIzOwhSMMVwmyQAYzOwMlgTI=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ijbPfAxTMIzOwhSMMVwmyQAYzOwMlgTI=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1ijbPfAxTMIzOwhSMMVwmyQAYzOwMlgTI=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1ijbPfAxTMIzOwhSMMVwmyQAYzOwMlgTI=s0",
+      "shareUrl": "1ijbPfAxTMIzOwhSMMVwmyQAYzOwMlgTI",
+      "position": 111,
+      "positionTieBreaker": "._CHA DA ALICE-610.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-112",
+      "fileName": "._CHA DA ALICE-611.jpg",
+      "alt": "Fotografia 112 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OQ5ciGaEf91dv6t093qvQMeYrh4SgmPI=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OQ5ciGaEf91dv6t093qvQMeYrh4SgmPI=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OQ5ciGaEf91dv6t093qvQMeYrh4SgmPI=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OQ5ciGaEf91dv6t093qvQMeYrh4SgmPI=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1OQ5ciGaEf91dv6t093qvQMeYrh4SgmPI=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1OQ5ciGaEf91dv6t093qvQMeYrh4SgmPI=s0",
+      "shareUrl": "1OQ5ciGaEf91dv6t093qvQMeYrh4SgmPI",
+      "position": 112,
+      "positionTieBreaker": "._CHA DA ALICE-611.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-113",
+      "fileName": "._CHA DA ALICE-612.jpg",
+      "alt": "Fotografia 113 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1y2dBp9f_88F2nsETPl8R4HpXKu9N9AeD=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1y2dBp9f_88F2nsETPl8R4HpXKu9N9AeD=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1y2dBp9f_88F2nsETPl8R4HpXKu9N9AeD=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1y2dBp9f_88F2nsETPl8R4HpXKu9N9AeD=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1y2dBp9f_88F2nsETPl8R4HpXKu9N9AeD=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1y2dBp9f_88F2nsETPl8R4HpXKu9N9AeD=s0",
+      "shareUrl": "1y2dBp9f_88F2nsETPl8R4HpXKu9N9AeD",
+      "position": 113,
+      "positionTieBreaker": "._CHA DA ALICE-612.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-114",
+      "fileName": "._CHA DA ALICE-613.jpg",
+      "alt": "Fotografia 114 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1P2LE7hVBJe01ERGOZhwXKJvDastnUdKy=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1P2LE7hVBJe01ERGOZhwXKJvDastnUdKy=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1P2LE7hVBJe01ERGOZhwXKJvDastnUdKy=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1P2LE7hVBJe01ERGOZhwXKJvDastnUdKy=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1P2LE7hVBJe01ERGOZhwXKJvDastnUdKy=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1P2LE7hVBJe01ERGOZhwXKJvDastnUdKy=s0",
+      "shareUrl": "1P2LE7hVBJe01ERGOZhwXKJvDastnUdKy",
+      "position": 114,
+      "positionTieBreaker": "._CHA DA ALICE-613.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-115",
+      "fileName": "._CHA DA ALICE-614.jpg",
+      "alt": "Fotografia 115 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1krElV1_IGACXeppnVfVricgyS7vuIT5y=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1krElV1_IGACXeppnVfVricgyS7vuIT5y=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1krElV1_IGACXeppnVfVricgyS7vuIT5y=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1krElV1_IGACXeppnVfVricgyS7vuIT5y=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1krElV1_IGACXeppnVfVricgyS7vuIT5y=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1krElV1_IGACXeppnVfVricgyS7vuIT5y=s0",
+      "shareUrl": "1krElV1_IGACXeppnVfVricgyS7vuIT5y",
+      "position": 115,
+      "positionTieBreaker": "._CHA DA ALICE-614.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-116",
+      "fileName": "._CHA DA ALICE-615.jpg",
+      "alt": "Fotografia 116 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IanTY_47f1_KkdsXHVm4f17jVZyNLi4C=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IanTY_47f1_KkdsXHVm4f17jVZyNLi4C=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IanTY_47f1_KkdsXHVm4f17jVZyNLi4C=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IanTY_47f1_KkdsXHVm4f17jVZyNLi4C=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1IanTY_47f1_KkdsXHVm4f17jVZyNLi4C=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1IanTY_47f1_KkdsXHVm4f17jVZyNLi4C=s0",
+      "shareUrl": "1IanTY_47f1_KkdsXHVm4f17jVZyNLi4C",
+      "position": 116,
+      "positionTieBreaker": "._CHA DA ALICE-615.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-117",
+      "fileName": "._CHA DA ALICE-616.jpg",
+      "alt": "Fotografia 117 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xULpZzjTeopnjNyjPcD2hwfxLlv_7kv9=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xULpZzjTeopnjNyjPcD2hwfxLlv_7kv9=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xULpZzjTeopnjNyjPcD2hwfxLlv_7kv9=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xULpZzjTeopnjNyjPcD2hwfxLlv_7kv9=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1xULpZzjTeopnjNyjPcD2hwfxLlv_7kv9=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1xULpZzjTeopnjNyjPcD2hwfxLlv_7kv9=s0",
+      "shareUrl": "1xULpZzjTeopnjNyjPcD2hwfxLlv_7kv9",
+      "position": 117,
+      "positionTieBreaker": "._CHA DA ALICE-616.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-118",
+      "fileName": "._CHA DA ALICE-617.jpg",
+      "alt": "Fotografia 118 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/13r4bcslNSP_maIu4Qb_6EWjc3kqb09ld=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/13r4bcslNSP_maIu4Qb_6EWjc3kqb09ld=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/13r4bcslNSP_maIu4Qb_6EWjc3kqb09ld=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/13r4bcslNSP_maIu4Qb_6EWjc3kqb09ld=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/13r4bcslNSP_maIu4Qb_6EWjc3kqb09ld=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/13r4bcslNSP_maIu4Qb_6EWjc3kqb09ld=s0",
+      "shareUrl": "13r4bcslNSP_maIu4Qb_6EWjc3kqb09ld",
+      "position": 118,
+      "positionTieBreaker": "._CHA DA ALICE-617.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-119",
+      "fileName": "._CHA DA ALICE-618.jpg",
+      "alt": "Fotografia 119 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1aQmoQnPnBzcL7gUJK6vvbcQWxiRQ4yVH=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1aQmoQnPnBzcL7gUJK6vvbcQWxiRQ4yVH=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1aQmoQnPnBzcL7gUJK6vvbcQWxiRQ4yVH=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1aQmoQnPnBzcL7gUJK6vvbcQWxiRQ4yVH=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1aQmoQnPnBzcL7gUJK6vvbcQWxiRQ4yVH=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1aQmoQnPnBzcL7gUJK6vvbcQWxiRQ4yVH=s0",
+      "shareUrl": "1aQmoQnPnBzcL7gUJK6vvbcQWxiRQ4yVH",
+      "position": 119,
+      "positionTieBreaker": "._CHA DA ALICE-618.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-120",
+      "fileName": "._CHA DA ALICE-619.jpg",
+      "alt": "Fotografia 120 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/133JUdq0xKqO8_-D58M8oYNIvxcMduWqv=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/133JUdq0xKqO8_-D58M8oYNIvxcMduWqv=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/133JUdq0xKqO8_-D58M8oYNIvxcMduWqv=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/133JUdq0xKqO8_-D58M8oYNIvxcMduWqv=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/133JUdq0xKqO8_-D58M8oYNIvxcMduWqv=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/133JUdq0xKqO8_-D58M8oYNIvxcMduWqv=s0",
+      "shareUrl": "133JUdq0xKqO8_-D58M8oYNIvxcMduWqv",
+      "position": 120,
+      "positionTieBreaker": "._CHA DA ALICE-619.jpg"
+    },
+    {
+      "id": "photo-cha-da-alice-121",
+      "fileName": "._CHA DA ALICE-620.jpg",
+      "alt": "Fotografia 121 de CHA DA ALICE",
+      "width": 3840,
+      "height": 2560,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      },
+      "dominantColor": "#181b20",
+      "sources": [
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QQeo7SyzXhE8EJub_oGAbyy_k7NzStWZ=w640",
+          "width": 640,
+          "height": 427,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QQeo7SyzXhE8EJub_oGAbyy_k7NzStWZ=w1024",
+          "width": 1024,
+          "height": 683,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QQeo7SyzXhE8EJub_oGAbyy_k7NzStWZ=w2048",
+          "width": 2048,
+          "height": 1365,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QQeo7SyzXhE8EJub_oGAbyy_k7NzStWZ=w3600",
+          "width": 3600,
+          "height": 2400,
+          "format": "jpeg"
+        },
+        {
+          "url": "https://lh3.googleusercontent.com/d/1QQeo7SyzXhE8EJub_oGAbyy_k7NzStWZ=s0",
+          "width": 3840,
+          "height": 2560,
+          "format": "jpeg"
+        }
+      ],
+      "downloadUrl": "https://lh3.googleusercontent.com/d/1QQeo7SyzXhE8EJub_oGAbyy_k7NzStWZ=s0",
+      "shareUrl": "1QQeo7SyzXhE8EJub_oGAbyy_k7NzStWZ",
+      "position": 121,
+      "positionTieBreaker": "._CHA DA ALICE-620.jpg"
+    }
+  ]
+}
