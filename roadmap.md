@@ -39,6 +39,12 @@
 - [x] Normalização de identificadores (slugs URL-friendly) e calibração de ponto focal de capa com preview editorial do Hero.
 - [x] Suporte à criação com acervo demonstrativo instantâneo ("Comece com fotos de exemplo") e transação atômica no PostgreSQL.
 
+## Fase 17: Photo Editor & Culling Workspace (Paridade Pixieset editor.pixieset.com)
+- [x] Workspace dedicado `/editor` com canvas em alta resolução, filmstrip sincronizado e barra de filtros rápidos.
+- [x] Motor de triagem por teclado (`1`-`5` estrelas, `P` Pick, `X` Reject, `U` Unflag, setas de navegação) com persistência local por coleção.
+- [x] Painel de estilos editoriais Versa Visual em tempo real e exportação de lista de aprovadas para Adobe Lightroom Classic.
+
+
 
 
 

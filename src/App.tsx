@@ -5,9 +5,10 @@ import { AdminPanel } from './components/Admin/AdminPanel';
 import { DashboardPage } from './components/Dashboard/DashboardPage';
 import { PhotoLibraryPage } from './components/PhotoLibrary/PhotoLibraryPage';
 import { CollectionCreateWizard } from './components/CollectionWizard/CollectionCreateWizard';
+import { PhotoEditorPage } from './components/PhotoEditor/PhotoEditorPage';
 import type { CreateCollectionResponse } from './types/gallery';
 
-type AppView = 'home' | 'gallery' | 'dashboard' | 'photos' | 'create-collection';
+type AppView = 'home' | 'gallery' | 'dashboard' | 'photos' | 'create-collection' | 'editor';
 
 function resolveViewFromUrl(): { view: AppView; slug: string | null } {
   if (typeof window === 'undefined') return { view: 'home', slug: null };
@@ -15,6 +16,13 @@ function resolveViewFromUrl(): { view: AppView; slug: string | null } {
   const params = new URLSearchParams(window.location.search);
   const viewParam = params.get('view');
 
+  if (
+    pathname === '/editor' ||
+    pathname.startsWith('/projects') ||
+    viewParam === 'editor'
+  ) {
+    return { view: 'editor', slug: params.get('collection') || null };
+  }
   if (
     pathname === '/collections/create' ||
     pathname === '/collections/new' ||
@@ -123,6 +131,19 @@ export default function App() {
     }
   }, []);
 
+  const handleOpenEditor = useCallback(() => {
+    setViewState({ view: 'editor', slug: currentCollection });
+    setIsCreateWizardOpen(false);
+    if (typeof window !== 'undefined') {
+      const nextUrl = new URL(window.location.href);
+      nextUrl.pathname = '/editor';
+      nextUrl.searchParams.delete('photo');
+      nextUrl.searchParams.delete('pid');
+      nextUrl.searchParams.delete('view');
+      window.history.pushState({}, '', `${nextUrl.pathname}${nextUrl.search}`);
+    }
+  }, [currentCollection]);
+
   const handleOpenCreateWizard = useCallback(() => {
     setIsCreateWizardOpen(true);
     if (typeof window !== 'undefined') {
@@ -150,6 +171,17 @@ export default function App() {
     },
     [handleSelectCollection],
   );
+
+  // Se o usuário acessar a rota /editor, renderiza o Photo Editor & Culling
+  if (viewState.view === 'editor') {
+    return (
+      <PhotoEditorPage
+        initialSlug={viewState.slug || undefined}
+        onNavigateHome={handleGoHome}
+        onNavigateDashboard={handleOpenDashboard}
+      />
+    );
+  }
 
   // Se o usuário acessar a rota /photos, renderiza a Biblioteca Central de Fotos
   if (viewState.view === 'photos') {
@@ -188,6 +220,7 @@ export default function App() {
         <DashboardPage
           onNavigateHome={handleGoHome}
           onNavigatePhotos={handleOpenPhotos}
+          onNavigateEditor={handleOpenEditor}
           onOpenAdmin={() => setIsAdminOpen(true)}
           onCreateCollection={handleOpenCreateWizard}
         />

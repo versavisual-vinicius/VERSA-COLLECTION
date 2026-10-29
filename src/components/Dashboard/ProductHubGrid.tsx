@@ -8,7 +8,7 @@ export interface ProductItem {
   href: string;
   badge?: string;
   isExternal?: boolean;
-  iconName: 'gallery' | 'library' | 'studio' | 'settings';
+  iconName: 'gallery' | 'library' | 'studio' | 'settings' | 'editor';
 }
 
 const PRODUCTS: ProductItem[] = [
@@ -29,6 +29,15 @@ const PRODUCTS: ProductItem[] = [
     href: '/photos',
     badge: 'Produção',
     iconName: 'library',
+  },
+  {
+    id: 'photo-editor',
+    name: 'Photo Editor & Culling',
+    category: 'Triagem & Estilos IA',
+    description: 'Workspace rápido com atalhos de teclado (P/X/1-5 estrelas), filmstrip e presets editoriais.',
+    href: '/editor',
+    badge: 'Produção',
+    iconName: 'editor',
   },
   {
     id: 'studio-manager',

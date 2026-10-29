@@ -300,6 +300,22 @@
 - [x] **Integração SPA & Roteamento**: Suporte às rotas `/collections/create`, `/collections/new` e parâmetro `?view=create-collection` em `src/App.tsx`, com gatilhos conectados no Dashboard (`ProductHubGrid`, `DashboardPage`) e na Photo Library (`PhotoLibraryEmptyState`).
 - [x] **Suíte de Testes & Verificação**: `src/test/Fase16_CollectionCreationWizard.test.tsx` (6 novos testes unitários e de integração), elevando o acervo para 22 arquivos e 129 testes 100% aprovados com build de produção validado (`pnpm check`).
 
+---
+
+## Fase 17: Photo Editor & Culling Workspace (Paridade Pixieset editor.pixieset.com)
+
+- [x] **Tipos & Motor de Hotkeys (`useCullingHotkeys.ts`)**: Atalhos de latência zero para estrelas (`1`-`5`, `0`), status (`P` para Pick, `X` para Reject, `U` para Unflag) e navegação direcional (`ArrowLeft`/`ArrowRight`) com proteção contra foco em inputs.
+- [x] **Persistência Local Reativa (`cullingStorage.ts`)**: Sincronização automática por coleção no `localStorage` (`versa_culling_v1_<slug>`) e gerador de relatório de triagem (`generateCullingReport`).
+- [x] **Componentes do Workspace (`/editor`)**:
+  - `CullingCanvas.tsx`: Visualizador em alta resolução com selos dinâmicos de Pick/Reject/Estrelas e suporte a filtros de estilo.
+  - `FilmstripBar.tsx`: Barra horizontal de miniaturas com selos de triagem e auto-scroll suave.
+  - `CullingToolbar.tsx`: Seletor de coleção, filtros rápidos (Todas, Picks, Não Rejeitadas, Avaliadas) e contadores em tempo real.
+  - `StylePresetPanel.tsx`: Catálogo de 5 estilos editoriais Versa Visual (`Original`, `Versa Editorial Teal`, `B&W Noir 35mm`, `Warm Golden Hour`, `Clean Natural Light`).
+  - `PhotoEditorPage.tsx`: Workspace integrado com modal de exportação de nomes de arquivos aprovados para Lightroom Classic.
+- [x] **Roteamento SPA & Hub**: Rota `/editor` e `?view=editor` conectadas em `src/App.tsx`, `DashboardPage.tsx` e `ProductHubGrid.tsx`.
+- [x] **Suíte de Testes & Verificação**: `src/test/Fase17_PhotoEditorCulling.test.tsx` (6 novos testes), elevando o acervo para 23 arquivos e 135 testes 100% aprovados em 3.91s (`pnpm check`).
+
+
 
 
 

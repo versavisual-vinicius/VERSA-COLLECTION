@@ -8,6 +8,7 @@ import { SystemHealthCard } from './SystemHealthCard';
 interface DashboardPageProps {
   onNavigateHome?: () => void;
   onNavigatePhotos?: () => void;
+  onNavigateEditor?: () => void;
   onOpenAdmin?: () => void;
   onCreateCollection?: () => void;
 }
@@ -15,6 +16,7 @@ interface DashboardPageProps {
 export const DashboardPage: React.FC<DashboardPageProps> = ({
   onNavigateHome,
   onNavigatePhotos,
+  onNavigateEditor,
   onOpenAdmin,
   onCreateCollection,
 }) => {
@@ -46,6 +48,10 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
     }
     if ((href === '/photos' || href.includes('photos')) && onNavigatePhotos) {
       onNavigatePhotos();
+      return;
+    }
+    if ((href === '/editor' || href.includes('editor')) && onNavigateEditor) {
+      onNavigateEditor();
       return;
     }
     if (href.includes('admin=true') && onOpenAdmin) {
