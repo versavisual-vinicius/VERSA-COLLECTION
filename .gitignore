@@ -4,6 +4,7 @@ dist
 dist-server
 .vite
 .vercel
+.firebase/
 .supabase
 coverage
 *.log
