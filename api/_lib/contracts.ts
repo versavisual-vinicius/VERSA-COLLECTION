@@ -163,6 +163,49 @@ export const photoLibraryResponseSchema = z.object({
 
 export type PhotoLibraryResponse = z.infer<typeof photoLibraryResponseSchema>;
 
+export const createCollectionSchema = z.object({
+  title: z
+    .string()
+    .trim()
+    .min(2, 'O título deve ter pelo menos 2 caracteres')
+    .max(120, 'O título não pode exceder 120 caracteres'),
+  slug: z
+    .string()
+    .trim()
+    .min(2, 'O identificador (slug) deve ter pelo menos 2 caracteres')
+    .max(80, 'O slug não pode exceder 80 caracteres')
+    .regex(/^[a-z0-9-]+$/, 'O slug deve conter apenas letras minúsculas, números e hífens'),
+  eventDate: z.string().optional(),
+  clientEmail: emailSchema.optional(),
+  coverUrl: z.string().optional(),
+  coverFocalPoint: z
+    .object({
+      x: z.number().min(0).max(100),
+      y: z.number().min(0).max(100),
+    })
+    .optional(),
+  layoutPreset: z.enum(['masonry', 'justified']).default('masonry'),
+  visibility: z.enum(['public', 'password', 'client-only', 'hidden']).default('public'),
+  password: z.string().optional(),
+  seedDemoPhotos: z.boolean().optional().default(false),
+});
+
+export type CreateCollectionInput = z.infer<typeof createCollectionSchema>;
+
+export const createCollectionResponseSchema = z.object({
+  success: z.boolean(),
+  collection: z.object({
+    id: z.string(),
+    slug: z.string(),
+    title: z.string(),
+    totalItems: z.number().int(),
+    coverUrl: z.string().optional(),
+    createdAt: z.string(),
+  }),
+});
+
+export type CreateCollectionResponse = z.infer<typeof createCollectionResponseSchema>;
+
 /**
  * Validador fail-closed: faz o parse do schema e retorna ou os dados tipados
  * ou uma Response HTTP 400 com payload estruturado de erro.

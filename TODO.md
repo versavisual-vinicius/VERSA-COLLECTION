@@ -286,6 +286,21 @@
 - [x] **Roteamento SPA & Dashboard**: Rota `/photos` conectada em `src/App.tsx` e atalho ativo na grade de produtos do `/dashboard`.
 - [x] **Suíte de Testes & Verificação**: `src/test/useAbortRequest.test.ts` e `src/test/Fase15_PhotoLibrary.test.tsx` (12 novos testes), elevando o acervo para 21 arquivos e 123 testes 100% aprovados com build de produção validado (`pnpm check`).
 
+---
+
+## Fase 16: Assistente de Criação de Coleções & Onboarding (Paridade Pixieset collections/create)
+
+- [x] **Contratos Zod & Backend Transacional**: Schemas `createCollectionSchema` e `createCollectionResponseSchema` em `api/_lib/contracts.ts` e endpoint `POST /api/collections` em `api/collections/index.ts` com transação ACID (`withTransaction`), verificação de unicidade de slug e inserção atômica em `public.collections` e `public.photos`.
+- [x] **Cliente Resiliente (`src/lib/backend.ts`)**: Implementação de `createCollection` com fallback local in-memory, suporte a injeção demonstrativa e sincronização com `availableCollections`.
+- [x] **Componentes do Wizard em 3 Passos**:
+  - `StepEventDetails.tsx`: Validação de título, slug autogerado URL-friendly em tempo real, data do evento e e-mail do cliente.
+  - `StepCoverPicker.tsx`: Presets rápidos de capas autorais Versa Visual, URL customizada, ajuste de ponto focal interativo (`CoverFocalPicker`) e pré-visualização editorial do Hero.
+  - `StepLayoutPreset.tsx`: Escolha de estilo de grade (Masonry Editorial vs. Linhas Justificadas), controle de privacidade (pública vs. protegida por senha com validação) e toggle "Comece com fotos de exemplo" (Pixieset Onboarding Parity).
+  - `CollectionCreateWizard.tsx`: Orquestrador com indicador de progresso (stepper), feedback de erro e redirecionamento automático para a galeria criada.
+- [x] **Integração SPA & Roteamento**: Suporte às rotas `/collections/create`, `/collections/new` e parâmetro `?view=create-collection` em `src/App.tsx`, com gatilhos conectados no Dashboard (`ProductHubGrid`, `DashboardPage`) e na Photo Library (`PhotoLibraryEmptyState`).
+- [x] **Suíte de Testes & Verificação**: `src/test/Fase16_CollectionCreationWizard.test.tsx` (6 novos testes unitários e de integração), elevando o acervo para 22 arquivos e 129 testes 100% aprovados com build de produção validado (`pnpm check`).
+
+
 
 
 

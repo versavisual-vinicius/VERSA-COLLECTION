@@ -4,8 +4,10 @@ import { PhotographerHomePage } from './components/PhotographerHomePage';
 import { AdminPanel } from './components/Admin/AdminPanel';
 import { DashboardPage } from './components/Dashboard/DashboardPage';
 import { PhotoLibraryPage } from './components/PhotoLibrary/PhotoLibraryPage';
+import { CollectionCreateWizard } from './components/CollectionWizard/CollectionCreateWizard';
+import type { CreateCollectionResponse } from './types/gallery';
 
-type AppView = 'home' | 'gallery' | 'dashboard' | 'photos';
+type AppView = 'home' | 'gallery' | 'dashboard' | 'photos' | 'create-collection';
 
 function resolveViewFromUrl(): { view: AppView; slug: string | null } {
   if (typeof window === 'undefined') return { view: 'home', slug: null };
@@ -13,6 +15,13 @@ function resolveViewFromUrl(): { view: AppView; slug: string | null } {
   const params = new URLSearchParams(window.location.search);
   const viewParam = params.get('view');
 
+  if (
+    pathname === '/collections/create' ||
+    pathname === '/collections/new' ||
+    viewParam === 'create-collection'
+  ) {
+    return { view: 'create-collection', slug: null };
+  }
   if (pathname === '/photos' || viewParam === 'photos') {
     return { view: 'photos', slug: null };
   }
@@ -34,12 +43,16 @@ export default function App() {
     if (typeof window === 'undefined') return false;
     return new URLSearchParams(window.location.search).get('admin') === 'true';
   });
+  const [isCreateWizardOpen, setIsCreateWizardOpen] = useState<boolean>(
+    () => viewState.view === 'create-collection',
+  );
 
   useEffect(() => {
     const handlePopState = () => {
       const view = resolveViewFromUrl();
       setViewState(view);
       setCurrentCollection(view.slug);
+      setIsCreateWizardOpen(view.view === 'create-collection');
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -48,6 +61,7 @@ export default function App() {
   const handleSelectCollection = useCallback((slug: string) => {
     setCurrentCollection(slug);
     setViewState({ view: 'gallery', slug });
+    setIsCreateWizardOpen(false);
     if (typeof window !== 'undefined') {
       const nextUrl = new URL(window.location.href);
       if (nextUrl.pathname.startsWith('/g/')) {
@@ -65,6 +79,7 @@ export default function App() {
   const handleGoHome = useCallback(() => {
     setCurrentCollection(null);
     setViewState({ view: 'home', slug: null });
+    setIsCreateWizardOpen(false);
     if (typeof window !== 'undefined') {
       const nextUrl = new URL(window.location.href);
       nextUrl.pathname = '/';
@@ -81,6 +96,7 @@ export default function App() {
   const handleOpenDashboard = useCallback(() => {
     setCurrentCollection(null);
     setViewState({ view: 'dashboard', slug: null });
+    setIsCreateWizardOpen(false);
     if (typeof window !== 'undefined') {
       const nextUrl = new URL(window.location.href);
       nextUrl.pathname = '/dashboard';
@@ -95,6 +111,7 @@ export default function App() {
   const handleOpenPhotos = useCallback(() => {
     setCurrentCollection(null);
     setViewState({ view: 'photos', slug: null });
+    setIsCreateWizardOpen(false);
     if (typeof window !== 'undefined') {
       const nextUrl = new URL(window.location.href);
       nextUrl.pathname = '/photos';
@@ -106,6 +123,34 @@ export default function App() {
     }
   }, []);
 
+  const handleOpenCreateWizard = useCallback(() => {
+    setIsCreateWizardOpen(true);
+    if (typeof window !== 'undefined') {
+      const nextUrl = new URL(window.location.href);
+      nextUrl.searchParams.set('view', 'create-collection');
+      window.history.pushState({}, '', `${nextUrl.pathname}${nextUrl.search}`);
+    }
+  }, []);
+
+  const handleCloseCreateWizard = useCallback(() => {
+    setIsCreateWizardOpen(false);
+    if (typeof window !== 'undefined') {
+      const nextUrl = new URL(window.location.href);
+      if (nextUrl.searchParams.get('view') === 'create-collection') {
+        nextUrl.searchParams.delete('view');
+        window.history.pushState({}, '', `${nextUrl.pathname}${nextUrl.search}`);
+      }
+    }
+  }, []);
+
+  const handleCreateSuccess = useCallback(
+    (newCol: CreateCollectionResponse['collection']) => {
+      setIsCreateWizardOpen(false);
+      handleSelectCollection(newCol.slug);
+    },
+    [handleSelectCollection],
+  );
+
   // Se o usuário acessar a rota /photos, renderiza a Biblioteca Central de Fotos
   if (viewState.view === 'photos') {
     return (
@@ -114,7 +159,7 @@ export default function App() {
           onNavigateHome={handleGoHome}
           onNavigateDashboard={handleOpenDashboard}
           onOpenAdmin={() => setIsAdminOpen(true)}
-          onCreateCollection={() => setIsAdminOpen(true)}
+          onCreateCollection={handleOpenCreateWizard}
           onSelectCollection={handleSelectCollection}
         />
         {isAdminOpen && (
@@ -127,19 +172,24 @@ export default function App() {
             }}
           />
         )}
+        <CollectionCreateWizard
+          isOpen={isCreateWizardOpen}
+          onClose={handleCloseCreateWizard}
+          onSuccess={handleCreateSuccess}
+        />
       </>
     );
   }
 
-  // Se o usuário acessar a rota /dashboard, renderiza o Studio Hub central
-  if (viewState.view === 'dashboard') {
+  // Se o usuário acessar a rota /dashboard ou view create-collection
+  if (viewState.view === 'dashboard' || viewState.view === 'create-collection') {
     return (
       <>
         <DashboardPage
           onNavigateHome={handleGoHome}
           onNavigatePhotos={handleOpenPhotos}
           onOpenAdmin={() => setIsAdminOpen(true)}
-          onCreateCollection={() => setIsAdminOpen(true)}
+          onCreateCollection={handleOpenCreateWizard}
         />
         {isAdminOpen && (
           <AdminPanel
@@ -151,6 +201,11 @@ export default function App() {
             }}
           />
         )}
+        <CollectionCreateWizard
+          isOpen={isCreateWizardOpen}
+          onClose={handleCloseCreateWizard}
+          onSuccess={handleCreateSuccess}
+        />
       </>
     );
   }
@@ -174,15 +229,27 @@ export default function App() {
             }}
           />
         )}
+        <CollectionCreateWizard
+          isOpen={isCreateWizardOpen}
+          onClose={handleCloseCreateWizard}
+          onSuccess={handleCreateSuccess}
+        />
       </>
     );
   }
 
   return (
-    <GalleryPage
-      collectionSlug={currentCollection}
-      onGoHome={handleGoHome}
-      onSelectCollection={handleSelectCollection}
-    />
+    <>
+      <GalleryPage
+        collectionSlug={currentCollection}
+        onGoHome={handleGoHome}
+        onSelectCollection={handleSelectCollection}
+      />
+      <CollectionCreateWizard
+        isOpen={isCreateWizardOpen}
+        onClose={handleCloseCreateWizard}
+        onSuccess={handleCreateSuccess}
+      />
+    </>
   );
 }

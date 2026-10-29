@@ -2,6 +2,8 @@ import { createClient, type Session, type SupabaseClient } from '@supabase/supab
 import type {
   AdminMetrics,
   CollectionConfigUpdate,
+  CreateCollectionInput,
+  CreateCollectionResponse,
   ExportRequest,
   GalleryCollection,
   GalleryPhoto,
@@ -353,4 +355,128 @@ export async function fetchPhotoLibrary(
     return computeLocal();
   }
 }
+
+export async function createCollection(
+  input: CreateCollectionInput,
+  signal?: AbortSignal,
+): Promise<CreateCollectionResponse> {
+  const localFallback = (): CreateCollectionResponse => {
+    const id = `col-${input.slug}-${Date.now().toString(36)}`;
+    const coverUrl =
+      input.coverUrl ||
+      'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=2400&q=80';
+    const createdAt = new Date().toISOString();
+
+    const fixtureList = availableCollections.fixture?.photos || [];
+    const demoPhotosList = input.seedDemoPhotos
+      ? fixtureList.slice(0, 8).map((p, idx) => ({
+          ...p,
+          id: `demo-${id}-${idx + 1}`,
+          shareUrl: `/?collection=${input.slug}&photo=demo-${id}-${idx + 1}`,
+        }))
+      : [];
+
+    const newCol: GalleryCollection = {
+      id,
+      slug: input.slug,
+      title: input.title,
+      businessName: 'Versa Visual',
+      cover: {
+        alt: input.title,
+        width: 2400,
+        height: 1600,
+        dominantColor: '#050A0D',
+        sources: [{ url: coverUrl, width: 2400, height: 1600, format: 'jpeg' as const }],
+      },
+      coverFocalPoint: input.coverFocalPoint || { x: 50, y: 50 },
+      visibility: input.visibility || 'public',
+      passwordRequired: Boolean(input.visibility === 'password' && input.password),
+      favoritesEnabled: true,
+      downloads: {
+        enabled: true,
+        individualEnabled: true,
+        collectionEnabled: true,
+        requiresEmail: false,
+        requiresPin: false,
+        allowedSizes: ['original', '3600', '2048'],
+      },
+      sharingEnabled: true,
+      slideshowEnabled: true,
+      totalItems: demoPhotosList.length,
+      locale: 'pt-BR',
+      theme: {
+        headingFont: 'Outfit',
+        bodyFont: 'DM Sans',
+        foreground: '#FFFFFF',
+        background: '#050A0D',
+        gridGapDesktop: 6,
+        gridGapMobile: 4,
+        coverOverlayOpacity: 0.5,
+      },
+      sets: [
+        {
+          id: `set-${id}-main`,
+          title: 'Geral',
+          slug: 'geral',
+          photoCount: demoPhotosList.length,
+        },
+      ],
+    };
+
+    availableCollections[input.slug] = {
+      collection: newCol,
+      photos: demoPhotosList,
+    };
+
+    return {
+      success: true,
+      collection: {
+        id,
+        slug: input.slug,
+        title: input.title,
+        totalItems: newCol.totalItems,
+        coverUrl,
+        createdAt,
+      },
+    };
+  };
+
+  if (!backendEnabled) {
+    return localFallback();
+  }
+
+  try {
+    const res = await fetch('/api/collections', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        accept: 'application/json',
+      },
+      body: JSON.stringify(input),
+      signal,
+    });
+
+    if (!res.ok) {
+      const errBody = (await res.json().catch(() => ({}))) as {
+        error?: { code?: string; message?: string; details?: unknown };
+      };
+      throw new BackendError(
+        res.status,
+        errBody.error?.code || 'COLLECTION_CREATE_FAILED',
+        errBody.error?.message || 'Falha ao criar nova coleção.',
+        errBody.error?.details,
+      );
+    }
+
+    const data = (await res.json()) as CreateCollectionResponse;
+    localFallback();
+    return data;
+  } catch (err) {
+    if (err instanceof BackendError) throw err;
+    if (err instanceof Error && err.name === 'AbortError') throw err;
+    console.warn('Falha na chamada POST /api/collections, usando fallback local:', err);
+    return localFallback();
+  }
+}
+
 

@@ -221,3 +221,28 @@ export interface PhotoLibraryResponse {
     count: number;
   }>;
 }
+
+export interface CreateCollectionInput {
+  title: string;
+  slug: string;
+  eventDate?: string;
+  clientEmail?: string;
+  coverUrl?: string;
+  coverFocalPoint?: { x: number; y: number };
+  layoutPreset?: 'masonry' | 'justified';
+  visibility?: 'public' | 'password' | 'client-only' | 'hidden';
+  password?: string;
+  seedDemoPhotos?: boolean;
+}
+
+export interface CreateCollectionResponse {
+  success: boolean;
+  collection: {
+    id: string;
+    slug: string;
+    title: string;
+    totalItems: number;
+    coverUrl?: string;
+    createdAt: string;
+  };
+}

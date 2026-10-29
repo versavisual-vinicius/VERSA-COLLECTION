@@ -34,5 +34,11 @@
 - [x] Cancelamento de concorrência com AbortController (`useAbortRequest`) na barra de busca.
 - [x] Filtros por termo, coleção e proporção geométrica com inspeção em tela cheia via Lightbox.
 
+## Fase 16: Criação de Coleções & Onboarding (Paridade Pixieset collections/create)
+- [x] Assistente modal e de rotas (`/collections/create`) em 3 passos com stepper visual e validações reativas.
+- [x] Normalização de identificadores (slugs URL-friendly) e calibração de ponto focal de capa com preview editorial do Hero.
+- [x] Suporte à criação com acervo demonstrativo instantâneo ("Comece com fotos de exemplo") e transação atômica no PostgreSQL.
+
+
 
 
