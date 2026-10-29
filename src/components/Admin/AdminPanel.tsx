@@ -228,7 +228,41 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
 }
 
 function PanelShell({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
-  return <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#050A0D] p-4 text-white"><div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0c1015] p-6">{children}<button onClick={onClose} className="mt-5 text-xs text-white/50">Voltar para a galeria</button></div></div>;
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 text-white"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#0c1015] p-6 shadow-2xl">
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Fechar painel"
+          className="absolute top-4 right-4 text-white/50 hover:text-white p-1 text-sm rounded-lg transition-colors"
+        >
+          ✕
+        </button>
+        {children}
+        <button
+          type="button"
+          onClick={onClose}
+          className="mt-6 w-full py-2.5 px-4 rounded-lg bg-white/10 hover:bg-white/15 text-xs font-semibold uppercase tracking-wider text-white transition-colors text-center"
+        >
+          Voltar para a galeria
+        </button>
+      </div>
+    </div>
+  );
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
