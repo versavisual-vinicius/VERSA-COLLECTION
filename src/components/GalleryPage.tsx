@@ -14,6 +14,7 @@ import { FavoritesDialog } from './Dialogs/FavoritesDialog';
 import { ToastRegion } from './Feedback/ToastRegion';
 import { BrandingFooter } from './Footer/BrandingFooter';
 import { GalleryPasswordGate } from './Security/GalleryPasswordGate';
+import { ExpiredCollectionScreen } from './Feedback/ExpiredCollectionScreen';
 import { AdminPanel } from './Admin/AdminPanel';
 import { useFavorites } from '../lib/useFavorites';
 import { telemetry } from '../lib/telemetry';
@@ -184,9 +185,11 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
   const {
     favoriteIds,
     favoriteNotes,
+    clientEmail,
     toggleFavorite: toggleFavAction,
     removeFavorite: removeFavAction,
     updateFavoriteNote,
+    syncWithEmail,
   } = useFavorites(collection.id);
 
   // Fetcher progressivo determinístico baseado na coleção ativa
@@ -479,6 +482,27 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
     return <div role="alert" className="min-h-screen bg-[#050A0D] text-white grid place-items-center p-6 text-center">{backendError}</div>;
   }
 
+  const isCollectionExpired = Boolean(
+    collection.expiresAt && !isOwnerPreview && new Date(collection.expiresAt).getTime() < Date.now(),
+  );
+
+  if (isCollectionExpired) {
+    return (
+      <>
+        <ExpiredCollectionScreen
+          collection={collection}
+          onOpenAdmin={() => setIsAdminOpen(true)}
+        />
+        {isAdminOpen && (
+          <AdminPanel
+            initialSlug={activeSlug}
+            onClose={() => setIsAdminOpen(false)}
+          />
+        )}
+      </>
+    );
+  }
+
   if (!isUnlocked) {
     return (
       <>
@@ -545,6 +569,8 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
             hasMore={activeSetId ? false : hasMore}
             errorMessage={loadError}
             favoriteIds={favoriteIds}
+            isSetFilter={Boolean(activeSetId)}
+            onClearFilter={() => handleSelectSet(null)}
             onOpenPhoto={openPhoto}
             onLoadMore={loadMore}
             onRetry={retry}
@@ -623,6 +649,8 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
         isOpen={isFavoritesOpen}
         favorites={favoritePhotosList}
         favoriteNotes={favoriteNotes}
+        clientEmail={clientEmail}
+        onSyncEmail={syncWithEmail}
         onClose={() => setIsFavoritesOpen(false)}
         onOpenPhoto={openPhoto}
         onRemoveFavorite={removeFavAction}

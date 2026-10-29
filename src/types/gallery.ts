@@ -73,6 +73,7 @@ export interface GalleryCollection {
   theme: GalleryTheme;
   clientNotes?: string;
   sets?: GallerySet[];
+  expiresAt?: string;
 }
 
 export interface GalleryPhoto {
@@ -176,4 +177,8 @@ export interface CollectionConfigUpdate {
   clientEmails?: string[];
   downloads?: Partial<DownloadPolicy>;
   clientNotes?: string;
+  expiresAt?: string;
+  coverFocalPoint?: { x: number; y: number };
+  theme?: Partial<GalleryTheme>;
+  sets?: GallerySet[];
 }

@@ -1,0 +1,20 @@
+# Roadmap de Implementação (ROADMAP.md)
+
+## Fase 1: Fundação e Galeria Pública
+- [x] Engenharia reversa e levantamento de contratos da aplicação Pixieset.
+- [x] Implementação da Capa Editorial responsiva (`srcset`, múltiplos breakpoints e animação de scroll suave).
+- [x] Implementação da Grade Masonry responsiva com carregamento progressivo assíncrono.
+- [x] Implementação do Lightbox em tela cheia com deep linking (URL profunda) e navegação por teclado/touch.
+- [x] Implementação do modo Slideshow contínuo (ciclo 3s e interrupção por tecla/gesto).
+
+## Fase 2: Ações do Cliente e Entrega
+- [x] Sistema de Favoritos com autenticação sem senha baseada em e-mail (UI otimista, notas, ZIP client-side e endpoint de merge/sync por e-mail implementados).
+- [ ] Download individual de fotografias e download em lote protegido por PIN (máquina de estados, PIN e pasta Drive concluídos; falta compactação ZIP sob demanda no backend).
+- [x] Composer de compartilhamento social e deep links por imagem.
+- [x] Estados de carregamento, galeria vazia e acesso restrito por senha (password gate, loading e componente EmptyGalleryState concluídos).
+
+## Fase 3: Painel Administrativo do Fotógrafo
+- [x] Organização por coleções, conjuntos (Sets) e biblioteca de mídia central (navegação de sets pública e CRUD de sets na aba Sets do admin concluídos).
+- [ ] Upload em lote com extração de metadados e incorporação de vídeos (sincronização via CLI Google Drive concluída; falta upload web e EXIF).
+- [x] Editor visual de capa, tipografia, cores e grade (CoverFocalPicker interativo, tipografia e opacidade de overlay concluídos).
+- [x] Configurações de privacidade, expiração automática, loja e atividades/histórico (privacidade por scrypt, tela de expiração automática e histórico concluídos).

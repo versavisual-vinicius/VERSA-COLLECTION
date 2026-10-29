@@ -19,6 +19,7 @@ async function loadHandlers() {
     adminCollections,
     adminExportRequests,
     adminMigrate,
+    collectionFavorites,
     dbLib,
   ] = await Promise.all([
     import('./dist-server/api/collections/index.js'),
@@ -28,6 +29,7 @@ async function loadHandlers() {
     import('./dist-server/api/admin/collections.js'),
     import('./dist-server/api/admin/export-requests.js'),
     import('./dist-server/api/admin/migrate-local.js'),
+    import('./dist-server/api/collections/[slug]/favorites.js').catch(() => ({ default: null })),
     import('./dist-server/api/_lib/db.js'),
   ]);
 
@@ -39,6 +41,7 @@ async function loadHandlers() {
     adminCollections: adminCollections.default,
     adminExportRequests: adminExportRequests.default,
     adminMigrate: adminMigrate.default,
+    collectionFavorites: collectionFavorites.default,
     closeDbPool: dbLib.closeDbPool,
   };
   return handlers;
@@ -193,6 +196,13 @@ const server = http.createServer(async (req, res) => {
       const sessionMatch = pathname.match(/^\/api\/collections\/([^/]+)\/session$/);
       if (sessionMatch) {
         const webRes = await h.collectionSession(webReq);
+        await sendWebResponse(webRes, res);
+        return;
+      }
+
+      const favoritesMatch = pathname.match(/^\/api\/collections\/([^/]+)\/favorites(?:\/.*)?$/);
+      if (favoritesMatch && h.collectionFavorites) {
+        const webRes = await h.collectionFavorites(webReq);
         await sendWebResponse(webRes, res);
         return;
       }

@@ -6,6 +6,8 @@ interface FavoritesDialogProps {
   isOpen: boolean;
   favorites: GalleryPhoto[];
   favoriteNotes?: Record<string, string>;
+  clientEmail?: string | null;
+  onSyncEmail?: (email: string) => Promise<void> | void;
   onClose: () => void;
   onOpenPhoto: (photoId: string) => void;
   onRemoveFavorite: (photoId: string) => void;
@@ -18,6 +20,8 @@ export function FavoritesDialog({
   isOpen,
   favorites,
   favoriteNotes = {},
+  clientEmail,
+  onSyncEmail,
   onClose,
   onOpenPhoto,
   onRemoveFavorite,
@@ -29,6 +33,9 @@ export function FavoritesDialog({
   const [editingNotePhotoId, setEditingNotePhotoId] = useState<string | null>(null);
   const [noteInput, setNoteInput] = useState('');
   const [isZipping, setIsZipping] = useState(false);
+  const [emailInput, setEmailInput] = useState(clientEmail || '');
+  const [isSavingEmail, setIsSavingEmail] = useState(false);
+  const [syncFeedback, setSyncFeedback] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -242,6 +249,54 @@ export function FavoritesDialog({
                 </div>
               </div>
             )}
+
+            {/* Sincronização por E-mail (RF-010) */}
+            <div className="mb-4 p-3 rounded-xl bg-white/5 border border-white/10">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                <div>
+                  <p className="text-xs font-semibold text-white/90">
+                    Salvar seleção por e-mail
+                  </p>
+                  <p className="text-[11px] text-white/50">
+                    Acesse seus favoritos salvos de qualquer outro aparelho ou navegador.
+                  </p>
+                </div>
+                <div className="flex w-full sm:w-auto gap-2">
+                  <input
+                    type="email"
+                    value={emailInput}
+                    onChange={(e) => setEmailInput(e.target.value)}
+                    placeholder="seu-email@exemplo.com"
+                    className="flex-1 sm:w-56 px-2.5 py-1.5 rounded-lg bg-black/40 border border-white/10 text-xs text-white outline-none focus:border-[#5E7F8C]"
+                  />
+                  <button
+                    type="button"
+                    disabled={isSavingEmail || !emailInput.trim()}
+                    onClick={async () => {
+                      if (!emailInput.trim()) return;
+                      setIsSavingEmail(true);
+                      setSyncFeedback(null);
+                      try {
+                        await onSyncEmail?.(emailInput.trim());
+                        setSyncFeedback('Seleção vinculada ao e-mail com sucesso!');
+                      } catch {
+                        setSyncFeedback('Erro ao sincronizar e-mail.');
+                      } finally {
+                        setIsSavingEmail(false);
+                      }
+                    }}
+                    className="px-3 py-1.5 rounded-lg bg-[#5E7F8C] hover:bg-[#6e919f] disabled:opacity-50 text-white text-xs font-semibold whitespace-nowrap transition-colors"
+                  >
+                    {isSavingEmail ? 'Sincronizando...' : 'Vincular E-mail'}
+                  </button>
+                </div>
+              </div>
+              {syncFeedback && (
+                <p className="mt-2 text-[11px] text-emerald-400 font-medium">
+                  {syncFeedback}
+                </p>
+              )}
+            </div>
 
             <div className="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
               <button

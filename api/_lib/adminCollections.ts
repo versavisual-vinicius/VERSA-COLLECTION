@@ -44,6 +44,10 @@ export async function applyAdminCollectionUpdate(input: AdminCollectionUpdate) {
     throw new Error('EMAIL_INVALID_FORMAT');
   }
 
+  const nextTheme = input.theme
+    ? { ...(current.theme as object), ...input.theme }
+    : current.theme;
+
   const { rows: updatedRows } = await query<Record<string, unknown>>(
     `UPDATE public.collections SET
       title = $1,
@@ -55,8 +59,11 @@ export async function applyAdminCollectionUpdate(input: AdminCollectionUpdate) {
       downloads = $7,
       download_pin_hash = $8,
       client_notes = $9,
-      updated_at = $10
-    WHERE id = $11
+      cover_focal_point = COALESCE($10, cover_focal_point),
+      theme = COALESCE($11, theme),
+      expires_at = $12,
+      updated_at = $13
+    WHERE id = $14
     RETURNING *`,
     [
       input.title ?? current.title,
@@ -68,6 +75,9 @@ export async function applyAdminCollectionUpdate(input: AdminCollectionUpdate) {
       JSON.stringify(nextDownloads),
       nextDownloads.requiresPin ? downloadPinHash : null,
       input.clientNotes ?? current.client_notes,
+      input.coverFocalPoint ? JSON.stringify(input.coverFocalPoint) : null,
+      input.theme ? JSON.stringify(nextTheme) : null,
+      input.expiresAt ? new Date(input.expiresAt).toISOString() : (current.expires_at ?? null),
       new Date().toISOString(),
       current.id,
     ],
@@ -76,6 +86,7 @@ export async function applyAdminCollectionUpdate(input: AdminCollectionUpdate) {
 }
 
 export function sanitizeAdminCollection(row: Record<string, unknown>) {
+  const cover = row.cover as { sources?: Array<{ url: string }> } | undefined;
   return {
     id: row.id,
     slug: row.slug,
@@ -87,6 +98,10 @@ export function sanitizeAdminCollection(row: Record<string, unknown>) {
     downloads: row.downloads,
     hasDownloadPin: Boolean(row.download_pin_hash),
     clientNotes: row.client_notes ?? '',
+    expiresAt: row.expires_at ? new Date(row.expires_at as string).toISOString() : undefined,
+    coverFocalPoint: row.cover_focal_point as { x: number; y: number } | undefined,
+    theme: row.theme,
+    coverUrl: cover?.sources?.[0]?.url,
     updatedAt: row.updated_at,
   };
 }

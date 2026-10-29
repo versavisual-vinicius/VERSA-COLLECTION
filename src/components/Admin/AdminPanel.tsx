@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { CollectionVisibility, ExportRequest } from '../../types/gallery';
+import type { CollectionVisibility, ExportRequest, GallerySet } from '../../types/gallery';
+import { CoverFocalPicker } from './CoverFocalPicker';
 import {
   backendEnabled,
   fetchAdminCollections,
@@ -18,7 +19,7 @@ interface AdminPanelProps {
   onSelectCollection?: (slug: string) => void;
 }
 
-type Tab = 'config' | 'requests' | 'handoff';
+type Tab = 'config' | 'editorial' | 'sets' | 'handoff' | 'requests';
 
 export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClose, onSelectCollection }: AdminPanelProps) {
   const [isLoadingAuth, setIsLoadingAuth] = useState(backendEnabled);
@@ -48,6 +49,12 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
   const [newPin, setNewPin] = useState('');
   const [directFolderUrl, setDirectFolderUrl] = useState('');
   const [clientNotes, setClientNotes] = useState('');
+  const [expiresAt, setExpiresAt] = useState('');
+  const [focalPoint, setFocalPoint] = useState<{ x: number; y: number }>({ x: 50, y: 50 });
+  const [headingFont, setHeadingFont] = useState('Outfit, sans-serif');
+  const [overlayOpacity, setOverlayOpacity] = useState(0.65);
+  const [sets, setSets] = useState<GallerySet[]>([]);
+  const [newSetName, setNewSetName] = useState('');
 
   useEffect(() => {
     if (!backendEnabled) {
@@ -83,6 +90,11 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
     setNewPin('');
     setDirectFolderUrl(selected.downloads.directFolderUrl ?? '');
     setClientNotes(selected.clientNotes);
+    setExpiresAt(selected.expiresAt ? selected.expiresAt.slice(0, 10) : '');
+    setFocalPoint(selected.coverFocalPoint ?? { x: 50, y: 50 });
+    setHeadingFont(selected.theme?.headingFont ?? 'Outfit, sans-serif');
+    setOverlayOpacity(selected.theme?.coverOverlayOpacity ?? 0.65);
+    setSets(selected.sets ?? []);
   }, [selected]);
 
   useEffect(() => {
@@ -115,6 +127,13 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
         clientPassword: newPassword.trim() || undefined,
         clientEmails: clientEmails.split(',').map((value) => value.trim()).filter(Boolean),
         clientNotes: clientNotes.trim(),
+        expiresAt: expiresAt ? new Date(expiresAt).toISOString() : undefined,
+        coverFocalPoint: focalPoint,
+        theme: {
+          headingFont,
+          coverOverlayOpacity: overlayOpacity,
+        },
+        sets,
         downloads: {
           enabled: downloadEnabled,
           requiresEmail,
@@ -185,14 +204,39 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
         </div>
       </header>
 
-      <nav className="flex items-center gap-4 border-b border-white/10 px-6">
-        {(['config', 'handoff', 'requests'] as Tab[]).map((tab) => (
-          <button key={tab} onClick={() => setActiveTab(tab)} className={`py-3 text-xs ${activeTab === tab ? 'border-b-2 border-[#5E7F8C] text-white' : 'text-white/50'}`}>
-            {tab === 'config' ? 'Configurações' : tab === 'handoff' ? 'WhatsApp' : 'Solicitações'}
+      <nav className="flex items-center gap-4 border-b border-white/10 px-6 overflow-x-auto">
+        {(
+          [
+            { id: 'config', label: 'Configurações' },
+            { id: 'editorial', label: 'Capa & Visual' },
+            { id: 'sets', label: 'Conjuntos (Sets)' },
+            { id: 'handoff', label: 'WhatsApp' },
+            { id: 'requests', label: 'Solicitações' },
+          ] as const
+        ).map((t) => (
+          <button
+            key={t.id}
+            onClick={() => setActiveTab(t.id)}
+            className={`py-3 text-xs whitespace-nowrap ${
+              activeTab === t.id ? 'border-b-2 border-[#5E7F8C] text-white font-semibold' : 'text-white/50 hover:text-white/80'
+            }`}
+          >
+            {t.label}
           </button>
         ))}
-        <select value={selectedSlug} onChange={(event) => { setSelectedSlug(event.target.value); onSelectCollection?.(event.target.value); }} className="ml-auto bg-[#0c1015] text-xs">
-          {collections.map((collection) => <option key={collection.slug} value={collection.slug}>{collection.title}</option>)}
+        <select
+          value={selectedSlug}
+          onChange={(event) => {
+            setSelectedSlug(event.target.value);
+            onSelectCollection?.(event.target.value);
+          }}
+          className="ml-auto bg-[#0c1015] border border-white/10 rounded px-2 py-1 text-xs"
+        >
+          {collections.map((collection) => (
+            <option key={collection.slug} value={collection.slug}>
+              {collection.title}
+            </option>
+          ))}
         </select>
       </nav>
 
@@ -207,6 +251,7 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
                 <Toggle label="Exigir senha" checked={passwordRequired} onChange={setPasswordRequired} />
                 {passwordRequired && <Field label={selected.hasPassword ? 'Nova senha (vazio mantém a atual)' : 'Senha'}><input type="password" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} /></Field>}
                 <Field label="E-mails autorizados, separados por vírgula"><input value={clientEmails} onChange={(event) => setClientEmails(event.target.value)} /></Field>
+                <Field label="Data limite de expiração da galeria"><input type="date" value={expiresAt} onChange={(event) => setExpiresAt(event.target.value)} /></Field>
               </Section>
               <Section title="Downloads">
                 <Toggle label="Downloads ativos" checked={downloadEnabled} onChange={setDownloadEnabled} />
@@ -218,6 +263,134 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
                 <button disabled={isSaving} onClick={() => void save()} className="rounded bg-[#5E7F8C] px-5 py-2 text-xs font-bold disabled:opacity-50">{isSaving ? 'Salvando…' : 'Salvar no backend'}</button>
               </Section>
             </>
+          )}
+
+          {activeTab === 'editorial' && selected && (
+            <>
+              <Section title="Ponto Focal & Enquadramento da Capa">
+                <CoverFocalPicker
+                  coverUrl={selected.coverUrl || 'https://lh3.googleusercontent.com/d/16gB18JjIIPQwr7g7XOH4NbnIWN-dJn4a=w1024'}
+                  focalPoint={focalPoint}
+                  onChange={setFocalPoint}
+                />
+              </Section>
+
+              <Section title="Tipografia Editorial & Contraste">
+                <Field label="Fonte dos Títulos">
+                  <select value={headingFont} onChange={(e) => setHeadingFont(e.target.value)}>
+                    <option value="Outfit, sans-serif">Outfit (Padrão Oficial Versa Visual)</option>
+                    <option value="Righteous, cursive">Righteous (Display de Destaque)</option>
+                    <option value="DM Sans, sans-serif">DM Sans (Minimalista)</option>
+                  </select>
+                </Field>
+
+                <Field label={`Opacidade do Gradiente Escuro (${Math.round(overlayOpacity * 100)}%)`}>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="range"
+                      min="0.1"
+                      max="0.95"
+                      step="0.05"
+                      value={overlayOpacity}
+                      onChange={(e) => setOverlayOpacity(parseFloat(e.target.value))}
+                      className="flex-1 accent-[#5E7F8C]"
+                    />
+                    <span className="text-xs font-mono text-white/70 w-12 text-right">
+                      {Math.round(overlayOpacity * 100)}%
+                    </span>
+                  </div>
+                </Field>
+
+                <button
+                  disabled={isSaving}
+                  onClick={() => void save()}
+                  className="rounded bg-[#5E7F8C] px-5 py-2 text-xs font-bold disabled:opacity-50"
+                >
+                  {isSaving ? 'Salvando…' : 'Salvar Estilo Visual'}
+                </button>
+              </Section>
+            </>
+          )}
+
+          {activeTab === 'sets' && selected && (
+            <Section title="Gestão de Conjuntos (Sets / Sub-galerias)">
+              <p className="text-xs text-white/60">
+                Organize as fotografias em seções (ex: Destaques, Cerimônia, Recepção, Ensaio).
+              </p>
+
+              <div className="flex gap-2 pt-2">
+                <input
+                  type="text"
+                  placeholder="Nome do novo conjunto..."
+                  value={newSetName}
+                  onChange={(e) => setNewSetName(e.target.value)}
+                  className="flex-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs text-white outline-none focus:border-[#5E7F8C]"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      if (!newSetName.trim()) return;
+                      const slug = newSetName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+                      setSets((prev) => [
+                        ...prev,
+                        { id: `set-${Date.now()}`, title: newSetName.trim(), slug, photoIds: [] },
+                      ]);
+                      setNewSetName('');
+                    }
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!newSetName.trim()) return;
+                    const slug = newSetName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+                    setSets((prev) => [
+                      ...prev,
+                      { id: `set-${Date.now()}`, title: newSetName.trim(), slug, photoIds: [] },
+                    ]);
+                    setNewSetName('');
+                  }}
+                  className="rounded bg-[#5E7F8C] hover:bg-[#6e919f] px-4 py-2 text-xs font-bold uppercase transition-colors"
+                >
+                  Adicionar
+                </button>
+              </div>
+
+              <div className="space-y-2 pt-3">
+                {sets.length === 0 ? (
+                  <p className="text-xs text-white/40 italic py-2">
+                    Nenhum conjunto configurado. Todas as fotos são exibidas juntas na galeria principal.
+                  </p>
+                ) : (
+                  sets.map((set, idx) => (
+                    <div
+                      key={set.id}
+                      className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10 text-xs"
+                    >
+                      <div>
+                        <strong className="text-white">{set.title}</strong>
+                        <span className="ml-2 font-mono text-[10px] text-white/40">slug: {set.slug}</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setSets((prev) => prev.filter((_, i) => i !== idx))}
+                        className="text-red-400 hover:text-red-300 p-1 text-xs"
+                        title="Remover conjunto"
+                      >
+                        ✕ Excluir
+                      </button>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              <button
+                disabled={isSaving}
+                onClick={() => void save()}
+                className="mt-4 rounded bg-[#5E7F8C] px-5 py-2 text-xs font-bold disabled:opacity-50"
+              >
+                {isSaving ? 'Salvando…' : 'Salvar Conjuntos'}
+              </button>
+            </Section>
           )}
           {activeTab === 'handoff' && <Section title="Mensagem WhatsApp"><pre className="whitespace-pre-wrap text-sm text-white/75">{whatsappMessage}</pre><button onClick={() => void navigator.clipboard.writeText(whatsappMessage).then(() => setMessage('Mensagem copiada.'))} className="rounded bg-[#5E7F8C] px-4 py-2 text-xs">Copiar</button><p className="text-[11px] text-amber-300/80">Senha e PIN nunca retornam do servidor. Eles aparecem somente quando definidos nesta sessão.</p></Section>}
           {activeTab === 'requests' && <Section title="Últimas solicitações">{requests.length === 0 ? <p className="text-sm text-white/50">Nenhuma solicitação.</p> : requests.map((request) => <div key={request.id} className="border-b border-white/10 py-3 text-xs"><strong>{request.collectionTitle}</strong> · {request.type} · {request.requestedSize}<br /><span className="text-white/50">{request.clientEmail || 'sem e-mail'} · {new Date(request.requestedAt).toLocaleString('pt-BR')}</span></div>)}</Section>}

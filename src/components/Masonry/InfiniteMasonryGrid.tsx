@@ -3,6 +3,7 @@ import type { GalleryPhoto } from '../../types/gallery';
 import { useMasonryLayout, type MasonryLayoutOptions } from './useMasonryLayout';
 import { GalleryPhotoCard } from './GalleryPhotoCard';
 import type { LoadingStatus } from './useGalleryProgressivePhotos';
+import { EmptyGalleryState } from '../Feedback/EmptyGalleryState';
 
 interface InfiniteMasonryGridProps {
   photos: GalleryPhoto[];
@@ -11,6 +12,8 @@ interface InfiniteMasonryGridProps {
   errorMessage?: string | null;
   favoriteIds?: Set<string>;
   options?: MasonryLayoutOptions;
+  isSetFilter?: boolean;
+  onClearFilter?: () => void;
   onOpenPhoto: (photoId: string) => void;
   onLoadMore?: () => void;
   onRetry?: () => void;
@@ -33,6 +36,8 @@ export function InfiniteMasonryGrid({
   errorMessage,
   favoriteIds = new Set(),
   options,
+  isSetFilter = false,
+  onClearFilter,
   onOpenPhoto,
   onLoadMore,
   onRetry,
@@ -110,6 +115,16 @@ export function InfiniteMasonryGrid({
   }, [hasMore, onLoadMore, status]);
 
   const { layoutItems, totalHeight, columnCount } = useMasonryLayout(photos, containerWidth, options);
+
+  if (photos.length === 0 && status !== 'loading' && status !== 'loading-more') {
+    return (
+      <EmptyGalleryState
+        isSetFilter={isSetFilter}
+        onClearFilter={onClearFilter}
+        onRefresh={onRetry}
+      />
+    );
+  }
 
   return (
     <div className="w-full">

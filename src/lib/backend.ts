@@ -36,6 +36,11 @@ export interface AdminCollection {
   hasDownloadPin: boolean;
   clientNotes: string;
   updatedAt: string;
+  expiresAt?: string;
+  coverFocalPoint?: { x: number; y: number };
+  theme?: GalleryCollection['theme'];
+  coverUrl?: string;
+  sets?: GalleryCollection['sets'];
 }
 
 export class BackendError extends Error {
