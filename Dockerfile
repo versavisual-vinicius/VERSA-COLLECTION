@@ -6,7 +6,7 @@ WORKDIR /app
 # Ativa Corepack para pnpm 12
 RUN corepack enable && corepack prepare pnpm@12.15.0 --activate
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 
 COPY . .
@@ -22,7 +22,7 @@ ENV PORT=8080
 
 RUN corepack enable && corepack prepare pnpm@12.15.0 --activate
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --prod --frozen-lockfile --ignore-scripts
 
 COPY --from=builder /app/dist ./dist
