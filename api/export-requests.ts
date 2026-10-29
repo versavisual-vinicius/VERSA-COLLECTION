@@ -1,7 +1,7 @@
 import { getCollectionRow } from './_lib/collections.js';
 import { apiError, assertTrustedOrigin, json, methodNotAllowed, readJson } from './_lib/http.js';
 import { hasGallerySession, verifySecret } from './_lib/security.js';
-import { getSupabaseAdmin } from './_lib/supabase.js';
+import { query } from './_lib/db.js';
 
 interface ExportInput {
   collectionSlug: string;
@@ -38,20 +38,17 @@ export default async function handler(request: Request): Promise<Response> {
       return apiError(400, 'SIZE_UNAVAILABLE', 'Resolução não permitida para esta galeria.');
     }
 
-    const supabase = getSupabaseAdmin();
     let downloadUrl = row.downloads.directFolderUrl as string | undefined;
     let photoFileName: string | null = null;
 
     if (input.photoId) {
-      const { data: photo, error: photoError } = await supabase
-        .from('photos')
-        .select('data')
-        .eq('collection_id', row.id)
-        .eq('id', input.photoId)
-        .maybeSingle();
-      if (photoError) throw photoError;
+      const { rows: photoRows } = await query<{ data: Record<string, unknown> }>(
+        'SELECT data FROM public.photos WHERE collection_id = $1 AND id = $2 LIMIT 1',
+        [row.id, input.photoId],
+      );
+      const photo = photoRows[0];
       if (!photo) return apiError(404, 'NOT_FOUND', 'Fotografia não encontrada.');
-      const data = photo.data as Record<string, unknown>;
+      const data = photo.data;
       photoFileName = (data.fileName as string | undefined) ?? null;
       const sources = (data.sources as Array<{ width: number; url: string }> | undefined) ?? [];
       downloadUrl = input.requestedSize === 'original'
@@ -61,22 +58,25 @@ export default async function handler(request: Request): Promise<Response> {
           ?? sources[0]?.url);
     }
 
-    const { data: created, error } = await supabase
-      .from('export_requests')
-      .insert({
-        collection_id: row.id,
-        request_type: input.type,
-        photo_id: input.photoId ?? null,
-        photo_file_name: photoFileName,
-        client_email: email || null,
-        pin_verified: pinRequired,
-        requested_size: input.requestedSize,
-        status: downloadUrl ? 'ready' : 'pending',
-        download_url: downloadUrl ?? null,
-      })
-      .select('id,status,requested_at')
-      .single();
-    if (error) throw error;
+    const { rows: createdRows } = await query<{ id: string; status: string; requested_at: string }>(
+      `INSERT INTO public.export_requests (
+         collection_id, request_type, photo_id, photo_file_name,
+         client_email, pin_verified, requested_size, status, download_url
+       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+       RETURNING id, status, requested_at`,
+      [
+        row.id,
+        input.type,
+        input.photoId ?? null,
+        photoFileName,
+        email || null,
+        pinRequired,
+        input.requestedSize,
+        downloadUrl ? 'ready' : 'pending',
+        downloadUrl ?? null,
+      ],
+    );
+    const created = createdRows[0];
 
     return json({ request: created, downloadUrl: downloadUrl ?? null }, 201);
   } catch (error) {

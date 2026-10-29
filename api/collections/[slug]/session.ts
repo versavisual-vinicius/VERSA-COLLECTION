@@ -1,4 +1,4 @@
-import { assertTrustedOrigin, apiError, json, methodNotAllowed, readJson, sessionCookie } from '../../_lib/http.js';
+import { assertTrustedOrigin, apiError, json, methodNotAllowed, readJson, sessionCookie, cookieValue, sessionCookieName } from '../../_lib/http.js';
 import { getCollectionRow } from '../../_lib/collections.js';
 import {
   clientIpHash,
@@ -9,7 +9,7 @@ import {
   tokenHash,
   verifySecret,
 } from '../../_lib/security.js';
-import { getSupabaseAdmin } from '../../_lib/supabase.js';
+import { query } from '../../_lib/db.js';
 
 interface SessionInput {
   password?: string;
@@ -29,23 +29,15 @@ export default async function handler(request: Request): Promise<Response> {
     const slug = slugFrom(request);
     const row = await getCollectionRow(slug);
     if (!row || row.visibility === 'hidden') return apiError(404, 'NOT_FOUND', 'Coleção não encontrada.');
-    const supabase = getSupabaseAdmin();
 
     if (request.method === 'DELETE') {
       if (await hasGallerySession(request, slug, row.id)) {
-        const cookie = request.headers.get('cookie') ?? '';
-        const token = cookie
-          .split(';')
-          .map((part) => part.trim())
-          .find((part) => part.startsWith(`versa_gallery_${slug}=`))
-          ?.split('=')
-          .slice(1)
-          .join('=');
+        const token = cookieValue(request, sessionCookieName(slug));
         if (token) {
-          await supabase
-            .from('gallery_sessions')
-            .update({ revoked_at: new Date().toISOString() })
-            .eq('token_hash', tokenHash(decodeURIComponent(token)));
+          await query(
+            'UPDATE public.gallery_sessions SET revoked_at = NOW() WHERE token_hash = $1',
+            [tokenHash(token)],
+          );
         }
       }
       return json({ success: true }, 200, { 'set-cookie': sessionCookie(slug, '', 0) });
@@ -55,21 +47,19 @@ export default async function handler(request: Request): Promise<Response> {
     const ipHash = clientIpHash(request);
     const since = new Date(Date.now() - 15 * 60 * 1000).toISOString();
     const retentionCutoff = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-    const [{ error: attemptsCleanupError }, { error: sessionsCleanupError }] = await Promise.all([
-      supabase.from('login_attempts').delete().lt('attempted_at', retentionCutoff),
-      supabase.from('gallery_sessions').delete().lt('expires_at', new Date().toISOString()),
+
+    await Promise.all([
+      query('DELETE FROM public.login_attempts WHERE attempted_at < $1', [retentionCutoff]),
+      query('DELETE FROM public.gallery_sessions WHERE expires_at < NOW()'),
     ]);
-    if (attemptsCleanupError) throw attemptsCleanupError;
-    if (sessionsCleanupError) throw sessionsCleanupError;
-    const { count, error: countError } = await supabase
-      .from('login_attempts')
-      .select('id', { count: 'exact', head: true })
-      .eq('collection_id', row.id)
-      .eq('ip_hash', ipHash)
-      .eq('succeeded', false)
-      .gte('attempted_at', since);
-    if (countError) throw countError;
-    if ((count ?? 0) >= 5) {
+
+    const { rows: countRows } = await query<{ count: string }>(
+      `SELECT count(*)::text AS count FROM public.login_attempts
+       WHERE collection_id = $1 AND ip_hash = $2 AND succeeded = false AND attempted_at >= $3`,
+      [row.id, ipHash, since],
+    );
+    const failedAttempts = parseInt(countRows[0]?.count ?? '0', 10);
+    if (failedAttempts >= 5) {
       return apiError(429, 'RATE_LIMITED', 'Muitas tentativas. Aguarde 15 minutos.', {
         'retry-after': '900',
       });
@@ -78,36 +68,34 @@ export default async function handler(request: Request): Promise<Response> {
     const passwordOk = await verifySecret(input.password?.trim() ?? '', row.access_password_hash);
     const normalizedEmail = input.email?.trim().toLowerCase() ?? '';
     const emailOk = !row.access_email_required || row.client_emails.includes(normalizedEmail);
-    const succeeded = passwordOk && emailOk;
 
-    const { error: attemptError } = await supabase.from('login_attempts').insert({
-      collection_id: row.id,
-      ip_hash: ipHash,
-      succeeded,
-    });
-    if (attemptError) throw attemptError;
-
-    if (!succeeded) {
-      return apiError(401, 'INVALID_PASSWORD', 'Credenciais inválidas.');
+    if (!passwordOk || !emailOk) {
+      await query(
+        'INSERT INTO public.login_attempts (collection_id, ip_hash, succeeded) VALUES ($1, $2, false)',
+        [row.id, ipHash],
+      );
+      return apiError(401, 'INVALID_CREDENTIALS', 'Senha ou e-mail incorreto.');
     }
+
+    await query(
+      'INSERT INTO public.login_attempts (collection_id, ip_hash, succeeded) VALUES ($1, $2, true)',
+      [row.id, ipHash],
+    );
 
     const token = newOpaqueToken();
-    const { error: sessionError } = await supabase.from('gallery_sessions').insert({
-      collection_id: row.id,
-      token_hash: tokenHash(token),
-      client_email: normalizedEmail || null,
-      expires_at: sessionExpiry().toISOString(),
-    });
-    if (sessionError) throw sessionError;
+    await query(
+      `INSERT INTO public.gallery_sessions (collection_id, token_hash, client_email, expires_at)
+       VALUES ($1, $2, $3, $4)`,
+      [row.id, tokenHash(token), normalizedEmail || null, sessionExpiry().toISOString()],
+    );
 
-    return json({ success: true }, 200, {
-      'set-cookie': sessionCookie(slug, token, SESSION_SECONDS),
-    });
+    return json(
+      { success: true },
+      200,
+      { 'set-cookie': sessionCookie(slug, token, SESSION_SECONDS) },
+    );
   } catch (error) {
-    if (error instanceof Error && error.message === 'INVALID_CONTENT_TYPE') {
-      return apiError(415, 'INVALID_CONTENT_TYPE', 'Envie JSON.');
-    }
-    console.error('gallery.session.failed', error instanceof Error ? error.message : 'unknown');
-    return apiError(503, 'TEMPORARILY_UNAVAILABLE', 'Não foi possível validar o acesso.');
+    console.error('collections.session.failed', error instanceof Error ? error.message : 'unknown');
+    return apiError(503, 'TEMPORARILY_UNAVAILABLE', 'Falha ao autenticar na galeria.');
   }
 }

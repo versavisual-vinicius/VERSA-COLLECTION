@@ -1,6 +1,7 @@
 import { applyAdminCollectionUpdate, sanitizeAdminCollection, type AdminCollectionUpdate } from '../_lib/adminCollections.js';
 import { apiError, assertTrustedOrigin, json, methodNotAllowed, readJson } from '../_lib/http.js';
-import { getSupabaseAdmin, requireOwner } from '../_lib/supabase.js';
+import { requireOwner } from '../_lib/auth.js';
+import { query } from '../_lib/db.js';
 
 export default async function handler(request: Request): Promise<Response> {
   if (!['GET', 'PUT'].includes(request.method)) return methodNotAllowed(['GET', 'PUT']);
@@ -19,11 +20,16 @@ export default async function handler(request: Request): Promise<Response> {
     }
 
     const slug = new URL(request.url).searchParams.get('slug');
-    let query = getSupabaseAdmin().from('collections').select('*').order('created_at');
-    if (slug) query = query.eq('slug', slug);
-    const { data, error } = await query;
-    if (error) throw error;
-    return json({ collections: (data ?? []).map((row) => sanitizeAdminCollection(row)) });
+    let sql = 'SELECT * FROM public.collections';
+    const params: unknown[] = [];
+    if (slug) {
+      sql += ' WHERE slug = $1';
+      params.push(slug);
+    }
+    sql += ' ORDER BY created_at ASC';
+
+    const { rows } = await query<Record<string, unknown>>(sql, params);
+    return json({ collections: rows.map((row) => sanitizeAdminCollection(row)) });
   } catch (error) {
     if (error instanceof Error && error.message === 'PASSWORD_REQUIRED_WITHOUT_SECRET') {
       return apiError(400, 'PASSWORD_REQUIRED', 'Defina uma nova senha para proteger a galeria.');

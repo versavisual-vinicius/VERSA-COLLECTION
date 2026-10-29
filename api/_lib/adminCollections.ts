@@ -1,6 +1,6 @@
 import type { CollectionConfigUpdate, DownloadPolicy } from '../../src/types/gallery.js';
 import { hashSecret } from './security.js';
-import { getSupabaseAdmin } from './supabase.js';
+import { query } from './db.js';
 
 export interface AdminCollectionUpdate extends CollectionConfigUpdate {
   slug: string;
@@ -9,13 +9,12 @@ export interface AdminCollectionUpdate extends CollectionConfigUpdate {
 }
 
 export async function applyAdminCollectionUpdate(input: AdminCollectionUpdate) {
-  const supabase = getSupabaseAdmin();
-  const { data: current, error: currentError } = await supabase
-    .from('collections')
-    .select('*')
-    .eq('slug', input.slug)
-    .single();
-  if (currentError) throw currentError;
+  const { rows: currentRows } = await query<Record<string, unknown>>(
+    'SELECT * FROM public.collections WHERE slug = $1 LIMIT 1',
+    [input.slug],
+  );
+  const current = currentRows[0];
+  if (!current) throw new Error('NOT_FOUND');
 
   const password = input.clientPassword?.trim();
   const pin = input.downloads?.pin?.trim();
@@ -38,32 +37,42 @@ export async function applyAdminCollectionUpdate(input: AdminCollectionUpdate) {
   if (passwordRequired && !accessPasswordHash) throw new Error('PASSWORD_REQUIRED_WITHOUT_SECRET');
   if (nextDownloads.requiresPin && !downloadPinHash) throw new Error('PIN_REQUIRED_WITHOUT_SECRET');
 
-  const emails = (input.clientEmails ?? (input.clientEmail ? [input.clientEmail] : current.client_emails ?? []))
+  const emails = (input.clientEmails ?? (input.clientEmail ? [input.clientEmail] : (current.client_emails as string[]) ?? []))
     .map((email: string) => email.trim().toLowerCase())
     .filter(Boolean);
   if (emails.some((email: string) => !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {
     throw new Error('EMAIL_INVALID_FORMAT');
   }
 
-  const { data, error } = await supabase
-    .from('collections')
-    .update({
-      title: input.title ?? current.title,
-      visibility: input.visibility ?? current.visibility,
-      password_required: passwordRequired,
-      access_password_hash: passwordRequired ? accessPasswordHash : null,
-      access_email_required: emails.length > 0,
-      client_emails: emails,
-      downloads: nextDownloads,
-      download_pin_hash: nextDownloads.requiresPin ? downloadPinHash : null,
-      client_notes: input.clientNotes ?? current.client_notes,
-      updated_at: new Date().toISOString(),
-    })
-    .eq('id', current.id)
-    .select('*')
-    .single();
-  if (error) throw error;
-  return data;
+  const { rows: updatedRows } = await query<Record<string, unknown>>(
+    `UPDATE public.collections SET
+      title = $1,
+      visibility = $2,
+      password_required = $3,
+      access_password_hash = $4,
+      access_email_required = $5,
+      client_emails = $6,
+      downloads = $7,
+      download_pin_hash = $8,
+      client_notes = $9,
+      updated_at = $10
+    WHERE id = $11
+    RETURNING *`,
+    [
+      input.title ?? current.title,
+      input.visibility ?? current.visibility,
+      passwordRequired,
+      passwordRequired ? accessPasswordHash : null,
+      emails.length > 0,
+      emails,
+      JSON.stringify(nextDownloads),
+      nextDownloads.requiresPin ? downloadPinHash : null,
+      input.clientNotes ?? current.client_notes,
+      new Date().toISOString(),
+      current.id,
+    ],
+  );
+  return updatedRows[0];
 }
 
 export function sanitizeAdminCollection(row: Record<string, unknown>) {

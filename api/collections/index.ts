@@ -1,20 +1,29 @@
 import { apiError, json, methodNotAllowed } from '../_lib/http.js';
-import { getSupabaseAdmin } from '../_lib/supabase.js';
+import { query } from '../_lib/db.js';
+
+interface CollectionSummaryRow {
+  id: string;
+  slug: string;
+  title: string;
+  total_items: number;
+  cover: {
+    sources?: Array<{ url: string; width: number }>;
+  };
+}
 
 export default async function handler(request: Request): Promise<Response> {
   if (request.method !== 'GET') return methodNotAllowed(['GET']);
 
   try {
-    const { data, error } = await getSupabaseAdmin()
-      .from('collections')
-      .select('id,slug,title,total_items,cover,visibility')
-      .eq('visibility', 'public')
-      .eq('password_required', false)
-      .order('created_at', { ascending: false });
-    if (error) throw error;
+    const { rows } = await query<CollectionSummaryRow>(
+      `SELECT id, slug, title, total_items, cover
+       FROM public.collections
+       WHERE visibility = 'public' AND password_required = false
+       ORDER BY created_at DESC`,
+    );
 
     return json({
-      collections: (data ?? []).map((row) => ({
+      collections: rows.map((row) => ({
         id: row.id,
         slug: row.slug,
         title: row.title,

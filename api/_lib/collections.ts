@@ -1,5 +1,5 @@
 import type { GalleryCollection, GalleryPhoto } from '../../src/types/gallery.js';
-import { getSupabaseAdmin } from './supabase.js';
+import { query } from './db.js';
 
 export interface CollectionRow {
   id: string;
@@ -51,34 +51,35 @@ export function toClientCollection(row: CollectionRow): GalleryCollection {
 }
 
 export async function getCollectionRow(slug: string): Promise<CollectionRow | null> {
-  const { data, error } = await getSupabaseAdmin()
-    .from('collections')
-    .select('*')
-    .eq('slug', slug)
-    .maybeSingle();
-  if (error) throw error;
-  return data as CollectionRow | null;
+  const { rows } = await query<CollectionRow>(
+    'SELECT * FROM public.collections WHERE slug = $1 LIMIT 1',
+    [slug],
+  );
+  return rows[0] ?? null;
 }
 
 export async function getCollectionBundle(row: CollectionRow) {
-  const supabase = getSupabaseAdmin();
-  const [{ data: photoRows, error: photoError }, { data: setRows, error: setError }] = await Promise.all([
-    supabase.from('photos').select('data').eq('collection_id', row.id).order('position'),
-    supabase.from('gallery_sets').select('id,slug,title,data,position').eq('collection_id', row.id).order('position'),
+  const [photoRes, setRes] = await Promise.all([
+    query<{ data: GalleryPhoto }>(
+      'SELECT data FROM public.photos WHERE collection_id = $1 ORDER BY position ASC',
+      [row.id],
+    ),
+    query<{ id: string; slug: string; title: string; data: Record<string, unknown>; position: number }>(
+      'SELECT id, slug, title, data, position FROM public.gallery_sets WHERE collection_id = $1 ORDER BY position ASC',
+      [row.id],
+    ),
   ]);
-  if (photoError) throw photoError;
-  if (setError) throw setError;
 
   const collection = toClientCollection(row);
-  collection.sets = (setRows ?? []).map((set) => ({
-    id: set.id as string,
-    slug: set.slug as string,
-    title: set.title as string,
-    ...((set.data ?? {}) as object),
+  collection.sets = setRes.rows.map((set) => ({
+    id: set.id,
+    slug: set.slug,
+    title: set.title,
+    ...(set.data ?? {}),
   }));
 
   return {
     collection,
-    photos: (photoRows ?? []).map((photo) => photo.data as GalleryPhoto),
+    photos: photoRes.rows.map((photo) => photo.data),
   };
 }

@@ -1,0 +1,91 @@
+{
+  "apiVersion": "serving.knative.dev/v1",
+  "kind": "Service",
+  "metadata": {
+    "name": "versa-collection-git",
+    "namespace": "159343690308",
+    "labels": {
+      "cloud.googleapis.com/location": "europe-west1",
+      "gcb-trigger-id": "3ff0c5a0-acff-4ee0-927c-c55a3ace371f",
+      "gcb-trigger-region": "us-central1",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "annotations": {
+      "run.googleapis.com/client-name": "cloud-console",
+      "run.googleapis.com/ingress": "all",
+      "run.googleapis.com/ingress-status": "all",
+      "run.googleapis.com/invoker-iam-disabled": "true",
+      "run.googleapis.com/maxScale": "20",
+      "run.googleapis.com/ssh-enabled": "true"
+    }
+  },
+  "spec": {
+    "template": {
+      "metadata": {
+        "annotations": {
+          "autoscaling.knative.dev/minScale": "0",
+          "run.googleapis.com/client-name": "cloud-console",
+          "run.googleapis.com/cpu-throttling": "true",
+          "run.googleapis.com/sessionAffinity": "false",
+          "run.googleapis.com/startup-cpu-boost": "true",
+          "run.googleapis.com/cloudsql-instances": "gen-lang-client-0047526248:europe-west1:versa-collection-sql"
+        }
+      },
+      "spec": {
+        "containerConcurrency": 80,
+        "timeoutSeconds": 300,
+        "serviceAccountName": "159343690308-compute@developer.gserviceaccount.com",
+        "containers": [
+          {
+            "name": "versa-collection",
+            "image": "europe-west1-docker.pkg.dev/gen-lang-client-0047526248/cloud-run-source-deploy/versavisual-vinicius-versa-collection/versa-collection-git:latest",
+            "ports": [
+              {
+                "name": "http1",
+                "containerPort": 8080
+              }
+            ],
+            "resources": {
+              "limits": {
+                "cpu": "1000m",
+                "memory": "512Mi"
+              }
+            },
+            "env": [
+              {
+                "name": "DATABASE_URL",
+                "value": "postgresql://postgres@localhost/versa_collection?host=/cloudsql/gen-lang-client-0047526248:europe-west1:versa-collection-sql"
+              },
+              {
+                "name": "CLOUD_SQL_CONNECTION_NAME",
+                "value": "gen-lang-client-0047526248:europe-west1:versa-collection-sql"
+              },
+              {
+                "name": "DB_SOCKET_DIR",
+                "value": "/cloudsql"
+              },
+              {
+                "name": "NODE_ENV",
+                "value": "production"
+              }
+            ],
+            "startupProbe": {
+              "timeoutSeconds": 240,
+              "periodSeconds": 240,
+              "failureThreshold": 1,
+              "tcpSocket": {
+                "port": 8080
+              }
+            }
+          }
+        ]
+      }
+    },
+    "traffic": [
+      {
+        "percent": 100,
+        "latestRevision": true
+      }
+    ]
+  }
+}
