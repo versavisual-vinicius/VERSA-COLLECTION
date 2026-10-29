@@ -1,23 +1,20 @@
 import { getCollectionRow } from './_lib/collections.js';
+import { exportRequestSchema, validateContract } from './_lib/contracts.js';
 import { apiError, assertTrustedOrigin, json, methodNotAllowed, readJson } from './_lib/http.js';
 import { hasGallerySession, verifySecret } from './_lib/security.js';
 import { query } from './_lib/db.js';
-
-interface ExportInput {
-  collectionSlug: string;
-  type: 'single' | 'collection' | 'favorites';
-  photoId?: string;
-  clientEmail?: string;
-  pin?: string;
-  requestedSize: string;
-}
 
 export default async function handler(request: Request): Promise<Response> {
   if (request.method !== 'POST') return methodNotAllowed(['POST']);
   if (!assertTrustedOrigin(request)) return apiError(403, 'INVALID_ORIGIN', 'Origem não autorizada.');
 
   try {
-    const input = await readJson<ExportInput>(request);
+    const raw = await readJson<unknown>(request).catch(() => ({}));
+    const validation = validateContract(exportRequestSchema, raw);
+    if (!validation.success) {
+      return validation.response;
+    }
+    const input = validation.data;
     const row = await getCollectionRow(input.collectionSlug);
     if (!row || row.visibility === 'hidden') return apiError(404, 'NOT_FOUND', 'Coleção não encontrada.');
     if (!row.downloads.enabled) return apiError(403, 'DOWNLOAD_DISABLED', 'Downloads desativados.');

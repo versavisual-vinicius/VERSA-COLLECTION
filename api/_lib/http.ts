@@ -15,12 +15,14 @@ export function apiError(
   code: string,
   message: string,
   headers: HeadersInit = {},
+  details?: unknown,
 ): Response {
   return json(
     {
       error: {
         code,
         message,
+        details,
         requestId: crypto.randomUUID(),
       },
     },

@@ -18,3 +18,15 @@
 - [x] Upload em lote com extração de metadados e incorporação de vídeos (pipeline oficial consolidado via CLI Google Drive CDN e Service Account, indexando acervos massivos sem limites do navegador).
 - [x] Editor visual de capa, tipografia, cores e grade (CoverFocalPicker interativo, tipografia e opacidade de overlay concluídos).
 - [x] Configurações de privacidade, expiração automática, loja e atividades/histórico (privacidade por scrypt, tela de expiração automática e histórico concluídos).
+
+## Fase 13: Endurecimento de Contratos & Transações (Padrão REA 6.8.0)
+- [x] Validação estrita de contratos de entrada e saída com Zod (política fail-closed sem fallbacks silenciosos).
+- [x] Transações atômicas com `rollback()` determinístico em migrações e persistência de dados no PostgreSQL/AlloyDB.
+- [x] Expurgo de mutações DDL (`CREATE TABLE`) de handlers HTTP para migrations versionadas.
+
+## Fase 14: Studio Dashboard & Hub Federado (Paridade Pixieset Dashboard)
+- [x] Painel `/dashboard` federado com navegação entre Client Gallery, Photo Library, Studio Manager e Configurações.
+- [x] Storage Gauge em tempo real com monitoramento de cotas de armazenamento e tokens de design editorial.
+- [x] Healthcheck unificado de infraestrutura (Cloud Run, AlloyDB, Google Drive CDN) e ações rápidas de criação.
+
+

@@ -7,12 +7,14 @@ import { backendEnabled, fetchPublicCollections, type PublicCollectionCard } fro
 interface PhotographerHomePageProps {
   onSelectCollection: (slug: string) => void;
   onOpenAdmin: () => void;
+  onOpenDashboard?: () => void;
   collectionsOverride?: Array<PublicCollectionCard & { businessName?: string }>;
 }
 
 export function PhotographerHomePage({
   onSelectCollection,
   onOpenAdmin,
+  onOpenDashboard,
   collectionsOverride,
 }: PhotographerHomePageProps) {
   const realCollections = Object.entries(availableCollections).filter(
@@ -59,13 +61,25 @@ export function PhotographerHomePage({
             </h1>
           </div>
 
-          <button
-            type="button"
-            onClick={onOpenAdmin}
-            className="px-3.5 py-1.5 rounded-lg border border-white/10 hover:border-white/20 text-xs font-semibold uppercase tracking-wider text-white/70 hover:text-white transition-colors"
-          >
-            Acesso Fotógrafo
-          </button>
+          <div className="flex items-center space-x-2">
+            {onOpenDashboard && (
+              <button
+                type="button"
+                onClick={onOpenDashboard}
+                data-testid="btn-open-dashboard"
+                className="px-3 py-1.5 rounded-lg border border-[#5E7F8C]/40 bg-[#5E7F8C]/10 hover:bg-[#5E7F8C]/20 text-xs font-semibold uppercase tracking-wider text-[#5E7F8C] transition-colors"
+              >
+                Studio Hub
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={onOpenAdmin}
+              className="px-3.5 py-1.5 rounded-lg border border-white/10 hover:border-white/20 text-xs font-semibold uppercase tracking-wider text-white/70 hover:text-white transition-colors"
+            >
+              Acesso Fotógrafo
+            </button>
+          </div>
         </div>
       </header>
 

@@ -168,6 +168,21 @@ export interface ExportRequest {
   downloadUrl?: string;
 }
 
+export interface AdminMetrics {
+  totalCollections: number;
+  totalPhotos: number;
+  totalExports: number;
+  storageUsedBytes: number;
+  storageLimitBytes: number;
+  storagePercentage: number;
+  services: {
+    database: 'healthy' | 'degraded' | 'offline';
+    server: 'healthy' | 'degraded' | 'offline';
+    cdn: 'healthy' | 'degraded' | 'offline';
+  };
+  updatedAt: string;
+}
+
 export interface CollectionConfigUpdate {
   title?: string;
   visibility?: CollectionVisibility;

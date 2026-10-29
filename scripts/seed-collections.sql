@@ -1,6 +1,20 @@
 -- Semente gerada automaticamente para Cloud SQL / PostgreSQL (Cloud Run)
 BEGIN;
 
+-- DDL canônica da tabela de favoritos (expurgando DDL em tempo de execução HTTP)
+CREATE TABLE IF NOT EXISTS public.favorites (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  collection_id text NOT NULL REFERENCES public.collections(id) ON DELETE CASCADE,
+  visitor_id text,
+  client_email text,
+  photo_id text NOT NULL,
+  selected boolean NOT NULL DEFAULT true,
+  note text,
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS favorites_lookup_idx ON public.favorites (collection_id, visitor_id, client_email);
+CREATE INDEX IF NOT EXISTS favorites_photo_idx ON public.favorites (collection_id, photo_id);
+
 -- Coleção: modec-dia-das-criancas-2026
 INSERT INTO public.collections (
   id, slug, title, business_name, business_url, cover, cover_focal_point,

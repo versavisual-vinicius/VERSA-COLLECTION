@@ -4,6 +4,10 @@ const { Pool } = pg;
 
 let pool: pg.Pool | null = null;
 
+export function setDbPool(customPool: pg.Pool | null): void {
+  pool = customPool;
+}
+
 export function getDbPool(): pg.Pool {
   if (pool) return pool;
 
@@ -45,6 +49,35 @@ export async function query<T extends pg.QueryResultRow = pg.QueryResultRow>(
 ): Promise<pg.QueryResult<T>> {
   const p = getDbPool();
   return p.query<T>(text, params);
+}
+
+export interface TransactionClient {
+  query<T extends pg.QueryResultRow = pg.QueryResultRow>(
+    text: string,
+    params?: unknown[],
+  ): Promise<pg.QueryResult<T>>;
+}
+
+export async function withTransaction<T>(
+  action: (client: TransactionClient) => Promise<T>,
+): Promise<T> {
+  const p = getDbPool();
+  const client = await p.connect();
+  try {
+    await client.query('BEGIN');
+    const result = await action(client);
+    await client.query('COMMIT');
+    return result;
+  } catch (err) {
+    try {
+      await client.query('ROLLBACK');
+    } catch (rollbackErr) {
+      console.error('Erro ao executar ROLLBACK na transação:', rollbackErr);
+    }
+    throw err;
+  } finally {
+    client.release();
+  }
 }
 
 export async function closeDbPool(): Promise<void> {

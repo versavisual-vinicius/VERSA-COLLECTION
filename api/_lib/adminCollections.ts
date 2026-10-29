@@ -1,6 +1,6 @@
 import type { CollectionConfigUpdate, DownloadPolicy } from '../../src/types/gallery.js';
 import { hashSecret } from './security.js';
-import { query } from './db.js';
+import { query, type TransactionClient } from './db.js';
 
 export interface AdminCollectionUpdate extends CollectionConfigUpdate {
   slug: string;
@@ -8,8 +8,12 @@ export interface AdminCollectionUpdate extends CollectionConfigUpdate {
   downloads?: Partial<DownloadPolicy>;
 }
 
-export async function applyAdminCollectionUpdate(input: AdminCollectionUpdate) {
-  const { rows: currentRows } = await query<Record<string, unknown>>(
+export async function applyAdminCollectionUpdate(
+  input: AdminCollectionUpdate,
+  client?: TransactionClient,
+) {
+  const q = client ? client.query.bind(client) : query;
+  const { rows: currentRows } = await q<Record<string, unknown>>(
     'SELECT * FROM public.collections WHERE slug = $1 LIMIT 1',
     [input.slug],
   );
@@ -48,7 +52,7 @@ export async function applyAdminCollectionUpdate(input: AdminCollectionUpdate) {
     ? { ...(current.theme as object), ...input.theme }
     : current.theme;
 
-  const { rows: updatedRows } = await query<Record<string, unknown>>(
+  const { rows: updatedRows } = await q<Record<string, unknown>>(
     `UPDATE public.collections SET
       title = $1,
       visibility = $2,

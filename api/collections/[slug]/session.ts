@@ -1,5 +1,6 @@
 import { assertTrustedOrigin, apiError, json, methodNotAllowed, readJson, sessionCookie, cookieValue, sessionCookieName } from '../../_lib/http.js';
 import { getCollectionRow } from '../../_lib/collections.js';
+import { unlockSessionSchema, validateContract } from '../../_lib/contracts.js';
 import {
   clientIpHash,
   hasGallerySession,
@@ -10,11 +11,6 @@ import {
   verifySecret,
 } from '../../_lib/security.js';
 import { query } from '../../_lib/db.js';
-
-interface SessionInput {
-  password?: string;
-  email?: string;
-}
 
 function slugFrom(request: Request): string {
   const parts = new URL(request.url).pathname.split('/').filter(Boolean);
@@ -43,7 +39,12 @@ export default async function handler(request: Request): Promise<Response> {
       return json({ success: true }, 200, { 'set-cookie': sessionCookie(slug, '', 0) });
     }
 
-    const input = await readJson<SessionInput>(request);
+    const raw = await readJson<unknown>(request).catch(() => ({}));
+    const validation = validateContract(unlockSessionSchema, raw);
+    if (!validation.success) {
+      return validation.response;
+    }
+    const input = validation.data;
     const ipHash = clientIpHash(request);
     const since = new Date(Date.now() - 15 * 60 * 1000).toISOString();
     const retentionCutoff = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();

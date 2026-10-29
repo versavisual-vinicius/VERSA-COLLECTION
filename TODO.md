@@ -249,6 +249,32 @@
 - [x] **PhotographerEmptyState**: Estado editorial vazio em `PhotographerHomePage.tsx` quando não há coleções públicas ativas.
 - [x] **Suíte de Testes Fase 12**: `src/test/Fase12_PageStates_Resilience.test.tsx` (17 suítes, 94 testes 100% verdes).
 
+---
+
+## Fase 13: Endurecimento de Contratos & Transações (Padrão REA 6.8.0)
+
+- [x] **Validação Zod Fail-Closed**: Adição de `zod 4` e criação de `api/_lib/contracts.ts` com esquemas bidirecionais estritos para todos os endpoints (`session`, `export-requests`, `favorites`, `admin/collections`).
+- [x] **Padrão Transacional ACID (`withTransaction<T>`)**: Implementado helper transacional em `api/_lib/db.ts` com `BEGIN`, `COMMIT`, `ROLLBACK` e liberação de conexão garantida em bloco `finally`.
+- [x] **Atomicidade em Migrações e Merges**: Refatoração de `api/admin/migrate-local.ts` e `api/collections/[slug]/favorites.ts` para operar atomicamente sob transação.
+- [x] **Expurgo de DDL em Tempo de Execução HTTP**: Remoção de `ensureFavoritesTable()` e criação de migração SQL canônica em `feribase/migrations/20261029183000_add_favorites_table.sql` e `scripts/seed-collections.sql`.
+- [x] **Suítes de Teste Automatizadas**: Criação de `api/_lib/db.test.ts` e `src/test/Fase13_ReaContracts_Transactions.test.ts`, elevando o acervo para 19 suítes e 107 testes 100% verdes.
+
+---
+
+## Fase 14: Studio Dashboard & Hub Federado (Paridade Pixieset Dashboard)
+
+- [x] **Backend de Métricas & Saúde (`api/admin/metrics.ts`)**: Endpoint agregador de coleções ativas, contagem total de fotos, estimativa de consumo de armazenamento em GB e healthcheck dos serviços (Cloud Run, AlloyDB, Google Drive CDN).
+- [x] **Contratos Zod & Tipos**: Schemas `adminMetricsSchema` e tipos TypeScript `AdminMetrics` em `api/_lib/contracts.ts` e `src/types/gallery.ts`.
+- [x] **Componentes do Dashboard Editorial**:
+  - `StorageGaugeCard`: Gauge visual de consumo com tokens oficiais (`#050A0D`, `#5E7F8C`), cota e barra de progresso.
+  - `ProductHubGrid`: Grid com cartões de acesso a Client Gallery, Photo Library, Studio Manager e Store/Presets.
+  - `SystemHealthCard`: Monitoramento visual da infraestrutura em tempo real.
+  - `DashboardPage`: Hub unificado do estúdio com ações rápidas ("Nova Coleção", "Configurações"), atalhos e branding `@v1ncsc`.
+- [x] **Roteamento SPA**: Suporte a rota `/dashboard` e `?view=dashboard` em `src/App.tsx`, com atalho na `PhotographerHomePage`.
+- [x] **Suíte de Testes & Verificação**: `src/test/Fase14_DashboardHub.test.tsx` (7 novos testes unitários e de integração), elevando para 21 suítes e 116 testes 100% verdes com build de produção validado (`pnpm check`).
+
+
+
 
   
 

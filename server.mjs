@@ -20,6 +20,7 @@ async function loadHandlers() {
     adminExportRequests,
     adminMigrate,
     collectionFavorites,
+    adminMetrics,
     dbLib,
   ] = await Promise.all([
     import('./dist-server/api/collections/index.js'),
@@ -30,6 +31,7 @@ async function loadHandlers() {
     import('./dist-server/api/admin/export-requests.js'),
     import('./dist-server/api/admin/migrate-local.js'),
     import('./dist-server/api/collections/[slug]/favorites.js').catch(() => ({ default: null })),
+    import('./dist-server/api/admin/metrics.js').catch(() => ({ default: null })),
     import('./dist-server/api/_lib/db.js'),
   ]);
 
@@ -42,6 +44,7 @@ async function loadHandlers() {
     adminExportRequests: adminExportRequests.default,
     adminMigrate: adminMigrate.default,
     collectionFavorites: collectionFavorites.default,
+    adminMetrics: adminMetrics?.default,
     closeDbPool: dbLib.closeDbPool,
   };
   return handlers;
@@ -228,6 +231,12 @@ const server = http.createServer(async (req, res) => {
 
       if (pathname === '/api/admin/export-requests') {
         const webRes = await h.adminExportRequests(webReq);
+        await sendWebResponse(webRes, res);
+        return;
+      }
+
+      if (pathname === '/api/admin/metrics' && h.adminMetrics) {
+        const webRes = await h.adminMetrics(webReq);
         await sendWebResponse(webRes, res);
         return;
       }

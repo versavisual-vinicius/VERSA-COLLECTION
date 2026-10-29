@@ -1,10 +1,12 @@
 import { createClient, type Session, type SupabaseClient } from '@supabase/supabase-js';
 import type {
+  AdminMetrics,
   CollectionConfigUpdate,
   ExportRequest,
   GalleryCollection,
   GalleryPhoto,
 } from '../types/gallery';
+import { availableCollections } from '../data/collectionsRegistry';
 
 export interface CollectionBundle {
   collection: GalleryCollection;
@@ -214,4 +216,48 @@ export async function importLegacyBrowserData(): Promise<{ collections: number; 
     },
   );
   return result.summary;
+}
+
+export async function fetchAdminMetrics(): Promise<AdminMetrics> {
+  const computeLocal = (dbStatus: 'healthy' | 'degraded'): AdminMetrics => {
+    const collectionsCount = Object.keys(availableCollections).length;
+    const photosCount = Object.values(availableCollections).reduce(
+      (acc, c) => acc + c.photos.length,
+      0,
+    );
+    const bytesPerPhoto = 12.5 * 1024 * 1024;
+    const storageUsedBytes = photosCount * bytesPerPhoto;
+    const storageLimitBytes = 100 * 1024 * 1024 * 1024;
+    const storagePercentage = Math.min(
+      100,
+      parseFloat(((storageUsedBytes / storageLimitBytes) * 100).toFixed(1)),
+    );
+
+    return {
+      totalCollections: collectionsCount,
+      totalPhotos: photosCount,
+      totalExports: 0,
+      storageUsedBytes,
+      storageLimitBytes,
+      storagePercentage,
+      services: {
+        database: dbStatus,
+        server: 'healthy',
+        cdn: 'healthy',
+      },
+      updatedAt: new Date().toISOString(),
+    };
+  };
+
+  if (!backendEnabled) {
+    return computeLocal('healthy');
+  }
+
+  try {
+    const result = await adminFetch<{ metrics: AdminMetrics }>('/api/admin/metrics');
+    return result.metrics;
+  } catch (err) {
+    console.warn('Falha ao buscar métricas online, usando fallback local:', err);
+    return computeLocal('degraded');
+  }
 }

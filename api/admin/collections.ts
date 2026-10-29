@@ -1,4 +1,5 @@
-import { applyAdminCollectionUpdate, sanitizeAdminCollection, type AdminCollectionUpdate } from '../_lib/adminCollections.js';
+import { applyAdminCollectionUpdate, sanitizeAdminCollection } from '../_lib/adminCollections.js';
+import { adminCollectionUpdateSchema, validateContract } from '../_lib/contracts.js';
 import { apiError, assertTrustedOrigin, json, methodNotAllowed, readJson } from '../_lib/http.js';
 import { requireOwner } from '../_lib/auth.js';
 import { query } from '../_lib/db.js';
@@ -13,9 +14,12 @@ export default async function handler(request: Request): Promise<Response> {
     if (!(await requireOwner(request))) return apiError(403, 'FORBIDDEN', 'Acesso administrativo negado.');
 
     if (request.method === 'PUT') {
-      const input = await readJson<AdminCollectionUpdate>(request);
-      if (!input.slug) return apiError(400, 'INVALID_INPUT', 'Slug obrigatório.');
-      const updated = await applyAdminCollectionUpdate(input);
+      const raw = await readJson<unknown>(request).catch(() => ({}));
+      const validation = validateContract(adminCollectionUpdateSchema, raw);
+      if (!validation.success) {
+        return validation.response;
+      }
+      const updated = await applyAdminCollectionUpdate(validation.data);
       return json({ collection: sanitizeAdminCollection(updated) });
     }
 

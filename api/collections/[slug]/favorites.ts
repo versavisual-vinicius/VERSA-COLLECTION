@@ -1,30 +1,7 @@
 import { apiError, json, methodNotAllowed } from '../../_lib/http.js';
 import { getCollectionRow } from '../../_lib/collections.js';
-import { query } from '../../_lib/db.js';
+import { query, withTransaction } from '../../_lib/db.js';
 import type { FavoriteRecord } from '../../../src/types/gallery.js';
-
-let tableEnsured = false;
-async function ensureFavoritesTable() {
-  if (tableEnsured) return;
-  try {
-    await query(`
-      CREATE TABLE IF NOT EXISTS public.favorites (
-        id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-        collection_id text NOT NULL REFERENCES public.collections(id) ON DELETE CASCADE,
-        visitor_id text,
-        client_email text,
-        photo_id text NOT NULL,
-        selected boolean NOT NULL DEFAULT true,
-        note text,
-        updated_at timestamptz NOT NULL DEFAULT now()
-      );
-      CREATE INDEX IF NOT EXISTS favorites_lookup_idx ON public.favorites (collection_id, visitor_id, client_email);
-    `);
-    tableEnsured = true;
-  } catch (err) {
-    console.warn('favorites.table_ensure_failed (fallback to in-memory or ignore):', err instanceof Error ? err.message : err);
-  }
-}
 
 export default async function handler(request: Request): Promise<Response> {
   const url = new URL(request.url);
@@ -39,8 +16,6 @@ export default async function handler(request: Request): Promise<Response> {
     if (!row) {
       return apiError(404, 'NOT_FOUND', 'Coleção não encontrada.');
     }
-
-    await ensureFavoritesTable();
 
     // POST /api/collections/:slug/favorites/merge
     if (request.method === 'POST' && subAction === 'merge') {
@@ -58,11 +33,11 @@ export default async function handler(request: Request): Promise<Response> {
         return apiError(400, 'BAD_REQUEST', 'Identificador ou e-mail necessário.');
       }
 
-      // 1. Busca favoritos salvos para o e-mail no banco
-      let dbFavorites: FavoriteRecord[] = [];
-      if (email) {
-        try {
-          const { rows } = await query<{
+      // Executa busca e upsert dos favoritos de forma atômica
+      const mergedList = await withTransaction(async (txClient) => {
+        let dbFavorites: FavoriteRecord[] = [];
+        if (email) {
+          const { rows } = await txClient.query<{
             photo_id: string;
             selected: boolean;
             note: string | null;
@@ -77,50 +52,42 @@ export default async function handler(request: Request): Promise<Response> {
             note: r.note ?? undefined,
             updatedAt: r.updated_at,
           }));
-        } catch {
-          // Ignora se indisponível
         }
-      }
 
-      // 2. Faz união (merge) preservando o mais recente ou unindo os selecionados
-      const mergedMap = new Map<string, FavoriteRecord>();
-
-      for (const item of dbFavorites) {
-        mergedMap.set(item.photoId, item);
-      }
-
-      for (const item of localFavorites) {
-        const existing = mergedMap.get(item.photoId);
-        if (!existing) {
+        const mergedMap = new Map<string, FavoriteRecord>();
+        for (const item of dbFavorites) {
           mergedMap.set(item.photoId, item);
-        } else {
-          // Mantém true se qualquer um tiver selecionado
-          mergedMap.set(item.photoId, {
-            photoId: item.photoId,
-            selected: existing.selected || item.selected,
-            note: item.note || existing.note,
-            updatedAt: new Date().toISOString(),
-          });
         }
-      }
 
-      const mergedList = Array.from(mergedMap.values());
+        for (const item of localFavorites) {
+          const existing = mergedMap.get(item.photoId);
+          if (!existing) {
+            mergedMap.set(item.photoId, item);
+          } else {
+            mergedMap.set(item.photoId, {
+              photoId: item.photoId,
+              selected: existing.selected || item.selected,
+              note: item.note || existing.note,
+              updatedAt: new Date().toISOString(),
+            });
+          }
+        }
 
-      // 3. Atualiza banco com os favoritos unificados associados ao e-mail
-      if (email) {
-        for (const item of mergedList) {
-          try {
-            await query(
+        const items = Array.from(mergedMap.values());
+
+        if (email) {
+          for (const item of items) {
+            await txClient.query(
               `INSERT INTO public.favorites (collection_id, visitor_id, client_email, photo_id, selected, note, updated_at)
                VALUES ($1, $2, $3, $4, $5, $6, NOW())
                ON CONFLICT DO NOTHING`,
               [row.id, visitorId ?? null, email, item.photoId, item.selected, item.note ?? null],
             );
-          } catch {
-            // Ignora conflitos
           }
         }
-      }
+
+        return items;
+      });
 
       return json({ success: true, favorites: mergedList }, 200);
     }
