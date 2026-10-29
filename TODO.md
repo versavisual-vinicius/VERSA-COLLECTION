@@ -314,6 +314,10 @@
   - `PhotoEditorPage.tsx`: Workspace integrado com modal de exportação de nomes de arquivos aprovados para Lightroom Classic.
 - [x] **Roteamento SPA & Hub**: Rota `/editor` e `?view=editor` conectadas em `src/App.tsx`, `DashboardPage.tsx` e `ProductHubGrid.tsx`.
 - [x] **Suíte de Testes & Verificação**: `src/test/Fase17_PhotoEditorCulling.test.tsx` (6 novos testes), elevando o acervo para 23 arquivos e 135 testes 100% aprovados em 3.91s (`pnpm check`).
+- [x] **Deploy em Produção no Google Cloud Run (`versa-collection-git`)**:
+  - Revisão `versa-collection-git-00021-lvs` publicada em `europe-west1` (100% do tráfego) via `https://versa-collection-git-159343690308.europe-west1.run.app`.
+  - Rotas `/dashboard`, `/photos`, `/editor`, `/collections/create`, `/api/collections` e `/api/photos` ativas com HTTP 200 e conectadas ao AlloyDB for PostgreSQL.
+
 
 
 
