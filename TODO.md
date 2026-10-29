@@ -273,6 +273,20 @@
 - [x] **Roteamento SPA**: Suporte a rota `/dashboard` e `?view=dashboard` em `src/App.tsx`, com atalho na `PhotographerHomePage`.
 - [x] **Suíte de Testes & Verificação**: `src/test/Fase14_DashboardHub.test.tsx` (7 novos testes unitários e de integração), elevando para 21 suítes e 116 testes 100% verdes com build de produção validado (`pnpm check`).
 
+---
+
+## Fase 15: Biblioteca Central de Fotos & Busca Resiliente (Paridade Pixieset Photo Library)
+
+- [x] **Backend Agregador (`api/photos.ts`)**: Endpoint com validação Zod (`photoLibraryQuerySchema`, `photoLibraryResponseSchema`) suportando busca textual (`q`), filtro por coleção, orientação (retrato/paisagem) e paginação via PostgreSQL ou fixtures.
+- [x] **Hook de Concorrência (`useAbortRequest.ts`)**: Cancelamento determinístico de requisições pendentes via `AbortController` nativo com tratamento silencioso de `AbortError`.
+- [x] **Componentes Editoriais**:
+  - `PhotoLibraryFilterBar`: Barra de pesquisa em tempo real, seletor de coleção e alternância de orientação (Todas/Retrato/Paisagem).
+  - `PhotoLibraryEmptyState`: Estado vazio adaptável para busca sem resultados ou acervo zerado.
+  - `PhotoLibraryPage`: Hub central do acervo com contadores globais, grade responsiva e inspeção em tela cheia via `PhotoLightbox`.
+- [x] **Roteamento SPA & Dashboard**: Rota `/photos` conectada em `src/App.tsx` e atalho ativo na grade de produtos do `/dashboard`.
+- [x] **Suíte de Testes & Verificação**: `src/test/useAbortRequest.test.ts` e `src/test/Fase15_PhotoLibrary.test.tsx` (12 novos testes), elevando o acervo para 21 arquivos e 123 testes 100% aprovados com build de produção validado (`pnpm check`).
+
+
 
 
 

@@ -178,6 +178,7 @@ export function PhotoLightbox({
       role="dialog"
       aria-modal="true"
       aria-label={`Visualização ampliada da fotografia ${photo.position}`}
+      data-testid="photo-lightbox"
       onMouseMove={resetInactivityTimer}
       onTouchStart={resetInactivityTimer}
     >

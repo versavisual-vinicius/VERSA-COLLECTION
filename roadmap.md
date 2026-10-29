@@ -29,4 +29,10 @@
 - [x] Storage Gauge em tempo real com monitoramento de cotas de armazenamento e tokens de design editorial.
 - [x] Healthcheck unificado de infraestrutura (Cloud Run, AlloyDB, Google Drive CDN) e ações rápidas de criação.
 
+## Fase 15: Biblioteca Central de Fotos & Busca Resiliente (Paridade Pixieset Photo Library)
+- [x] Catálogo global de mídia `/photos` com agregação de todas as coleções do fotógrafo.
+- [x] Cancelamento de concorrência com AbortController (`useAbortRequest`) na barra de busca.
+- [x] Filtros por termo, coleção e proporção geométrica com inspeção em tela cheia via Lightbox.
+
+
 

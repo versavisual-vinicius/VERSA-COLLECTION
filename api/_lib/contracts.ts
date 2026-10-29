@@ -103,6 +103,66 @@ export const adminMetricsSchema = z.object({
 
 export type AdminMetrics = z.infer<typeof adminMetricsSchema>;
 
+export const photoLibraryQuerySchema = z.object({
+  q: z.string().optional().default(''),
+  collection: z.string().optional().default(''),
+  orientation: z.enum(['all', 'portrait', 'landscape']).optional().default('all'),
+  limit: z.coerce.number().int().min(1).max(100).optional().default(32),
+  offset: z.coerce.number().int().min(0).optional().default(0),
+});
+
+export type PhotoLibraryQuery = z.infer<typeof photoLibraryQuerySchema>;
+
+export const libraryPhotoItemSchema = z.object({
+  id: z.string(),
+  fileName: z.string(),
+  alt: z.string(),
+  width: z.number(),
+  height: z.number(),
+  focalPoint: z
+    .object({
+      x: z.number(),
+      y: z.number(),
+    })
+    .optional(),
+  dominantColor: z.string().optional(),
+  blurDataUrl: z.string().optional(),
+  sources: z.array(
+    z.object({
+      url: z.string(),
+      width: z.number(),
+      height: z.number(),
+      format: z.enum(['avif', 'webp', 'jpeg']),
+    }),
+  ),
+  downloadUrl: z.string().optional(),
+  shareUrl: z.string(),
+  caption: z.string().optional(),
+  position: z.number(),
+  positionTieBreaker: z.string(),
+  setId: z.string().optional(),
+  isPrivate: z.boolean().optional(),
+  collectionSlug: z.string(),
+  collectionTitle: z.string(),
+});
+
+export type LibraryPhotoItem = z.infer<typeof libraryPhotoItemSchema>;
+
+export const photoLibraryResponseSchema = z.object({
+  items: z.array(libraryPhotoItemSchema),
+  totalCount: z.number().int().min(0),
+  hasMore: z.boolean(),
+  collections: z.array(
+    z.object({
+      slug: z.string(),
+      title: z.string(),
+      count: z.number().int().min(0),
+    }),
+  ),
+});
+
+export type PhotoLibraryResponse = z.infer<typeof photoLibraryResponseSchema>;
+
 /**
  * Validador fail-closed: faz o parse do schema e retorna ou os dados tipados
  * ou uma Response HTTP 400 com payload estruturado de erro.

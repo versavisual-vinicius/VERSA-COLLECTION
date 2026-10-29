@@ -5,6 +5,9 @@ import type {
   ExportRequest,
   GalleryCollection,
   GalleryPhoto,
+  LibraryPhotoItem,
+  PhotoLibraryQuery,
+  PhotoLibraryResponse,
 } from '../types/gallery';
 import { availableCollections } from '../data/collectionsRegistry';
 
@@ -261,3 +264,93 @@ export async function fetchAdminMetrics(): Promise<AdminMetrics> {
     return computeLocal('degraded');
   }
 }
+
+export async function fetchPhotoLibrary(
+  query: PhotoLibraryQuery = {},
+  signal?: AbortSignal,
+): Promise<PhotoLibraryResponse> {
+  const computeLocal = (): PhotoLibraryResponse => {
+    const qTerm = (query.q ?? '').trim().toLowerCase();
+    const colFilter = (query.collection ?? '').trim();
+    const orientFilter = query.orientation ?? 'all';
+    const limit = query.limit ?? 32;
+    const offset = query.offset ?? 0;
+
+    const allCollections = Object.values(availableCollections);
+    const collectionsList = allCollections.map((c) => ({
+      slug: c.collection.slug,
+      title: c.collection.title,
+      count: c.photos.length,
+    }));
+
+    let allPhotos: LibraryPhotoItem[] = [];
+    for (const c of allCollections) {
+      if (colFilter && c.collection.slug !== colFilter) continue;
+      for (const p of c.photos) {
+        allPhotos.push({
+          ...p,
+          collectionSlug: c.collection.slug,
+          collectionTitle: c.collection.title,
+        });
+      }
+    }
+
+    if (qTerm) {
+      allPhotos = allPhotos.filter(
+        (p) =>
+          p.fileName.toLowerCase().includes(qTerm) ||
+          (p.caption && p.caption.toLowerCase().includes(qTerm)) ||
+          p.alt.toLowerCase().includes(qTerm) ||
+          p.collectionTitle.toLowerCase().includes(qTerm),
+      );
+    }
+
+    if (orientFilter === 'portrait') {
+      allPhotos = allPhotos.filter((p) => p.height > p.width);
+    } else if (orientFilter === 'landscape') {
+      allPhotos = allPhotos.filter((p) => p.width >= p.height);
+    }
+
+    const totalCount = allPhotos.length;
+    const items = allPhotos.slice(offset, offset + limit);
+
+    return {
+      items,
+      totalCount,
+      hasMore: offset + items.length < totalCount,
+      collections: collectionsList,
+    };
+  };
+
+  if (!backendEnabled) {
+    return computeLocal();
+  }
+
+  try {
+    const params = new URLSearchParams();
+    if (query.q) params.set('q', query.q);
+    if (query.collection) params.set('collection', query.collection);
+    if (query.orientation && query.orientation !== 'all') params.set('orientation', query.orientation);
+    if (query.limit) params.set('limit', String(query.limit));
+    if (query.offset) params.set('offset', String(query.offset));
+
+    const res = await fetch(`/api/photos?${params.toString()}`, {
+      method: 'GET',
+      headers: { accept: 'application/json' },
+      signal,
+    });
+
+    if (!res.ok) {
+      throw new BackendError(res.status, 'PHOTOS_FETCH_FAILED', 'Falha ao buscar fotos da biblioteca.');
+    }
+
+    return (await res.json()) as PhotoLibraryResponse;
+  } catch (err) {
+    if (err instanceof Error && err.name === 'AbortError') {
+      throw err;
+    }
+    console.warn('Falha ao consultar /api/photos, usando fallback local:', err);
+    return computeLocal();
+  }
+}
+

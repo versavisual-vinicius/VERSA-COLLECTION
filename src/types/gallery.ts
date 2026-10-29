@@ -197,3 +197,27 @@ export interface CollectionConfigUpdate {
   theme?: Partial<GalleryTheme>;
   sets?: GallerySet[];
 }
+
+export interface LibraryPhotoItem extends GalleryPhoto {
+  collectionSlug: string;
+  collectionTitle: string;
+}
+
+export interface PhotoLibraryQuery {
+  q?: string;
+  collection?: string;
+  orientation?: 'all' | 'portrait' | 'landscape';
+  limit?: number;
+  offset?: number;
+}
+
+export interface PhotoLibraryResponse {
+  items: LibraryPhotoItem[];
+  totalCount: number;
+  hasMore: boolean;
+  collections: Array<{
+    slug: string;
+    title: string;
+    count: number;
+  }>;
+}

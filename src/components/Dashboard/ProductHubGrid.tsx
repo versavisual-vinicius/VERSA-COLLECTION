@@ -26,8 +26,8 @@ const PRODUCTS: ProductItem[] = [
     name: 'Biblioteca de Fotos',
     category: 'Acervo Global',
     description: 'Gestão unificada de fotos com filtros, tags e operações em lote entre coleções.',
-    href: '/#photos',
-    badge: 'Fase 15',
+    href: '/photos',
+    badge: 'Produção',
     iconName: 'library',
   },
   {
