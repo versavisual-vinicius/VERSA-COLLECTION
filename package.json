@@ -10,20 +10,15 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "pnpm typecheck && vite build && pnpm build:server",
-    "build:server": "tsc -p tsconfig.server.json",
+    "build": "pnpm typecheck && vite build && tsc -p tsconfig.server.json",
     "start": "node server.mjs",
+    "preview": "vite preview --host",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "typecheck": "tsc && tsc -p tsconfig.api.json",
     "lint": "eslint . --max-warnings 0",
-    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "test": "vitest run",
-    "test:watch": "vitest",
     "sync:drive": "node scripts/sync-drive-collections.mjs",
-    "sync:sql": "node scripts/seed-supabase-collections.mjs",
-    "seed:sql": "node scripts/seed-supabase-collections.mjs",
-    "sync:supabase": "node scripts/seed-supabase-collections.mjs",
-    "seed:supabase": "node scripts/seed-supabase-collections.mjs",
-    "preview": "vite preview --host"
+    "sync:supabase": "node scripts/seed-supabase-collections.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.118.0",
