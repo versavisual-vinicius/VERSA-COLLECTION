@@ -6,5 +6,6 @@
     "vite.config.ts": "typescript",
     "*.ts": "typescript",
     "*.tsx": "typescriptreact"
-  }
+  },
+  "markdown.validate.enabled": false
 }

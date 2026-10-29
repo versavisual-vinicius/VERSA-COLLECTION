@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import type { GalleryCollection } from '../../types/gallery';
 import { verifyClientAccess, setClientSession } from '../../lib/collectionSettings';
+import { BackendError } from '../../lib/backend';
+import { RateLimitLockout } from './RateLimitLockout';
 
 interface GalleryPasswordGateProps {
   collection: GalleryCollection;
   onUnlocked: () => void | Promise<void>;
   onOpenAdmin?: () => void;
   requiresEmail?: boolean;
+  initialRateLimited?: boolean;
   onAuthenticate?: (password: string, email?: string) => Promise<void>;
 }
 
@@ -15,6 +18,7 @@ export function GalleryPasswordGate({
   onUnlocked,
   onOpenAdmin,
   requiresEmail: requiresEmailProp,
+  initialRateLimited = false,
   onAuthenticate,
 }: GalleryPasswordGateProps) {
   const [password, setPassword] = useState('');
@@ -22,10 +26,12 @@ export function GalleryPasswordGate({
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [failedAttempts, setFailedAttempts] = useState(0);
+  const [isRateLimited, setIsRateLimited] = useState(initialRateLimited);
 
   const coverSrc =
-    collection.cover.sources[1]?.url ||
-    collection.cover.sources[0]?.url ||
+    collection.cover?.sources?.[1]?.url ||
+    collection.cover?.sources?.[0]?.url ||
     '';
 
   const requiresEmail = requiresEmailProp ?? Boolean(
@@ -34,6 +40,7 @@ export function GalleryPasswordGate({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isRateLimited) return;
     setError(null);
     setIsSubmitting(true);
 
@@ -45,9 +52,21 @@ export function GalleryPasswordGate({
         if (!result.success) throw new Error(result.error || 'Acesso negado.');
         setClientSession(collection.id, email || undefined);
       }
+      setFailedAttempts(0);
       await onUnlocked();
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'Acesso negado. Verifique os dados informados.');
+      const nextAttempts = failedAttempts + 1;
+      setFailedAttempts(nextAttempts);
+
+      if (
+        (reason instanceof BackendError && (reason.status === 429 || reason.code === 'RATE_LIMITED')) ||
+        nextAttempts >= 5
+      ) {
+        setIsRateLimited(true);
+        setError('Muitas tentativas. Aguarde 15 minutos.');
+      } else {
+        setError(reason instanceof Error ? reason.message : 'Acesso negado. Verifique os dados informados.');
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -90,7 +109,17 @@ export function GalleryPasswordGate({
           </p>
         </div>
 
-        {/* Formulário de Acesso */}
+        {/* Formulário de Acesso ou Bloqueio de Força Bruta */}
+        {isRateLimited ? (
+          <RateLimitLockout
+            collectionTitle={collection.title}
+            onLockoutExpired={() => {
+              setIsRateLimited(false);
+              setFailedAttempts(0);
+              setError(null);
+            }}
+          />
+        ) : (
         <form onSubmit={handleSubmit} className="space-y-4 font-['DM_Sans']">
           {requiresEmail && (
             <div>
@@ -162,6 +191,7 @@ export function GalleryPasswordGate({
             )}
           </button>
         </form>
+        )}
 
         {/* Rodapé do Gate */}
         <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-[11px] text-white/40">

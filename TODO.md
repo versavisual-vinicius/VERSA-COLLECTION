@@ -235,5 +235,20 @@
 - [x] Editor visual de capa, tipografia, cores e grade (CoverFocalPicker interativo, tipografia e opacidade de overlay concluídos).
 - [x] Configurações de privacidade, expiração automática, loja e atividades/histórico (privacidade por scrypt, tela de expiração automática e histórico concluídos).
 
+---
+
+## Fase 12: Estados de Página, Resiliência de Rede e Tratamento de Erros (Seção 9 & RF-001)
+
+- [x] **CollectionNotFoundScreen (`state: 'not-found'` / 404)**: Tela editorial 404 dedicada quando `collectionSlug` não existe no acervo ou API retorna `404`.
+- [x] **GalleryLoadingScreen (`state: 'loading-collection'`)**: Splash screen editorial de carregamento inicial com monograma, pulso e título da coleção.
+- [x] **GalleryUnavailableScreen (`state: 'unavailable'` / 500/503)**: Tela de indisponibilidade de servidor com botão de nova tentativa (`onRetry`).
+- [x] **CollectionRestrictedScreen (`visibility: 'hidden' | 'client-only'`)**: Tela dedicada para coleções ocultas ou restritas a clientes com validação de e-mail autorizado.
+- [x] **RateLimitLockout (`HTTP 429` / 5 falhas em 15 min)**: Bloqueio visual no `GalleryPasswordGate` após 5 tentativas incorretas ou erro `429`, com cronômetro regressivo de 15 minutos (`15:00`).
+- [x] **OfflineBanner**: Banner discreto flutuante de reconexão e modo offline (`window.onoffline` / `window.ononline`).
+- [x] **PhotoNotFoundNotice (Deep Link Inválido `?photo=` / `?pid=`)**: Higienização automática da URL com `replaceState` e toast informativo quando a foto do link não existe na coleção.
+- [x] **PhotographerEmptyState**: Estado editorial vazio em `PhotographerHomePage.tsx` quando não há coleções públicas ativas.
+- [x] **Suíte de Testes Fase 12**: `src/test/Fase12_PageStates_Resilience.test.tsx` (17 suítes, 94 testes 100% verdes).
+
+
   
 

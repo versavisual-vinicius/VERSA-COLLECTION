@@ -15,6 +15,11 @@ import { ToastRegion } from './Feedback/ToastRegion';
 import { BrandingFooter } from './Footer/BrandingFooter';
 import { GalleryPasswordGate } from './Security/GalleryPasswordGate';
 import { ExpiredCollectionScreen } from './Feedback/ExpiredCollectionScreen';
+import { CollectionNotFoundScreen } from './Feedback/CollectionNotFoundScreen';
+import { GalleryLoadingScreen } from './Feedback/GalleryLoadingScreen';
+import { GalleryUnavailableScreen } from './Feedback/GalleryUnavailableScreen';
+import { CollectionRestrictedScreen } from './Feedback/CollectionRestrictedScreen';
+import { OfflineBanner } from './Feedback/OfflineBanner';
 import { AdminPanel } from './Admin/AdminPanel';
 import { useFavorites } from '../lib/useFavorites';
 import { telemetry } from '../lib/telemetry';
@@ -34,26 +39,30 @@ interface GalleryPageProps {
 }
 
 export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }: GalleryPageProps) {
-  // Determina a coleção ativa: prop -> URL param -> fallback 'fixture'
-  const activeSlug = useMemo(() => {
+  // Determina a coleção solicitada: prop -> URL param -> fallback 'fixture'
+  const requestedSlug = useMemo(() => {
     if (propSlug) return propSlug;
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const urlSlug = params.get('collection');
-      if (urlSlug && availableCollections[urlSlug]) return urlSlug;
+      if (urlSlug) return urlSlug;
     }
     return 'fixture';
   }, [propSlug]);
+
+  const isStaticSlugMissing = !backendEnabled && !availableCollections[requestedSlug];
+  const activeSlug = availableCollections[requestedSlug] ? requestedSlug : 'fixture';
 
   const staticData = useMemo(() => {
     return getCollectionData(activeSlug);
   }, [activeSlug]);
   const [runtimeData, setRuntimeData] = useState(staticData);
-  const [backendStatus, setBackendStatus] = useState<'loading' | 'ready' | 'error'>(
+  const [backendStatus, setBackendStatus] = useState<'loading' | 'ready' | 'not-found' | 'restricted' | 'error'>(
     backendEnabled ? 'loading' : 'ready',
   );
   const [backendError, setBackendError] = useState<string | null>(null);
   const [requiresAccessEmail, setRequiresAccessEmail] = useState(false);
+  const [isEmailAuthorized, setIsEmailAuthorized] = useState(false);
   const { collection, photos: allPhotos } = backendEnabled ? runtimeData : staticData;
   const [isUnlocked, setIsUnlocked] = useState<boolean>(() => {
     if (backendEnabled) return false;
@@ -65,7 +74,7 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
     setBackendStatus('loading');
     setBackendError(null);
     try {
-      const bundle = await fetchCollectionBundle(activeSlug);
+      const bundle = await fetchCollectionBundle(requestedSlug);
       setRuntimeData(bundle);
       setIsUnlocked(true);
       setRequiresAccessEmail(false);
@@ -79,10 +88,18 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
         setBackendStatus('ready');
         return;
       }
+      if (reason instanceof BackendError && (reason.status === 404 || reason.code === 'NOT_FOUND')) {
+        setBackendStatus('not-found');
+        return;
+      }
+      if (reason instanceof BackendError && (reason.status === 403 || reason.code === 'FORBIDDEN')) {
+        setBackendStatus('restricted');
+        return;
+      }
       setBackendError(reason instanceof Error ? reason.message : 'Coleção indisponível.');
       setBackendStatus('error');
     }
-  }, [activeSlug]);
+  }, [requestedSlug]);
 
   // Controle do Painel Administrativo do Vini
   const [isAdminOpen, setIsAdminOpen] = useState<boolean>(() => {
@@ -281,35 +298,6 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
     return loadedPhotos;
   }, [activeSetId, filteredPhotosBySet, loadedPhotos]);
 
-  // Sincronização estrita de URL e histórico (Seção 6 e Paridade Pixieset com suporte a ?photo= e ?pid=)
-  const syncFromUrl = useCallback(() => {
-    const params = new URLSearchParams(window.location.search);
-    const photoId = params.get('photo') || params.get('pid');
-    const mode = params.get('mode');
-
-    if (initialMountRef.current) {
-      initialMountRef.current = false;
-      if (photoId) {
-        isDeepLinkOriginRef.current = true;
-      }
-    }
-
-    if (photoId && allPhotos.some((p) => p.id === photoId)) {
-      setActivePhotoId(photoId);
-      setIsSlideshowActive(mode === 'slideshow');
-    } else {
-      setActivePhotoId(null);
-      setIsSlideshowActive(false);
-    }
-  }, [allPhotos]);
-
-  useEffect(() => {
-    syncFromUrl();
-    const handlePopState = () => syncFromUrl();
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, [syncFromUrl]);
-
   const updateUrl = useCallback((photoId: string | null, mode: 'push' | 'replace', isSlideshow = false) => {
     const nextUrl = new URL(window.location.href);
 
@@ -333,6 +321,40 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       window.history.replaceState({}, '', `${nextUrl.pathname}${nextUrl.search}`);
     }
   }, []);
+
+  // Sincronização estrita de URL e histórico (Seção 6 e Paridade Pixieset com suporte a ?photo= e ?pid=)
+  const syncFromUrl = useCallback(() => {
+    const params = new URLSearchParams(window.location.search);
+    const photoId = params.get('photo') || params.get('pid');
+    const mode = params.get('mode');
+
+    if (initialMountRef.current) {
+      initialMountRef.current = false;
+      if (photoId) {
+        isDeepLinkOriginRef.current = true;
+      }
+    }
+
+    if (photoId && allPhotos.some((p) => p.id === photoId)) {
+      setActivePhotoId(photoId);
+      setIsSlideshowActive(mode === 'slideshow');
+    } else {
+      setActivePhotoId(null);
+      setIsSlideshowActive(false);
+      // Limpa ?photo= / ?pid= inválido sem quebrar a página e avisa o cliente (Seção 6 - 6.3)
+      if (photoId && allPhotos.length > 0) {
+        updateUrl(null, 'replace', false);
+        showToast('A fotografia solicitada não está disponível. Exibindo acervo completo da coleção.');
+      }
+    }
+  }, [allPhotos, showToast, updateUrl]);
+
+  useEffect(() => {
+    syncFromUrl();
+    const handlePopState = () => syncFromUrl();
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [syncFromUrl]);
 
   const openPhoto = useCallback(
     (photoId: string) => {
@@ -475,11 +497,75 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
   );
 
   if (backendEnabled && backendStatus === 'loading') {
-    return <div className="min-h-screen bg-[#050A0D] text-white grid place-items-center">Carregando galeria…</div>;
+    return <GalleryLoadingScreen title={collection?.title} />;
+  }
+
+  if (isStaticSlugMissing || (backendEnabled && backendStatus === 'not-found')) {
+    return (
+      <>
+        <CollectionNotFoundScreen
+          slug={requestedSlug}
+          onOpenAdmin={() => setIsAdminOpen(true)}
+        />
+        {isAdminOpen && (
+          <AdminPanel
+            initialSlug={activeSlug}
+            onClose={() => setIsAdminOpen(false)}
+          />
+        )}
+      </>
+    );
   }
 
   if (backendEnabled && backendStatus === 'error') {
-    return <div role="alert" className="min-h-screen bg-[#050A0D] text-white grid place-items-center p-6 text-center">{backendError}</div>;
+    return (
+      <>
+        <GalleryUnavailableScreen
+          message={backendError}
+          onRetry={loadBackendCollection}
+          onOpenAdmin={() => setIsAdminOpen(true)}
+        />
+        {isAdminOpen && (
+          <AdminPanel
+            initialSlug={activeSlug}
+            onClose={() => setIsAdminOpen(false)}
+          />
+        )}
+      </>
+    );
+  }
+
+  const isCollectionRestricted = Boolean(
+    !isOwnerPreview &&
+      (backendStatus === 'restricted' ||
+        collection.visibility === 'hidden' ||
+        (collection.visibility === 'client-only' && !collection.passwordRequired && !isEmailAuthorized && !hasClientSession(collection.id))),
+  );
+
+  if (isCollectionRestricted) {
+    return (
+      <>
+        <CollectionRestrictedScreen
+          collection={collection}
+          onAuthorizeEmail={(email) => {
+            try {
+              sessionStorage.setItem(`versa_client_email_${collection.id}`, email);
+            } catch {
+              // Segue com autorização em memória.
+            }
+            setIsEmailAuthorized(true);
+            return true;
+          }}
+          onOpenAdmin={() => setIsAdminOpen(true)}
+        />
+        {isAdminOpen && (
+          <AdminPanel
+            initialSlug={activeSlug}
+            onClose={() => setIsAdminOpen(false)}
+          />
+        )}
+      </>
+    );
   }
 
   const isCollectionExpired = Boolean(
@@ -509,7 +595,7 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
         <GalleryPasswordGate
           collection={collection}
           requiresEmail={requiresAccessEmail}
-          onAuthenticate={backendEnabled ? (password, email) => unlockCollection(activeSlug, password, email) : undefined}
+          onAuthenticate={backendEnabled ? (password, email) => unlockCollection(requestedSlug, password, email) : undefined}
           onUnlocked={backendEnabled ? loadBackendCollection : () => setIsUnlocked(true)}
           onOpenAdmin={() => setIsAdminOpen(true)}
         />
@@ -525,6 +611,7 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
 
   return (
     <div className="gallery-app bg-[#0b0c0e] text-[#f5f5f4] min-h-screen">
+      <OfflineBanner onReconnected={() => showToast('Conexão restabelecida.')} />
       <AutoHideGalleryHeader
         collectionTitle={collection.title}
         favoriteCount={favoriteIds.size}

@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react';
 import { availableCollections } from '../data/collectionsRegistry';
 import { BrandingFooter } from './Footer/BrandingFooter';
+import { PhotographerEmptyState } from './Feedback/PhotographerEmptyState';
 import { backendEnabled, fetchPublicCollections, type PublicCollectionCard } from '../lib/backend';
 
 interface PhotographerHomePageProps {
   onSelectCollection: (slug: string) => void;
   onOpenAdmin: () => void;
+  collectionsOverride?: Array<PublicCollectionCard & { businessName?: string }>;
 }
 
 export function PhotographerHomePage({
   onSelectCollection,
   onOpenAdmin,
+  collectionsOverride,
 }: PhotographerHomePageProps) {
-  const realCollections = Object.entries(availableCollections).filter(([slug]) => slug !== 'fixture');
+  const realCollections = Object.entries(availableCollections).filter(
+    ([slug, data]) => slug !== 'fixture' && data.collection.visibility !== 'hidden',
+  );
   const staticCollections = (realCollections.length > 0 ? realCollections : Object.entries(availableCollections)).map(
     ([slug, data]) => ({
       ...data.collection,
@@ -20,13 +25,23 @@ export function PhotographerHomePage({
     }),
   );
   const [collectionsList, setCollectionsList] = useState<Array<PublicCollectionCard & { businessName?: string }>>(
-    backendEnabled ? [] : staticCollections,
+    collectionsOverride ?? (backendEnabled ? [] : staticCollections),
   );
+  const [isLoading, setIsLoading] = useState(backendEnabled && !collectionsOverride);
 
   useEffect(() => {
+    if (collectionsOverride) {
+      setCollectionsList(collectionsOverride);
+      setIsLoading(false);
+      return;
+    }
     if (!backendEnabled) return;
-    void fetchPublicCollections().then(setCollectionsList).catch(() => setCollectionsList([]));
-  }, []);
+    setIsLoading(true);
+    void fetchPublicCollections()
+      .then(setCollectionsList)
+      .catch(() => setCollectionsList([]))
+      .finally(() => setIsLoading(false));
+  }, [collectionsOverride]);
 
   const totalDeliveredPhotos = collectionsList.reduce((acc, col) => acc + (col.totalItems || 0), 0);
 
@@ -68,7 +83,19 @@ export function PhotographerHomePage({
           </p>
         </div>
 
-        {/* Grade de Coleções */}
+        {/* Grade de Coleções ou Estado Vazio */}
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="status">
+            {[1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className="rounded-2xl overflow-hidden bg-white/5 border border-white/10 h-80 animate-pulse"
+              />
+            ))}
+          </div>
+        ) : collectionsList.length === 0 ? (
+          <PhotographerEmptyState onOpenAdmin={onOpenAdmin} />
+        ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {collectionsList.map((col) => {
             const coverUrl =
@@ -121,6 +148,7 @@ export function PhotographerHomePage({
             );
           })}
         </div>
+        )}
       </main>
 
       <BrandingFooter
