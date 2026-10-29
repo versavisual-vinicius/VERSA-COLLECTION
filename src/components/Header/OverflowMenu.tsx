@@ -3,10 +3,11 @@ import { useState } from 'react';
 interface OverflowMenuProps {
   onStartSlideshow?: () => void;
   onShareCollection?: () => void;
+  onGoHome?: () => void;
   onOpenAdmin?: () => void;
 }
 
-export function OverflowMenu({ onStartSlideshow, onShareCollection, onOpenAdmin }: OverflowMenuProps) {
+export function OverflowMenu({ onStartSlideshow, onShareCollection, onGoHome, onOpenAdmin }: OverflowMenuProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -28,6 +29,20 @@ export function OverflowMenu({ onStartSlideshow, onShareCollection, onOpenAdmin 
           role="menu"
           aria-orientation="vertical"
         >
+          {onGoHome && (
+            <button
+              type="button"
+              className="w-full text-left px-4 py-2 hover:bg-white/10 transition-colors text-white/90 border-b border-white/5"
+              role="menuitem"
+              onClick={() => {
+                setOpen(false);
+                onGoHome();
+              }}
+            >
+              ← Catálogo de Galerias
+            </button>
+          )}
+
           {onStartSlideshow && (
             <button
               type="button"

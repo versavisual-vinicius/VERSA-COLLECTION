@@ -1,5 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { CollectionVisibility, ExportRequest, GallerySet } from '../../types/gallery';
+import { availableCollections, getCollectionData } from '../../data/collectionsRegistry';
+import {
+  getAllExportRequests,
+  getStoredCollectionConfig,
+  saveCollectionConfig,
+} from '../../lib/collectionSettings';
 import { CoverFocalPicker } from './CoverFocalPicker';
 import {
   backendEnabled,
@@ -17,19 +23,59 @@ interface AdminPanelProps {
   initialSlug?: string;
   onClose: () => void;
   onSelectCollection?: (slug: string) => void;
+  onCollectionUpdated?: () => void;
 }
 
 type Tab = 'config' | 'editorial' | 'sets' | 'handoff' | 'requests';
 
-export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClose, onSelectCollection }: AdminPanelProps) {
+function buildLocalAdminCollections(): AdminCollection[] {
+  return Object.keys(availableCollections).map((slug) => {
+    const resolved = getCollectionData(slug).collection;
+    const stored = getStoredCollectionConfig(slug);
+    const coverSrc =
+      resolved.cover?.sources?.[1]?.url ||
+      resolved.cover?.sources?.[0]?.url ||
+      '';
+
+    return {
+      id: resolved.id,
+      slug: resolved.slug || slug,
+      title: resolved.title,
+      visibility: resolved.visibility,
+      passwordRequired: resolved.passwordRequired,
+      hasPassword: Boolean(stored?.clientPassword || resolved.clientPassword),
+      clientEmails: resolved.clientEmails ?? (resolved.clientEmail ? [resolved.clientEmail] : []),
+      downloads: resolved.downloads,
+      hasDownloadPin: Boolean(stored?.downloads?.pin || resolved.downloads?.pin),
+      clientNotes: resolved.clientNotes ?? '',
+      updatedAt: new Date().toISOString(),
+      expiresAt: resolved.expiresAt,
+      coverFocalPoint: resolved.coverFocalPoint ?? { x: 50, y: 50 },
+      theme: resolved.theme,
+      coverUrl: coverSrc,
+      sets: resolved.sets ?? [],
+    };
+  });
+}
+
+export function AdminPanel({
+  initialSlug = 'modec-dia-das-criancas-2026',
+  onClose,
+  onSelectCollection,
+  onCollectionUpdated,
+}: AdminPanelProps) {
   const [isLoadingAuth, setIsLoadingAuth] = useState(backendEnabled);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(!backendEnabled);
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [collections, setCollections] = useState<AdminCollection[]>([]);
+  const [collections, setCollections] = useState<AdminCollection[]>(() =>
+    backendEnabled ? [] : buildLocalAdminCollections(),
+  );
   const [selectedSlug, setSelectedSlug] = useState(initialSlug);
-  const [requests, setRequests] = useState<ExportRequest[]>([]);
+  const [requests, setRequests] = useState<ExportRequest[]>(() =>
+    backendEnabled ? [] : getAllExportRequests(),
+  );
   const [activeTab, setActiveTab] = useState<Tab>('config');
   const [isSaving, setIsSaving] = useState(false);
 
@@ -59,16 +105,22 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
   useEffect(() => {
     if (!backendEnabled) {
       setIsLoadingAuth(false);
+      setIsAuthenticated(true);
+      const localItems = buildLocalAdminCollections();
+      setCollections(localItems);
+      if (!localItems.some((item) => item.slug === selectedSlug) && localItems[0]) {
+        setSelectedSlug(localItems[0].slug);
+      }
       return;
     }
     void getAdminSession()
       .then((session) => setIsAuthenticated(Boolean(session)))
       .catch(() => setError('Não foi possível validar a sessão administrativa.'))
       .finally(() => setIsLoadingAuth(false));
-  }, []);
+  }, [selectedSlug]);
 
   useEffect(() => {
-    if (!isAuthenticated) return;
+    if (!backendEnabled || !isAuthenticated) return;
     void fetchAdminCollections()
       .then((items) => {
         setCollections(items);
@@ -99,6 +151,10 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
 
   useEffect(() => {
     if (!isAuthenticated || activeTab !== 'requests') return;
+    if (!backendEnabled) {
+      setRequests(getAllExportRequests());
+      return;
+    }
     void fetchAdminExportRequests()
       .then(setRequests)
       .catch((reason: unknown) => setError(reason instanceof Error ? reason.message : 'Erro ao carregar solicitações.'));
@@ -119,30 +175,54 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
     if (!selected) return;
     setIsSaving(true);
     setError(null);
+    setMessage(null);
+
+    const updatePayload = {
+      title: title.trim(),
+      visibility,
+      passwordRequired,
+      clientPassword: newPassword.trim() || undefined,
+      clientEmails: clientEmails.split(',').map((value) => value.trim()).filter(Boolean),
+      clientNotes: clientNotes.trim(),
+      expiresAt: expiresAt ? new Date(expiresAt).toISOString() : undefined,
+      coverFocalPoint: focalPoint,
+      theme: {
+        ...(selected.theme ?? {
+          headingFont: 'Outfit, sans-serif',
+          bodyFont: 'DM Sans, sans-serif',
+          foreground: '#f5f5f4',
+          background: '#050A0D',
+          gridGapDesktop: 16,
+          gridGapMobile: 8,
+          coverOverlayOpacity: 0.65,
+        }),
+        headingFont,
+        coverOverlayOpacity: overlayOpacity,
+      },
+      sets,
+      downloads: {
+        ...selected.downloads,
+        enabled: downloadEnabled,
+        requiresEmail,
+        requiresPin,
+        pin: newPin.trim() || undefined,
+        directFolderUrl: directFolderUrl.trim() || undefined,
+      },
+    };
+
     try {
-      const updated = await updateAdminCollection(selected.slug, {
-        title: title.trim(),
-        visibility,
-        passwordRequired,
-        clientPassword: newPassword.trim() || undefined,
-        clientEmails: clientEmails.split(',').map((value) => value.trim()).filter(Boolean),
-        clientNotes: clientNotes.trim(),
-        expiresAt: expiresAt ? new Date(expiresAt).toISOString() : undefined,
-        coverFocalPoint: focalPoint,
-        theme: {
-          headingFont,
-          coverOverlayOpacity: overlayOpacity,
-        },
-        sets,
-        downloads: {
-          enabled: downloadEnabled,
-          requiresEmail,
-          requiresPin,
-          pin: newPin.trim() || undefined,
-          directFolderUrl: directFolderUrl.trim() || undefined,
-        },
-      });
+      if (!backendEnabled) {
+        saveCollectionConfig(selected.slug, updatePayload);
+        const refreshed = buildLocalAdminCollections();
+        setCollections(refreshed);
+        onCollectionUpdated?.();
+        setMessage('Configurações salvas localmente e aplicadas na galeria.');
+        return;
+      }
+
+      const updated = await updateAdminCollection(selected.slug, updatePayload);
       setCollections((current) => current.map((item) => (item.slug === updated.slug ? updated : item)));
+      onCollectionUpdated?.();
       setMessage('Configurações salvas no backend com sucesso.');
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : 'Não foi possível salvar.');
@@ -151,8 +231,54 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
     }
   };
 
+  const exportConfigJson = () => {
+    if (!selected) return;
+    const baseData = getCollectionData(selected.slug);
+    const payload = {
+      collection: {
+        ...baseData.collection,
+        title: title.trim(),
+        visibility,
+        passwordRequired,
+        clientEmails: clientEmails.split(',').map((value) => value.trim()).filter(Boolean),
+        clientNotes: clientNotes.trim(),
+        expiresAt: expiresAt ? new Date(expiresAt).toISOString() : undefined,
+        coverFocalPoint: focalPoint,
+        theme: {
+          ...baseData.collection.theme,
+          headingFont,
+          coverOverlayOpacity: overlayOpacity,
+        },
+        sets,
+        downloads: {
+          ...baseData.collection.downloads,
+          enabled: downloadEnabled,
+          requiresEmail,
+          requiresPin,
+          directFolderUrl: directFolderUrl.trim() || undefined,
+        },
+      },
+      photos: baseData.photos,
+    };
+
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${selected.slug}.json`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    setMessage(`Arquivo ${selected.slug}.json exportado com sucesso.`);
+  };
+
   const migrateLegacy = async () => {
     setError(null);
+    if (!backendEnabled) {
+      setMessage('Modo local ativo: as configurações já estão sincronizadas neste navegador.');
+      return;
+    }
     try {
       const summary = await importLegacyBrowserData();
       setMessage(`Migração verificada: ${summary.collections} configuração(ões) e ${summary.requests} solicitação(ões).`);
@@ -161,22 +287,16 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
     }
   };
 
-  const galleryUrl = `${window.location.origin}/g/${selectedSlug}`;
+  const galleryUrl = `${window.location.origin}/?collection=${encodeURIComponent(selectedSlug)}`;
   const whatsappMessage = `Fala, ${clientNotes.trim() || 'Cliente'}! Tudo certo?\n\nA sua galeria já está no ar:\n📸 ${title}\n🔗 ${galleryUrl}${newPassword ? `\n🔑 Senha: ${newPassword}` : ''}${newPin ? `\n📥 PIN: ${newPin}` : ''}\n\nPode navegar, favoritar e baixar. Quando postar, marca @v1ncsc.`;
 
-  if (!backendEnabled) {
+  if (isLoadingAuth) {
     return (
       <PanelShell onClose={onClose}>
-        <h2 className="text-xl font-bold">Backend seguro ainda não configurado</h2>
-        <p className="mt-3 text-sm text-white/70">
-          Crie o projeto Supabase, aplique a migration, configure as variáveis da Vercel e ative
-          <code className="mx-1 text-[#85aab8]">VITE_API_ENABLED=true</code>. O painel local inseguro foi desativado.
-        </p>
+        <p>Validando sessão segura…</p>
       </PanelShell>
     );
   }
-
-  if (isLoadingAuth) return <PanelShell onClose={onClose}><p>Validando sessão segura…</p></PanelShell>;
 
   if (!isAuthenticated) {
     return (
@@ -194,13 +314,64 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-[#050A0D] text-white font-['DM_Sans']">
+    <div
+      className="fixed inset-0 z-50 flex flex-col bg-[#050A0D] text-white font-['DM_Sans']"
+      role="dialog"
+      aria-label="Painel do Fotógrafo"
+      data-testid="admin-panel"
+    >
       <header className="flex h-16 items-center justify-between border-b border-white/10 px-6">
-        <strong>VERSA / Painel seguro</strong>
-        <div className="flex gap-2">
-          <button onClick={() => void migrateLegacy()} className="rounded border border-white/15 px-3 py-1.5 text-xs">Migrar dados locais</button>
-          <button onClick={() => void signOutAdmin().then(() => setIsAuthenticated(false))} className="rounded border border-white/15 px-3 py-1.5 text-xs">Sair</button>
-          <button onClick={onClose} className="rounded border border-white/15 px-3 py-1.5 text-xs">Fechar</button>
+        <div className="flex items-center gap-3">
+          <strong>VERSA / Painel do Fotógrafo</strong>
+          <span className="rounded-full bg-[#5E7F8C]/20 border border-[#5E7F8C]/40 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#85aab8]">
+            {backendEnabled ? 'Cloud Sync' : 'Estúdio Local'}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={exportConfigJson}
+            className="rounded border border-white/15 hover:bg-white/10 px-3 py-1.5 text-xs transition-colors"
+          >
+            Exportar JSON
+          </button>
+          {backendEnabled && (
+            <>
+              <button
+                type="button"
+                onClick={() => void migrateLegacy()}
+                className="rounded border border-white/15 hover:bg-white/10 px-3 py-1.5 text-xs transition-colors"
+              >
+                Migrar dados locais
+              </button>
+              <button
+                type="button"
+                onClick={() => void signOutAdmin().then(() => setIsAuthenticated(false))}
+                className="rounded border border-white/15 hover:bg-white/10 px-3 py-1.5 text-xs transition-colors"
+              >
+                Sair
+              </button>
+            </>
+          )}
+          <button
+            type="button"
+            onClick={() => {
+              if (selectedSlug && onSelectCollection) {
+                onSelectCollection(selectedSlug);
+              }
+              onClose();
+            }}
+            className="rounded bg-[#5E7F8C] hover:bg-[#6e919f] px-3.5 py-1.5 text-xs font-semibold transition-colors"
+          >
+            Abrir Galeria
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded border border-white/15 hover:bg-white/10 px-3 py-1.5 text-xs transition-colors"
+          >
+            Voltar para a galeria
+          </button>
         </div>
       </header>
 
@@ -216,6 +387,7 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
         ).map((t) => (
           <button
             key={t.id}
+            type="button"
             onClick={() => setActiveTab(t.id)}
             className={`py-3 text-xs whitespace-nowrap ${
               activeTab === t.id ? 'border-b-2 border-[#5E7F8C] text-white font-semibold' : 'text-white/50 hover:text-white/80'
@@ -225,6 +397,7 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
           </button>
         ))}
         <select
+          aria-label="Selecionar coleção"
           value={selectedSlug}
           onChange={(event) => {
             setSelectedSlug(event.target.value);
@@ -247,20 +420,50 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
             <>
               <Section title="Acesso da galeria">
                 <Field label="Título"><input value={title} onChange={(event) => setTitle(event.target.value)} /></Field>
-                <Field label="Visibilidade"><select value={visibility} onChange={(event) => setVisibility(event.target.value as CollectionVisibility)}><option value="public">Pública</option><option value="password">Protegida</option><option value="client-only">Cliente</option><option value="hidden">Oculta</option></select></Field>
+                <Field label="Visibilidade">
+                  <select value={visibility} onChange={(event) => setVisibility(event.target.value as CollectionVisibility)}>
+                    <option value="public">Pública</option>
+                    <option value="password">Protegida</option>
+                    <option value="client-only">Cliente</option>
+                    <option value="hidden">Oculta</option>
+                  </select>
+                </Field>
                 <Toggle label="Exigir senha" checked={passwordRequired} onChange={setPasswordRequired} />
-                {passwordRequired && <Field label={selected.hasPassword ? 'Nova senha (vazio mantém a atual)' : 'Senha'}><input type="password" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} /></Field>}
-                <Field label="E-mails autorizados, separados por vírgula"><input value={clientEmails} onChange={(event) => setClientEmails(event.target.value)} /></Field>
-                <Field label="Data limite de expiração da galeria"><input type="date" value={expiresAt} onChange={(event) => setExpiresAt(event.target.value)} /></Field>
+                {passwordRequired && (
+                  <Field label={selected.hasPassword ? 'Nova senha (vazio mantém a atual)' : 'Senha'}>
+                    <input type="password" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} />
+                  </Field>
+                )}
+                <Field label="E-mails autorizados, separados por vírgula">
+                  <input value={clientEmails} onChange={(event) => setClientEmails(event.target.value)} />
+                </Field>
+                <Field label="Data limite de expiração da galeria">
+                  <input type="date" value={expiresAt} onChange={(event) => setExpiresAt(event.target.value)} />
+                </Field>
               </Section>
               <Section title="Downloads">
                 <Toggle label="Downloads ativos" checked={downloadEnabled} onChange={setDownloadEnabled} />
                 <Toggle label="Exigir e-mail" checked={requiresEmail} onChange={setRequiresEmail} />
                 <Toggle label="Exigir PIN" checked={requiresPin} onChange={setRequiresPin} />
-                {requiresPin && <Field label={selected.hasDownloadPin ? 'Novo PIN (vazio mantém o atual)' : 'PIN'}><input type="password" value={newPin} onChange={(event) => setNewPin(event.target.value)} /></Field>}
-                <Field label="Link direto da pasta"><input value={directFolderUrl} onChange={(event) => setDirectFolderUrl(event.target.value)} /></Field>
-                <Field label="Nome/notas do cliente"><textarea value={clientNotes} onChange={(event) => setClientNotes(event.target.value)} /></Field>
-                <button disabled={isSaving} onClick={() => void save()} className="rounded bg-[#5E7F8C] px-5 py-2 text-xs font-bold disabled:opacity-50">{isSaving ? 'Salvando…' : 'Salvar no backend'}</button>
+                {requiresPin && (
+                  <Field label={selected.hasDownloadPin ? 'Novo PIN (vazio mantém o atual)' : 'PIN'}>
+                    <input type="password" value={newPin} onChange={(event) => setNewPin(event.target.value)} />
+                  </Field>
+                )}
+                <Field label="Link direto da pasta">
+                  <input value={directFolderUrl} onChange={(event) => setDirectFolderUrl(event.target.value)} />
+                </Field>
+                <Field label="Nome/notas do cliente">
+                  <textarea value={clientNotes} onChange={(event) => setClientNotes(event.target.value)} />
+                </Field>
+                <button
+                  type="button"
+                  disabled={isSaving}
+                  onClick={() => void save()}
+                  className="rounded bg-[#5E7F8C] hover:bg-[#6e919f] px-5 py-2 text-xs font-bold disabled:opacity-50 transition-colors"
+                >
+                  {isSaving ? 'Salvando…' : 'Salvar Configurações'}
+                </button>
               </Section>
             </>
           )}
@@ -302,9 +505,10 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
                 </Field>
 
                 <button
+                  type="button"
                   disabled={isSaving}
                   onClick={() => void save()}
-                  className="rounded bg-[#5E7F8C] px-5 py-2 text-xs font-bold disabled:opacity-50"
+                  className="rounded bg-[#5E7F8C] hover:bg-[#6e919f] px-5 py-2 text-xs font-bold disabled:opacity-50 transition-colors"
                 >
                   {isSaving ? 'Salvando…' : 'Salvar Estilo Visual'}
                 </button>
@@ -384,16 +588,61 @@ export function AdminPanel({ initialSlug = 'modec-dia-das-criancas-2026', onClos
               </div>
 
               <button
+                type="button"
                 disabled={isSaving}
                 onClick={() => void save()}
-                className="mt-4 rounded bg-[#5E7F8C] px-5 py-2 text-xs font-bold disabled:opacity-50"
+                className="mt-4 rounded bg-[#5E7F8C] hover:bg-[#6e919f] px-5 py-2 text-xs font-bold disabled:opacity-50 transition-colors"
               >
                 {isSaving ? 'Salvando…' : 'Salvar Conjuntos'}
               </button>
             </Section>
           )}
-          {activeTab === 'handoff' && <Section title="Mensagem WhatsApp"><pre className="whitespace-pre-wrap text-sm text-white/75">{whatsappMessage}</pre><button onClick={() => void navigator.clipboard.writeText(whatsappMessage).then(() => setMessage('Mensagem copiada.'))} className="rounded bg-[#5E7F8C] px-4 py-2 text-xs">Copiar</button><p className="text-[11px] text-amber-300/80">Senha e PIN nunca retornam do servidor. Eles aparecem somente quando definidos nesta sessão.</p></Section>}
-          {activeTab === 'requests' && <Section title="Últimas solicitações">{requests.length === 0 ? <p className="text-sm text-white/50">Nenhuma solicitação.</p> : requests.map((request) => <div key={request.id} className="border-b border-white/10 py-3 text-xs"><strong>{request.collectionTitle}</strong> · {request.type} · {request.requestedSize}<br /><span className="text-white/50">{request.clientEmail || 'sem e-mail'} · {new Date(request.requestedAt).toLocaleString('pt-BR')}</span></div>)}</Section>}
+
+          {activeTab === 'handoff' && (
+            <Section title="Mensagem Pronta de WhatsApp">
+              <pre className="whitespace-pre-wrap rounded-xl bg-black/40 border border-white/10 p-4 text-sm text-white/85">
+                {whatsappMessage}
+              </pre>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={() => void navigator.clipboard.writeText(whatsappMessage).then(() => setMessage('Mensagem copiada para a área de transferência.'))}
+                  className="rounded bg-[#5E7F8C] hover:bg-[#6e919f] px-4 py-2 text-xs font-bold transition-colors"
+                >
+                  Copiar Mensagem
+                </button>
+                <a
+                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded border border-white/15 hover:bg-white/10 px-4 py-2 text-xs font-semibold transition-colors"
+                >
+                  Abrir no WhatsApp
+                </a>
+              </div>
+              <p className="text-[11px] text-amber-300/80">
+                Senha e PIN aparecem na minuta quando definidos nesta sessão.
+              </p>
+            </Section>
+          )}
+
+          {activeTab === 'requests' && (
+            <Section title="Últimas solicitações de exportação">
+              {requests.length === 0 ? (
+                <p className="text-sm text-white/50">Nenhuma solicitação registrada até o momento.</p>
+              ) : (
+                requests.map((request) => (
+                  <div key={request.id} className="border-b border-white/10 py-3 text-xs">
+                    <strong>{request.collectionTitle}</strong> · {request.type} · {request.requestedSize}
+                    <br />
+                    <span className="text-white/50">
+                      {request.clientEmail || 'sem e-mail'} · {new Date(request.requestedAt).toLocaleString('pt-BR')}
+                    </span>
+                  </div>
+                ))
+              )}
+            </Section>
+          )}
         </div>
       </main>
     </div>

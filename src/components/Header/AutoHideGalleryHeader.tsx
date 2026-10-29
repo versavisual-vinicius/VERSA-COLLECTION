@@ -13,6 +13,7 @@ interface AutoHideGalleryHeaderProps {
   onOpenDownload: () => void;
   onStartSlideshow?: () => void;
   onShareCollection?: () => void;
+  onGoHome?: () => void;
   onOpenAdmin?: () => void;
 }
 
@@ -34,6 +35,7 @@ export function AutoHideGalleryHeader({
   onOpenDownload,
   onStartSlideshow,
   onShareCollection,
+  onGoHome,
   onOpenAdmin,
 }: AutoHideGalleryHeaderProps) {
   const [visible, setVisible] = useState(true);
@@ -154,6 +156,7 @@ export function AutoHideGalleryHeader({
           <OverflowMenu
             onStartSlideshow={onStartSlideshow}
             onShareCollection={onShareCollection}
+            onGoHome={onGoHome}
             onOpenAdmin={onOpenAdmin}
           />
         </div>

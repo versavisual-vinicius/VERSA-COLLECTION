@@ -172,15 +172,21 @@ describe('Fase 10: Paridade Cirúrgica REA vs. Pixieset Real', () => {
     expect(zipBtn).toBeInTheDocument();
   });
 
-  it('10.9: AdminPanel deve recusar o painel local inseguro sem backend configurado', () => {
+  it('10.9: AdminPanel deve abrir funcionalmente em modo Estúdio Local permitindo salvar configurações e alternar coleções', () => {
+    const onSelectMock = vi.fn();
     render(
       <AdminPanel
         initialSlug="fixture"
         onClose={() => {}}
+        onSelectCollection={onSelectMock}
       />,
     );
 
-    expect(screen.getByText(/Backend seguro ainda não configurado/i)).toBeInTheDocument();
-    expect(screen.queryByText(/senha mestra/i)).not.toBeInTheDocument();
+    expect(screen.getByTestId('admin-panel')).toBeInTheDocument();
+    expect(screen.getByText(/VERSA \/ Painel do Fotógrafo/i)).toBeInTheDocument();
+
+    const saveBtn = screen.getByRole('button', { name: /Salvar Configurações/i });
+    fireEvent.click(saveBtn);
+    expect(screen.getByText(/Configurações salvas localmente e aplicadas na galeria\./i)).toBeInTheDocument();
   });
 });

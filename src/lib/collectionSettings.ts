@@ -68,6 +68,13 @@ export function applyCollectionSettings(collection: GalleryCollection): GalleryC
     clientEmail: custom.clientEmail ?? collection.clientEmail,
     clientEmails: custom.clientEmails ?? collection.clientEmails,
     clientNotes: custom.clientNotes ?? collection.clientNotes,
+    expiresAt: custom.expiresAt ?? collection.expiresAt,
+    coverFocalPoint: custom.coverFocalPoint ?? collection.coverFocalPoint,
+    theme: {
+      ...collection.theme,
+      ...(custom.theme || {}),
+    },
+    sets: custom.sets ?? collection.sets,
     downloads: {
       ...collection.downloads,
       ...(custom.downloads || {}),

@@ -195,4 +195,30 @@ describe('Fase 12 — Estados de Página, Resiliência e Tratamento de Erros (Se
     fireEvent.click(screen.getByRole('button', { name: /Painel do Fotógrafo/i }));
     expect(onOpenAdmin).toHaveBeenCalledTimes(1);
   });
+
+  it('9. Conexão de Rotas & Painel do Fotógrafo: navega entre Catálogo, Galeria, Admin e Estados', async () => {
+    const { default: App } = await import('../App');
+    window.history.replaceState({}, '', '/');
+
+    render(<App />);
+    expect(screen.getByText(/Coleções Digitais Exclusivas/i)).toBeInTheDocument();
+
+    // Abre Painel do Fotógrafo a partir da Homepage
+    fireEvent.click(screen.getByRole('button', { name: /Acesso Fotógrafo/i }));
+    expect(screen.getByTestId('admin-panel')).toBeInTheDocument();
+
+    // Clica em "Abrir Galeria" no AdminPanel para ir direto à coleção selecionada
+    fireEvent.click(screen.getByRole('button', { name: /Abrir Galeria/i }));
+    await waitFor(() => {
+      expect(screen.getByTestId('auto-hide-header')).toBeInTheDocument();
+    });
+
+    // Abre menu de mais opções (...) e retorna ao Catálogo de Galerias
+    fireEvent.click(screen.getByRole('button', { name: /Mais opções da galeria/i }));
+    fireEvent.click(screen.getByRole('menuitem', { name: /Catálogo de Galerias/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText(/Coleções Digitais Exclusivas/i)).toBeInTheDocument();
+    });
+  });
 });

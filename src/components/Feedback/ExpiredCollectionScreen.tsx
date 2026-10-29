@@ -2,6 +2,7 @@ import type { GalleryCollection } from '../../types/gallery';
 
 interface ExpiredCollectionScreenProps {
   collection: GalleryCollection;
+  onGoHome?: () => void;
   onOpenAdmin?: () => void;
 }
 
@@ -10,7 +11,16 @@ interface ExpiredCollectionScreenProps {
  * Renderizado quando uma galeria ultrapassa a data limite configurada em `expiresAt`.
  * Estética editorial sofisticada com preservação do branding Versa Visual.
  */
-export function ExpiredCollectionScreen({ collection, onOpenAdmin }: ExpiredCollectionScreenProps) {
+export function ExpiredCollectionScreen({ collection, onGoHome, onOpenAdmin }: ExpiredCollectionScreenProps) {
+  const handleHomeClick = () => {
+    if (onGoHome) {
+      onGoHome();
+      return;
+    }
+    if (typeof window !== 'undefined') {
+      window.location.href = '/';
+    }
+  };
   const coverSrc =
     collection.cover?.sources?.[1]?.url ||
     collection.cover?.sources?.[0]?.url ||
@@ -84,6 +94,14 @@ export function ExpiredCollectionScreen({ collection, onOpenAdmin }: ExpiredColl
           >
             Falar no WhatsApp
           </a>
+
+          <button
+            type="button"
+            onClick={handleHomeClick}
+            className="w-full sm:w-auto px-5 py-3 rounded-lg border border-white/15 hover:bg-white/10 text-white/90 text-xs font-semibold uppercase tracking-wider transition-colors"
+          >
+            Ir para a página inicial
+          </button>
 
           {onOpenAdmin && (
             <button

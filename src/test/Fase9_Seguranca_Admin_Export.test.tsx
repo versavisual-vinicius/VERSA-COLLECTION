@@ -136,12 +136,16 @@ describe('Fase 9: Segurança do Cliente, Painel do Vini & Solicitações de Expo
   });
 
   describe('AdminPanel (Painel do Vini)', () => {
-    it('deve desativar autenticação local quando o backend seguro não está configurado', () => {
+    it('deve abrir o Painel do Fotógrafo completo em modo Estúdio Local e permitir editar coleções', () => {
       const onCloseMock = vi.fn();
-      render(<AdminPanel onClose={onCloseMock} />);
+      render(<AdminPanel initialSlug="fixture" onClose={onCloseMock} />);
 
-      expect(screen.getByText(/Backend seguro ainda não configurado/i)).toBeInTheDocument();
-      expect(screen.queryByText(/senha mestra/i)).not.toBeInTheDocument();
+      expect(screen.getByTestId('admin-panel')).toBeInTheDocument();
+      expect(screen.getByText(/VERSA \/ Painel do Fotógrafo/i)).toBeInTheDocument();
+      expect(screen.getByText(/Estúdio Local/i)).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /^Configurações$/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /^Capa & Visual$/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /^Conjuntos \(Sets\)$/i })).toBeInTheDocument();
     });
 
   });

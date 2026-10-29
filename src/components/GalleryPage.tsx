@@ -36,11 +36,22 @@ const clamp = (value: number, min: number, max: number) => Math.min(Math.max(val
 interface GalleryPageProps {
   isOwnerPreview?: boolean;
   collectionSlug?: string;
+  onGoHome?: () => void;
+  onSelectCollection?: (slug: string) => void;
 }
 
-export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }: GalleryPageProps) {
+export function GalleryPage({
+  isOwnerPreview = false,
+  collectionSlug: propSlug,
+  onGoHome,
+  onSelectCollection,
+}: GalleryPageProps) {
   // Determina a coleção solicitada: prop -> URL param -> fallback 'fixture'
+  const [urlSlugOverride, setUrlSlugOverride] = useState<string | null>(null);
+  const [configVersion, setConfigVersion] = useState(0);
+
   const requestedSlug = useMemo(() => {
+    if (urlSlugOverride) return urlSlugOverride;
     if (propSlug) return propSlug;
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
@@ -48,14 +59,15 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       if (urlSlug) return urlSlug;
     }
     return 'fixture';
-  }, [propSlug]);
+  }, [propSlug, urlSlugOverride]);
 
   const isStaticSlugMissing = !backendEnabled && !availableCollections[requestedSlug];
   const activeSlug = availableCollections[requestedSlug] ? requestedSlug : 'fixture';
 
   const staticData = useMemo(() => {
+    void configVersion;
     return getCollectionData(activeSlug);
-  }, [activeSlug]);
+  }, [activeSlug, configVersion]);
   const [runtimeData, setRuntimeData] = useState(staticData);
   const [backendStatus, setBackendStatus] = useState<'loading' | 'ready' | 'not-found' | 'restricted' | 'error'>(
     backendEnabled ? 'loading' : 'ready',
@@ -496,6 +508,37 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
     [allPhotos, favoriteIds],
   );
 
+  const handleSwitchCollection = useCallback(
+    (slug: string) => {
+      if (onSelectCollection) {
+        onSelectCollection(slug);
+      } else {
+        setUrlSlugOverride(slug);
+        if (typeof window !== 'undefined') {
+          const nextUrl = new URL(window.location.href);
+          nextUrl.searchParams.set('collection', slug);
+          window.history.pushState({}, '', `${nextUrl.pathname}${nextUrl.search}`);
+        }
+      }
+    },
+    [onSelectCollection],
+  );
+
+  const renderAdminPanel = () => {
+    if (!isAdminOpen) return null;
+    return (
+      <AdminPanel
+        initialSlug={activeSlug}
+        onClose={() => setIsAdminOpen(false)}
+        onSelectCollection={handleSwitchCollection}
+        onCollectionUpdated={() => {
+          setConfigVersion((v) => v + 1);
+          if (backendEnabled) void loadBackendCollection();
+        }}
+      />
+    );
+  };
+
   if (backendEnabled && backendStatus === 'loading') {
     return <GalleryLoadingScreen title={collection?.title} />;
   }
@@ -505,14 +548,10 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       <>
         <CollectionNotFoundScreen
           slug={requestedSlug}
+          onGoHome={onGoHome}
           onOpenAdmin={() => setIsAdminOpen(true)}
         />
-        {isAdminOpen && (
-          <AdminPanel
-            initialSlug={activeSlug}
-            onClose={() => setIsAdminOpen(false)}
-          />
-        )}
+        {renderAdminPanel()}
       </>
     );
   }
@@ -523,14 +562,10 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
         <GalleryUnavailableScreen
           message={backendError}
           onRetry={loadBackendCollection}
+          onGoHome={onGoHome}
           onOpenAdmin={() => setIsAdminOpen(true)}
         />
-        {isAdminOpen && (
-          <AdminPanel
-            initialSlug={activeSlug}
-            onClose={() => setIsAdminOpen(false)}
-          />
-        )}
+        {renderAdminPanel()}
       </>
     );
   }
@@ -556,14 +591,10 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
             setIsEmailAuthorized(true);
             return true;
           }}
+          onGoHome={onGoHome}
           onOpenAdmin={() => setIsAdminOpen(true)}
         />
-        {isAdminOpen && (
-          <AdminPanel
-            initialSlug={activeSlug}
-            onClose={() => setIsAdminOpen(false)}
-          />
-        )}
+        {renderAdminPanel()}
       </>
     );
   }
@@ -577,14 +608,10 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
       <>
         <ExpiredCollectionScreen
           collection={collection}
+          onGoHome={onGoHome}
           onOpenAdmin={() => setIsAdminOpen(true)}
         />
-        {isAdminOpen && (
-          <AdminPanel
-            initialSlug={activeSlug}
-            onClose={() => setIsAdminOpen(false)}
-          />
-        )}
+        {renderAdminPanel()}
       </>
     );
   }
@@ -599,12 +626,7 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
           onUnlocked={backendEnabled ? loadBackendCollection : () => setIsUnlocked(true)}
           onOpenAdmin={() => setIsAdminOpen(true)}
         />
-        {isAdminOpen && (
-          <AdminPanel
-            initialSlug={activeSlug}
-            onClose={() => setIsAdminOpen(false)}
-          />
-        )}
+        {renderAdminPanel()}
       </>
     );
   }
@@ -621,6 +643,7 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
         onOpenDownload={handleDownloadCollection}
         onStartSlideshow={handleStartSlideshow}
         onShareCollection={handleShareCollection}
+        onGoHome={onGoHome}
         onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
@@ -751,17 +774,7 @@ export function GalleryPage({ isOwnerPreview = false, collectionSlug: propSlug }
 
       <ToastRegion message={toastMessage} />
 
-      {isAdminOpen && (
-        <AdminPanel
-          initialSlug={activeSlug}
-          onClose={() => setIsAdminOpen(false)}
-          onSelectCollection={(slug) => {
-            const nextUrl = new URL(window.location.href);
-            nextUrl.searchParams.set('collection', slug);
-            window.history.pushState({}, '', nextUrl.toString());
-          }}
-        />
-      )}
+      {renderAdminPanel()}
     </div>
   );
 }
