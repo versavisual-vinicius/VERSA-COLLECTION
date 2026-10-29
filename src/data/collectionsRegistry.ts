@@ -1,6 +1,5 @@
 import type { GalleryCollection, GalleryPhoto } from '../types/gallery';
 import { collectionFixture, galleryPhotos as fixturePhotos } from './fixtures';
-import modecData from './collections/modec-dia-das-criancas-2026.json';
 import { applyCollectionSettings } from '../lib/collectionSettings';
 
 export interface CollectionData {
@@ -8,16 +7,28 @@ export interface CollectionData {
   photos: GalleryPhoto[];
 }
 
+const rawModules = import.meta.glob<Record<string, unknown>>('./collections/*.json', {
+  eager: true,
+  import: 'default',
+});
+
 export const availableCollections: Record<string, CollectionData> = {
-  'modec-dia-das-criancas-2026': {
-    collection: modecData.collection as unknown as GalleryCollection,
-    photos: modecData.photos as unknown as GalleryPhoto[],
-  },
   fixture: {
     collection: collectionFixture,
     photos: fixturePhotos,
   },
 };
+
+for (const [filePath, mod] of Object.entries(rawModules)) {
+  if (filePath.endsWith('index.json')) continue;
+  const data = mod as unknown as { collection?: GalleryCollection; photos?: GalleryPhoto[] };
+  if (data?.collection?.slug && Array.isArray(data?.photos)) {
+    availableCollections[data.collection.slug] = {
+      collection: data.collection,
+      photos: data.photos,
+    };
+  }
+}
 
 export const defaultCollectionSlug = 'modec-dia-das-criancas-2026';
 

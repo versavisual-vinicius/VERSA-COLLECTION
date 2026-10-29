@@ -12,10 +12,13 @@ export function PhotographerHomePage({
   onSelectCollection,
   onOpenAdmin,
 }: PhotographerHomePageProps) {
-  const staticCollections = Object.entries(availableCollections).map(([slug, data]) => ({
-    ...data.collection,
-    slug: data.collection.slug || slug,
-  }));
+  const realCollections = Object.entries(availableCollections).filter(([slug]) => slug !== 'fixture');
+  const staticCollections = (realCollections.length > 0 ? realCollections : Object.entries(availableCollections)).map(
+    ([slug, data]) => ({
+      ...data.collection,
+      slug: data.collection.slug || slug,
+    }),
+  );
   const [collectionsList, setCollectionsList] = useState<Array<PublicCollectionCard & { businessName?: string }>>(
     backendEnabled ? [] : staticCollections,
   );
@@ -68,7 +71,10 @@ export function PhotographerHomePage({
         {/* Grade de Coleções */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {collectionsList.map((col) => {
-            const coverUrl = col.cover?.sources?.[col.cover.sources.length - 1]?.url || col.cover?.sources?.[0]?.url;
+            const coverUrl =
+              col.cover?.sources?.[col.cover.sources.length - 1]?.url ||
+              col.cover?.sources?.[0]?.url ||
+              (col as { coverUrl?: string }).coverUrl;
 
             return (
               <article
