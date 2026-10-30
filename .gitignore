@@ -14,3 +14,4 @@ coverage
 gen-lang-client-*.json
 *-credentials.json
 *serviceaccount*.json
+.vscode/settings.json

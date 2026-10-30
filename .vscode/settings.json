@@ -7,5 +7,27 @@
     "*.ts": "typescript",
     "*.tsx": "typescriptreact"
   },
-  "markdown.validate.enabled": false
+  "markdown.validate.enabled": false,
+  "editor.find.globalFindClipboard": true,
+  "editor.inlineSuggest.edits.showCollapsed": true,
+  "editor.inlineSuggest.experimental.showOnSuggestConflict": "always",
+  "editor.inlineSuggest.suppressSuggestions": true,
+  "editor.suggest.preview": true,
+  "editor.suggest.shareSuggestSelections": true,
+  "workbench.editor.defaultBinaryEditor": "default",
+  "workbench.editor.enablePreviewFromCodeNavigation": true,
+  "workbench.editor.enablePreviewFromQuickOpen": true,
+  "workbench.settings.editor": "json",
+  "workbench.settings.useSplitJSON": true,
+  "terminal.integrated.enableImages": true,
+  "problems.showCurrentInStatus": true,
+  "antigravity.autoOpenFiles": true,
+  "clangd.checkUpdates": true,
+  "livePreview.debugOnExternalPreview": true,
+  "livePreview.tasks.runTaskWithExternalPreview": true,
+  "mediaPreview.video.loop": true,
+  "mediaPreview.video.autoPlay": true,
+  "npm.enableRunFromFolder": true,
+  "javascript.suggest.completeFunctionCalls": true,
+  "typescript.suggest.completeFunctionCalls": true
 }
