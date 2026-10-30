@@ -130,7 +130,7 @@ export async function createExportRequest(input: {
 }
 
 export async function requestAdminMagicLink(email: string): Promise<void> {
-  const redirectTo = `${window.location.origin}${window.location.pathname}?admin=true`;
+  const redirectTo = `${window.location.origin}/dashboard`;
   const { error } = await getBrowserClient().auth.signInWithOtp({
     email: email.trim().toLowerCase(),
     options: { emailRedirectTo: redirectTo, shouldCreateUser: false },

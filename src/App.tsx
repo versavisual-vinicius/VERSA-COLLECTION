@@ -6,9 +6,10 @@ import { DashboardPage } from './components/Dashboard/DashboardPage';
 import { PhotoLibraryPage } from './components/PhotoLibrary/PhotoLibraryPage';
 import { CollectionCreateWizard } from './components/CollectionWizard/CollectionCreateWizard';
 import { PhotoEditorPage } from './components/PhotoEditor/PhotoEditorPage';
+import { LoginPage } from './components/Auth/LoginPage';
 import type { CreateCollectionResponse } from './types/gallery';
 
-type AppView = 'home' | 'gallery' | 'dashboard' | 'photos' | 'create-collection' | 'editor';
+type AppView = 'home' | 'gallery' | 'dashboard' | 'photos' | 'create-collection' | 'editor' | 'login';
 
 function resolveViewFromUrl(): { view: AppView; slug: string | null } {
   if (typeof window === 'undefined') return { view: 'home', slug: null };
@@ -16,6 +17,9 @@ function resolveViewFromUrl(): { view: AppView; slug: string | null } {
   const params = new URLSearchParams(window.location.search);
   const viewParam = params.get('view');
 
+  if (pathname === '/login' || viewParam === 'login') {
+    return { view: 'login', slug: null };
+  }
   if (
     pathname === '/editor' ||
     pathname.startsWith('/projects') ||
@@ -118,6 +122,15 @@ export default function App() {
     }
   }, []);
 
+  const handleOpenLogin = useCallback(() => {
+    setCurrentCollection(null);
+    setViewState({ view: 'login', slug: null });
+    setIsCreateWizardOpen(false);
+    if (typeof window !== 'undefined') {
+      window.history.pushState({}, '', '/login');
+    }
+  }, []);
+
   const handleOpenDashboard = useCallback(() => {
     setCurrentCollection(null);
     setViewState({ view: 'dashboard', slug: null });
@@ -188,6 +201,10 @@ export default function App() {
     },
     [handleSelectCollection],
   );
+
+  if (viewState.view === 'login') {
+    return <LoginPage onNavigateHome={handleGoHome} />;
+  }
 
   // Se o usuário acessar a rota /editor, renderiza o Photo Editor & Culling
   if (viewState.view === 'editor') {
@@ -266,7 +283,7 @@ export default function App() {
       <>
         <PhotographerHomePage
           onSelectCollection={handleSelectCollection}
-          onOpenAdmin={() => setIsAdminOpen(true)}
+          onOpenAdmin={handleOpenLogin}
           onOpenDashboard={handleOpenDashboard}
         />
         {isAdminOpen && (
