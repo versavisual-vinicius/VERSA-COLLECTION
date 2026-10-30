@@ -15,3 +15,6 @@ gen-lang-client-*.json
 *-credentials.json
 *serviceaccount*.json
 .vscode/settings.json
+.vscode/extensions.json
+openspec/specs/collection-creation/spec.md
+.gitignore
