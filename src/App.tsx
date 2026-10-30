@@ -185,14 +185,20 @@ export default function App() {
 
   const handleCloseCreateWizard = useCallback(() => {
     setIsCreateWizardOpen(false);
+    if (viewState.view === 'create-collection') {
+      setViewState({ view: 'dashboard', slug: null });
+    }
     if (typeof window !== 'undefined') {
       const nextUrl = new URL(window.location.href);
-      if (nextUrl.searchParams.get('view') === 'create-collection') {
-        nextUrl.searchParams.delete('view');
-        window.history.pushState({}, '', `${nextUrl.pathname}${nextUrl.search}`);
+      const isDedicatedCreateRoute =
+        nextUrl.pathname === '/collections/create' || nextUrl.pathname === '/collections/new';
+      nextUrl.searchParams.delete('view');
+      if (isDedicatedCreateRoute) {
+        nextUrl.pathname = '/dashboard';
       }
+      window.history.pushState({}, '', `${nextUrl.pathname}${nextUrl.search}`);
     }
-  }, []);
+  }, [viewState.view]);
 
   const handleCreateSuccess = useCallback(
     (newCol: CreateCollectionResponse['collection']) => {
