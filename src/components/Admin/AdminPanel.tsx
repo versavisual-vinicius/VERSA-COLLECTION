@@ -26,7 +26,7 @@ interface AdminPanelProps {
   onCollectionUpdated?: () => void;
 }
 
-type Tab = 'config' | 'editorial' | 'sets' | 'handoff' | 'requests';
+type Tab = 'widgets' | 'config' | 'editorial' | 'sets' | 'handoff' | 'requests';
 
 function buildLocalAdminCollections(): AdminCollection[] {
   return Object.keys(availableCollections).map((slug) => {
@@ -76,7 +76,7 @@ export function AdminPanel({
   const [requests, setRequests] = useState<ExportRequest[]>(() =>
     backendEnabled ? [] : getAllExportRequests(),
   );
-  const [activeTab, setActiveTab] = useState<Tab>('config');
+  const [activeTab, setActiveTab] = useState<Tab>('widgets');
   const [isSaving, setIsSaving] = useState(false);
 
   const selected = useMemo(
@@ -231,48 +231,6 @@ export function AdminPanel({
     }
   };
 
-  const exportConfigJson = () => {
-    if (!selected) return;
-    const baseData = getCollectionData(selected.slug);
-    const payload = {
-      collection: {
-        ...baseData.collection,
-        title: title.trim(),
-        visibility,
-        passwordRequired,
-        clientEmails: clientEmails.split(',').map((value) => value.trim()).filter(Boolean),
-        clientNotes: clientNotes.trim(),
-        expiresAt: expiresAt ? new Date(expiresAt).toISOString() : undefined,
-        coverFocalPoint: focalPoint,
-        theme: {
-          ...baseData.collection.theme,
-          headingFont,
-          coverOverlayOpacity: overlayOpacity,
-        },
-        sets,
-        downloads: {
-          ...baseData.collection.downloads,
-          enabled: downloadEnabled,
-          requiresEmail,
-          requiresPin,
-          directFolderUrl: directFolderUrl.trim() || undefined,
-        },
-      },
-      photos: baseData.photos,
-    };
-
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${selected.slug}.json`;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
-    setMessage(`Arquivo ${selected.slug}.json exportado com sucesso.`);
-  };
-
   const migrateLegacy = async () => {
     setError(null);
     if (!backendEnabled) {
@@ -340,13 +298,6 @@ export function AdminPanel({
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={exportConfigJson}
-            className="rounded-lg border border-[#5E7F8C]/20 hover:border-[#5E7F8C]/40 bg-white hover:bg-[#F6F8F9] px-3.5 py-1.5 text-xs font-semibold text-[#11161B] shadow-xs transition-colors"
-          >
-            Exportar JSON
-          </button>
           {backendEnabled && (
             <>
               <button
@@ -367,13 +318,21 @@ export function AdminPanel({
           )}
           <button
             type="button"
+            disabled={isSaving}
+            onClick={() => void save()}
+            className="rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-4 py-1.5 text-xs font-semibold text-white shadow-xs disabled:opacity-50 transition-colors"
+          >
+            {isSaving ? 'Salvando…' : 'Salvar Alterações'}
+          </button>
+          <button
+            type="button"
             onClick={() => {
               if (selectedSlug && onSelectCollection) {
                 onSelectCollection(selectedSlug);
               }
               onClose();
             }}
-            className="rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs transition-colors"
+            className="rounded-lg border border-[#5E7F8C]/20 hover:border-[#5E7F8C]/40 bg-white hover:bg-[#F6F8F9] px-3.5 py-1.5 text-xs font-semibold text-[#11161B] shadow-xs transition-colors"
           >
             Abrir Galeria
           </button>
@@ -387,9 +346,10 @@ export function AdminPanel({
         </div>
       </header>
 
-      <nav className="flex items-center gap-4 border-b border-[#5E7F8C]/15 px-6 bg-white/60 backdrop-blur-xs overflow-x-auto">
+      <nav className="flex items-center gap-2 border-b border-[#5E7F8C]/15 px-6 bg-white/60 backdrop-blur-xs overflow-x-auto">
         {(
           [
+            { id: 'widgets', label: 'Widgets' },
             { id: 'config', label: 'Configurações' },
             { id: 'editorial', label: 'Capa & Visual' },
             { id: 'sets', label: 'Conjuntos (Sets)' },
@@ -401,7 +361,7 @@ export function AdminPanel({
             key={t.id}
             type="button"
             onClick={() => setActiveTab(t.id)}
-            className={`py-3 text-xs whitespace-nowrap transition-colors ${
+            className={`py-3 px-2 text-xs whitespace-nowrap transition-colors ${
               activeTab === t.id
                 ? 'border-b-2 border-[#5E7F8C] text-[#11161B] font-bold'
                 : 'text-[#5A6872] hover:text-[#11161B]'
@@ -428,234 +388,248 @@ export function AdminPanel({
       </nav>
 
       <main className="flex-1 overflow-y-auto p-6">
-        <div className="mx-auto max-w-3xl space-y-5">
+        <div className="mx-auto max-w-7xl space-y-5">
           <Feedback message={message} error={error} />
-          {activeTab === 'config' && selected && (
-            <>
-              <Section title="Acesso da galeria">
-                <Field label="Título"><input value={title} onChange={(event) => setTitle(event.target.value)} /></Field>
-                <Field label="Visibilidade">
-                  <select value={visibility} onChange={(event) => setVisibility(event.target.value as CollectionVisibility)}>
-                    <option value="public">Pública</option>
-                    <option value="password">Protegida</option>
-                    <option value="client-only">Cliente</option>
-                    <option value="hidden">Oculta</option>
-                  </select>
-                </Field>
-                <Toggle label="Exigir senha" checked={passwordRequired} onChange={setPasswordRequired} />
-                {passwordRequired && (
-                  <Field label={selected.hasPassword ? 'Nova senha (vazio mantém a atual)' : 'Senha'}>
-                    <input type="password" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} />
-                  </Field>
-                )}
-                <Field label="E-mails autorizados, separados por vírgula">
-                  <input value={clientEmails} onChange={(event) => setClientEmails(event.target.value)} />
-                </Field>
-                <Field label="Data limite de expiração da galeria">
-                  <input type="date" value={expiresAt} onChange={(event) => setExpiresAt(event.target.value)} />
-                </Field>
-              </Section>
-              <Section title="Downloads">
-                <Toggle label="Downloads ativos" checked={downloadEnabled} onChange={setDownloadEnabled} />
-                <Toggle label="Exigir e-mail" checked={requiresEmail} onChange={setRequiresEmail} />
-                <Toggle label="Exigir PIN" checked={requiresPin} onChange={setRequiresPin} />
-                {requiresPin && (
-                  <Field label={selected.hasDownloadPin ? 'Novo PIN (vazio mantém o atual)' : 'PIN'}>
-                    <input type="password" value={newPin} onChange={(event) => setNewPin(event.target.value)} />
-                  </Field>
-                )}
-                <Field label="Link direto da pasta">
-                  <input value={directFolderUrl} onChange={(event) => setDirectFolderUrl(event.target.value)} />
-                </Field>
-                <Field label="Nome/notas do cliente">
-                  <textarea value={clientNotes} onChange={(event) => setClientNotes(event.target.value)} />
-                </Field>
-                <button
-                  type="button"
-                  disabled={isSaving}
-                  onClick={() => void save()}
-                  className="rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-5 py-2 text-xs font-bold text-white shadow-xs disabled:opacity-50 transition-colors"
-                >
-                  {isSaving ? 'Salvando…' : 'Salvar Configurações'}
-                </button>
-              </Section>
-            </>
-          )}
 
-          {activeTab === 'editorial' && selected && (
-            <>
-              <Section title="Ponto Focal & Enquadramento da Capa">
-                <CoverFocalPicker
-                  coverUrl={selected.coverUrl || 'https://lh3.googleusercontent.com/d/16gB18JjIIPQwr7g7XOH4NbnIWN-dJn4a=w1024'}
-                  focalPoint={focalPoint}
-                  onChange={setFocalPoint}
-                />
-              </Section>
-
-              <Section title="Tipografia Editorial & Contraste">
-                <Field label="Fonte dos Títulos">
-                  <select value={headingFont} onChange={(e) => setHeadingFont(e.target.value)}>
-                    <option value="Outfit, sans-serif">Outfit (Padrão Oficial Versa Visual)</option>
-                    <option value="Righteous, cursive">Righteous (Display de Destaque)</option>
-                    <option value="DM Sans, sans-serif">DM Sans (Minimalista)</option>
-                  </select>
-                </Field>
-
-                <Field label={`Opacidade do Gradiente Escuro (${Math.round(overlayOpacity * 100)}%)`}>
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="range"
-                      min="0.1"
-                      max="0.95"
-                      step="0.05"
-                      value={overlayOpacity}
-                      onChange={(e) => setOverlayOpacity(parseFloat(e.target.value))}
-                      className="flex-1 accent-[#5E7F8C]"
-                    />
-                    <span className="text-xs font-mono text-[#5A6872] w-12 text-right">
-                      {Math.round(overlayOpacity * 100)}%
-                    </span>
-                  </div>
-                </Field>
-
-                <button
-                  type="button"
-                  disabled={isSaving}
-                  onClick={() => void save()}
-                  className="rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-5 py-2 text-xs font-bold text-white shadow-xs disabled:opacity-50 transition-colors"
-                >
-                  {isSaving ? 'Salvando…' : 'Salvar Estilo Visual'}
-                </button>
-              </Section>
-            </>
-          )}
-
-          {activeTab === 'sets' && selected && (
-            <Section title="Gestão de Conjuntos (Sets / Sub-galerias)">
-              <p className="text-xs text-[#5A6872]">
-                Organize as fotografias em seções (ex: Destaques, Cerimônia, Recepção, Ensaio).
-              </p>
-
-              <div className="flex gap-2 pt-2">
-                <input
-                  type="text"
-                  placeholder="Nome do novo conjunto..."
-                  value={newSetName}
-                  onChange={(e) => setNewSetName(e.target.value)}
-                  className="flex-1 rounded-lg border border-[#5E7F8C]/20 bg-white px-3 py-2 text-xs text-[#11161B] outline-none focus:border-[#5E7F8C] shadow-2xs"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      e.preventDefault();
-                      if (!newSetName.trim()) return;
-                      const slug = newSetName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-').replace(/[^\w-]/g, '');
-                      setSets((prev) => [
-                        ...prev,
-                        { id: `set-${Date.now()}`, title: newSetName.trim(), slug, photoIds: [] },
-                      ]);
-                      setNewSetName('');
-                    }
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (!newSetName.trim()) return;
-                    const slug = newSetName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-').replace(/[^\w-]/g, '');
-                    setSets((prev) => [
-                      ...prev,
-                      { id: `set-${Date.now()}`, title: newSetName.trim(), slug, photoIds: [] },
-                    ]);
-                    setNewSetName('');
-                  }}
-                  className="rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-4 py-2 text-xs font-bold uppercase text-white shadow-xs transition-colors"
-                >
-                  Adicionar
-                </button>
-              </div>
-
-              <div className="space-y-2 pt-3">
-                {sets.length === 0 ? (
-                  <p className="text-xs text-[#5A6872]/60 italic py-2">
-                    Nenhum conjunto configurado. Todas as fotos são exibidas juntas na galeria principal.
-                  </p>
-                ) : (
-                  sets.map((set, idx) => (
-                    <div
-                      key={set.id}
-                      className="flex items-center justify-between p-3 rounded-lg bg-[#F6F8F9] border border-[#5E7F8C]/15 text-xs"
+          {selected && (
+            <div className={activeTab === 'widgets' ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 items-start' : 'max-w-3xl mx-auto space-y-5'}>
+              {(activeTab === 'widgets' || activeTab === 'config') && (
+                <>
+                  <Section title="Acesso da galeria" subtitle="Privacidade e proteção" badge={visibility.toUpperCase()}>
+                    <Field label="Título"><input value={title} onChange={(event) => setTitle(event.target.value)} /></Field>
+                    <Field label="Visibilidade">
+                      <select value={visibility} onChange={(event) => setVisibility(event.target.value as CollectionVisibility)}>
+                        <option value="public">Pública</option>
+                        <option value="password">Protegida</option>
+                        <option value="client-only">Cliente</option>
+                        <option value="hidden">Oculta</option>
+                      </select>
+                    </Field>
+                    <Toggle label="Exigir senha" checked={passwordRequired} onChange={setPasswordRequired} />
+                    {passwordRequired && (
+                      <Field label={selected.hasPassword ? 'Nova senha (vazio mantém a atual)' : 'Senha'}>
+                        <input type="password" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} />
+                      </Field>
+                    )}
+                    <Field label="E-mails autorizados, separados por vírgula">
+                      <input value={clientEmails} onChange={(event) => setClientEmails(event.target.value)} />
+                    </Field>
+                    <Field label="Data limite de expiração da galeria">
+                      <input type="date" value={expiresAt} onChange={(event) => setExpiresAt(event.target.value)} />
+                    </Field>
+                    <button
+                      type="button"
+                      disabled={isSaving}
+                      onClick={() => void save()}
+                      className="w-full mt-2 rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-5 py-2.5 text-xs font-bold text-white shadow-xs disabled:opacity-50 transition-colors"
                     >
-                      <div>
-                        <strong className="text-[#11161B]">{set.title}</strong>
-                        <span className="ml-2 font-mono text-[10px] text-[#5A6872]">slug: {set.slug}</span>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => setSets((prev) => prev.filter((_, i) => i !== idx))}
-                        className="text-red-600 hover:text-red-700 p-1 text-xs font-medium transition-colors"
-                        title="Remover conjunto"
-                      >
-                        ✕ Excluir
-                      </button>
-                    </div>
-                  ))
-                )}
-              </div>
+                      {isSaving ? 'Salvando…' : 'Salvar Configurações'}
+                    </button>
+                  </Section>
 
-              <button
-                type="button"
-                disabled={isSaving}
-                onClick={() => void save()}
-                className="mt-4 rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-5 py-2 text-xs font-bold text-white shadow-xs disabled:opacity-50 transition-colors"
-              >
-                {isSaving ? 'Salvando…' : 'Salvar Conjuntos'}
-              </button>
-            </Section>
-          )}
-
-          {activeTab === 'handoff' && (
-            <Section title="Mensagem Pronta de WhatsApp">
-              <pre className="whitespace-pre-wrap rounded-xl bg-[#F6F8F9] border border-[#5E7F8C]/15 p-4 text-xs font-mono text-[#11161B]">
-                {whatsappMessage}
-              </pre>
-              <div className="flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  onClick={() => void navigator.clipboard.writeText(whatsappMessage).then(() => setMessage('Mensagem copiada para a área de transferência.'))}
-                  className="rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-4 py-2 text-xs font-bold text-white shadow-xs transition-colors"
-                >
-                  Copiar Mensagem
-                </button>
-                <a
-                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-lg border border-[#5E7F8C]/20 hover:border-[#5E7F8C]/40 bg-white hover:bg-[#F6F8F9] px-4 py-2 text-xs font-semibold text-[#11161B] shadow-xs transition-colors"
-                >
-                  Abrir no WhatsApp
-                </a>
-              </div>
-              <p className="text-[11px] text-amber-700/90 font-medium">
-                Senha e PIN aparecem na minuta quando definidos nesta sessão.
-              </p>
-            </Section>
-          )}
-
-          {activeTab === 'requests' && (
-            <Section title="Últimas solicitações de exportação">
-              {requests.length === 0 ? (
-                <p className="text-sm text-[#5A6872]">Nenhuma solicitação registrada até o momento.</p>
-              ) : (
-                requests.map((request) => (
-                  <div key={request.id} className="border-b border-[#5E7F8C]/15 py-3 text-xs text-[#11161B]">
-                    <strong>{request.collectionTitle}</strong> · {request.type} · {request.requestedSize}
-                    <br />
-                    <span className="text-[#5A6872]">
-                      {request.clientEmail || 'sem e-mail'} · {new Date(request.requestedAt).toLocaleString('pt-BR')}
-                    </span>
-                  </div>
-                ))
+                  <Section title="Downloads" subtitle="Políticas de entrega">
+                    <Toggle label="Downloads ativos" checked={downloadEnabled} onChange={setDownloadEnabled} />
+                    <Toggle label="Exigir e-mail" checked={requiresEmail} onChange={setRequiresEmail} />
+                    <Toggle label="Exigir PIN" checked={requiresPin} onChange={setRequiresPin} />
+                    {requiresPin && (
+                      <Field label={selected.hasDownloadPin ? 'Novo PIN (vazio mantém o atual)' : 'PIN'}>
+                        <input type="password" value={newPin} onChange={(event) => setNewPin(event.target.value)} />
+                      </Field>
+                    )}
+                    <Field label="Link direto da pasta">
+                      <input value={directFolderUrl} onChange={(event) => setDirectFolderUrl(event.target.value)} />
+                    </Field>
+                    <Field label="Nome/notas do cliente">
+                      <textarea value={clientNotes} onChange={(event) => setClientNotes(event.target.value)} />
+                    </Field>
+                    <button
+                      type="button"
+                      disabled={isSaving}
+                      onClick={() => void save()}
+                      className="w-full mt-2 rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-5 py-2.5 text-xs font-bold text-white shadow-xs disabled:opacity-50 transition-colors"
+                    >
+                      {isSaving ? 'Salvando…' : 'Salvar Downloads'}
+                    </button>
+                  </Section>
+                </>
               )}
-            </Section>
+
+              {(activeTab === 'widgets' || activeTab === 'editorial') && (
+                <Section title="Capa & Visual Editorial" subtitle="Ponto focal e tipografia">
+                  <CoverFocalPicker
+                    coverUrl={selected.coverUrl || 'https://lh3.googleusercontent.com/d/16gB18JjIIPQwr7g7XOH4NbnIWN-dJn4a=w1024'}
+                    focalPoint={focalPoint}
+                    onChange={setFocalPoint}
+                  />
+
+                  <div className="pt-2 space-y-3">
+                    <Field label="Fonte dos Títulos">
+                      <select value={headingFont} onChange={(e) => setHeadingFont(e.target.value)}>
+                        <option value="Outfit, sans-serif">Outfit (Padrão Oficial Versa Visual)</option>
+                        <option value="Righteous, cursive">Righteous (Display de Destaque)</option>
+                        <option value="DM Sans, sans-serif">DM Sans (Minimalista)</option>
+                      </select>
+                    </Field>
+
+                    <Field label={`Opacidade do Gradiente Escuro (${Math.round(overlayOpacity * 100)}%)`}>
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="range"
+                          min="0.1"
+                          max="0.95"
+                          step="0.05"
+                          value={overlayOpacity}
+                          onChange={(e) => setOverlayOpacity(parseFloat(e.target.value))}
+                          className="flex-1 accent-[#5E7F8C]"
+                        />
+                        <span className="text-xs font-mono text-[#5A6872] w-12 text-right">
+                          {Math.round(overlayOpacity * 100)}%
+                        </span>
+                      </div>
+                    </Field>
+                  </div>
+
+                  <button
+                    type="button"
+                    disabled={isSaving}
+                    onClick={() => void save()}
+                    className="w-full mt-2 rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-5 py-2.5 text-xs font-bold text-white shadow-xs disabled:opacity-50 transition-colors"
+                  >
+                    {isSaving ? 'Salvando…' : 'Salvar Estilo Visual'}
+                  </button>
+                </Section>
+              )}
+
+              {(activeTab === 'widgets' || activeTab === 'sets') && (
+                <Section title="Conjuntos (Sets)" subtitle="Organização de sub-galerias">
+                  <p className="text-xs text-[#5A6872]">
+                    Organize as fotografias em seções (ex: Destaques, Cerimônia, Recepção).
+                  </p>
+
+                  <div className="flex gap-2 pt-1">
+                    <input
+                      type="text"
+                      placeholder="Nome do novo conjunto..."
+                      value={newSetName}
+                      onChange={(e) => setNewSetName(e.target.value)}
+                      className="flex-1 rounded-lg border border-[#5E7F8C]/20 bg-white px-3 py-2 text-xs text-[#11161B] outline-none focus:border-[#5E7F8C] shadow-2xs"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          if (!newSetName.trim()) return;
+                          const slug = newSetName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+                          setSets((prev) => [
+                            ...prev,
+                            { id: `set-${Date.now()}`, title: newSetName.trim(), slug, photoIds: [] },
+                          ]);
+                          setNewSetName('');
+                        }
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (!newSetName.trim()) return;
+                        const slug = newSetName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+                        setSets((prev) => [
+                          ...prev,
+                          { id: `set-${Date.now()}`, title: newSetName.trim(), slug, photoIds: [] },
+                        ]);
+                        setNewSetName('');
+                      }}
+                      className="rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-4 py-2 text-xs font-bold uppercase text-white shadow-xs transition-colors"
+                    >
+                      Adicionar
+                    </button>
+                  </div>
+
+                  <div className="space-y-2 pt-2 max-h-48 overflow-y-auto">
+                    {sets.length === 0 ? (
+                      <p className="text-xs text-[#5A6872]/60 italic py-2">
+                        Nenhum conjunto configurado. Todas as fotos são exibidas juntas na galeria principal.
+                      </p>
+                    ) : (
+                      sets.map((set, idx) => (
+                        <div
+                          key={set.id}
+                          className="flex items-center justify-between p-2.5 rounded-lg bg-[#F6F8F9] border border-[#5E7F8C]/15 text-xs"
+                        >
+                          <div>
+                            <strong className="text-[#11161B]">{set.title}</strong>
+                            <span className="ml-2 font-mono text-[10px] text-[#5A6872]">slug: {set.slug}</span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setSets((prev) => prev.filter((_, i) => i !== idx))}
+                            className="text-red-600 hover:text-red-700 p-1 text-xs font-medium transition-colors"
+                            title="Remover conjunto"
+                          >
+                            ✕ Excluir
+                          </button>
+                        </div>
+                      ))
+                    )}
+                  </div>
+
+                  <button
+                    type="button"
+                    disabled={isSaving}
+                    onClick={() => void save()}
+                    className="w-full mt-2 rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-5 py-2.5 text-xs font-bold text-white shadow-xs disabled:opacity-50 transition-colors"
+                  >
+                    {isSaving ? 'Salvando…' : 'Salvar Conjuntos'}
+                  </button>
+                </Section>
+              )}
+
+              {(activeTab === 'widgets' || activeTab === 'handoff') && (
+                <Section title="Mensagem Pronta de WhatsApp" subtitle="Disparo direto com minuta">
+                  <pre className="whitespace-pre-wrap rounded-xl bg-[#F6F8F9] border border-[#5E7F8C]/15 p-4 text-xs font-mono text-[#11161B]">
+                    {whatsappMessage}
+                  </pre>
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    <button
+                      type="button"
+                      onClick={() => void navigator.clipboard.writeText(whatsappMessage).then(() => setMessage('Mensagem copiada para a área de transferência.'))}
+                      className="flex-1 rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-4 py-2 text-xs font-bold text-white shadow-xs transition-colors text-center"
+                    >
+                      Copiar Mensagem
+                    </button>
+                    <a
+                      href={`https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 rounded-lg border border-[#5E7F8C]/20 hover:border-[#5E7F8C]/40 bg-white hover:bg-[#F6F8F9] px-4 py-2 text-xs font-semibold text-[#11161B] shadow-xs transition-colors text-center"
+                    >
+                      Abrir no WhatsApp
+                    </a>
+                  </div>
+                  <p className="text-[11px] text-amber-700/90 font-medium">
+                    Senha e PIN aparecem na minuta quando definidos nesta sessão.
+                  </p>
+                </Section>
+              )}
+
+              {(activeTab === 'widgets' || activeTab === 'requests') && (
+                <Section title="Últimas solicitações de exportação" subtitle="Histórico de downloads">
+                  {requests.length === 0 ? (
+                    <p className="text-xs text-[#5A6872] py-4 text-center">Nenhuma solicitação registrada até o momento.</p>
+                  ) : (
+                    <div className="space-y-2 max-h-60 overflow-y-auto">
+                      {requests.map((request) => (
+                        <div key={request.id} className="border-b border-[#5E7F8C]/15 py-2.5 text-xs text-[#11161B]">
+                          <strong>{request.collectionTitle}</strong> · {request.type} · {request.requestedSize}
+                          <br />
+                          <span className="text-[#5A6872]">
+                            {request.clientEmail || 'sem e-mail'} · {new Date(request.requestedAt).toLocaleString('pt-BR')}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </Section>
+              )}
+            </div>
           )}
         </div>
       </main>
@@ -701,10 +675,32 @@ function PanelShell({ children, onClose }: { children: React.ReactNode; onClose:
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({
+  title,
+  subtitle,
+  badge,
+  children,
+  className = '',
+}: {
+  title: string;
+  subtitle?: string;
+  badge?: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <section className="space-y-4 rounded-2xl border border-[#5E7F8C]/15 bg-white p-6 shadow-xs">
-      <h3 className="font-['Outfit'] font-bold text-sm tracking-wide text-[#11161B] uppercase">{title}</h3>
+    <section className={`space-y-4 rounded-2xl border border-[#5E7F8C]/15 bg-white p-5 shadow-xs transition-shadow hover:shadow-md ${className}`}>
+      <div className="flex items-center justify-between border-b border-[#5E7F8C]/10 pb-3">
+        <div>
+          <h3 className="font-['Outfit'] font-bold text-sm tracking-wide text-[#11161B] uppercase">{title}</h3>
+          {subtitle && <p className="text-[11px] text-[#5A6872] mt-0.5">{subtitle}</p>}
+        </div>
+        {badge && (
+          <span className="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-md bg-[#5E7F8C]/10 text-[#5E7F8C] border border-[#5E7F8C]/20">
+            {badge}
+          </span>
+        )}
+      </div>
       {children}
     </section>
   );

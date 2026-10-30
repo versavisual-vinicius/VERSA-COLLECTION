@@ -22,14 +22,12 @@ describe('Fase 2: Capa Editorial & Cabeçalho Inteligente', () => {
       expect(heading).toHaveClass('cover-title');
     });
 
-    it('deve renderizar o banner de proprietário e ajustar layout quando isOwnerPreview for true', () => {
+    it('não deve renderizar aviso intrusivo na capa mesmo quando isOwnerPreview for true', () => {
       const { rerender } = render(<GalleryHero collection={collectionFixture} isOwnerPreview={false} />);
       expect(screen.queryByRole('status', { name: /modo de pré-visualização/i })).not.toBeInTheDocument();
 
       rerender(<GalleryHero collection={collectionFixture} isOwnerPreview={true} />);
-      const banner = screen.getByRole('status', { name: /modo de pré-visualização/i });
-      expect(banner).toBeInTheDocument();
-      expect(banner).toHaveClass('h-[22px]');
+      expect(screen.queryByRole('status', { name: /modo de pré-visualização/i })).not.toBeInTheDocument();
     });
 
     it('deve disparar onEnterGallery ou scroll suave ao clicar no botão de entrada', () => {

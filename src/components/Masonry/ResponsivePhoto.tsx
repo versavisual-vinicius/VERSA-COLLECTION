@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { GalleryPhoto } from '../../types/gallery';
 
 interface ResponsivePhotoProps {
@@ -6,6 +7,7 @@ interface ResponsivePhotoProps {
 }
 
 export function ResponsivePhoto({ photo, priority = false }: ResponsivePhotoProps) {
+  const [hasError, setHasError] = useState(false);
   const primarySource = photo.sources[0];
   const src = primarySource?.url ?? '';
 
@@ -21,6 +23,25 @@ export function ResponsivePhoto({ photo, priority = false }: ResponsivePhotoProp
     ? { objectPosition: `${photo.focalPoint.x}% ${photo.focalPoint.y}%` }
     : {};
 
+  if (hasError || !src) {
+    return (
+      <div
+        className="w-full h-full flex flex-col items-center justify-center p-4 text-center bg-[#15191E] text-white/50"
+        style={{
+          aspectRatio: `${photo.width} / ${photo.height}`,
+          backgroundColor: photo.dominantColor ?? '#15191E',
+        }}
+      >
+        <span className="text-[10px] uppercase font-semibold text-[#5E7F8C] tracking-wider mb-1">
+          Versa
+        </span>
+        <span className="text-[11px] text-white/40 font-mono truncate max-w-[120px]">
+          {photo.fileName || photo.alt || 'Foto'}
+        </span>
+      </div>
+    );
+  }
+
   return (
     <img
       src={src}
@@ -32,6 +53,7 @@ export function ResponsivePhoto({ photo, priority = false }: ResponsivePhotoProp
       loading={priority ? 'eager' : 'lazy'}
       decoding={priority ? 'sync' : 'async'}
       referrerPolicy="no-referrer"
+      onError={() => setHasError(true)}
       className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.02] group-focus-visible:scale-[1.02]"
       style={{
         ...focalStyle,

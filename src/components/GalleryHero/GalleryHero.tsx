@@ -4,7 +4,6 @@ import { CoverOverlay } from './CoverOverlay';
 import { CollectionTitle } from './CollectionTitle';
 import { BusinessSignature } from './BusinessSignature';
 import { EnterGalleryButton } from './EnterGalleryButton';
-import { PreviewBanner } from './PreviewBanner';
 
 interface GalleryHeroProps {
   collection: GalleryCollection;
@@ -22,17 +21,13 @@ interface GalleryHeroProps {
  */
 export function GalleryHero({
   collection,
-  isOwnerPreview = false,
+  isOwnerPreview: _isOwnerPreview = false,
   onEnterGallery,
 }: GalleryHeroProps) {
-  const heroHeightStyle = isOwnerPreview
-    ? { minHeight: 'calc(100dvh - 22px)', marginTop: '22px' }
-    : { minHeight: '100dvh' };
+  const heroHeightStyle = { minHeight: '100dvh' };
 
   return (
     <>
-      <PreviewBanner isVisible={isOwnerPreview} />
-
       <section
         className="gallery-cover relative flex items-end justify-center overflow-hidden w-full select-none bg-[#F6F8F9]"
         style={heroHeightStyle}

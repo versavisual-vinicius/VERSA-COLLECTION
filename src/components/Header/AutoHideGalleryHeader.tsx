@@ -92,7 +92,7 @@ export function AutoHideGalleryHeader({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const topOffsetClass = isOwnerPreview ? 'top-[22px]' : 'top-0';
+  const topOffsetClass = 'top-0';
 
   return (
     <header

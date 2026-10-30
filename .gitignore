@@ -18,3 +18,5 @@ gen-lang-client-*.json
 .vscode/extensions.json
 openspec/specs/collection-creation/spec.md
 .gitignore
+
+.pastel/downloads/

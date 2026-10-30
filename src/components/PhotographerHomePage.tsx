@@ -113,22 +113,8 @@ export function PhotographerHomePage({
                 onClick={() => onSelectCollection(col.slug)}
                 className="group relative rounded-2xl overflow-hidden bg-white border border-[#5E7F8C]/15 hover:border-[#5E7F8C] transition-all duration-300 cursor-pointer flex flex-col shadow-sm hover:shadow-xl hover:-translate-y-1"
               >
-                {/* Imagem de Capa com Proporção Editorial */}
-                <div className="aspect-[16/10] overflow-hidden bg-[#EEF1F3] relative">
-                  {coverUrl ? (
-                    <img
-                      src={coverUrl}
-                      alt={col.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-[#5A6872] text-xs">
-                      Sem imagem de capa
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                </div>
+                {/* Imagem de Capa com Proporção Editorial & Fallback Resiliente */}
+                <CollectionCoverThumbnail coverUrl={coverUrl} title={col.title} />
 
                 {/* Conteúdo do Card */}
                 <div className="p-6 flex flex-col flex-1 justify-between">
@@ -160,6 +146,36 @@ export function PhotographerHomePage({
         totalItems={totalDeliveredPhotos}
         onOpenAdmin={onOpenAdmin}
       />
+    </div>
+  );
+}
+
+function CollectionCoverThumbnail({ coverUrl, title }: { coverUrl?: string; title: string }) {
+  const [hasError, setHasError] = useState(false);
+
+  return (
+    <div className="aspect-[16/10] overflow-hidden bg-[#EEF1F3] relative select-none">
+      {coverUrl && !hasError ? (
+        <img
+          src={coverUrl}
+          alt={title}
+          onError={() => setHasError(true)}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+          loading="lazy"
+        />
+      ) : (
+        <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#050A0D] to-[#121A20] text-white p-4 text-center">
+          <div className="w-10 h-10 rounded-full bg-[#5E7F8C]/20 border border-[#5E7F8C]/40 flex items-center justify-center mb-2 shadow-xs">
+            <span className="font-['Outfit'] font-bold text-xs tracking-wider text-[#5E7F8C]">
+              {title.slice(0, 2).toUpperCase()}
+            </span>
+          </div>
+          <span className="text-[11px] font-medium text-white/75 tracking-wide font-['DM_Sans']">
+            Galeria Digital Versa
+          </span>
+        </div>
+      )}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
     </div>
   );
 }
