@@ -12,9 +12,10 @@
 
 O presente documento consolida a investigação arquitetural e desmontagem de front-end do painel central da plataforma Pixieset (`accounts.pixieset.com/dashboard/`), conduzida em conformidade com o framework conceitual de evidências e rastreabilidade do projeto `morluto/rea`.
 
-![Dashboard Pixieset](/Users/viniciuscunha/.gemini/antigravity-cli/brain/01a59fc4-7a58-4fad-bdeb-fca743b09f41/pixieset_dashboard.png)
+![Dashboard Pixieset](./assets/pixieset_dashboard.png)
 
-### Principais Constatações Técnicas:
+### Principais Constatações Técnicas
+
 1. **Topologia Multi-Page Application (MPA) / Portal de Identidade Federado**: O dashboard central não opera como uma Single-Page Application (SPA) monolítica. Ele atua como um hub centralizado de autenticação (SSO / IDP) e orquestração de produtos. Cada serviço listado (Client Gallery, Website, Store, Studio Manager, Mobile Gallery App, Photo Editor) reside em subdomínios autônomos (`*.pixieset.com`) com ciclos de vida e stacks próprios.
 2. **Pilha Tecnológica do Dashboard**:
    - **Renderização Base**: Server-Side Rendering (SSR) via template PHP/HTML5, hidratado com os dados da conta no momento da resposta HTTP.
@@ -78,14 +79,14 @@ A inspeção do grafo de nós DOM (`dom.nodes` com 1.123 itens totais) identific
 | **Nó 10** | `<script>` | `type="text/javascript" async src="..."` | Rastreamento e telemetria de borda |
 | **Nó 11-17** | `<script>` | `async src="..."` | Bibliotecas assíncronas de terceiros (Analytics, Tag Manager) |
 | **Nó 18** | `<script>` | `inline` | Definição de objetos de escopo global `window.Pixieset` |
-| **Nó 29, 31, 33**| `<link>` | `rel="stylesheet" type="text/css"` | CSS base do Bootstrap e folhas de estilo do Design System Pixieset |
-| **Nó 35, 37, 39**| `<script>` | `type="text/javascript" src="..."` | Bibliotecas fundacionais: jQuery 1.9.1, Modernizr 2.8.3, Bootstrap Core |
-| **Nó 41, 43, 45**| `<script>` | `type="text/javascript" src="..."` | Módulos utilitários (`JsTranslations/JsTrans.min.js`, Typekit) |
+| **Nó 29, 31, 33** | `<link>` | `rel="stylesheet" type="text/css"` | CSS base do Bootstrap e folhas de estilo do Design System Pixieset |
+| **Nó 35, 37, 39** | `<script>` | `type="text/javascript" src="..."` | Bibliotecas fundacionais: jQuery 1.9.1, Modernizr 2.8.3, Bootstrap Core |
+| **Nó 41, 43, 45** | `<script>` | `type="text/javascript" src="..."` | Módulos utilitários (`JsTranslations/JsTrans.min.js`, Typekit) |
 | **Nó 47, 49** | `<style>` | `type="text/css"` | Estilos críticos inline e resets de tipografia |
 | **Nó 51** | `<script>` | `inline` | Configuração de internacionalização e locale (`pt-BR`) |
 | **Nó 57** | `<script>` | `async src="challenges.cloudflare.com..."` | Desafio de segurança Cloudflare Turnstile |
-| **Nó 1078-1081**| `<script>` | `type="module" crossorigin src="..."` | Módulos ES de suporte e inicializadores modernos |
-| **Nó 1082, 1085**| `<script>` | `inline` | Inicialização dos componentes de tela e contadores |
+| **Nó 1078-1081** | `<script>` | `type="module" crossorigin src="..."` | Módulos ES de suporte e inicializadores modernos |
+| **Nó 1082, 1085** | `<script>` | `inline` | Inicialização dos componentes de tela e contadores |
 | **Nó 1091** | `<script>` | `src="..."` | SDK do Intercom Messenger |
 | **Nó 1106** | `<script>` | `type="application/json" id="..."` | Payload serializado de dados da sessão e perfil |
 
@@ -142,11 +143,13 @@ graph TD
 ```
 
 ### 4.1 Barra Superior (`<nav class="navbar" role="navigation">`)
-* **Logo Institucional**: Tag `<a>` com classe `.navbar-brand` apontando para `https://accounts.pixieset.com/dashboard/`.
-* **Dropdown de Produtos ("Painel")**: Elemento `<a>` com classes `.top-nav-link.dropdown-toggle`, acionando dropdown com lista de produtos e descritivos em duas linhas (`hover-bg-transparent`).
-* **Botão Fale Conosco**: Classe `.js-intercom-contact` abrindo diretamente o messenger flutuante.
-* **Ícone de Notificações**: Elemento com classe `.top-nav-link.mobile-nav-notification`, exibindo contador "0" e link para `https://gallery.pixieset.com/notification/`.
-* **Avatar de Usuário ("V")**: Botão circular com classe `.top-nav-link.dropdown-toggle.profile-icon`, exibindo a inicial do fotógrafo e acionando menu com:
+
+- **Logo Institucional**: Tag `<a>` com classe `.navbar-brand` apontando para `https://accounts.pixieset.com/dashboard/`.
+
+- **Dropdown de Produtos ("Painel")**: Elemento `<a>` com classes `.top-nav-link.dropdown-toggle`, acionando dropdown com lista de produtos e descritivos em duas linhas (`hover-bg-transparent`).
+- **Botão Fale Conosco**: Classe `.js-intercom-contact` abrindo diretamente o messenger flutuante.
+- **Ícone de Notificações**: Elemento com classe `.top-nav-link.mobile-nav-notification`, exibindo contador "0" e link para `https://gallery.pixieset.com/notification/`.
+- **Avatar de Usuário ("V")**: Botão circular com classe `.top-nav-link.dropdown-toggle.profile-icon`, exibindo a inicial do fotógrafo e acionando menu com:
   - *Convide amigos e ganhe $20* (`.referral-link`)
   - *Perfil* (`/account/profile/`)
   - *Cobrança* (`/account/billing/`)
@@ -155,10 +158,13 @@ graph TD
   - *Sair* (`/logout/`)
 
 ### 4.2 Cabeçalho de Boas-Vindas
-* **Título H1**: Nó de acessibilidade `#622`: `"Bem-vindo, Vinicius Cunha Fotografia"`.
-* **Tipografia**: Outfit / Sans-serif corporativa, com espaçamento vertical `.spacer-inner-top-15.spacer-inner-bottom-15`.
+
+- **Título H1**: Nó de acessibilidade `#622`: `"Bem-vindo, Vinicius Cunha Fotografia"`.
+
+- **Tipografia**: Outfit / Sans-serif corporativa, com espaçamento vertical `.spacer-inner-top-15.spacer-inner-bottom-15`.
 
 ### 4.3 Grade de Produtos (H2 "PRODUTOS")
+
 Contêiner com 6 cartões dispostos em grid responsivo (`display-n display-b-md` no mobile, 6 colunas no desktop):
 
 1. **Client Gallery**:
@@ -199,8 +205,10 @@ Contêiner com 6 cartões dispostos em grid responsivo (`display-n display-b-md`
      - *Ver estilos de IA* (`https://editor.pixieset.com/styles`)
 
 ### 4.4 Painel de Acesso Rápido (H2 "ACESSO RÁPIDO")
+
 Divisão em 2 colunas principais:
-* **Coluna de Atividades do Fotógrafo**:
+
+- **Coluna de Atividades do Fotógrafo**:
   - **Coleções Recentes**:
     - Nome da Coleção: `DEMO — ENGENHARIA REVERSA`
     - Destino: `https://gallery.pixieset.com/collection/125725855/`
@@ -218,16 +226,18 @@ Divisão em 2 colunas principais:
   - **Notificações Recentes (Estado Vazio)**:
     - Título: `Suas notificações mais recentes` (H4)
     - Descrição: `Toda a atividade mais recente dos seus clientes será exibida aqui`.
-* **Coluna de Links Rápidos (`LINKS RÁPIDOS`)**:
+- **Coluna de Links Rápidos (`LINKS RÁPIDOS`)**:
   - *Seu perfil*: Edite sua foto de perfil, nome comercial e muito mais (`/account/profile/`)
   - *Conta*: Edite seu nome de usuário, e-mail e senha (`/account/`)
   - *Cobrança*: Gerencie suas assinaturas atuais e veja o histórico de cobrança (`/account/billing/`)
   - *Indique um amigo*: Ganhe créditos de indicação por cada amigo que você indicar (`/referral/?source=dashboard-quick-links`)
 
 ### 4.5 Seção "Mais do Pixieset" (H2)
-* **Banner de Central de Ajuda**: Título H4 `Estamos aqui para ajudar` -> `https://help.pixieset.com/`.
-* **Banner de Recompensa de Indicação**: Título H4 `Convide amigos e ganhe $20` -> `https://gallery.pixieset.com/referral/?source=dashboard-more-from-pixieset`.
-* **Widget do Blog Corporativo**:
+
+- **Banner de Central de Ajuda**: Título H4 `Estamos aqui para ajudar` -> `https://help.pixieset.com/`.
+
+- **Banner de Recompensa de Indicação**: Título H4 `Convide amigos e ganhe $20` -> `https://gallery.pixieset.com/referral/?source=dashboard-more-from-pixieset`.
+- **Widget do Blog Corporativo**:
   - Título da Seção: `BLOG DO PIXIESET` (link para `https://blog.pixieset.com/`)
   - Postagem em Destaque: `⚡️ New features to grow your marketing list in Pixieset` (Data: Oct 6th, 2026)
   - Resumo editorial: Mecanismo de opt-in para captação de e-mails em websites e galerias.
@@ -238,7 +248,9 @@ Divisão em 2 colunas principais:
 ## 5. Fluxo de Navegação e Transições da Interface
 
 ### 5.1 Roteamento e Transições
+
 Por se tratar de uma arquitetura federada baseada em MPA:
+
 1. **Transições Intra-Dashboard**:
    - Cliques nos dropdowns (`#Painel`, `#Perfil`) alternam classes CSS (`.dropdown.open`) controladas pelo plugin de dropdown do Bootstrap sem alterar a URL.
    - O clique no ícone do Intercom dispara o carregamento e exibição da janela flutuante via chamada JavaScript nativa da API Intercom (`Intercom('show')`).
@@ -279,6 +291,7 @@ Por se tratar de uma arquitetura federada baseada em MPA:
 | **Intercom** | `collapsed` | Propriedades ARIA: `expanded: false`, `live: polite` | Botão circular flutuante no canto inferior direito |
 
 ### 6.2 Lógica Condicional de Exibição
+
 1. **Dados de Coleções Recentes**:
    - Renderização controlada pelo servidor: quando o fotógrafo possui coleções ativas, o contêiner injeta o bloco com nome, data e contadores métricos (42 fotos, 0 downloads). Na ausência de coleções, o template renderiza estado vazio análogo ao de pedidos.
 2. **Dados de Pedidos da Loja**:
@@ -291,6 +304,7 @@ Por se tratar de uma arquitetura federada baseada em MPA:
 ## 7. Estrutura da Lógica do Dashboard
 
 ### 7.1 Pontos de Entrada e Bootstrapping
+
 1. **Requisição Inicial**: O navegador solicita `GET /dashboard/` com credenciais HTTP.
 2. **Checagem de Sessão na Borda**: Cloudflare valida os cookies `__cf_bm` e `IDP_SID`. Caso inválidos ou ausentes, responde com `HTTP 302 Location: /login/`.
 3. **Hidratação do HTML no Servidor**: O backend resolve os dados do fotógrafo logado (`Vinicius Cunha Fotografia`), o resumo da coleção ativa (ID `125725855`) e compila o HTML com as classes de estilização.
@@ -300,15 +314,17 @@ Por se tratar de uma arquitetura federada baseada em MPA:
    - Iframe embutido conecta a `https://p45y6wxnvdys.statuspage.io/embed/frame` para escuta de incidentes ou instabilidades ativas nos serviços.
 
 ### 7.2 Chamadas de API e Dependências de Terceiros
-* **Atlassian Statuspage**:
+
+- **Atlassian Statuspage**:
   - Endpoint do Iframe: `https://p45y6wxnvdys.statuspage.io/embed/frame`
   - Target ID associado no Chrome: `1D419D8386ED47E140D690F7F7658B0C`
   - Função: Exibição não intrusiva de faixas de aviso caso algum microsserviço Pixieset esteja degradado.
-* **Intercom Messenger**:
+
+- **Intercom Messenger**:
   - Acionamento: Seletor `.js-intercom-contact`
   - Nó de Acessibilidade: Botão com label `"Open Intercom Messenger"`
   - Função: Atendimento ao cliente e suporte técnico direto.
-* **Adobe Typekit**:
+- **Adobe Typekit**:
   - Endpoint: `https://use.typekit.net/ewz7nsv.js`
   - Função: Carregamento de fontes tipográficas editoriais.
 
@@ -317,8 +333,10 @@ Por se tratar de uma arquitetura federada baseada em MPA:
 ## 8. Conclusões e Observações Técnicas
 
 ### 8.1 Síntese Arquitetural
-* O painel `accounts.pixieset.com/dashboard/` é arquitetado com foco em **baixa complexidade de execução client-side e velocidade de carregamento**. Por não ser uma SPA pesada, o tempo de inicialização (First Meaningful Paint) é extremamente reduzido.
-* A separação entre o Dashboard de Contas (Bootstrap/jQuery) e as ferramentas mais complexas (como o Gestor de Coleções em Vue 3 ou o Studio Manager em React) demonstra uma migração gradual de microsserviços frontend ("Strangler Fig Pattern"), onde o portal antigo continua operando como hub de login enquanto os produtos são modernizados de forma desacoplada.
+
+- O painel `accounts.pixieset.com/dashboard/` é arquitetado com foco em **baixa complexidade de execução client-side e velocidade de carregamento**. Por não ser uma SPA pesada, o tempo de inicialização (First Meaningful Paint) é extremamente reduzido.
+
+- A separação entre o Dashboard de Contas (Bootstrap/jQuery) e as ferramentas mais complexas (como o Gestor de Coleções em Vue 3 ou o Studio Manager em React) demonstra uma migração gradual de microsserviços frontend ("Strangler Fig Pattern"), onde o portal antigo continua operando como hub de login enquanto os produtos são modernizados de forma desacoplada.
 
 ### 8.2 Matriz de Rastreabilidade e Nível de Certeza (Padrão REA)
 
@@ -335,7 +353,8 @@ Por se tratar de uma arquitetura federada baseada em MPA:
 
 ## 9. Bibliografia de Evidência
 
-### URLs Canônicas Auditadas:
+### URLs Canônicas Auditadas
+
 - Dashboard: `https://accounts.pixieset.com/dashboard/`
 - Login / IDP: `https://accounts.pixieset.com/login/`
 - Coleção Recente Auditada: `https://gallery.pixieset.com/collection/125725855/`
@@ -343,7 +362,8 @@ Por se tratar de uma arquitetura federada baseada em MPA:
 - Galeria Pública Vinculada: `https://viniciuscunhafotografia84.pixieset.com/demoengenhariareversa/`
 - Statuspage Frame: `https://p45y6wxnvdys.statuspage.io/embed/frame`
 
-### Classes e Seletores DOM Chave:
+### Classes e Seletores DOM Chave
+
 - `.navbar-brand`, `.top-nav-link.dropdown-toggle`, `.profile-icon`
 - `.mobile-nav-notification`, `.referral-link`, `.js-intercom-contact`
 - `.ps-btn.ps-btn--primary.ps-btn--md`
@@ -351,7 +371,8 @@ Por se tratar de uma arquitetura federada baseada em MPA:
 - `.spacer-inner-top-15`, `.spacer-inner-bottom-15`, `.spacer-inner-bottom-7`
 - `.display-n`, `.display-b-md`
 
-### Identificadores REA e Evidências Salvas:
+### Identificadores REA e Evidências Salvas
+
 - Target ID Primário: `BE83DCE0599D992A14AD15DD928FE3BF`
 - Frame Filho (Statuspage): `1D419D8386ED47E140D690F7F7658B0C`
 - Captura de Tela do Dashboard: `pixieset_dashboard.png` (2400x1710, Display P3)

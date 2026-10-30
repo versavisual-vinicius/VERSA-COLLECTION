@@ -58,7 +58,7 @@ export function CollectionRestrictedScreen({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#050A0D] text-[#f5f5f4] overflow-hidden select-none px-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#F6F8F9] text-[#11161B] overflow-hidden select-none px-4"
       role="alert"
       aria-labelledby="restricted-title"
       data-testid="collection-restricted-screen"
@@ -72,12 +72,12 @@ export function CollectionRestrictedScreen({
       )}
 
       <div
-        className="absolute inset-0 bg-gradient-to-b from-[#050A0D]/95 via-[#050A0D]/85 to-[#050A0D] pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-b from-[#F6F8F9]/80 via-[#F6F8F9]/90 to-[#F6F8F9] pointer-events-none"
         aria-hidden="true"
       />
 
-      <div className="relative z-10 w-full max-w-lg p-8 sm:p-10 rounded-2xl bg-[#0c1015]/90 border border-white/10 shadow-2xl backdrop-blur-md text-center">
-        <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-5">
+      <div className="relative z-10 w-full max-w-lg p-8 sm:p-10 rounded-2xl bg-white border border-[#5E7F8C]/15 shadow-xl text-center">
+        <div className="w-12 h-12 rounded-full bg-[#5E7F8C]/10 border border-[#5E7F8C]/20 flex items-center justify-center mx-auto mb-5">
           <svg
             className="w-5 h-5 text-[#5E7F8C]"
             fill="none"
@@ -94,13 +94,13 @@ export function CollectionRestrictedScreen({
           </svg>
         </div>
 
-        <p className="eyebrow text-[10px] tracking-[0.4em] uppercase text-white/50 mb-2">
+        <p className="eyebrow text-[10px] tracking-[0.4em] uppercase text-[#5E7F8C] mb-2 font-semibold">
           Versa Visual · Privacidade do Acervo
         </p>
 
         <h1
           id="restricted-title"
-          className="font-['Outfit'] text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2"
+          className="font-['Outfit'] text-2xl sm:text-3xl font-bold tracking-tight text-[#11161B] mb-2"
         >
           {isClientOnly ? 'Acesso Restrito ao Cliente' : 'Galeria Oculta'}
         </h1>
@@ -109,7 +109,7 @@ export function CollectionRestrictedScreen({
           {collection.title}
         </p>
 
-        <p className="font-['DM_Sans'] text-xs sm:text-sm text-white/70 leading-relaxed mb-6">
+        <p className="font-['DM_Sans'] text-xs sm:text-sm text-[#5A6872] leading-relaxed mb-6">
           {isClientOnly
             ? 'Esta coleção é exclusiva para os contratantes cadastrados. Informe seu e-mail autorizado para liberar a visualização.'
             : 'Esta galeria encontra-se temporariamente recolhida pelo fotógrafo para curadoria ou manutenção de privacidade.'}
@@ -117,7 +117,7 @@ export function CollectionRestrictedScreen({
 
         {isClientOnly && onAuthorizeEmail && (
           <form onSubmit={handleVerifyEmail} className="mb-6 space-y-3 text-left">
-            <label htmlFor="restricted-email-input" className="block text-xs text-white/70">
+            <label htmlFor="restricted-email-input" className="block text-xs text-[#11161B]/80 font-medium">
               E-mail autorizado do cliente
             </label>
             <div className="flex flex-col sm:flex-row gap-2">
@@ -128,18 +128,18 @@ export function CollectionRestrictedScreen({
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
                 placeholder="seu-email@exemplo.com"
-                className="flex-1 px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/15 text-sm text-white outline-none focus:border-[#5E7F8C]"
+                className="flex-1 px-3.5 py-2.5 rounded-xl bg-[#F6F8F9] border border-[#5E7F8C]/20 text-sm text-[#11161B] outline-none focus:border-[#5E7F8C]"
               />
               <button
                 type="submit"
                 disabled={isVerifying}
-                className="px-5 py-2.5 rounded-xl bg-[#5E7F8C] hover:bg-[#6f94a3] disabled:opacity-50 text-white text-xs font-semibold uppercase tracking-wider transition-colors whitespace-nowrap"
+                className="px-5 py-2.5 rounded-xl bg-[#5E7F8C] hover:bg-[#4d6d79] disabled:opacity-50 text-white text-xs font-semibold uppercase tracking-wider transition-colors whitespace-nowrap shadow-sm"
               >
                 {isVerifying ? 'Validando…' : 'Liberar Acesso'}
               </button>
             </div>
             {errorMessage && (
-              <p role="alert" className="text-xs text-red-300 mt-1">
+              <p role="alert" className="text-xs text-red-600 mt-1">
                 {errorMessage}
               </p>
             )}
@@ -153,7 +153,7 @@ export function CollectionRestrictedScreen({
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-white/10 hover:bg-white/15 text-white text-xs font-semibold uppercase tracking-wider transition-colors text-center"
+            className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-[#5E7F8C] hover:bg-[#4d6d79] text-white text-xs font-semibold uppercase tracking-wider transition-colors text-center shadow-sm"
           >
             Solicitar Liberação no WhatsApp
           </a>
@@ -161,18 +161,18 @@ export function CollectionRestrictedScreen({
           <button
             type="button"
             onClick={handleHomeClick}
-            className="w-full sm:w-auto px-5 py-2.5 rounded-lg border border-white/15 hover:bg-white/10 text-white/80 text-xs font-semibold uppercase tracking-wider transition-colors"
+            className="w-full sm:w-auto px-5 py-2.5 rounded-lg border border-[#5E7F8C]/20 hover:border-[#5E7F8C]/40 bg-white/80 hover:bg-white text-[#11161B] text-xs font-semibold uppercase tracking-wider transition-colors shadow-xs"
           >
             Ir para a página inicial
           </button>
         </div>
 
         {onOpenAdmin && (
-          <div className="mt-6 pt-5 border-t border-white/10">
+          <div className="mt-6 pt-5 border-t border-[#5E7F8C]/15">
             <button
               type="button"
               onClick={onOpenAdmin}
-              className="text-[11px] uppercase tracking-widest text-white/40 hover:text-white/80 transition-colors"
+              className="text-[11px] uppercase tracking-widest text-[#5A6872] hover:text-[#11161B] transition-colors"
             >
               Acesso do Fotógrafo
             </button>

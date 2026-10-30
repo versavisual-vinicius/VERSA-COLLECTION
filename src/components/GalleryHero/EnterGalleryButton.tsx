@@ -20,11 +20,15 @@ export function EnterGalleryButton({ targetId = 'gallery-grid', onEnter }: Enter
   return (
     <button
       type="button"
-      className="cover-cta"
+      className="cover-cta group inline-flex items-center gap-3 transition-all duration-300"
       onClick={handleClick}
       aria-label="Entrar na galeria e ver as fotografias"
     >
-      Entrar na galeria
+      <span
+        className="h-3.5 w-0.5 rounded-full bg-[#5E7F8C] transition-all duration-300 group-hover:h-5 group-hover:bg-[#11161B]"
+        aria-hidden="true"
+      />
+      <span>Entrar na galeria</span>
     </button>
   );
 }

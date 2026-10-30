@@ -74,7 +74,7 @@ export function GalleryPasswordGate({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#050A0D] text-[#f5f5f4] overflow-hidden select-none"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#F6F8F9] text-[#11161B] overflow-hidden select-none"
       role="dialog"
       aria-modal="true"
       aria-labelledby="gate-title"
@@ -82,28 +82,28 @@ export function GalleryPasswordGate({
       {/* Imagem de Capa com Desfoque Profundo */}
       {coverSrc && (
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-25 filter blur-3xl scale-110 pointer-events-none"
+          className="absolute inset-0 bg-cover bg-center opacity-15 filter blur-3xl scale-110 pointer-events-none"
           style={{ backgroundImage: `url(${coverSrc})` }}
           aria-hidden="true"
         />
       )}
 
-      {/* Gradiente Vinheta Escuro */}
+      {/* Gradiente Vinheta Claro */}
       <div
-        className="absolute inset-0 bg-gradient-to-b from-[#050A0D]/90 via-[#050A0D]/80 to-[#050A0D] pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-b from-[#F6F8F9]/80 via-[#F6F8F9]/90 to-[#F6F8F9] pointer-events-none"
         aria-hidden="true"
       />
 
-      <div className="relative z-10 w-full max-w-md mx-4 p-8 rounded-2xl bg-[#0c1015]/90 border border-white/10 shadow-2xl backdrop-blur-md">
+      <div className="relative z-10 w-full max-w-md mx-4 p-8 rounded-2xl bg-white/95 border border-[#5E7F8C]/20 shadow-2xl backdrop-blur-md">
         {/* Marca & Identidade */}
         <div className="text-center mb-6">
           <span className="text-[11px] font-semibold tracking-[0.25em] text-[#5E7F8C] uppercase block mb-1">
             VERSA VISUAL • GALERIA PRIVADA
           </span>
-          <h1 id="gate-title" className="text-2xl font-bold tracking-tight text-white font-['Outfit']">
+          <h1 id="gate-title" className="text-2xl font-bold tracking-tight text-[#11161B] font-['Outfit']">
             {collection.title}
           </h1>
-          <p className="text-xs text-white/60 mt-2 font-['DM_Sans']">
+          <p className="text-xs text-[#5A6872] mt-2 font-['DM_Sans']">
             Esta coleção é protegida por senha. Digite as credenciais fornecidas pelo estúdio para
             acessar as fotografias.
           </p>
@@ -123,7 +123,7 @@ export function GalleryPasswordGate({
         <form onSubmit={handleSubmit} className="space-y-4 font-['DM_Sans']">
           {requiresEmail && (
             <div>
-              <label htmlFor="gate-email" className="block text-xs font-medium text-white/80 mb-1.5">
+              <label htmlFor="gate-email" className="block text-xs font-medium text-[#11161B]/80 mb-1.5">
                 E-mail cadastrado
               </label>
               <input
@@ -133,20 +133,20 @@ export function GalleryPasswordGate({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="seu-email@cliente.com"
-                className="w-full px-3.5 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs outline-none focus:border-[#5E7F8C] focus:ring-1 focus:ring-[#5E7F8C] transition-all"
+                className="w-full px-3.5 py-2.5 rounded-lg bg-[#F6F8F9] border border-[#5E7F8C]/20 text-[#11161B] text-xs outline-none focus:border-[#5E7F8C] focus:ring-1 focus:ring-[#5E7F8C] transition-all"
               />
             </div>
           )}
 
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label htmlFor="gate-password" className="block text-xs font-medium text-white/80">
+              <label htmlFor="gate-password" className="block text-xs font-medium text-[#11161B]/80">
                 Senha de acesso
               </label>
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-[11px] text-white/40 hover:text-white/80 transition-colors"
+                className="text-[11px] text-[#5A6872] hover:text-[#11161B] transition-colors"
                 tabIndex={-1}
               >
                 {showPassword ? 'Ocultar' : 'Exibir'}
@@ -161,17 +161,17 @@ export function GalleryPasswordGate({
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Digite a senha da galeria"
-                className="w-full px-3.5 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs outline-none focus:border-[#5E7F8C] focus:ring-1 focus:ring-[#5E7F8C] transition-all"
+                className="w-full px-3.5 py-2.5 rounded-lg bg-[#F6F8F9] border border-[#5E7F8C]/20 text-[#11161B] text-xs outline-none focus:border-[#5E7F8C] focus:ring-1 focus:ring-[#5E7F8C] transition-all"
               />
             </div>
           </div>
 
           {error && (
             <div
-              className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-300 text-xs flex items-start gap-2"
+              className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-600 text-xs flex items-start gap-2"
               role="alert"
             >
-              <span className="text-red-400 font-bold">!</span>
+              <span className="text-red-500 font-bold">!</span>
               <span>{error}</span>
             </div>
           )}
@@ -179,7 +179,7 @@ export function GalleryPasswordGate({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 rounded-lg bg-[#5E7F8C] hover:bg-[#6e919f] text-white text-xs font-bold uppercase tracking-widest transition-colors shadow-lg shadow-[#5E7F8C]/20 disabled:opacity-50 flex items-center justify-center gap-2"
+            className="w-full py-3 rounded-lg bg-[#5E7F8C] hover:bg-[#4d6d79] text-white text-xs font-bold uppercase tracking-widest transition-colors shadow-md disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {isSubmitting ? (
               <>
@@ -194,12 +194,12 @@ export function GalleryPasswordGate({
         )}
 
         {/* Rodapé do Gate */}
-        <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-[11px] text-white/40">
+        <div className="mt-6 pt-4 border-t border-[#5E7F8C]/15 flex items-center justify-between text-[11px] text-[#5A6872]">
           <a
             href="https://instagram.com/v1ncsc"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-white/80 transition-colors"
+            className="hover:text-[#11161B] transition-colors"
           >
             Dúvidas? Fale com @v1ncsc
           </a>

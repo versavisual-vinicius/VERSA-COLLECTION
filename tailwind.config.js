@@ -12,11 +12,11 @@ export default {
       },
       colors: {
         gallery: {
-          bg: '#050A0D',
-          surface: '#0c1015',
-          stone: '#f5f5f4',
+          bg: '#F6F8F9',
+          surface: '#ffffff',
+          stone: '#11161B',
           accent: '#5E7F8C',
-          accentHover: '#6e919f',
+          accentHover: '#4e6d7a',
         },
       },
     },

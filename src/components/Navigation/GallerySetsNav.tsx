@@ -18,7 +18,7 @@ export function GallerySetsNav({
   return (
     <nav
       id="nav-galleries"
-      className="gallery-sets-nav w-full py-4 px-2 sm:px-4 border-b border-white/10 mb-6"
+      className="gallery-sets-nav w-full py-4 px-2 sm:px-4 border-b border-[#5E7F8C]/15 mb-6"
       aria-label="Conjuntos e sub-galerias da coleção"
     >
       <div
@@ -32,12 +32,12 @@ export function GallerySetsNav({
           onClick={() => onSelectSet(null)}
           className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs uppercase font-medium tracking-wider transition-all whitespace-nowrap ${
             activeSetId === null
-              ? 'bg-[#5E7F8C] text-white shadow-md'
-              : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white border border-white/5'
+              ? 'bg-[#5E7F8C] text-white shadow-sm'
+              : 'bg-white/90 text-[#5A6872] hover:bg-[#5E7F8C]/10 hover:text-[#11161B] border border-[#5E7F8C]/15 shadow-xs'
           }`}
         >
           <span>Todas as Fotos</span>
-          <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-black/30 font-mono">
+          <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-black/5 font-mono text-[#5A6872]">
             {totalPhotos}
           </span>
         </button>
@@ -53,13 +53,13 @@ export function GallerySetsNav({
               onClick={() => onSelectSet(set.id)}
               className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs uppercase font-medium tracking-wider transition-all whitespace-nowrap ${
                 isSelected
-                  ? 'bg-[#5E7F8C] text-white shadow-md'
-                  : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white border border-white/5'
+                  ? 'bg-[#5E7F8C] text-white shadow-sm'
+                  : 'bg-white/90 text-[#5A6872] hover:bg-[#5E7F8C]/10 hover:text-[#11161B] border border-[#5E7F8C]/15 shadow-xs'
               }`}
             >
               <span>{set.title}</span>
               {set.photoCount !== undefined && (
-                <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-black/30 font-mono">
+                <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-black/5 font-mono text-[#5A6872]">
                   {set.photoCount}
                 </span>
               )}

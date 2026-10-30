@@ -632,7 +632,7 @@ export function GalleryPage({
   }
 
   return (
-    <div className="gallery-app bg-[#0b0c0e] text-[#f5f5f4] min-h-screen">
+    <div className="gallery-app bg-[#F6F8F9] text-[#11161B] min-h-screen">
       <OfflineBanner onReconnected={() => showToast('Conexão restabelecida.')} />
       <AutoHideGalleryHeader
         collectionTitle={collection.title}
@@ -665,7 +665,7 @@ export function GalleryPage({
         )}
 
         <section id="gallery-grid" className="gallery-shell max-w-[1440px] mx-auto py-8 px-2 sm:px-4">
-          <div className="gallery-meta flex justify-between items-center px-4 py-3 text-xs tracking-widest uppercase text-white/50 border-b border-white/5 mb-6">
+          <div className="gallery-meta flex justify-between items-center px-4 py-3 text-xs tracking-widest uppercase text-[#5A6872] border-b border-[#5E7F8C]/15 mb-6">
             <span>
               {displayedPhotos.length} de {collection.totalItems} fotografias
               {activeSetId && ' (Filtrado por conjunto)'}

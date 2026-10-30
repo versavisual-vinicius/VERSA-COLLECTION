@@ -4,29 +4,24 @@ interface CoverOverlayProps {
 }
 
 /**
- * Overlay de gradiente conforme RF-003 da especificação:
- * background-color: rgba(0, 0, 0, 0.2);
- * background-image: linear-gradient(
- *   transparent 0%,
- *   transparent 5%,
- *   rgba(0, 0, 0, 0.08) 45%,
- *   rgba(0, 0, 0, 0.5) 90%,
- *   rgba(0, 0, 0, 0.7) 100%
- * );
+ * Overlay de gradiente autoral Versa Visual (RF-003):
+ * Transição orgânica da fotografia para o fundo claro editorial (#F6F8F9) da galeria,
+ * mantendo o terço superior translúcido para preservar o olhar e enquadramento da foto.
  */
 export function CoverOverlay({ opacity = 0.6 }: CoverOverlayProps) {
   return (
     <div
-      className="cover-overlay absolute inset-0 pointer-events-none"
+      className="cover-overlay absolute inset-0 pointer-events-none transition-opacity duration-700"
       aria-hidden="true"
       style={{
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        backgroundColor: 'rgba(246, 248, 249, 0.12)',
         backgroundImage: `linear-gradient(
-          transparent 0%,
-          transparent 5%,
-          rgba(0, 0, 0, 0.08) 45%,
-          rgba(0, 0, 0, 0.5) 90%,
-          rgba(0, 0, 0, 0.7) 100%
+          to bottom,
+          rgba(246, 248, 249, 0) 0%,
+          transparent 20%,
+          rgba(246, 248, 249, 0.15) 45%,
+          rgba(246, 248, 249, 0.8) 80%,
+          #F6F8F9 100%
         )`,
         opacity: Math.max(0, Math.min(1, opacity)),
       }}

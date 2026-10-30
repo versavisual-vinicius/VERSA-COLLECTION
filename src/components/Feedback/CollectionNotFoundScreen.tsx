@@ -26,7 +26,7 @@ export function CollectionNotFoundScreen({
 
   return (
     <div
-      className="min-h-screen w-full flex items-center justify-center bg-[#050A0D] text-[#f5f5f4] px-4 py-12 select-none relative overflow-hidden"
+      className="min-h-screen w-full flex items-center justify-center bg-[#F6F8F9] text-[#11161B] px-4 py-12 select-none relative overflow-hidden"
       role="alert"
       aria-labelledby="not-found-title"
       data-testid="collection-not-found-screen"
@@ -37,25 +37,25 @@ export function CollectionNotFoundScreen({
         aria-hidden="true"
       />
 
-      <div className="relative z-10 w-full max-w-lg p-8 sm:p-10 rounded-2xl bg-[#0c1015]/90 border border-white/10 shadow-2xl backdrop-blur-md text-center">
-        <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-6">
+      <div className="relative z-10 w-full max-w-lg p-8 sm:p-10 rounded-2xl bg-white border border-[#5E7F8C]/15 shadow-xl text-center">
+        <div className="w-14 h-14 rounded-full bg-[#5E7F8C]/10 border border-[#5E7F8C]/20 flex items-center justify-center mx-auto mb-6">
           <span className="font-['Outfit'] text-lg font-extrabold text-[#5E7F8C]">404</span>
         </div>
 
-        <p className="eyebrow text-[10px] tracking-[0.4em] uppercase text-white/50 mb-2">
+        <p className="eyebrow text-[10px] tracking-[0.4em] uppercase text-[#5E7F8C] mb-2 font-semibold">
           Versa Visual · Acervo Digital
         </p>
 
         <h1
           id="not-found-title"
-          className="font-['Outfit'] text-2xl sm:text-3xl font-bold tracking-tight text-white mb-3"
+          className="font-['Outfit'] text-2xl sm:text-3xl font-bold tracking-tight text-[#11161B] mb-3"
         >
           Galeria não encontrada
         </h1>
 
         <div className="w-8 h-0.5 bg-[#5E7F8C] mx-auto mb-6 rounded-full" />
 
-        <p className="font-['DM_Sans'] text-xs sm:text-sm text-white/70 leading-relaxed mb-6">
+        <p className="font-['DM_Sans'] text-xs sm:text-sm text-[#5A6872] leading-relaxed mb-6">
           O endereço acessado{slug ? ` ("${slug}")` : ''} não corresponde a nenhuma coleção ativa ou o link de entrega foi atualizado. Verifique se o link foi copiado integralmente.
         </p>
 
@@ -63,7 +63,7 @@ export function CollectionNotFoundScreen({
           <button
             type="button"
             onClick={handleHomeClick}
-            className="w-full sm:w-auto px-6 py-3 rounded-lg bg-[#5E7F8C] hover:bg-[#6f94a3] text-white text-xs font-semibold uppercase tracking-wider transition-colors shadow-lg shadow-[#5E7F8C]/20"
+            className="w-full sm:w-auto px-6 py-3 rounded-lg bg-[#5E7F8C] hover:bg-[#4d6d79] text-white text-xs font-semibold uppercase tracking-wider transition-colors shadow-sm"
           >
             Ir para a página inicial
           </button>
@@ -74,18 +74,18 @@ export function CollectionNotFoundScreen({
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto px-5 py-3 rounded-lg border border-white/15 hover:bg-white/10 text-white/90 text-xs font-semibold uppercase tracking-wider transition-colors text-center"
+            className="w-full sm:w-auto px-5 py-3 rounded-lg border border-[#5E7F8C]/20 hover:border-[#5E7F8C]/40 bg-white/80 hover:bg-white text-[#11161B] text-xs font-semibold uppercase tracking-wider transition-colors text-center shadow-xs"
           >
             Falar com o fotógrafo
           </a>
         </div>
 
         {onOpenAdmin && (
-          <div className="mt-6 pt-5 border-t border-white/10">
+          <div className="mt-6 pt-5 border-t border-[#5E7F8C]/15">
             <button
               type="button"
               onClick={onOpenAdmin}
-              className="text-[11px] uppercase tracking-widest text-white/40 hover:text-white/80 transition-colors"
+              className="text-[11px] uppercase tracking-widest text-[#5A6872] hover:text-[#11161B] transition-colors"
             >
               Acesso do Fotógrafo
             </button>

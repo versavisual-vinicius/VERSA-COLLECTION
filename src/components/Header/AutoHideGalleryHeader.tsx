@@ -96,7 +96,7 @@ export function AutoHideGalleryHeader({
 
   return (
     <header
-      className={`gallery-header fixed inset-x-0 ${topOffsetClass} z-40 h-[64px] sm:h-[78px] transition-transform duration-200 ease-in-out border-b border-white/10 bg-[#0b0c0e]/85 backdrop-blur-md ${
+      className={`gallery-header fixed inset-x-0 ${topOffsetClass} z-40 h-[64px] sm:h-[78px] transition-transform duration-200 ease-in-out border-b border-[#5E7F8C]/15 bg-[#F6F8F9]/90 text-[#11161B] backdrop-blur-md ${
         visible ? 'translate-y-0' : '-translate-y-full'
       }`}
       role="banner"
@@ -125,7 +125,7 @@ export function AutoHideGalleryHeader({
             <button
               type="button"
               onClick={onStartSlideshow}
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#5A6872] hover:text-[#11161B] rounded-lg hover:bg-black/5 transition-colors"
               title="Apresentação de slides"
               aria-label="Iniciar apresentação de slides"
             >
@@ -140,7 +140,7 @@ export function AutoHideGalleryHeader({
             <button
               type="button"
               onClick={onShareCollection}
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#5A6872] hover:text-[#11161B] rounded-lg hover:bg-black/5 transition-colors"
               title="Compartilhar coleção"
               aria-label="Compartilhar coleção"
             >
