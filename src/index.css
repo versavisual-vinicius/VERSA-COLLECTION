@@ -405,6 +405,269 @@ img {
   }
 }
 
+/* MONO system — shared across every route and window */
+:root {
+  --mono-paper: #f2f0e9;
+  --mono-ink: #0a0a0a;
+  --mono-line: #c8c5bc;
+  --mono-muted: #66645e;
+  --mono-accent: #5e7f8c;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  border-radius: 0 !important;
+}
+
+button,
+a {
+  transition-duration: 160ms !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--mono-accent) !important;
+  outline-offset: 3px;
+}
+
+/* Public gallery: photographic black stage with crisp MONO controls */
+.gallery-app,
+.gallery-header {
+  background: var(--mono-ink);
+}
+
+.gallery-header {
+  height: 70px;
+  border-color: rgba(255, 255, 255, 0.18);
+  backdrop-filter: none;
+}
+
+.brand-name,
+.cover-title {
+  color: #fff;
+}
+
+.brand-kicker,
+.eyebrow {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.cover-subtitle {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.cover-cta {
+  border: 1px solid #fff;
+  background: #fff;
+  color: var(--mono-ink);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.cover-cta:hover,
+.cover-cta:focus-visible {
+  background: var(--mono-ink);
+  border-color: #fff;
+  color: #fff;
+  transform: none;
+  box-shadow: none;
+}
+
+.gallery-shell {
+  max-width: none;
+  padding: 0;
+}
+
+.gallery-meta {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--mono-line);
+  background: var(--mono-paper);
+  color: var(--mono-muted);
+}
+
+.masonry-card,
+.photo-card,
+.lightbox-panel,
+.lightbox-image {
+  border-radius: 0;
+}
+
+/* Studio routes: same warm paper, black typography and ruled editorial grid */
+:where([data-testid="dashboard-page"], [data-testid="photo-library-page"]) {
+  background: var(--mono-paper) !important;
+  color: var(--mono-ink) !important;
+}
+
+:where([data-testid="dashboard-page"], [data-testid="photo-library-page"]) header,
+[data-testid="photo-library-filter-bar"],
+[data-testid="photo-library-page"] footer {
+  background: rgba(242, 240, 233, 0.96) !important;
+  border-color: var(--mono-line) !important;
+  backdrop-filter: none !important;
+}
+
+:where([data-testid="dashboard-page"], [data-testid="photo-library-page"]) :where(h1, h2, h3, strong),
+:where([data-testid="dashboard-page"], [data-testid="photo-library-page"]) .text-stone-100,
+:where([data-testid="dashboard-page"], [data-testid="photo-library-page"]) .text-stone-200 {
+  color: var(--mono-ink) !important;
+}
+
+:where([data-testid="dashboard-page"], [data-testid="photo-library-page"]) :where(.text-stone-300, .text-stone-400, .text-stone-500) {
+  color: var(--mono-muted) !important;
+}
+
+[data-testid="dashboard-page"] main {
+  max-width: none !important;
+  padding: 3.5rem clamp(1.25rem, 4vw, 4.5rem) 2rem !important;
+}
+
+[data-testid="dashboard-page"] main > section {
+  margin-bottom: 3.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--mono-ink);
+}
+
+[data-testid="product-hub-grid"] a,
+[data-testid="dashboard-page"] main [class*="rounded-xl"] {
+  border-radius: 0 !important;
+  border-color: var(--mono-ink) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+[data-testid="product-hub-grid"] a:hover {
+  background: var(--mono-ink) !important;
+  color: #fff !important;
+}
+
+[data-testid="product-hub-grid"] a:hover :where(h3, p, span) {
+  color: #fff !important;
+}
+
+[data-testid="dashboard-page"] footer {
+  border-color: var(--mono-line) !important;
+}
+
+[data-testid="photo-library-page"] header > div,
+[data-testid="photo-library-filter-bar"] > div,
+[data-testid="photo-library-page"] main {
+  max-width: none !important;
+}
+
+[data-testid="photo-library-filter-bar"] input,
+[data-testid="photo-library-filter-bar"] select,
+[data-testid="photo-library-filter-bar"] [role="group"] {
+  background: transparent !important;
+  border-color: var(--mono-ink) !important;
+  color: var(--mono-ink) !important;
+}
+
+[data-testid="photo-library-page"] [data-testid^="library-photo-card-"] {
+  border-radius: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Editor remains a black image-review room, flattened to the MONO grid */
+[data-testid="photo-editor-page"],
+[data-testid="photo-editor-page"] [class*="bg-[#050A0D]"] {
+  background: var(--mono-ink) !important;
+}
+
+[data-testid="photo-editor-page"] :where(button, select, [class*="rounded"]) {
+  border-radius: 0 !important;
+}
+
+[data-testid="photo-editor-page"] > :first-child,
+[data-testid="photo-editor-page"] > :last-child {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+/* Every modal/window uses one consistent paper panel */
+[data-testid="collection-create-wizard-modal"],
+[data-testid="culling-export-modal"],
+.dialog-backdrop {
+  background: rgba(10, 10, 10, 0.82) !important;
+  backdrop-filter: none !important;
+}
+
+[data-testid="collection-create-wizard-modal"] > div,
+[data-testid="culling-export-modal"] > div,
+.dialog-backdrop > div:not(.lightbox-panel) {
+  border-radius: 0 !important;
+  border: 1px solid var(--mono-ink) !important;
+  background: var(--mono-paper) !important;
+  color: var(--mono-ink) !important;
+  box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.28) !important;
+}
+
+:where([data-testid="collection-create-wizard-modal"], [data-testid="culling-export-modal"], .dialog-backdrop) :where(h1, h2, h3, label, p, span) {
+  color: var(--mono-ink);
+}
+
+:where([data-testid="collection-create-wizard-modal"], [data-testid="culling-export-modal"], .dialog-backdrop) :where(input, select, textarea) {
+  border: 1px solid var(--mono-ink) !important;
+  background: transparent !important;
+  color: var(--mono-ink) !important;
+}
+
+[data-testid="collection-create-wizard-modal"] > div [class*="text-white"],
+[data-testid="culling-export-modal"] > div [class*="text-white"] {
+  color: var(--mono-ink) !important;
+}
+
+[data-testid="collection-create-wizard-modal"] > div [class*="bg-[#050A0D]"],
+[data-testid="collection-create-wizard-modal"] > div [class*="bg-white/"],
+[data-testid="culling-export-modal"] > div [class*="bg-[#050A0D]"],
+[data-testid="culling-export-modal"] > div [class*="bg-white/"] {
+  background: transparent !important;
+}
+
+[data-testid="collection-create-wizard-modal"] > div [class*="bg-[#5E7F8C]"] {
+  background: var(--mono-ink) !important;
+  color: #fff !important;
+}
+
+[data-testid="collection-create-wizard-modal"] > div [class*="border-white"] {
+  border-color: var(--mono-line) !important;
+}
+
+[data-testid="collection-create-wizard-modal"] button[class*="bg-[#5E7F8C]"],
+[data-testid="culling-export-modal"] button[class*="bg-[#5E7F8C]"] {
+  background: var(--mono-ink) !important;
+  color: #fff !important;
+}
+
+[data-testid="admin-panel"] {
+  background: var(--mono-paper) !important;
+  color: var(--mono-ink) !important;
+}
+
+[data-testid="admin-panel"] :where(header, aside, section) {
+  border-color: var(--mono-line) !important;
+  box-shadow: none !important;
+}
+
+[data-testid="admin-panel"] :where([class*="rounded-xl"], [class*="rounded-2xl"]) {
+  border-radius: 0 !important;
+}
+
+@media (max-width: 640px) {
+  [data-testid="dashboard-page"] main {
+    padding-top: 2rem !important;
+  }
+
+  .gallery-header {
+    height: 62px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
