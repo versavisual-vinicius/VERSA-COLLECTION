@@ -157,7 +157,7 @@ export function AutoHideGalleryHeader({
             onStartSlideshow={onStartSlideshow}
             onShareCollection={onShareCollection}
             onGoHome={onGoHome}
-            onOpenAdmin={onOpenAdmin}
+            onOpenAdmin={isOwnerPreview ? onOpenAdmin : undefined}
           />
         </div>
       </div>

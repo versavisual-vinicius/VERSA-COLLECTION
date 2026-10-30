@@ -301,12 +301,24 @@ export function AdminPanel({
   if (!isAuthenticated) {
     return (
       <PanelShell onClose={onClose}>
-        <h2 className="text-xl font-bold">Painel do Fotógrafo</h2>
-        <p className="mt-2 text-xs text-white/60">Acesso restrito por magic link.</p>
+        <h2 className="text-xl font-bold font-['Outfit'] text-[#11161B]">Painel do Fotógrafo</h2>
+        <p className="mt-2 text-xs text-[#5A6872]">Acesso restrito por magic link.</p>
         <form onSubmit={sendMagicLink} className="mt-6 space-y-3">
-          <label htmlFor="admin-email" className="block text-xs font-medium">E-mail autorizado</label>
-          <input id="admin-email" type="email" required value={email} onChange={(event) => setEmail(event.target.value)} className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm" />
-          <button className="w-full rounded-lg bg-[#5E7F8C] py-2.5 text-xs font-bold uppercase tracking-wider">Enviar magic link</button>
+          <label htmlFor="admin-email" className="block text-xs font-medium text-[#5A6872]">E-mail autorizado</label>
+          <input
+            id="admin-email"
+            type="email"
+            required
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            className="w-full rounded-lg border border-[#5E7F8C]/20 bg-white px-3 py-2 text-sm text-[#11161B] shadow-2xs outline-none focus:border-[#5E7F8C]"
+          />
+          <button
+            type="submit"
+            className="w-full rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-xs transition-colors"
+          >
+            Enviar magic link
+          </button>
         </form>
         <Feedback message={message} error={error} />
       </PanelShell>
@@ -315,15 +327,15 @@ export function AdminPanel({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex flex-col bg-[#050A0D] text-white font-['DM_Sans']"
+      className="fixed inset-0 z-50 flex flex-col bg-[#F6F8F9] text-[#11161B] font-['DM_Sans']"
       role="dialog"
       aria-label="Painel do Fotógrafo"
       data-testid="admin-panel"
     >
-      <header className="flex h-16 items-center justify-between border-b border-white/10 px-6">
+      <header className="flex h-16 items-center justify-between border-b border-[#5E7F8C]/15 bg-[#F6F8F9]/90 backdrop-blur-md px-6">
         <div className="flex items-center gap-3">
-          <strong>VERSA / Painel do Fotógrafo</strong>
-          <span className="rounded-full bg-[#5E7F8C]/20 border border-[#5E7F8C]/40 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#85aab8]">
+          <strong className="font-['Outfit'] font-bold text-[#11161B]">VERSA / Painel do Fotógrafo</strong>
+          <span className="rounded-full bg-[#5E7F8C]/10 border border-[#5E7F8C]/30 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#5E7F8C]">
             {backendEnabled ? 'Cloud Sync' : 'Estúdio Local'}
           </span>
         </div>
@@ -331,7 +343,7 @@ export function AdminPanel({
           <button
             type="button"
             onClick={exportConfigJson}
-            className="rounded border border-white/15 hover:bg-white/10 px-3 py-1.5 text-xs transition-colors"
+            className="rounded-lg border border-[#5E7F8C]/20 hover:border-[#5E7F8C]/40 bg-white hover:bg-[#F6F8F9] px-3.5 py-1.5 text-xs font-semibold text-[#11161B] shadow-xs transition-colors"
           >
             Exportar JSON
           </button>
@@ -340,14 +352,14 @@ export function AdminPanel({
               <button
                 type="button"
                 onClick={() => void migrateLegacy()}
-                className="rounded border border-white/15 hover:bg-white/10 px-3 py-1.5 text-xs transition-colors"
+                className="rounded-lg border border-[#5E7F8C]/20 hover:border-[#5E7F8C]/40 bg-white hover:bg-[#F6F8F9] px-3.5 py-1.5 text-xs font-semibold text-[#11161B] shadow-xs transition-colors"
               >
                 Migrar dados locais
               </button>
               <button
                 type="button"
                 onClick={() => void signOutAdmin().then(() => setIsAuthenticated(false))}
-                className="rounded border border-white/15 hover:bg-white/10 px-3 py-1.5 text-xs transition-colors"
+                className="rounded-lg border border-[#5E7F8C]/20 hover:border-[#5E7F8C]/40 bg-white hover:bg-[#F6F8F9] px-3.5 py-1.5 text-xs font-semibold text-[#11161B] shadow-xs transition-colors"
               >
                 Sair
               </button>
@@ -361,21 +373,21 @@ export function AdminPanel({
               }
               onClose();
             }}
-            className="rounded bg-[#5E7F8C] hover:bg-[#6e919f] px-3.5 py-1.5 text-xs font-semibold transition-colors"
+            className="rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs transition-colors"
           >
             Abrir Galeria
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="rounded border border-white/15 hover:bg-white/10 px-3 py-1.5 text-xs transition-colors"
+            className="rounded-lg border border-[#5E7F8C]/20 hover:border-[#5E7F8C]/40 bg-white hover:bg-[#F6F8F9] px-3.5 py-1.5 text-xs font-semibold text-[#11161B] shadow-xs transition-colors"
           >
             Voltar para a galeria
           </button>
         </div>
       </header>
 
-      <nav className="flex items-center gap-4 border-b border-white/10 px-6 overflow-x-auto">
+      <nav className="flex items-center gap-4 border-b border-[#5E7F8C]/15 px-6 bg-white/60 backdrop-blur-xs overflow-x-auto">
         {(
           [
             { id: 'config', label: 'Configurações' },
@@ -389,8 +401,10 @@ export function AdminPanel({
             key={t.id}
             type="button"
             onClick={() => setActiveTab(t.id)}
-            className={`py-3 text-xs whitespace-nowrap ${
-              activeTab === t.id ? 'border-b-2 border-[#5E7F8C] text-white font-semibold' : 'text-white/50 hover:text-white/80'
+            className={`py-3 text-xs whitespace-nowrap transition-colors ${
+              activeTab === t.id
+                ? 'border-b-2 border-[#5E7F8C] text-[#11161B] font-bold'
+                : 'text-[#5A6872] hover:text-[#11161B]'
             }`}
           >
             {t.label}
@@ -403,7 +417,7 @@ export function AdminPanel({
             setSelectedSlug(event.target.value);
             onSelectCollection?.(event.target.value);
           }}
-          className="ml-auto bg-[#0c1015] border border-white/10 rounded px-2 py-1 text-xs"
+          className="ml-auto bg-white border border-[#5E7F8C]/20 text-[#11161B] rounded-lg px-2.5 py-1 text-xs shadow-xs focus:border-[#5E7F8C] outline-none"
         >
           {collections.map((collection) => (
             <option key={collection.slug} value={collection.slug}>
@@ -460,7 +474,7 @@ export function AdminPanel({
                   type="button"
                   disabled={isSaving}
                   onClick={() => void save()}
-                  className="rounded bg-[#5E7F8C] hover:bg-[#6e919f] px-5 py-2 text-xs font-bold disabled:opacity-50 transition-colors"
+                  className="rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-5 py-2 text-xs font-bold text-white shadow-xs disabled:opacity-50 transition-colors"
                 >
                   {isSaving ? 'Salvando…' : 'Salvar Configurações'}
                 </button>
@@ -498,7 +512,7 @@ export function AdminPanel({
                       onChange={(e) => setOverlayOpacity(parseFloat(e.target.value))}
                       className="flex-1 accent-[#5E7F8C]"
                     />
-                    <span className="text-xs font-mono text-white/70 w-12 text-right">
+                    <span className="text-xs font-mono text-[#5A6872] w-12 text-right">
                       {Math.round(overlayOpacity * 100)}%
                     </span>
                   </div>
@@ -508,7 +522,7 @@ export function AdminPanel({
                   type="button"
                   disabled={isSaving}
                   onClick={() => void save()}
-                  className="rounded bg-[#5E7F8C] hover:bg-[#6e919f] px-5 py-2 text-xs font-bold disabled:opacity-50 transition-colors"
+                  className="rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-5 py-2 text-xs font-bold text-white shadow-xs disabled:opacity-50 transition-colors"
                 >
                   {isSaving ? 'Salvando…' : 'Salvar Estilo Visual'}
                 </button>
@@ -518,7 +532,7 @@ export function AdminPanel({
 
           {activeTab === 'sets' && selected && (
             <Section title="Gestão de Conjuntos (Sets / Sub-galerias)">
-              <p className="text-xs text-white/60">
+              <p className="text-xs text-[#5A6872]">
                 Organize as fotografias em seções (ex: Destaques, Cerimônia, Recepção, Ensaio).
               </p>
 
@@ -528,7 +542,7 @@ export function AdminPanel({
                   placeholder="Nome do novo conjunto..."
                   value={newSetName}
                   onChange={(e) => setNewSetName(e.target.value)}
-                  className="flex-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs text-white outline-none focus:border-[#5E7F8C]"
+                  className="flex-1 rounded-lg border border-[#5E7F8C]/20 bg-white px-3 py-2 text-xs text-[#11161B] outline-none focus:border-[#5E7F8C] shadow-2xs"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault();
@@ -553,7 +567,7 @@ export function AdminPanel({
                     ]);
                     setNewSetName('');
                   }}
-                  className="rounded bg-[#5E7F8C] hover:bg-[#6e919f] px-4 py-2 text-xs font-bold uppercase transition-colors"
+                  className="rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-4 py-2 text-xs font-bold uppercase text-white shadow-xs transition-colors"
                 >
                   Adicionar
                 </button>
@@ -561,23 +575,23 @@ export function AdminPanel({
 
               <div className="space-y-2 pt-3">
                 {sets.length === 0 ? (
-                  <p className="text-xs text-white/40 italic py-2">
+                  <p className="text-xs text-[#5A6872]/60 italic py-2">
                     Nenhum conjunto configurado. Todas as fotos são exibidas juntas na galeria principal.
                   </p>
                 ) : (
                   sets.map((set, idx) => (
                     <div
                       key={set.id}
-                      className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10 text-xs"
+                      className="flex items-center justify-between p-3 rounded-lg bg-[#F6F8F9] border border-[#5E7F8C]/15 text-xs"
                     >
                       <div>
-                        <strong className="text-white">{set.title}</strong>
-                        <span className="ml-2 font-mono text-[10px] text-white/40">slug: {set.slug}</span>
+                        <strong className="text-[#11161B]">{set.title}</strong>
+                        <span className="ml-2 font-mono text-[10px] text-[#5A6872]">slug: {set.slug}</span>
                       </div>
                       <button
                         type="button"
                         onClick={() => setSets((prev) => prev.filter((_, i) => i !== idx))}
-                        className="text-red-400 hover:text-red-300 p-1 text-xs"
+                        className="text-red-600 hover:text-red-700 p-1 text-xs font-medium transition-colors"
                         title="Remover conjunto"
                       >
                         ✕ Excluir
@@ -591,7 +605,7 @@ export function AdminPanel({
                 type="button"
                 disabled={isSaving}
                 onClick={() => void save()}
-                className="mt-4 rounded bg-[#5E7F8C] hover:bg-[#6e919f] px-5 py-2 text-xs font-bold disabled:opacity-50 transition-colors"
+                className="mt-4 rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-5 py-2 text-xs font-bold text-white shadow-xs disabled:opacity-50 transition-colors"
               >
                 {isSaving ? 'Salvando…' : 'Salvar Conjuntos'}
               </button>
@@ -600,14 +614,14 @@ export function AdminPanel({
 
           {activeTab === 'handoff' && (
             <Section title="Mensagem Pronta de WhatsApp">
-              <pre className="whitespace-pre-wrap rounded-xl bg-black/40 border border-white/10 p-4 text-sm text-white/85">
+              <pre className="whitespace-pre-wrap rounded-xl bg-[#F6F8F9] border border-[#5E7F8C]/15 p-4 text-xs font-mono text-[#11161B]">
                 {whatsappMessage}
               </pre>
               <div className="flex flex-wrap gap-3">
                 <button
                   type="button"
                   onClick={() => void navigator.clipboard.writeText(whatsappMessage).then(() => setMessage('Mensagem copiada para a área de transferência.'))}
-                  className="rounded bg-[#5E7F8C] hover:bg-[#6e919f] px-4 py-2 text-xs font-bold transition-colors"
+                  className="rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 px-4 py-2 text-xs font-bold text-white shadow-xs transition-colors"
                 >
                   Copiar Mensagem
                 </button>
@@ -615,12 +629,12 @@ export function AdminPanel({
                   href={`https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded border border-white/15 hover:bg-white/10 px-4 py-2 text-xs font-semibold transition-colors"
+                  className="rounded-lg border border-[#5E7F8C]/20 hover:border-[#5E7F8C]/40 bg-white hover:bg-[#F6F8F9] px-4 py-2 text-xs font-semibold text-[#11161B] shadow-xs transition-colors"
                 >
                   Abrir no WhatsApp
                 </a>
               </div>
-              <p className="text-[11px] text-amber-300/80">
+              <p className="text-[11px] text-amber-700/90 font-medium">
                 Senha e PIN aparecem na minuta quando definidos nesta sessão.
               </p>
             </Section>
@@ -629,13 +643,13 @@ export function AdminPanel({
           {activeTab === 'requests' && (
             <Section title="Últimas solicitações de exportação">
               {requests.length === 0 ? (
-                <p className="text-sm text-white/50">Nenhuma solicitação registrada até o momento.</p>
+                <p className="text-sm text-[#5A6872]">Nenhuma solicitação registrada até o momento.</p>
               ) : (
                 requests.map((request) => (
-                  <div key={request.id} className="border-b border-white/10 py-3 text-xs">
+                  <div key={request.id} className="border-b border-[#5E7F8C]/15 py-3 text-xs text-[#11161B]">
                     <strong>{request.collectionTitle}</strong> · {request.type} · {request.requestedSize}
                     <br />
-                    <span className="text-white/50">
+                    <span className="text-[#5A6872]">
                       {request.clientEmail || 'sem e-mail'} · {new Date(request.requestedAt).toLocaleString('pt-BR')}
                     </span>
                   </div>
@@ -660,17 +674,17 @@ function PanelShell({ children, onClose }: { children: React.ReactNode; onClose:
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 text-white"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 text-[#11161B]"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#0c1015] p-6 shadow-2xl">
+      <div className="relative w-full max-w-md rounded-2xl border border-[#5E7F8C]/20 bg-white p-6 shadow-2xl">
         <button
           type="button"
           onClick={onClose}
           aria-label="Fechar painel"
-          className="absolute top-4 right-4 text-white/50 hover:text-white p-1 text-sm rounded-lg transition-colors"
+          className="absolute top-4 right-4 text-[#5A6872] hover:text-[#11161B] p-1 text-sm rounded-lg transition-colors"
         >
           ✕
         </button>
@@ -678,7 +692,7 @@ function PanelShell({ children, onClose }: { children: React.ReactNode; onClose:
         <button
           type="button"
           onClick={onClose}
-          className="mt-6 w-full py-2.5 px-4 rounded-lg bg-white/10 hover:bg-white/15 text-xs font-semibold uppercase tracking-wider text-white transition-colors text-center"
+          className="mt-6 w-full py-2.5 px-4 rounded-lg border border-[#5E7F8C]/20 bg-white hover:bg-[#F6F8F9] text-xs font-semibold uppercase tracking-wider text-[#11161B] transition-colors text-center shadow-xs"
         >
           Voltar para a galeria
         </button>
@@ -688,18 +702,51 @@ function PanelShell({ children, onClose }: { children: React.ReactNode; onClose:
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return <section className="space-y-4 rounded-2xl border border-white/10 bg-[#0c1015] p-5"><h3 className="font-semibold">{title}</h3>{children}</section>;
+  return (
+    <section className="space-y-4 rounded-2xl border border-[#5E7F8C]/15 bg-white p-6 shadow-xs">
+      <h3 className="font-['Outfit'] font-bold text-sm tracking-wide text-[#11161B] uppercase">{title}</h3>
+      {children}
+    </section>
+  );
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <label className="block text-xs text-white/70">{label}<div className="mt-1 [&_input]:w-full [&_input]:rounded-lg [&_input]:border [&_input]:border-white/10 [&_input]:bg-white/5 [&_input]:px-3 [&_input]:py-2 [&_select]:w-full [&_select]:bg-[#111418] [&_select]:p-2 [&_textarea]:w-full [&_textarea]:rounded-lg [&_textarea]:bg-white/5 [&_textarea]:p-3">{children}</div></label>;
+  return (
+    <label className="block text-xs font-medium text-[#5A6872]">
+      {label}
+      <div className="mt-1.5 [&_input]:w-full [&_input]:rounded-lg [&_input]:border [&_input]:border-[#5E7F8C]/20 [&_input]:bg-white [&_input]:px-3 [&_input]:py-2 [&_input]:text-sm [&_input]:text-[#11161B] [&_input]:shadow-2xs [&_input]:outline-none [&_input:focus]:border-[#5E7F8C] [&_input:focus]:ring-1 [&_input:focus]:ring-[#5E7F8C] [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-[#5E7F8C]/20 [&_select]:bg-white [&_select]:p-2 [&_select]:text-sm [&_select]:text-[#11161B] [&_select]:shadow-2xs [&_select]:outline-none [&_select:focus]:border-[#5E7F8C] [&_textarea]:w-full [&_textarea]:rounded-lg [&_textarea]:border [&_textarea]:border-[#5E7F8C]/20 [&_textarea]:bg-white [&_textarea]:p-3 [&_textarea]:text-sm [&_textarea]:text-[#11161B] [&_textarea]:shadow-2xs [&_textarea]:outline-none [&_textarea:focus]:border-[#5E7F8C]">
+        {children}
+      </div>
+    </label>
+  );
 }
 
 function Toggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (value: boolean) => void }) {
-  return <label className="flex items-center justify-between text-xs"><span>{label}</span><input type="checkbox" checked={checked} onChange={(event) => onChange(event.target.checked)} /></label>;
+  return (
+    <label className="flex items-center justify-between text-xs font-medium text-[#11161B] cursor-pointer py-1">
+      <span>{label}</span>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(event) => onChange(event.target.checked)}
+        className="w-4 h-4 rounded border-[#5E7F8C]/30 text-[#5E7F8C] focus:ring-[#5E7F8C] cursor-pointer"
+      />
+    </label>
+  );
 }
 
 function Feedback({ message, error }: { message: string | null; error: string | null }) {
   if (!message && !error) return null;
-  return <p role={error ? 'alert' : 'status'} className={`rounded-lg border p-3 text-xs ${error ? 'border-red-500/30 bg-red-500/10 text-red-300' : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300'}`}>{error ?? message}</p>;
+  return (
+    <p
+      role={error ? 'alert' : 'status'}
+      className={`rounded-xl border p-3.5 text-xs font-medium ${
+        error
+          ? 'border-red-500/20 bg-red-50 text-red-700'
+          : 'border-emerald-500/20 bg-emerald-50 text-emerald-800'
+      }`}
+    >
+      {error ?? message}
+    </p>
+  );
 }

@@ -24,9 +24,9 @@ export function CoverFocalPicker({ coverUrl, focalPoint, onChange }: CoverFocalP
 
   return (
     <div className="space-y-2">
-      <div className="flex items-center justify-between text-xs text-white/70">
+      <div className="flex items-center justify-between text-xs text-[#5A6872]">
         <span>Ponto focal da capa (clique na imagem para ajustar)</span>
-        <span className="font-mono text-[11px] text-[#5E7F8C]">
+        <span className="font-mono text-[11px] text-[#5E7F8C] font-semibold">
           X: {focalPoint.x}% · Y: {focalPoint.y}%
         </span>
       </div>
@@ -34,7 +34,7 @@ export function CoverFocalPicker({ coverUrl, focalPoint, onChange }: CoverFocalP
       <div
         ref={containerRef}
         onPointerDown={handlePointerDown}
-        className="relative w-full aspect-[16/9] max-w-md rounded-xl overflow-hidden cursor-crosshair border border-white/15 select-none bg-black/40 group shadow-inner"
+        className="relative w-full aspect-[16/9] max-w-md rounded-xl overflow-hidden cursor-crosshair border border-[#5E7F8C]/20 select-none bg-[#F6F8F9] group shadow-inner"
         title="Clique para reposicionar o ponto focal"
       >
         <img

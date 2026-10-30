@@ -14,7 +14,7 @@ interface PhotographerHomePageProps {
 export function PhotographerHomePage({
   onSelectCollection,
   onOpenAdmin,
-  onOpenDashboard,
+  onOpenDashboard: _onOpenDashboard,
   collectionsOverride,
 }: PhotographerHomePageProps) {
   const realCollections = Object.entries(availableCollections).filter(
@@ -62,16 +62,6 @@ export function PhotographerHomePage({
           </div>
 
           <div className="flex items-center space-x-2">
-            {onOpenDashboard && (
-              <button
-                type="button"
-                onClick={onOpenDashboard}
-                data-testid="btn-open-dashboard"
-                className="px-3 py-1.5 rounded-lg border border-[#5E7F8C]/30 bg-[#5E7F8C]/10 hover:bg-[#5E7F8C]/20 text-xs font-semibold uppercase tracking-wider text-[#5E7F8C] transition-colors"
-              >
-                Studio Hub
-              </button>
-            )}
             <button
               type="button"
               onClick={onOpenAdmin}

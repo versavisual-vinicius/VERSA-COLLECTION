@@ -54,6 +54,15 @@ export default function App() {
   const [isCreateWizardOpen, setIsCreateWizardOpen] = useState<boolean>(
     () => viewState.view === 'create-collection',
   );
+  const [isOwnerPreview, setIsOwnerPreview] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    const params = new URLSearchParams(window.location.search);
+    return (
+      params.get('preview') === 'true' ||
+      params.get('mode') === 'preview' ||
+      params.get('admin') === 'true'
+    );
+  });
 
   useEffect(() => {
     const handlePopState = () => {
@@ -61,15 +70,22 @@ export default function App() {
       setViewState(view);
       setCurrentCollection(view.slug);
       setIsCreateWizardOpen(view.view === 'create-collection');
+      const params = new URLSearchParams(window.location.search);
+      setIsOwnerPreview(
+        params.get('preview') === 'true' ||
+        params.get('mode') === 'preview' ||
+        params.get('admin') === 'true',
+      );
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const handleSelectCollection = useCallback((slug: string) => {
+  const handleSelectCollection = useCallback((slug: string, isPreview = false) => {
     setCurrentCollection(slug);
     setViewState({ view: 'gallery', slug });
     setIsCreateWizardOpen(false);
+    setIsOwnerPreview(isPreview);
     if (typeof window !== 'undefined') {
       const nextUrl = new URL(window.location.href);
       if (nextUrl.pathname.startsWith('/g/')) {
@@ -88,6 +104,7 @@ export default function App() {
     setCurrentCollection(null);
     setViewState({ view: 'home', slug: null });
     setIsCreateWizardOpen(false);
+    setIsOwnerPreview(false);
     if (typeof window !== 'undefined') {
       const nextUrl = new URL(window.location.href);
       nextUrl.pathname = '/';
@@ -200,7 +217,7 @@ export default function App() {
             onClose={() => setIsAdminOpen(false)}
             onSelectCollection={(slug) => {
               setIsAdminOpen(false);
-              handleSelectCollection(slug);
+              handleSelectCollection(slug, true);
             }}
           />
         )}
@@ -230,7 +247,7 @@ export default function App() {
             onClose={() => setIsAdminOpen(false)}
             onSelectCollection={(slug) => {
               setIsAdminOpen(false);
-              handleSelectCollection(slug);
+              handleSelectCollection(slug, true);
             }}
           />
         )}
@@ -258,7 +275,7 @@ export default function App() {
             onClose={() => setIsAdminOpen(false)}
             onSelectCollection={(slug) => {
               setIsAdminOpen(false);
-              handleSelectCollection(slug);
+              handleSelectCollection(slug, true);
             }}
           />
         )}
@@ -275,6 +292,7 @@ export default function App() {
     <>
       <GalleryPage
         collectionSlug={currentCollection}
+        isOwnerPreview={isOwnerPreview}
         onGoHome={handleGoHome}
         onSelectCollection={handleSelectCollection}
       />

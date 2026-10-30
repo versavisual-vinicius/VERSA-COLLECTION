@@ -644,7 +644,7 @@ export function GalleryPage({
         onStartSlideshow={handleStartSlideshow}
         onShareCollection={handleShareCollection}
         onGoHome={onGoHome}
-        onOpenAdmin={() => setIsAdminOpen(true)}
+        onOpenAdmin={isOwnerPreview ? () => setIsAdminOpen(true) : undefined}
       />
 
       <main>
@@ -694,7 +694,7 @@ export function GalleryPage({
       <BrandingFooter
         businessName={collection.businessName}
         totalItems={collection.totalItems}
-        onOpenAdmin={() => setIsAdminOpen(true)}
+        onOpenAdmin={isOwnerPreview ? () => setIsAdminOpen(true) : undefined}
       />
 
       {selectedPhoto && (
