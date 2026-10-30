@@ -1,8 +1,9 @@
 import { FormEvent, useId, useState } from 'react';
-import { requestAdminMagicLink } from '../../lib/backend';
+import { loginAdmin } from '../../lib/backend';
 
 interface LoginPageProps {
   onNavigateHome: () => void;
+  onLoginSuccess?: () => void;
 }
 
 type FormStatus =
@@ -10,9 +11,9 @@ type FormStatus =
   | { type: 'success'; message: string }
   | { type: 'error'; message: string };
 
-export function LoginPage({ onNavigateHome }: LoginPageProps) {
-  const emailId = useId();
-  const [email, setEmail] = useState('');
+export function LoginPage({ onNavigateHome, onLoginSuccess }: LoginPageProps) {
+  const tokenId = useId();
+  const [token, setToken] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<FormStatus>({ type: 'idle', message: '' });
 
@@ -24,18 +25,19 @@ export function LoginPage({ onNavigateHome }: LoginPageProps) {
     setStatus({ type: 'idle', message: '' });
 
     try {
-      await requestAdminMagicLink(email);
+      await loginAdmin(token);
       setStatus({
         type: 'success',
-        message: 'Enviamos um link seguro para o seu e-mail. Ele estará disponível por tempo limitado.',
+        message: 'Acesso administrativo autorizado. Redirecionando para o painel…',
       });
+      onLoginSuccess?.();
     } catch (error) {
       setStatus({
         type: 'error',
         message:
           error instanceof Error
             ? error.message
-            : 'Não foi possível enviar o link agora. Tente novamente em instantes.',
+            : 'Não foi possível validar a senha master. Verifique o token e tente novamente.',
       });
     } finally {
       setIsSubmitting(false);
@@ -58,15 +60,15 @@ export function LoginPage({ onNavigateHome }: LoginPageProps) {
 
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="login-field">
-            <label htmlFor={emailId}>E-mail profissional</label>
+            <label htmlFor={tokenId}>Senha Master / ADMIN_TOKEN</label>
             <input
-              id={emailId}
-              name="email"
-              type="email"
-              autoComplete="email"
-              placeholder="voce@seudominio.com.br"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              id={tokenId}
+              name="token"
+              type="password"
+              autoComplete="current-password"
+              placeholder="••••••••••••••••"
+              value={token}
+              onChange={(event) => setToken(event.target.value)}
               required
               aria-describedby={status.message ? 'login-status' : undefined}
               aria-invalid={status.type === 'error'}
@@ -74,7 +76,7 @@ export function LoginPage({ onNavigateHome }: LoginPageProps) {
           </div>
 
           <button className="login-submit" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Enviando link…' : 'Continuar com e-mail'}
+            {isSubmitting ? 'Autenticando…' : 'Entrar no Estúdio'}
             <span aria-hidden="true">→</span>
           </button>
 
@@ -91,7 +93,7 @@ export function LoginPage({ onNavigateHome }: LoginPageProps) {
 
         <div className="login-security-note">
           <span aria-hidden="true" />
-          <p>Sem senha para lembrar. Você receberá um link de acesso seguro na sua caixa de entrada.</p>
+          <p>Autenticação nativa direta via chave administrativa (ADMIN_TOKEN), sem serviços externos.</p>
         </div>
       </section>
 

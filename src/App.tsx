@@ -209,7 +209,7 @@ export default function App() {
   );
 
   if (viewState.view === 'login') {
-    return <LoginPage onNavigateHome={handleGoHome} />;
+    return <LoginPage onNavigateHome={handleGoHome} onLoginSuccess={handleOpenDashboard} />;
   }
 
   // Se o usuário acessar a rota /editor, renderiza o Photo Editor & Culling

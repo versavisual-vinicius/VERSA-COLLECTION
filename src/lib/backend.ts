@@ -1,4 +1,3 @@
-import { createClient, type Session, type SupabaseClient } from '@supabase/supabase-js';
 import type {
   AdminMetrics,
   CollectionConfigUpdate,
@@ -12,6 +11,16 @@ import type {
   PhotoLibraryResponse,
 } from '../types/gallery';
 import { availableCollections } from '../data/collectionsRegistry';
+
+const ADMIN_TOKEN_STORAGE_KEY = 'versa_admin_token';
+
+export interface AdminSession {
+  access_token: string;
+  user: {
+    id: string;
+    role: 'owner';
+  };
+}
 
 export interface CollectionBundle {
   collection: GalleryCollection;
@@ -62,17 +71,6 @@ export class BackendError extends Error {
 }
 
 export const backendEnabled = import.meta.env.VITE_API_ENABLED === 'true';
-
-let browserClient: SupabaseClient | null = null;
-
-function getBrowserClient(): SupabaseClient {
-  if (browserClient) return browserClient;
-  const url = import.meta.env.VITE_SUPABASE_URL;
-  const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-  if (!url || !key) throw new Error('Supabase ainda não configurado no frontend.');
-  browserClient = createClient(url, key);
-  return browserClient;
-}
 
 async function parseResponse<T>(response: Response): Promise<T> {
   const body = await response.json().catch(() => ({}));
@@ -129,29 +127,58 @@ export async function createExportRequest(input: {
   return parseResponse<{ downloadUrl: string | null }>(response);
 }
 
-export async function requestAdminMagicLink(email: string): Promise<void> {
-  const redirectTo = `${window.location.origin}/dashboard`;
-  const { error } = await getBrowserClient().auth.signInWithOtp({
-    email: email.trim().toLowerCase(),
-    options: { emailRedirectTo: redirectTo, shouldCreateUser: false },
-  });
-  if (error) throw error;
+export async function loginAdmin(token: string): Promise<AdminSession> {
+  const cleanToken = token.trim();
+  if (!cleanToken) {
+    throw new BackendError(400, 'EMPTY_ADMIN_TOKEN', 'Informe a senha master / ADMIN_TOKEN.');
+  }
+
+  if (backendEnabled) {
+    const response = await fetch('/api/admin/metrics', {
+      headers: {
+        accept: 'application/json',
+        authorization: `Bearer ${cleanToken}`,
+      },
+    });
+    if (!response.ok) {
+      throw new BackendError(403, 'INVALID_ADMIN_TOKEN', 'Senha master / ADMIN_TOKEN inválida.');
+    }
+  } else {
+    const expectedLocalToken = import.meta.env.VITE_ADMIN_TOKEN;
+    if (expectedLocalToken && cleanToken !== expectedLocalToken) {
+      throw new BackendError(403, 'INVALID_ADMIN_TOKEN', 'Senha master / ADMIN_TOKEN inválida.');
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    window.localStorage.setItem(ADMIN_TOKEN_STORAGE_KEY, cleanToken);
+  }
+
+  return {
+    access_token: cleanToken,
+    user: { id: 'owner-local', role: 'owner' },
+  };
 }
 
-export async function getAdminSession(): Promise<Session | null> {
-  const { data, error } = await getBrowserClient().auth.getSession();
-  if (error) throw error;
-  return data.session;
+export async function getAdminSession(): Promise<AdminSession | null> {
+  if (typeof window === 'undefined') return null;
+  const token = window.localStorage.getItem(ADMIN_TOKEN_STORAGE_KEY)?.trim();
+  if (!token) return null;
+  return {
+    access_token: token,
+    user: { id: 'owner-local', role: 'owner' },
+  };
 }
 
 export async function signOutAdmin(): Promise<void> {
-  const { error } = await getBrowserClient().auth.signOut();
-  if (error) throw error;
+  if (typeof window !== 'undefined') {
+    window.localStorage.removeItem(ADMIN_TOKEN_STORAGE_KEY);
+  }
 }
 
 async function adminFetch<T>(path: string, init: RequestInit = {}): Promise<T> {
   const session = await getAdminSession();
-  if (!session) throw new BackendError(401, 'ADMIN_AUTH_REQUIRED', 'Faça login por magic link.');
+  if (!session) throw new BackendError(401, 'ADMIN_AUTH_REQUIRED', 'Autenticação administrativa necessária.');
   const response = await fetch(path, {
     ...init,
     headers: {

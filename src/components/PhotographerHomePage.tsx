@@ -47,120 +47,105 @@ export function PhotographerHomePage({
 
   const totalDeliveredPhotos = collectionsList.reduce((acc, col) => acc + (col.totalItems || 0), 0);
 
-  const featuredCollection = collectionsList[0];
-  const featuredCoverUrl = featuredCollection
-    ? featuredCollection.cover?.sources?.[featuredCollection.cover.sources.length - 1]?.url ||
-      featuredCollection.cover?.sources?.[0]?.url ||
-      (featuredCollection as { coverUrl?: string }).coverUrl
-    : undefined;
-
   return (
-    <div className="min-h-screen bg-[#F4F4F0] text-[#050A0D] font-['DM_Sans'] selection:bg-[#5E7F8C] selection:text-white">
-      <header className="relative z-30 bg-[#F4F4F0]">
-        <div className="mx-auto flex h-20 max-w-[1500px] items-center justify-between px-5 sm:px-8 lg:px-12">
-          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="font-['Outfit'] text-lg font-extrabold tracking-[-0.04em]">
-            VERSA
-          </button>
-          <nav aria-label="Navegação principal" className="hidden items-center gap-10 text-sm text-[#050A0D]/55 md:flex">
-            <a href="#colecoes" className="transition-colors hover:text-[#050A0D]">Coleções</a>
-            <a href="#manifesto" className="transition-colors hover:text-[#050A0D]">Olhar</a>
-            <a href="#sobre" className="transition-colors hover:text-[#050A0D]">Sobre</a>
-          </nav>
-          <button type="button" onClick={onOpenAdmin} className="rounded-full bg-[#050A0D] px-5 py-2.5 text-xs font-medium text-white transition-transform hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5E7F8C] focus-visible:ring-offset-2">
-            Acesso Fotógrafo
-          </button>
+    <div className="min-h-screen bg-[#F6F8F9] text-[#11161B] flex flex-col font-['DM_Sans']">
+      {/* Header Institucional */}
+      <header className="border-b border-[#5E7F8C]/15 bg-[#F6F8F9]/90 backdrop-blur-md sticky top-0 z-30">
+        <div className="max-w-[1440px] mx-auto px-6 h-20 flex items-center justify-between">
+          <div>
+            <span className="text-[10px] font-bold tracking-[0.25em] text-[#5E7F8C] uppercase block mb-0.5">
+              VERSA VISUAL
+            </span>
+            <h1 className="text-lg font-bold font-['Outfit'] tracking-wide text-[#11161B]">
+              Vinicius Cunha Fotografia
+            </h1>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <button
+              type="button"
+              onClick={onOpenAdmin}
+              className="px-3.5 py-1.5 rounded-lg border border-[#5E7F8C]/20 hover:border-[#5E7F8C]/40 bg-white/80 hover:bg-white text-xs font-semibold uppercase tracking-wider text-[#11161B] transition-colors shadow-xs"
+            >
+              Acesso Fotógrafo
+            </button>
+          </div>
         </div>
       </header>
 
-      <main>
-        <section className="relative min-h-[calc(100svh-5rem)] overflow-hidden" aria-labelledby="hero-title">
-          <h1 id="hero-title" className="pointer-events-none absolute left-1/2 top-[-2vw] z-0 -translate-x-1/2 whitespace-nowrap font-['Outfit'] text-[30vw] font-black uppercase leading-[0.78] tracking-[-0.095em] text-[#050A0D] sm:text-[27vw] lg:text-[23vw]">
-            Versa
-          </h1>
-          <div className="relative z-10 mx-auto flex min-h-[calc(100svh-5rem)] max-w-[1500px] items-end justify-center px-0 pt-[19vw] sm:px-8 lg:px-12 lg:pt-[15vw]">
-            <div className="relative h-[72svh] min-h-[540px] w-full overflow-hidden bg-[#121C21] sm:h-[68svh] sm:max-w-[1050px]">
-              {featuredCoverUrl ? (
-                <img src={featuredCoverUrl} alt={featuredCollection?.title || 'Coleção em destaque'} className="h-full w-full object-cover" />
-              ) : (
-                <div className="h-full w-full bg-[#253540]" />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#050A0D]/80 via-transparent to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 flex flex-col gap-6 p-7 text-white sm:p-10 md:flex-row md:items-end md:justify-between lg:p-14">
-                <div>
-                  <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#A4B8BF]">Fotografia editorial · Macaé, RJ</p>
-                  <h2 className="max-w-2xl font-['Outfit'] text-4xl font-medium leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
-                    Histórias verdadeiras,<br />preservadas para sempre.
-                  </h2>
-                </div>
-                {featuredCollection ? (
-                  <button type="button" onClick={() => onSelectCollection(featuredCollection.slug)} className="w-fit rounded-full border border-white/35 bg-white/10 px-5 py-3 text-xs font-medium backdrop-blur-md transition-colors hover:bg-white hover:text-[#050A0D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
-                    Ver coleção em destaque
-                  </button>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="manifesto" className="mx-auto grid max-w-[1500px] gap-12 px-5 py-24 sm:px-8 md:grid-cols-[1.3fr_0.7fr] lg:px-12 lg:py-36">
-          <div className="font-['Outfit'] text-[clamp(2.4rem,6vw,6.5rem)] font-medium leading-[0.9] tracking-[-0.055em]">
-            <p>Naturalidade.</p>
-            <p className="text-[#5E7F8C]">Presença.</p>
-            <p>Verdade.</p>
-          </div>
-          <p className="max-w-md self-end text-lg leading-relaxed text-[#050A0D]/65">
-            Mais do que técnica, relacionamento. Fotografamos decisões, gestos e afetos com direção leve e um olhar atento ao que acontece de verdade.
+      {/* Hero / Apresentação Editorial */}
+      <main className="flex-1 max-w-[1440px] w-full mx-auto px-6 py-12 md:py-16">
+        <div className="max-w-2xl mb-12">
+          <span className="text-xs font-semibold text-[#5E7F8C] uppercase tracking-wider block mb-2">
+            Catálogo Oficial de Clientes
+          </span>
+          <h2 className="text-3xl md:text-5xl font-extrabold font-['Outfit'] tracking-tight mb-4 leading-tight text-[#11161B]">
+            Coleções Digitais Exclusivas
+          </h2>
+          <p className="text-sm md:text-base text-[#5A6872] leading-relaxed">
+            Selecione a sua galeria para reviver cada momento em alta resolução, selecionar seus favoritos e realizar downloads autorizados.
           </p>
-        </section>
+        </div>
 
-        <section id="colecoes" className="bg-[#050A0D] px-5 py-24 text-[#F2F2F2] sm:px-8 lg:px-12 lg:py-32">
-          <div className="mx-auto max-w-[1500px]">
-            <div className="mb-14 flex items-end justify-between gap-6 border-b border-white/15 pb-7">
-              <div>
-                <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#A4B8BF]">Arquivo de clientes</p>
-                <h2 className="font-['Outfit'] text-5xl font-semibold tracking-[-0.05em] sm:text-7xl">Coleções</h2>
-              </div>
-              <p className="hidden max-w-xs text-right text-sm leading-relaxed text-white/50 sm:block">Cada galeria é uma experiência privada para rever, selecionar e guardar fotografias.</p>
-            </div>
-
-            {isLoading ? (
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3" role="status" aria-label="Carregando coleções">
-                {[1, 2, 3].map((item) => <div key={item} className="aspect-[4/5] animate-pulse bg-white/5" />)}
-              </div>
-            ) : collectionsList.length === 0 ? (
-              <PhotographerEmptyState onOpenAdmin={onOpenAdmin} />
-            ) : (
-              <div className="grid grid-cols-1 gap-x-5 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
-                {collectionsList.map((col, index) => {
-                  const coverUrl = col.cover?.sources?.[col.cover.sources.length - 1]?.url || col.cover?.sources?.[0]?.url || (col as { coverUrl?: string }).coverUrl;
-                  return (
-                    <article key={col.slug} className={`group ${index % 3 === 1 ? 'lg:translate-y-12' : ''}`}>
-                      <button type="button" onClick={() => onSelectCollection(col.slug)} className="block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5E7F8C] focus-visible:ring-offset-4 focus-visible:ring-offset-[#050A0D]">
-                        <CollectionCoverThumbnail coverUrl={coverUrl} title={col.title} />
-                        <div className="flex items-start justify-between gap-5 border-t border-white/15 pt-4">
-                          <div>
-                            <p className="mb-1 text-[10px] uppercase tracking-[0.24em] text-[#A4B8BF]">{col.businessName || 'Versa Visual'}</p>
-                            <h3 className="font-['Outfit'] text-2xl font-medium tracking-[-0.03em]">{col.title}</h3>
-                          </div>
-                          <span className="mt-1 text-xs text-white/45">{String(index + 1).padStart(2, '0')}</span>
-                        </div>
-                        <div className="mt-4 flex items-center justify-between text-xs text-white/45">
-                          <span>{col.totalItems} fotografias</span>
-                          <span className="text-white transition-transform group-hover:translate-x-1">Abrir coleção →</span>
-                        </div>
-                      </button>
-                    </article>
-                  );
-                })}
-              </div>
-            )}
+        {/* Grade de Coleções ou Estado Vazio */}
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="status">
+            {[1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className="rounded-2xl overflow-hidden bg-white/80 border border-[#5E7F8C]/15 h-80 animate-pulse shadow-sm"
+              />
+            ))}
           </div>
-        </section>
+        ) : collectionsList.length === 0 ? (
+          <PhotographerEmptyState onOpenAdmin={onOpenAdmin} />
+        ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {collectionsList.map((col) => {
+            const coverUrl =
+              col.cover?.sources?.[col.cover.sources.length - 1]?.url ||
+              col.cover?.sources?.[0]?.url ||
+              (col as { coverUrl?: string }).coverUrl;
+
+            return (
+              <article
+                key={col.slug}
+                onClick={() => onSelectCollection(col.slug)}
+                className="group relative rounded-2xl overflow-hidden bg-white border border-[#5E7F8C]/15 hover:border-[#5E7F8C] transition-all duration-300 cursor-pointer flex flex-col shadow-sm hover:shadow-xl hover:-translate-y-1"
+              >
+                {/* Imagem de Capa com Proporção Editorial & Fallback Resiliente */}
+                <CollectionCoverThumbnail coverUrl={coverUrl} title={col.title} />
+
+                {/* Conteúdo do Card */}
+                <div className="p-6 flex flex-col flex-1 justify-between">
+                  <div>
+                    <span className="text-[11px] font-semibold tracking-wider text-[#5E7F8C] uppercase block mb-1">
+                      {col.businessName || 'Versa Visual'}
+                    </span>
+                    <h3 className="text-xl font-bold font-['Outfit'] text-[#11161B] group-hover:text-[#5E7F8C] transition-colors mb-2">
+                      {col.title}
+                    </h3>
+                  </div>
+
+                  <div className="mt-6 pt-4 border-t border-[#5E7F8C]/15 flex items-center justify-between text-xs text-[#5A6872]">
+                    <span>{col.totalItems} fotografias</span>
+                    <span className="font-semibold text-[#11161B] group-hover:text-[#5E7F8C] group-hover:translate-x-1 transition-all inline-flex items-center gap-1">
+                      Acessar galeria →
+                    </span>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+        )}
       </main>
 
-      <div id="sobre">
-        <BrandingFooter businessName="Vinicius Cunha Fotografia" totalItems={totalDeliveredPhotos} onOpenAdmin={onOpenAdmin} />
-      </div>
+      <BrandingFooter
+        businessName="Vinicius Cunha Fotografia"
+        totalItems={totalDeliveredPhotos}
+        onOpenAdmin={onOpenAdmin}
+      />
     </div>
   );
 }
@@ -169,24 +154,28 @@ function CollectionCoverThumbnail({ coverUrl, title }: { coverUrl?: string; titl
   const [hasError, setHasError] = useState(false);
 
   return (
-    <div className="relative mb-5 aspect-[4/5] select-none overflow-hidden bg-[#121C21]">
+    <div className="aspect-[16/10] overflow-hidden bg-[#EEF1F3] relative select-none">
       {coverUrl && !hasError ? (
         <img
           src={coverUrl}
           alt={title}
           onError={() => setHasError(true)}
-          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
           loading="lazy"
         />
       ) : (
-        <div className="flex h-full w-full flex-col items-center justify-center bg-[#121C21] p-4 text-center text-white">
-          <span className="font-['Outfit'] text-7xl font-black tracking-[-0.08em] text-[#5E7F8C]">
-            {title.slice(0, 2).toUpperCase()}
+        <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#050A0D] to-[#121A20] text-white p-4 text-center">
+          <div className="w-10 h-10 rounded-full bg-[#5E7F8C]/20 border border-[#5E7F8C]/40 flex items-center justify-center mb-2 shadow-xs">
+            <span className="font-['Outfit'] font-bold text-xs tracking-wider text-[#5E7F8C]">
+              {title.slice(0, 2).toUpperCase()}
+            </span>
+          </div>
+          <span className="text-[11px] font-medium text-white/75 tracking-wide font-['DM_Sans']">
+            Galeria Digital Versa
           </span>
-          <span className="mt-3 text-[10px] font-medium uppercase tracking-[0.25em] text-white/55">Galeria Digital Versa</span>
         </div>
       )}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
     </div>
   );
 }

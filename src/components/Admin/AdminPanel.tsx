@@ -13,7 +13,7 @@ import {
   fetchAdminExportRequests,
   getAdminSession,
   importLegacyBrowserData,
-  requestAdminMagicLink,
+  loginAdmin,
   signOutAdmin,
   updateAdminCollection,
   type AdminCollection,
@@ -160,14 +160,15 @@ export function AdminPanel({
       .catch((reason: unknown) => setError(reason instanceof Error ? reason.message : 'Erro ao carregar solicitações.'));
   }, [activeTab, isAuthenticated]);
 
-  const sendMagicLink = async (event: React.FormEvent) => {
+  const handleAdminLogin = async (event: React.FormEvent) => {
     event.preventDefault();
     setError(null);
+    setMessage(null);
     try {
-      await requestAdminMagicLink(email);
-      setMessage('Magic link enviado. Abra o e-mail neste navegador para concluir o acesso.');
+      await loginAdmin(email);
+      setIsAuthenticated(true);
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'Não foi possível enviar o magic link.');
+      setError(reason instanceof Error ? reason.message : 'Senha master / ADMIN_TOKEN inválida.');
     }
   };
 
@@ -260,12 +261,12 @@ export function AdminPanel({
     return (
       <PanelShell onClose={onClose}>
         <h2 className="text-xl font-bold font-['Outfit'] text-[#11161B]">Painel do Fotógrafo</h2>
-        <p className="mt-2 text-xs text-[#5A6872]">Acesso restrito por magic link.</p>
-        <form onSubmit={sendMagicLink} className="mt-6 space-y-3">
-          <label htmlFor="admin-email" className="block text-xs font-medium text-[#5A6872]">E-mail autorizado</label>
+        <p className="mt-2 text-xs text-[#5A6872]">Acesso restrito por Senha Master / ADMIN_TOKEN.</p>
+        <form onSubmit={handleAdminLogin} className="mt-6 space-y-3">
+          <label htmlFor="admin-token" className="block text-xs font-medium text-[#5A6872]">Senha Master / ADMIN_TOKEN</label>
           <input
-            id="admin-email"
-            type="email"
+            id="admin-token"
+            type="password"
             required
             value={email}
             onChange={(event) => setEmail(event.target.value)}
@@ -275,7 +276,7 @@ export function AdminPanel({
             type="submit"
             className="w-full rounded-lg bg-[#5E7F8C] hover:bg-[#5E7F8C]/90 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-xs transition-colors"
           >
-            Enviar magic link
+            Entrar no Painel
           </button>
         </form>
         <Feedback message={message} error={error} />

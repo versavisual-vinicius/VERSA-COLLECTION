@@ -198,13 +198,12 @@ describe('Fase 12 — Estados de Página, Resiliência e Tratamento de Erros (Se
 
   it('9. Conexão de Rotas & Painel do Fotógrafo: navega entre Catálogo, Galeria, Admin e Estados', async () => {
     const { default: App } = await import('../App');
-    window.history.replaceState({}, '', '/');
+    window.history.replaceState({}, '', '/?admin=true');
 
     render(<App />);
     expect(screen.getByText(/Coleções Digitais Exclusivas/i)).toBeInTheDocument();
 
-    // Abre Painel do Fotógrafo a partir da Homepage
-    fireEvent.click(screen.getByRole('button', { name: /Acesso Fotógrafo/i }));
+    // Com ?admin=true, o Painel do Fotógrafo é exibido
     expect(screen.getByTestId('admin-panel')).toBeInTheDocument();
 
     // Clica em "Abrir Galeria" no AdminPanel para ir direto à coleção selecionada

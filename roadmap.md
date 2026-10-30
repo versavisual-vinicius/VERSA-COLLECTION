@@ -55,7 +55,7 @@
 ## Fase 18: Autenticação & Conexão entre Telas
 
 - [x] Tela editorial de login `/login`, responsiva e alinhada ao Design System Versa Visual.
-- [x] Autenticação sem senha por magic link integrada ao Supabase, com retorno autenticado para `/dashboard`.
+- [x] Autenticação nativa direta via Senha Master / `ADMIN_TOKEN` contra o backend, com retorno autenticado para `/dashboard`.
 - [x] Conexão do CTA “Acesso Fotógrafo” da página inicial ao fluxo de login e retorno pelo wordmark para a home.
 - [x] Navegação validada entre `/dashboard`, `/photos`, `/editor`, `/collections/create` e galerias públicas `/g/:slug`.
 - [x] Rewrites de SPA configurados na Vercel para preservar acesso direto e atualização de todas as rotas públicas da aplicação.

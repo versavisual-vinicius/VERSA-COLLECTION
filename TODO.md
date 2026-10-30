@@ -318,12 +318,20 @@
   - Revisão `versa-collection-git-00021-lvs` publicada em `europe-west1` (100% do tráfego) via `https://versa-collection-git-159343690308.europe-west1.run.app`.
   - Rotas `/dashboard`, `/photos`, `/editor`, `/collections/create`, `/api/collections` e `/api/photos` ativas com HTTP 200 e conectadas ao AlloyDB for PostgreSQL.
 
+---
 
+## Fase 18: Autenticação Nativa (`ADMIN_TOKEN`), Expurgo de Resíduos & Code Splitting
 
+- [x] **Expurgo Total de Resíduos Legados (Supabase)**:
+  - Remoção de `@supabase/supabase-js`, `supabase` e pacotes órfãos do `package.json` e `pnpm-lock.yaml`.
+  - Remoção de `src/lib/firebase.ts` órfão, `feribase/config.toml` e `feribase/.gitignore`.
+  - Limpeza de variáveis legadas em `.env.example` e `vercel.json` (CSP `connect-src 'self'`).
+  - Renomeação do script de semente para `scripts/seed-db-collections.mjs` (`pnpm seed:db`).
+- [x] **Autenticação Nativa Direta (`ADMIN_TOKEN` / Senha Master)**:
+  - Substituição do fluxo de magic link por autenticação direta via `loginAdmin` em `src/lib/backend.ts` e `api/_lib/auth.ts` contra o backend nativo (`/api/admin/metrics` com `Authorization: Bearer <ADMIN_TOKEN>`).
+  - Atualização de `LoginPage.tsx` e `AdminPanel.tsx` para autenticação por Senha Master com redirecionamento imediato para `/dashboard`.
+- [x] **Restauração do Design System & Code Splitting**:
+  - Expurgo de 263 linhas de sobrescritas CSS invasivas ("MONO") em `src/index.css` e restauração da `PhotographerHomePage.tsx` canônica da Versa Visual.
+  - Divisão de chunks no `vite.config.ts` (`vendor-react`, `vendor-jszip`, `collection-[slug]`), reduzindo o bundle principal `index.js` de 9.4 MB para ~203 kB (50.8 kB gzip).
 
-
-
-
-
-  
 

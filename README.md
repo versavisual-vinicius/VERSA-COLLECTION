@@ -111,8 +111,8 @@ O **VERSA-COLLECTION** foi concebido para entrega fotográfica profissional de a
 1. **Capa Editorial em 100dvh**: focalPoint dinâmico, vinheta tipográfica calculada e tipografia autoral da Versa Visual (`Outfit` para títulos e `DM Sans` para leitura/interface).
 2. **Masonry Calculado Determinístico**: distribuição de fotos por menor altura acumulada em 4/3/2 colunas com proporção reservada (Zero Layout Shift).
 3. **Fotos em Alta Fidelidade (Google Drive CDN)**: integração nativa com o acervo do Google Drive (`lh3.googleusercontent.com`), com fontes responsivas em 640px, 1024px, 2048px, 3600px e original sem compressão destrutiva.
-4. **Segurança do Cliente & Desafio de Senha (`GalleryPasswordGate`)**: senha e e-mail validados em Vercel Functions, segredo hasheado no Supabase e sessão `HttpOnly` de 12 horas.
-5. **Painel do Fotógrafo Vini (`AdminPanel`)**: autenticação Supabase por magic link, gestão server-side de credenciais, downloads e auditoria.
+4. **Segurança do Cliente & Desafio de Senha (`GalleryPasswordGate`)**: senha e e-mail validados no backend Node.js 24, segredo hasheado com `scrypt` no AlloyDB PostgreSQL 17 e sessão `HttpOnly` de 12 horas.
+5. **Painel do Fotógrafo Vini (`AdminPanel` & `/dashboard`)**: autenticação nativa direta por Senha Master (`ADMIN_TOKEN`), gestão server-side de credenciais, downloads e auditoria.
 6. **Download Real & Exportações**: suporte a download individual de arquivo em alta resolução e link de pacote completo no Drive/Nuvem.
 7. **Lightbox & Slideshow Imersivo**: navegação por teclado (`ArrowLeft`, `ArrowRight`, `Space`, `Escape`), auto-hide de controles e suporte a gestos touch.
 8. **Favoritos com Otimismo Reversível**: persistência em `localStorage` e exportação/compartilhamento de fotos selecionadas.
@@ -182,7 +182,7 @@ src/
 │   ├── useFavorites.ts                  # Hook de favoritos com otimismo reversível
 │   ├── telemetry.ts                     # Telemetria anônima estrita
 │   └── gallery.tsx
-└── test/                                # 14 suítes Vitest / 75 testes
+└── test/                                # 23 suítes Vitest / 135 testes
 ```
 
 ---
@@ -204,23 +204,25 @@ pnpm build
 
 # Sincronização automática com Google Drive
 pnpm sync:drive
+
+# Semente de coleções no PostgreSQL / AlloyDB
+pnpm seed:db
 ```
 
 ---
 
 ## 🔐 Acesso Administrativo (Painel do Fotógrafo)
 
-- **URL**: `/?collection=modec-dia-das-criancas-2026&admin=true` (ou rota `/admin`).
+- **URL**: `/login` (ou `/?collection=modec-dia-das-criancas-2026&admin=true`).
 - **Atalho de Teclado**: `Shift + A` em qualquer página.
-- **Menu**: Opção "Painel do Fotógrafo" no menu superior `⋯` ou no rodapé.
-- **Autenticação**: magic link do Supabase para usuário previamente criado com `app_metadata.role = "owner"`.
+- **Menu**: Botão "Acesso Fotógrafo" na homepage, opção "Painel do Fotógrafo" no menu superior `⋯` ou no rodapé.
+- **Autenticação**: Senha Master / `ADMIN_TOKEN` validada diretamente contra o backend nativo (`Authorization: Bearer <ADMIN_TOKEN>`).
 
-## Ativação do backend seguro
+## Ativação do backend seguro (Google Cloud Run + AlloyDB PostgreSQL 17)
 
-1. Crie um projeto Supabase e aplique a migration em `supabase/migrations/`.
-2. Crie o usuário administrador sem cadastro público e defina `app_metadata.role = "owner"`.
-3. Configure na Vercel as variáveis de `.env.example`; segredos nunca usam prefixo `VITE_`.
-4. Execute `pnpm sync:supabase` para importar as coleções versionadas.
-5. Ative `VITE_API_ENABLED=true`, publique primeiro em Preview e use “Migrar dados locais” no painel.
+1. Provisione o banco PostgreSQL / AlloyDB e aplique o schema inicial em `scripts/seed-collections.sql`.
+2. Configure no ambiente de produção (`server.mjs` / Cloud Run) as variáveis de `.env.example` (`DATABASE_URL`, `ADMIN_TOKEN`, `RATE_LIMIT_SECRET`); segredos de backend nunca usam prefixo `VITE_`.
+3. Execute `pnpm seed:db` para gerar/importar a semente das coleções versionadas.
+4. Ative `VITE_API_ENABLED=true` para conectar o frontend à API `/api/*`.
 
-Enquanto `VITE_API_ENABLED=false`, a galeria pública funciona com fixtures locais, mas o painel administrativo inseguro permanece desativado.
+Enquanto `VITE_API_ENABLED=false`, a galeria opera em modo estúdio local com os acervos JSON estáticos.
