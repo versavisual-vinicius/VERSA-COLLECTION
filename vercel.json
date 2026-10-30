@@ -19,6 +19,12 @@
     }
   ],
   "rewrites": [
+    { "source": "/login", "destination": "/index.html" },
+    { "source": "/dashboard", "destination": "/index.html" },
+    { "source": "/photos", "destination": "/index.html" },
+    { "source": "/editor", "destination": "/index.html" },
+    { "source": "/collections/:path*", "destination": "/index.html" },
+    { "source": "/projects/:path*", "destination": "/index.html" },
     { "source": "/g/:slug", "destination": "/index.html" }
   ]
 }

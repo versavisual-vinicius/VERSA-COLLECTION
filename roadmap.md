@@ -51,3 +51,12 @@
 - [x] Workspace dedicado `/editor` com canvas em alta resolução, filmstrip sincronizado e barra de filtros rápidos.
 - [x] Motor de triagem por teclado (`1`-`5` estrelas, `P` Pick, `X` Reject, `U` Unflag, setas de navegação) com persistência local por coleção.
 - [x] Painel de estilos editoriais Versa Visual em tempo real e exportação de lista de aprovadas para Adobe Lightroom Classic.
+
+## Fase 18: Autenticação & Conexão entre Telas
+
+- [x] Tela editorial de login `/login`, responsiva e alinhada ao Design System Versa Visual.
+- [x] Autenticação sem senha por magic link integrada ao Supabase, com retorno autenticado para `/dashboard`.
+- [x] Conexão do CTA “Acesso Fotógrafo” da página inicial ao fluxo de login e retorno pelo wordmark para a home.
+- [x] Navegação validada entre `/dashboard`, `/photos`, `/editor`, `/collections/create` e galerias públicas `/g/:slug`.
+- [x] Rewrites de SPA configurados na Vercel para preservar acesso direto e atualização de todas as rotas públicas da aplicação.
+- [x] Fechamento do assistente de criação normalizado para `/dashboard`, evitando reabertura do modal após atualizar a página.
