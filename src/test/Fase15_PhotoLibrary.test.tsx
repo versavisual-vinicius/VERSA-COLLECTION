@@ -1,6 +1,8 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from '../App';
+import { fetchAdminMetrics, fetchPhotoLibrary } from '../lib/backend';
+import { getActiveCollectionEntries } from '../data/collectionsRegistry';
 import { PhotoLibraryFilterBar } from '../components/PhotoLibrary/PhotoLibraryFilterBar';
 import { PhotoLibraryEmptyState } from '../components/PhotoLibrary/PhotoLibraryEmptyState';
 import { PhotoLibraryPage } from '../components/PhotoLibrary/PhotoLibraryPage';
@@ -144,6 +146,26 @@ describe('Fase 15: Biblioteca Central de Fotos & Busca Resiliente (Pixieset Pari
       await waitFor(() => {
         expect(screen.getByTestId('photo-library-page')).toBeInTheDocument();
       });
+    });
+
+    it('mantém paridade exata de totais entre Dashboard (fetchAdminMetrics), Biblioteca (fetchPhotoLibrary) e Catálogo Público (Issue #5)', async () => {
+      const [metrics, library] = await Promise.all([
+        fetchAdminMetrics(),
+        fetchPhotoLibrary({ limit: 10 }),
+      ]);
+      const activeEntries = getActiveCollectionEntries();
+      const catalogDeliveredPhotos = activeEntries.reduce(
+        (acc, [, c]) => acc + (c.photos?.length || c.collection.totalItems || 0),
+        0,
+      );
+
+      expect(metrics.totalCollections).toBe(activeEntries.length);
+      expect(library.collections.length).toBe(activeEntries.length);
+      expect(metrics.totalPhotos).toBe(library.totalCount);
+      expect(metrics.totalPhotos).toBe(catalogDeliveredPhotos);
+      expect(library.collections.some((c) => c.slug === 'fixture' || c.slug === 'oticas-eloy-nat')).toBe(
+        false,
+      );
     });
   });
 });

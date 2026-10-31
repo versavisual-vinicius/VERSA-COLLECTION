@@ -47,7 +47,7 @@
       "x": 50,
       "y": 35
     },
-    "visibility": "public",
+    "visibility": "hidden",
     "passwordRequired": false,
     "favoritesEnabled": true,
     "downloads": {
@@ -66,7 +66,7 @@
     },
     "sharingEnabled": true,
     "slideshowEnabled": true,
-    "totalItems": 1,
+    "totalItems": 0,
     "locale": "pt-BR",
     "theme": {
       "headingFont": "Outfit, sans-serif",
@@ -78,54 +78,5 @@
       "coverOverlayOpacity": 0.65
     }
   },
-  "photos": [
-    {
-      "id": "photo-kessiabday-001",
-      "fileName": "._kessia-43.jpg",
-      "alt": "Fotografia 1 de KESSIABDAY",
-      "width": 3840,
-      "height": 2560,
-      "focalPoint": {
-        "x": 50,
-        "y": 50
-      },
-      "dominantColor": "#181b20",
-      "sources": [
-        {
-          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=w640",
-          "width": 640,
-          "height": 427,
-          "format": "jpeg"
-        },
-        {
-          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=w1024",
-          "width": 1024,
-          "height": 683,
-          "format": "jpeg"
-        },
-        {
-          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=w2048",
-          "width": 2048,
-          "height": 1365,
-          "format": "jpeg"
-        },
-        {
-          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=w3600",
-          "width": 3600,
-          "height": 2400,
-          "format": "jpeg"
-        },
-        {
-          "url": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=s0",
-          "width": 3840,
-          "height": 2560,
-          "format": "jpeg"
-        }
-      ],
-      "downloadUrl": "https://lh3.googleusercontent.com/d/1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg=s0",
-      "shareUrl": "1bUZ4ybxSr7-Kek1V2Cok7fxtBvUblnKg",
-      "position": 1,
-      "positionTieBreaker": "._kessia-43.jpg"
-    }
-  ]
+  "photos": []
 }

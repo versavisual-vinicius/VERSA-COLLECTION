@@ -55,15 +55,26 @@ function naturalSort(a, b) {
   return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' });
 }
 
+function isValidImageFile(file) {
+  if (!file || !file.name) return false;
+  // Ignora arquivos ocultos de resource fork do macOS Finder (._*)
+  if (file.name.startsWith('._') || file.name.startsWith('.')) return false;
+  // Ignora arquivos corrompidos/metadados menores que 8 KB
+  if (file.size !== undefined && Number(file.size) <= 8192) return false;
+  return true;
+}
+
 async function resolveFolder(item) {
   if (item.mimeType === 'application/vnd.google-apps.folder') {
     return { id: item.id, name: item.name };
   }
-  if (item.mimeType === 'application/vnd.google-apps.shortcut' && item.shortcutDetails?.targetId) {
+  const targetId = item.shortcutDetails?.targetId || item.shortcutDetails?.targetFileId;
+  if (item.mimeType === 'application/vnd.google-apps.shortcut' && targetId) {
     try {
       const target = await drive.files.get({
-        fileId: item.shortcutDetails.targetId,
+        fileId: targetId,
         fields: 'id, name, mimeType',
+        supportsAllDrives: true,
       });
       if (target.data.mimeType === 'application/vnd.google-apps.folder') {
         return { id: target.data.id, name: item.name };
@@ -75,20 +86,27 @@ async function resolveFolder(item) {
   return null;
 }
 
-async function fetchAllPhotosInFolder(folderId) {
+async function fetchDirectPhotosInFolder(folderId) {
   const photos = [];
   let pageToken = null;
 
   do {
     const res = await drive.files.list({
       q: `'${folderId}' in parents and mimeType contains 'image/' and trashed = false`,
-      fields: 'nextPageToken, files(id, name, mimeType, imageMediaMetadata, webViewLink, webContentLink, createdTime)',
+      fields:
+        'nextPageToken, files(id, name, size, mimeType, imageMediaMetadata, webViewLink, webContentLink, createdTime)',
       pageSize: 1000,
       pageToken,
+      supportsAllDrives: true,
+      includeItemsFromAllDrives: true,
     });
 
     if (res.data.files) {
-      photos.push(...res.data.files);
+      for (const f of res.data.files) {
+        if (isValidImageFile(f)) {
+          photos.push(f);
+        }
+      }
     }
     pageToken = res.data.nextPageToken;
   } while (pageToken);
@@ -96,13 +114,40 @@ async function fetchAllPhotosInFolder(folderId) {
   return photos;
 }
 
+async function fetchAllPhotosInFolder(folderId) {
+  const directPhotos = await fetchDirectPhotosInFolder(folderId);
+  if (directPhotos.length > 0) return directPhotos;
+
+  // Caso a pasta contenha apenas subpastas (ex: Prontas Odonto -> Odonto, Odonto2), busca 1 nível abaixo
+  const subRes = await drive.files.list({
+    q: `'${folderId}' in parents and (mimeType = 'application/vnd.google-apps.folder' or mimeType = 'application/vnd.google-apps.shortcut') and trashed = false`,
+    fields: 'files(id, name, mimeType, shortcutDetails)',
+    pageSize: 100,
+    supportsAllDrives: true,
+    includeItemsFromAllDrives: true,
+  });
+
+  const aggregated = [];
+  for (const sub of subRes.data.files || []) {
+    const resolvedSub = await resolveFolder(sub);
+    if (resolvedSub) {
+      const subPhotos = await fetchDirectPhotosInFolder(resolvedSub.id);
+      aggregated.push(...subPhotos);
+    }
+  }
+  return aggregated;
+}
+
 function buildImageSources(fileId, originalWidth, originalHeight) {
-  const widths = [640, 1024, 2048, 3600];
+  const widths = [640, 1024, 2048];
   const sources = [];
 
   for (const w of widths) {
     if (originalWidth && w > originalWidth * 1.25) continue;
-    const h = originalWidth && originalHeight ? Math.round((w * originalHeight) / originalWidth) : Math.round(w * 0.66);
+    const h =
+      originalWidth && originalHeight
+        ? Math.round((w * originalHeight) / originalWidth)
+        : Math.round(w * 0.66);
     sources.push({
       url: `https://lh3.googleusercontent.com/d/${fileId}=w${w}`,
       width: w,
@@ -111,11 +156,14 @@ function buildImageSources(fileId, originalWidth, originalHeight) {
     });
   }
 
-  // Fonte original
+  // Fallback de alta resolução limitado a w2400 para evitar timeout/429 em arquivos de 20MB+
   sources.push({
-    url: `https://lh3.googleusercontent.com/d/${fileId}=s0`,
-    width: originalWidth || 3840,
-    height: originalHeight || 2560,
+    url: `https://lh3.googleusercontent.com/d/${fileId}=w2400`,
+    width: Math.min(originalWidth || 2400, 2400),
+    height:
+      originalWidth && originalHeight
+        ? Math.round((Math.min(originalWidth, 2400) * originalHeight) / originalWidth)
+        : 1600,
     format: 'jpeg',
   });
 
@@ -126,10 +174,12 @@ async function sync() {
   console.log('🔄 Iniciando sincronização do Google Drive...');
   console.log(`📁 Pasta Raiz: ${rootFolderId}`);
 
-  // Listar itens na pasta raiz
   const rootItems = await drive.files.list({
     q: `'${rootFolderId}' in parents and trashed = false`,
     fields: 'files(id, name, mimeType, shortcutDetails)',
+    pageSize: 200,
+    supportsAllDrives: true,
+    includeItemsFromAllDrives: true,
   });
 
   const collections = [];
@@ -138,7 +188,7 @@ async function sync() {
     fs.mkdirSync(outDir, { recursive: true });
   }
 
-  for (const item of rootItems.data.files) {
+  for (const item of rootItems.data.files || []) {
     const folder = await resolveFolder(item);
     if (!folder) continue;
 
@@ -146,18 +196,17 @@ async function sync() {
     console.log(`\n📸 Processando coleção: "${folder.name}" (slug: ${slug})...`);
 
     const rawPhotos = await fetchAllPhotosInFolder(folder.id);
-    console.log(`   Total de fotos encontradas: ${rawPhotos.length}`);
+    console.log(`   Total de fotos válidas encontradas: ${rawPhotos.length}`);
     if (rawPhotos.length === 0) continue;
 
-    // Ordenação natural de arquivos
     rawPhotos.sort(naturalSort);
 
-    // Encontrar foto com formato paisagem para capa, senão a primeira
-    const landscapeCandidate = rawPhotos.find((p) => {
-      const w = p.imageMediaMetadata?.width || 0;
-      const h = p.imageMediaMetadata?.height || 0;
-      return w > h;
-    }) || rawPhotos[0];
+    const landscapeCandidate =
+      rawPhotos.find((p) => {
+        const w = p.imageMediaMetadata?.width || 0;
+        const h = p.imageMediaMetadata?.height || 0;
+        return w > h;
+      }) || rawPhotos[0];
 
     const coverWidth = landscapeCandidate.imageMediaMetadata?.width || 3840;
     const coverHeight = landscapeCandidate.imageMediaMetadata?.height || 2560;
@@ -165,8 +214,8 @@ async function sync() {
     const collectionData = {
       collection: {
         id: `col-${slug}`,
-        slug: slug,
-        title: folder.name,
+        slug,
+        title: folder.name.toUpperCase(),
         businessName: 'Versa Visual',
         businessUrl: 'https://instagram.com/v1ncsc',
         cover: {
@@ -197,7 +246,7 @@ async function sync() {
           bodyFont: 'DM Sans, sans-serif',
           foreground: '#f5f5f4',
           background: '#050A0D',
-          gridGapDesktop: 6,
+          gridGapDesktop: 8,
           gridGapMobile: 4,
           coverOverlayOpacity: 0.65,
         },
@@ -224,7 +273,6 @@ async function sync() {
       }),
     };
 
-    // Salvar JSON individual da coleção
     const colFilePath = path.join(outDir, `${slug}.json`);
     fs.writeFileSync(colFilePath, JSON.stringify(collectionData, null, 2), 'utf-8');
     console.log(`   ✅ Arquivo gerado: src/data/collections/${slug}.json (${rawPhotos.length} fotos)`);
@@ -234,14 +282,17 @@ async function sync() {
       slug: collectionData.collection.slug,
       title: collectionData.collection.title,
       totalItems: collectionData.collection.totalItems,
-      coverUrl: collectionData.collection.cover.sources[1]?.url || collectionData.collection.cover.sources[0]?.url,
+      coverUrl:
+        collectionData.collection.cover.sources[1]?.url ||
+        collectionData.collection.cover.sources[0]?.url,
     });
   }
 
-  // Salvar índice geral de coleções
   const indexFilePath = path.join(outDir, 'index.json');
   fs.writeFileSync(indexFilePath, JSON.stringify(collections, null, 2), 'utf-8');
-  console.log(`\n✨ Sincronização concluída! ${collections.length} coleções indexadas em src/data/collections/index.json`);
+  console.log(
+    `\n✨ Sincronização concluída! ${collections.length} coleções indexadas em src/data/collections/index.json`,
+  );
 }
 
 sync().catch((err) => {

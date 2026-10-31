@@ -23,11 +23,37 @@ for (const [filePath, mod] of Object.entries(rawModules)) {
   if (filePath.endsWith('index.json')) continue;
   const data = mod as unknown as { collection?: GalleryCollection; photos?: GalleryPhoto[] };
   if (data?.collection?.slug && Array.isArray(data?.photos)) {
+    const validPhotos: GalleryPhoto[] = [];
+    const resourceForkPhotos: GalleryPhoto[] = [];
+    for (const photo of data.photos) {
+      if (photo.fileName?.startsWith('._') || photo.fileName?.startsWith('.')) {
+        resourceForkPhotos.push(photo);
+      } else {
+        validPhotos.push(photo);
+      }
+    }
+    const orderedPhotos =
+      resourceForkPhotos.length > 0 && validPhotos.length > 0
+        ? [...validPhotos, ...resourceForkPhotos].map((p, idx) => ({
+            ...p,
+            position: idx + 1,
+          }))
+        : data.photos;
+
     availableCollections[data.collection.slug] = {
       collection: data.collection,
-      photos: data.photos,
+      photos: orderedPhotos,
     };
   }
+}
+
+export function getActiveCollectionEntries(): Array<[string, CollectionData]> {
+  return Object.entries(availableCollections).filter(
+    ([slug, data]) =>
+      slug !== 'fixture' &&
+      data.collection.visibility !== 'hidden' &&
+      (data.photos?.length ?? data.collection.totalItems ?? 0) > 0,
+  );
 }
 
 export const defaultCollectionSlug = 'modec-dia-das-criancas-2026';

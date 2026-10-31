@@ -24,7 +24,7 @@
           "format": "jpeg"
         },
         {
-          "url": "https://lh3.googleusercontent.com/d/1i5GPXvlV8QqlZakFS2iaDBuAvYOZ9hdt=s0",
+          "url": "https://lh3.googleusercontent.com/d/1i5GPXvlV8QqlZakFS2iaDBuAvYOZ9hdt=w2400",
           "width": 890,
           "height": 1583,
           "format": "jpeg"
@@ -61,7 +61,7 @@
       "bodyFont": "DM Sans, sans-serif",
       "foreground": "#f5f5f4",
       "background": "#050A0D",
-      "gridGapDesktop": 6,
+      "gridGapDesktop": 8,
       "gridGapMobile": 4,
       "coverOverlayOpacity": 0.65
     }
@@ -92,7 +92,7 @@
           "format": "jpeg"
         },
         {
-          "url": "https://lh3.googleusercontent.com/d/1i5GPXvlV8QqlZakFS2iaDBuAvYOZ9hdt=s0",
+          "url": "https://lh3.googleusercontent.com/d/1i5GPXvlV8QqlZakFS2iaDBuAvYOZ9hdt=w2400",
           "width": 890,
           "height": 1583,
           "format": "jpeg"

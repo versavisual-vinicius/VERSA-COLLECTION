@@ -32,6 +32,6 @@ export default defineConfig({
     environment: 'jsdom',
     pool: 'vmThreads',
     setupFiles: ['./src/test/setup.ts'],
-    exclude: ['**/node_modules/**', '**/dist/**', '**/dist-server/**', '**/.git/**'],
+    exclude: ['**/node_modules/**', '**/dist/**', '**/dist-server/**', '**/.git/**', 'e2e/**'],
   },
 });

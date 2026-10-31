@@ -10,9 +10,10 @@ import type {
   PhotoLibraryQuery,
   PhotoLibraryResponse,
 } from '../types/gallery';
-import { availableCollections } from '../data/collectionsRegistry';
+import { availableCollections, getActiveCollectionEntries } from '../data/collectionsRegistry';
 
 const ADMIN_TOKEN_STORAGE_KEY = 'versa_admin_token';
+const ADMIN_COOKIE_NAME = 'versa_admin_sid';
 
 export interface AdminSession {
   access_token: string;
@@ -71,6 +72,63 @@ export class BackendError extends Error {
 }
 
 export const backendEnabled = import.meta.env.VITE_API_ENABLED === 'true';
+
+function readCookieToken(): string | null {
+  if (typeof document === 'undefined' || !document.cookie) return null;
+  const match = document.cookie
+    .split('; ')
+    .find((entry) => entry.startsWith(`${ADMIN_COOKIE_NAME}=`));
+  if (!match) return null;
+  try {
+    return decodeURIComponent(match.split('=').slice(1).join('=')).trim() || null;
+  } catch {
+    return null;
+  }
+}
+
+function writeCookieToken(token: string | null): void {
+  if (typeof document === 'undefined') return;
+  try {
+    if (!token) {
+      document.cookie = `${ADMIN_COOKIE_NAME}=; path=/; max-age=0; SameSite=Lax`;
+    } else {
+      document.cookie = `${ADMIN_COOKIE_NAME}=${encodeURIComponent(token)}; path=/; max-age=604800; SameSite=Lax`;
+    }
+  } catch {
+    // Ignora restrições de cookie em ambientes de teste isolados
+  }
+}
+
+export function getAdminSessionSync(): AdminSession | null {
+  if (typeof window === 'undefined') return null;
+  let token: string | null;
+  try {
+    token = window.localStorage.getItem(ADMIN_TOKEN_STORAGE_KEY)?.trim() || null;
+  } catch {
+    token = null;
+  }
+
+  if (!token) {
+    token = readCookieToken();
+    if (token) {
+      try {
+        window.localStorage.setItem(ADMIN_TOKEN_STORAGE_KEY, token);
+      } catch {
+        // Ignora erro de escrita no storage
+      }
+    }
+  }
+
+  if (!token) return null;
+  return {
+    access_token: token,
+    user: { id: 'owner-local', role: 'owner' },
+  };
+}
+
+export function hasActiveAdminSession(): boolean {
+  return Boolean(getAdminSessionSync());
+}
 
 async function parseResponse<T>(response: Response): Promise<T> {
   const body = await response.json().catch(() => ({}));
@@ -151,7 +209,12 @@ export async function loginAdmin(token: string): Promise<AdminSession> {
   }
 
   if (typeof window !== 'undefined') {
-    window.localStorage.setItem(ADMIN_TOKEN_STORAGE_KEY, cleanToken);
+    try {
+      window.localStorage.setItem(ADMIN_TOKEN_STORAGE_KEY, cleanToken);
+    } catch {
+      // Ignora erro de localStorage
+    }
+    writeCookieToken(cleanToken);
   }
 
   return {
@@ -161,18 +224,17 @@ export async function loginAdmin(token: string): Promise<AdminSession> {
 }
 
 export async function getAdminSession(): Promise<AdminSession | null> {
-  if (typeof window === 'undefined') return null;
-  const token = window.localStorage.getItem(ADMIN_TOKEN_STORAGE_KEY)?.trim();
-  if (!token) return null;
-  return {
-    access_token: token,
-    user: { id: 'owner-local', role: 'owner' },
-  };
+  return getAdminSessionSync();
 }
 
 export async function signOutAdmin(): Promise<void> {
   if (typeof window !== 'undefined') {
-    window.localStorage.removeItem(ADMIN_TOKEN_STORAGE_KEY);
+    try {
+      window.localStorage.removeItem(ADMIN_TOKEN_STORAGE_KEY);
+    } catch {
+      // Ignora erro
+    }
+    writeCookieToken(null);
   }
 }
 
@@ -181,6 +243,7 @@ async function adminFetch<T>(path: string, init: RequestInit = {}): Promise<T> {
   if (!session) throw new BackendError(401, 'ADMIN_AUTH_REQUIRED', 'Autenticação administrativa necessária.');
   const response = await fetch(path, {
     ...init,
+    credentials: 'include',
     headers: {
       ...init.headers,
       authorization: `Bearer ${session.access_token}`,
@@ -252,11 +315,9 @@ export async function importLegacyBrowserData(): Promise<{ collections: number; 
 
 export async function fetchAdminMetrics(): Promise<AdminMetrics> {
   const computeLocal = (dbStatus: 'healthy' | 'degraded'): AdminMetrics => {
-    const collectionsCount = Object.keys(availableCollections).length;
-    const photosCount = Object.values(availableCollections).reduce(
-      (acc, c) => acc + c.photos.length,
-      0,
-    );
+    const activeEntries = getActiveCollectionEntries();
+    const collectionsCount = activeEntries.length;
+    const photosCount = activeEntries.reduce((acc, [, c]) => acc + c.photos.length, 0);
     const bytesPerPhoto = 12.5 * 1024 * 1024;
     const storageUsedBytes = photosCount * bytesPerPhoto;
     const storageLimitBytes = 100 * 1024 * 1024 * 1024;
@@ -305,7 +366,10 @@ export async function fetchPhotoLibrary(
     const limit = query.limit ?? 32;
     const offset = query.offset ?? 0;
 
-    const allCollections = Object.values(availableCollections);
+    const activeEntries = getActiveCollectionEntries();
+    const allCollections = (
+      activeEntries.length > 0 ? activeEntries : Object.entries(availableCollections)
+    ).map(([, c]) => c);
     const collectionsList = allCollections.map((c) => ({
       slug: c.collection.slug,
       title: c.collection.title,
@@ -436,7 +500,7 @@ export async function createCollection(
         bodyFont: 'DM Sans',
         foreground: '#FFFFFF',
         background: '#050A0D',
-        gridGapDesktop: 6,
+        gridGapDesktop: 8,
         gridGapMobile: 4,
         coverOverlayOpacity: 0.5,
       },
@@ -505,5 +569,3 @@ export async function createCollection(
     return localFallback();
   }
 }
-
-

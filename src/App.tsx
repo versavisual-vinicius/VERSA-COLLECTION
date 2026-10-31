@@ -7,9 +7,10 @@ import { PhotoLibraryPage } from './components/PhotoLibrary/PhotoLibraryPage';
 import { CollectionCreateWizard } from './components/CollectionWizard/CollectionCreateWizard';
 import { PhotoEditorPage } from './components/PhotoEditor/PhotoEditorPage';
 import { LoginPage } from './components/Auth/LoginPage';
+import { hasActiveAdminSession } from './lib/backend';
 import type { CreateCollectionResponse } from './types/gallery';
 
-type AppView = 'home' | 'gallery' | 'dashboard' | 'photos' | 'create-collection' | 'editor' | 'login';
+type AppView = 'home' | 'gallery' | 'dashboard' | 'photos' | 'create-collection' | 'editor' | 'login' | 'admin';
 
 function resolveViewFromUrl(): { view: AppView; slug: string | null } {
   if (typeof window === 'undefined') return { view: 'home', slug: null };
@@ -19,6 +20,9 @@ function resolveViewFromUrl(): { view: AppView; slug: string | null } {
 
   if (pathname === '/login' || viewParam === 'login') {
     return { view: 'login', slug: null };
+  }
+  if (pathname === '/admin' || pathname.startsWith('/admin/') || viewParam === 'admin') {
+    return { view: 'admin', slug: params.get('collection') || 'modec-dia-das-criancas-2026' };
   }
   if (
     pathname === '/editor' ||
@@ -37,11 +41,18 @@ function resolveViewFromUrl(): { view: AppView; slug: string | null } {
   if (pathname === '/photos' || viewParam === 'photos') {
     return { view: 'photos', slug: null };
   }
-  if (pathname === '/dashboard' || viewParam === 'dashboard') {
+  if (
+    pathname === '/dashboard' ||
+    pathname === '/hub' ||
+    viewParam === 'dashboard' ||
+    viewParam === 'hub'
+  ) {
     return { view: 'dashboard', slug: null };
   }
-  const pathMatch = pathname.match(/^\/g\/([^/?#]+)/);
-  const slug = pathMatch?.[1] || params.get('collection') || null;
+
+  // Suporta /g/:slug, /collection/:slug e /?collection=:slug
+  const galleryMatch = pathname.match(/^\/(?:g|collection)\/([^/?#]+)/);
+  const slug = galleryMatch?.[1] ? decodeURIComponent(galleryMatch[1]) : params.get('collection') || null;
   if (slug) {
     return { view: 'gallery', slug };
   }
@@ -53,7 +64,8 @@ export default function App() {
   const [currentCollection, setCurrentCollection] = useState<string | null>(viewState.slug);
   const [isAdminOpen, setIsAdminOpen] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
-    return new URLSearchParams(window.location.search).get('admin') === 'true';
+    const params = new URLSearchParams(window.location.search);
+    return params.get('admin') === 'true' || window.location.pathname.startsWith('/admin');
   });
   const [isCreateWizardOpen, setIsCreateWizardOpen] = useState<boolean>(
     () => viewState.view === 'create-collection',
@@ -64,7 +76,8 @@ export default function App() {
     return (
       params.get('preview') === 'true' ||
       params.get('mode') === 'preview' ||
-      params.get('admin') === 'true'
+      params.get('admin') === 'true' ||
+      hasActiveAdminSession()
     );
   });
 
@@ -75,10 +88,13 @@ export default function App() {
       setCurrentCollection(view.slug);
       setIsCreateWizardOpen(view.view === 'create-collection');
       const params = new URLSearchParams(window.location.search);
+      const adminFlag = params.get('admin') === 'true' || window.location.pathname.startsWith('/admin');
+      setIsAdminOpen(adminFlag);
       setIsOwnerPreview(
         params.get('preview') === 'true' ||
         params.get('mode') === 'preview' ||
-        params.get('admin') === 'true',
+        adminFlag ||
+        hasActiveAdminSession(),
       );
     };
     window.addEventListener('popstate', handlePopState);
@@ -89,17 +105,20 @@ export default function App() {
     setCurrentCollection(slug);
     setViewState({ view: 'gallery', slug });
     setIsCreateWizardOpen(false);
-    setIsOwnerPreview(isPreview);
+    setIsAdminOpen(false);
+    setIsOwnerPreview(isPreview || hasActiveAdminSession());
     if (typeof window !== 'undefined') {
       const nextUrl = new URL(window.location.href);
-      if (nextUrl.pathname.startsWith('/g/')) {
-        nextUrl.pathname = `/g/${encodeURIComponent(slug)}`;
+      if (nextUrl.pathname.startsWith('/g/') || nextUrl.pathname.startsWith('/collection/')) {
+        const prefix = nextUrl.pathname.startsWith('/collection/') ? '/collection/' : '/g/';
+        nextUrl.pathname = `${prefix}${encodeURIComponent(slug)}`;
         nextUrl.searchParams.delete('collection');
       } else {
         nextUrl.pathname = '/';
         nextUrl.searchParams.set('collection', slug);
       }
       nextUrl.searchParams.delete('view');
+      nextUrl.searchParams.delete('admin');
       window.history.pushState({}, '', `${nextUrl.pathname}${nextUrl.search}`);
     }
   }, []);
@@ -108,7 +127,8 @@ export default function App() {
     setCurrentCollection(null);
     setViewState({ view: 'home', slug: null });
     setIsCreateWizardOpen(false);
-    setIsOwnerPreview(false);
+    setIsAdminOpen(false);
+    setIsOwnerPreview(hasActiveAdminSession());
     if (typeof window !== 'undefined') {
       const nextUrl = new URL(window.location.href);
       nextUrl.pathname = '/';
@@ -118,16 +138,8 @@ export default function App() {
       nextUrl.searchParams.delete('mode');
       nextUrl.searchParams.delete('set');
       nextUrl.searchParams.delete('view');
+      nextUrl.searchParams.delete('admin');
       window.history.pushState({}, '', `${nextUrl.pathname}${nextUrl.search}`);
-    }
-  }, []);
-
-  const handleOpenLogin = useCallback(() => {
-    setCurrentCollection(null);
-    setViewState({ view: 'login', slug: null });
-    setIsCreateWizardOpen(false);
-    if (typeof window !== 'undefined') {
-      window.history.pushState({}, '', '/login');
     }
   }, []);
 
@@ -135,6 +147,7 @@ export default function App() {
     setCurrentCollection(null);
     setViewState({ view: 'dashboard', slug: null });
     setIsCreateWizardOpen(false);
+    setIsAdminOpen(false);
     if (typeof window !== 'undefined') {
       const nextUrl = new URL(window.location.href);
       nextUrl.pathname = '/dashboard';
@@ -142,14 +155,46 @@ export default function App() {
       nextUrl.searchParams.delete('photo');
       nextUrl.searchParams.delete('pid');
       nextUrl.searchParams.delete('view');
+      nextUrl.searchParams.delete('admin');
       window.history.pushState({}, '', `${nextUrl.pathname}${nextUrl.search}`);
     }
   }, []);
+
+  const handleOpenAdminWorkspace = useCallback((slug?: string) => {
+    const targetSlug = slug || currentCollection || 'modec-dia-das-criancas-2026';
+    setCurrentCollection(targetSlug);
+    setIsAdminOpen(true);
+    setIsCreateWizardOpen(false);
+    if (typeof window !== 'undefined') {
+      const nextUrl = new URL(window.location.href);
+      if (nextUrl.pathname === '/admin') {
+        nextUrl.searchParams.set('collection', targetSlug);
+      } else {
+        nextUrl.searchParams.set('admin', 'true');
+      }
+      window.history.pushState({}, '', `${nextUrl.pathname}${nextUrl.search}`);
+    }
+  }, [currentCollection]);
+
+  // Corrige o loop de /login: se a sessão administrativa já estiver hidratada, vai direto ao Studio Hub
+  const handleAccessPhotographerArea = useCallback(() => {
+    if (hasActiveAdminSession()) {
+      handleOpenDashboard();
+      return;
+    }
+    setCurrentCollection(null);
+    setViewState({ view: 'login', slug: null });
+    setIsCreateWizardOpen(false);
+    if (typeof window !== 'undefined') {
+      window.history.pushState({}, '', '/login');
+    }
+  }, [handleOpenDashboard]);
 
   const handleOpenPhotos = useCallback(() => {
     setCurrentCollection(null);
     setViewState({ view: 'photos', slug: null });
     setIsCreateWizardOpen(false);
+    setIsAdminOpen(false);
     if (typeof window !== 'undefined') {
       const nextUrl = new URL(window.location.href);
       nextUrl.pathname = '/photos';
@@ -157,6 +202,7 @@ export default function App() {
       nextUrl.searchParams.delete('photo');
       nextUrl.searchParams.delete('pid');
       nextUrl.searchParams.delete('view');
+      nextUrl.searchParams.delete('admin');
       window.history.pushState({}, '', `${nextUrl.pathname}${nextUrl.search}`);
     }
   }, []);
@@ -164,12 +210,14 @@ export default function App() {
   const handleOpenEditor = useCallback(() => {
     setViewState({ view: 'editor', slug: currentCollection });
     setIsCreateWizardOpen(false);
+    setIsAdminOpen(false);
     if (typeof window !== 'undefined') {
       const nextUrl = new URL(window.location.href);
       nextUrl.pathname = '/editor';
       nextUrl.searchParams.delete('photo');
       nextUrl.searchParams.delete('pid');
       nextUrl.searchParams.delete('view');
+      nextUrl.searchParams.delete('admin');
       window.history.pushState({}, '', `${nextUrl.pathname}${nextUrl.search}`);
     }
   }, [currentCollection]);
@@ -212,7 +260,19 @@ export default function App() {
     return <LoginPage onNavigateHome={handleGoHome} onLoginSuccess={handleOpenDashboard} />;
   }
 
-  // Se o usuário acessar a rota /editor, renderiza o Photo Editor & Culling
+  if (viewState.view === 'admin') {
+    return (
+      <AdminPanel
+        initialSlug={currentCollection || 'modec-dia-das-criancas-2026'}
+        onClose={handleOpenDashboard}
+        onNavigateDashboard={handleOpenDashboard}
+        onSelectCollection={(slug) => {
+          handleSelectCollection(slug, true);
+        }}
+      />
+    );
+  }
+
   if (viewState.view === 'editor') {
     return (
       <PhotoEditorPage
@@ -223,21 +283,21 @@ export default function App() {
     );
   }
 
-  // Se o usuário acessar a rota /photos, renderiza a Biblioteca Central de Fotos
   if (viewState.view === 'photos') {
     return (
       <>
         <PhotoLibraryPage
           onNavigateHome={handleGoHome}
           onNavigateDashboard={handleOpenDashboard}
-          onOpenAdmin={() => setIsAdminOpen(true)}
+          onOpenAdmin={() => handleOpenAdminWorkspace()}
           onCreateCollection={handleOpenCreateWizard}
           onSelectCollection={handleSelectCollection}
         />
         {isAdminOpen && (
           <AdminPanel
-            initialSlug="modec-dia-das-criancas-2026"
+            initialSlug={currentCollection || 'modec-dia-das-criancas-2026'}
             onClose={() => setIsAdminOpen(false)}
+            onNavigateDashboard={handleOpenDashboard}
             onSelectCollection={(slug) => {
               setIsAdminOpen(false);
               handleSelectCollection(slug, true);
@@ -253,7 +313,6 @@ export default function App() {
     );
   }
 
-  // Se o usuário acessar a rota /dashboard ou view create-collection
   if (viewState.view === 'dashboard' || viewState.view === 'create-collection') {
     return (
       <>
@@ -261,13 +320,14 @@ export default function App() {
           onNavigateHome={handleGoHome}
           onNavigatePhotos={handleOpenPhotos}
           onNavigateEditor={handleOpenEditor}
-          onOpenAdmin={() => setIsAdminOpen(true)}
+          onOpenAdmin={() => handleOpenAdminWorkspace()}
           onCreateCollection={handleOpenCreateWizard}
         />
         {isAdminOpen && (
           <AdminPanel
-            initialSlug="modec-dia-das-criancas-2026"
+            initialSlug={currentCollection || 'modec-dia-das-criancas-2026'}
             onClose={() => setIsAdminOpen(false)}
+            onNavigateDashboard={handleOpenDashboard}
             onSelectCollection={(slug) => {
               setIsAdminOpen(false);
               handleSelectCollection(slug, true);
@@ -283,19 +343,19 @@ export default function App() {
     );
   }
 
-  // Se nenhuma coleção especificada via URL (/g/:slug ou ?collection=), exibe a Homepage do Fotógrafo (paridade Pixieset)
   if (viewState.view === 'home' || !currentCollection) {
     return (
       <>
         <PhotographerHomePage
           onSelectCollection={handleSelectCollection}
-          onOpenAdmin={handleOpenLogin}
+          onOpenAdmin={handleAccessPhotographerArea}
           onOpenDashboard={handleOpenDashboard}
         />
         {isAdminOpen && (
           <AdminPanel
-            initialSlug="modec-dia-das-criancas-2026"
+            initialSlug={currentCollection || 'modec-dia-das-criancas-2026'}
             onClose={() => setIsAdminOpen(false)}
+            onNavigateDashboard={handleOpenDashboard}
             onSelectCollection={(slug) => {
               setIsAdminOpen(false);
               handleSelectCollection(slug, true);

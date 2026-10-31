@@ -22,13 +22,6 @@ interface InfiniteMasonryGridProps {
   onShare?: (photo: GalleryPhoto) => void;
 }
 
-/**
- * Grade Masonry Infinita e Calculada (RF-005 e RF-006):
- * - Medição responsiva da largura do container.
- * - Posicionamento determinístico por menor altura acumulada.
- * - Sentinela com IntersectionObserver (rootMargin: '150% 0px') para prefetch antecipado.
- * - Tratamento de estados: loading-more, partial-error com retry sem duplicações.
- */
 export function InfiniteMasonryGrid({
   photos,
   status = 'ready',
@@ -52,7 +45,6 @@ export function InfiniteMasonryGrid({
     typeof window !== 'undefined' ? Math.min(window.innerWidth, 1440) : 1154,
   );
 
-  // Monitora alterações de largura do container
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -83,7 +75,6 @@ export function InfiniteMasonryGrid({
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
 
-  // IntersectionObserver com rootMargin: '150% 0px' para prefetch antecipado (RF-006)
   useEffect(() => {
     if (!hasMore || !onLoadMore || status === 'loading-more' || status === 'loading' || status === 'partial-error') {
       return;
@@ -152,7 +143,6 @@ export function InfiniteMasonryGrid({
         ))}
       </div>
 
-      {/* Sentinela invisível para disparar o prefetch do próximo lote */}
       {hasMore && status !== 'partial-error' && (
         <div
           ref={sentinelRef}
@@ -162,40 +152,37 @@ export function InfiniteMasonryGrid({
         />
       )}
 
-      {/* Estado: Carregando mais itens */}
       {status === 'loading-more' && (
         <div
-          className="py-8 flex items-center justify-center gap-2 text-white/50 text-xs tracking-wider uppercase"
+          className="py-8 flex items-center justify-center gap-2 text-[#5A6872] text-xs tracking-wider uppercase"
           role="status"
           aria-live="polite"
         >
-          <span className="w-2 h-2 rounded-full bg-white/40 animate-ping" />
+          <span className="w-2 h-2 rounded-full bg-[#5E7F8C] animate-ping" />
           <span>Carregando mais fotografias...</span>
         </div>
       )}
 
-      {/* Estado: Erro parcial com botão de retry sem remover fotos já exibidas */}
       {status === 'partial-error' && onRetry && (
         <div
-          className="my-8 p-6 rounded-2xl bg-red-950/30 border border-red-500/20 text-center flex flex-col items-center justify-center gap-3"
+          className="my-8 p-6 rounded-none bg-red-50 border border-red-200 text-center flex flex-col items-center justify-center gap-3"
           role="alert"
         >
-          <p className="text-xs text-red-200">
+          <p className="text-xs text-red-700">
             {errorMessage ?? 'Ocorreu uma instabilidade momentânea ao carregar novas fotografias.'}
           </p>
           <button
             type="button"
             onClick={onRetry}
-            className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-semibold uppercase tracking-wider transition-colors border border-white/10"
+            className="px-4 py-2 rounded-lg bg-[#050A0D] hover:bg-[#11161B] text-white text-xs font-semibold uppercase tracking-wider transition-colors"
           >
             Tentar carregar novamente
           </button>
         </div>
       )}
 
-      {/* Indicador de finalização da galeria */}
       {!hasMore && photos.length > 0 && status !== 'loading' && (
-        <div className="py-12 text-center text-xs tracking-widest uppercase text-white/30 border-t border-white/5 mt-8">
+        <div className="py-12 text-center text-xs tracking-widest uppercase text-[#5A6872]/70 border-t border-[#5E7F8C]/15 mt-8">
           Todos os registros da coleção carregados ({photos.length})
         </div>
       )}

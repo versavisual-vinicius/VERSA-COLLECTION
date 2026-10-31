@@ -1,3 +1,5 @@
+import { cookieValue } from './http.js';
+
 export interface OwnerUser {
   id: string;
   role: 'owner';
@@ -6,9 +8,10 @@ export interface OwnerUser {
 
 export async function requireOwner(request: Request): Promise<OwnerUser | null> {
   const authorization = request.headers.get('authorization');
-  if (!authorization?.startsWith('Bearer ')) return null;
+  const token = authorization?.startsWith('Bearer ')
+    ? authorization.slice('Bearer '.length).trim()
+    : (cookieValue(request, 'versa_admin_sid') ?? '').trim();
 
-  const token = authorization.slice('Bearer '.length).trim();
   if (!token) return null;
 
   const adminToken = process.env.ADMIN_TOKEN || process.env.RATE_LIMIT_SECRET;
@@ -18,4 +21,3 @@ export async function requireOwner(request: Request): Promise<OwnerUser | null> 
 
   return null;
 }
-

@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
-import { availableCollections } from '../data/collectionsRegistry';
+import { availableCollections, getActiveCollectionEntries } from '../data/collectionsRegistry';
 import { BrandingFooter } from './Footer/BrandingFooter';
 import { PhotographerEmptyState } from './Feedback/PhotographerEmptyState';
-import { backendEnabled, fetchPublicCollections, type PublicCollectionCard } from '../lib/backend';
+import {
+  backendEnabled,
+  fetchPublicCollections,
+  hasActiveAdminSession,
+  type PublicCollectionCard,
+} from '../lib/backend';
 
 interface PhotographerHomePageProps {
   onSelectCollection: (slug: string) => void;
@@ -11,25 +16,52 @@ interface PhotographerHomePageProps {
   collectionsOverride?: Array<PublicCollectionCard & { businessName?: string }>;
 }
 
+/**
+ * Seleciona a fonte ideal para card de vitrine (w=640 ou w=1024),
+ * evitando carregar o original =s0 de 15MB–22MB nas miniaturas da home.
+ */
+function pickOptimalCoverUrl(
+  col: PublicCollectionCard & { coverUrl?: string },
+  fallbackFirstPhotoUrl?: string,
+): string | undefined {
+  const sources = col.cover?.sources ?? [];
+  if (sources.length > 0) {
+    const mediumSource =
+      sources.find((s) => s.width >= 600 && s.width <= 1280 && !s.url.endsWith('=s0')) ??
+      sources.find((s) => !s.url.endsWith('=s0')) ??
+      sources[0];
+    if (mediumSource?.url) return mediumSource.url;
+  }
+  return col.coverUrl || fallbackFirstPhotoUrl;
+}
+
+function extractDriveFileId(url?: string): string | null {
+  if (!url) return null;
+  const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  return match?.[1] ?? null;
+}
+
 export function PhotographerHomePage({
   onSelectCollection,
   onOpenAdmin,
-  onOpenDashboard: _onOpenDashboard,
+  onOpenDashboard,
   collectionsOverride,
 }: PhotographerHomePageProps) {
-  const realCollections = Object.entries(availableCollections).filter(
-    ([slug, data]) => slug !== 'fixture' && data.collection.visibility !== 'hidden',
-  );
-  const staticCollections = (realCollections.length > 0 ? realCollections : Object.entries(availableCollections)).map(
-    ([slug, data]) => ({
-      ...data.collection,
-      slug: data.collection.slug || slug,
-    }),
-  );
-  const [collectionsList, setCollectionsList] = useState<Array<PublicCollectionCard & { businessName?: string }>>(
-    collectionsOverride ?? (backendEnabled ? [] : staticCollections),
-  );
+  // Oculta automaticamente coleções com 0 fotografias ou visibilidade 'hidden' (Auditoria 3.3.2)
+  const realCollections = getActiveCollectionEntries();
+  const staticCollections = (
+    realCollections.length > 0 ? realCollections : Object.entries(availableCollections)
+  ).map(([slug, data]) => ({
+    ...data.collection,
+    slug: data.collection.slug || slug,
+    totalItems: data.photos?.length || data.collection.totalItems,
+  }));
+
+  const [collectionsList, setCollectionsList] = useState<
+    Array<PublicCollectionCard & { businessName?: string }>
+  >(collectionsOverride ?? (backendEnabled ? [] : staticCollections));
   const [isLoading, setIsLoading] = useState(backendEnabled && !collectionsOverride);
+  const isLogged = hasActiveAdminSession();
 
   useEffect(() => {
     if (collectionsOverride) {
@@ -40,8 +72,11 @@ export function PhotographerHomePage({
     if (!backendEnabled) return;
     setIsLoading(true);
     void fetchPublicCollections()
-      .then(setCollectionsList)
-      .catch(() => setCollectionsList([]))
+      .then((items) => {
+        const nonEmpty = items.filter((item) => (item.totalItems ?? 0) > 0);
+        setCollectionsList(nonEmpty.length > 0 ? nonEmpty : staticCollections);
+      })
+      .catch(() => setCollectionsList(staticCollections))
       .finally(() => setIsLoading(false));
   }, [collectionsOverride]);
 
@@ -62,6 +97,15 @@ export function PhotographerHomePage({
           </div>
 
           <div className="flex items-center space-x-2">
+            {isLogged && onOpenDashboard && (
+              <button
+                type="button"
+                onClick={onOpenDashboard}
+                className="px-3.5 py-1.5 rounded-lg bg-[#050A0D] hover:bg-[#11161B] text-xs font-semibold uppercase tracking-wider text-white transition-colors shadow-xs"
+              >
+                Studio Hub
+              </button>
+            )}
             <button
               type="button"
               onClick={onOpenAdmin}
@@ -93,51 +137,58 @@ export function PhotographerHomePage({
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="rounded-2xl overflow-hidden bg-white/80 border border-[#5E7F8C]/15 h-80 animate-pulse shadow-sm"
+                className="rounded-none overflow-hidden bg-white/80 border border-[#5E7F8C]/15 h-80 animate-pulse shadow-sm"
               />
             ))}
           </div>
         ) : collectionsList.length === 0 ? (
           <PhotographerEmptyState onOpenAdmin={onOpenAdmin} />
         ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {collectionsList.map((col) => {
-            const coverUrl =
-              col.cover?.sources?.[col.cover.sources.length - 1]?.url ||
-              col.cover?.sources?.[0]?.url ||
-              (col as { coverUrl?: string }).coverUrl;
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {collectionsList.map((col, idx) => {
+              const fallbackFirstPhoto =
+                availableCollections[col.slug]?.photos?.[0]?.sources?.[0]?.url;
+              const coverUrl = pickOptimalCoverUrl(
+                col as PublicCollectionCard & { coverUrl?: string },
+                fallbackFirstPhoto,
+              );
 
-            return (
-              <article
-                key={col.slug}
-                onClick={() => onSelectCollection(col.slug)}
-                className="group relative rounded-2xl overflow-hidden bg-white border border-[#5E7F8C]/15 hover:border-[#5E7F8C] transition-all duration-300 cursor-pointer flex flex-col shadow-sm hover:shadow-xl hover:-translate-y-1"
-              >
-                {/* Imagem de Capa com Proporção Editorial & Fallback Resiliente */}
-                <CollectionCoverThumbnail coverUrl={coverUrl} title={col.title} />
+              return (
+                <article
+                  key={col.slug}
+                  onClick={() => onSelectCollection(col.slug)}
+                  className="group relative rounded-none overflow-hidden bg-white border border-[#5E7F8C]/15 hover:border-[#5E7F8C] transition-all duration-300 cursor-pointer flex flex-col shadow-xs hover:shadow-xl hover:-translate-y-0.5"
+                >
+                  {/* Imagem de Capa com Fallback Resiliente + Shimmer Editorial */}
+                  <CollectionCoverThumbnail
+                    coverUrl={coverUrl}
+                    fallbackPhotoUrl={fallbackFirstPhoto}
+                    title={col.title}
+                    priority={idx < 6}
+                  />
 
-                {/* Conteúdo do Card */}
-                <div className="p-6 flex flex-col flex-1 justify-between">
-                  <div>
-                    <span className="text-[11px] font-semibold tracking-wider text-[#5E7F8C] uppercase block mb-1">
-                      {col.businessName || 'Versa Visual'}
-                    </span>
-                    <h3 className="text-xl font-bold font-['Outfit'] text-[#11161B] group-hover:text-[#5E7F8C] transition-colors mb-2">
-                      {col.title}
-                    </h3>
+                  {/* Conteúdo do Card com Capitalização Padronizada (Auditoria 3.3.1) */}
+                  <div className="p-6 flex flex-col flex-1 justify-between">
+                    <div>
+                      <span className="text-[10px] font-semibold tracking-[0.18em] text-[#5E7F8C] uppercase block mb-1.5">
+                        {col.businessName || 'Versa Visual'}
+                      </span>
+                      <h3 className="text-base font-bold font-['Outfit'] uppercase tracking-[0.06em] text-[#11161B] group-hover:text-[#5E7F8C] transition-colors mb-2">
+                        {col.title}
+                      </h3>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-[#5E7F8C]/15 flex items-center justify-between text-xs text-[#5A6872]">
+                      <span>{col.totalItems} fotografias</span>
+                      <span className="font-semibold text-[#11161B] group-hover:text-[#5E7F8C] group-hover:translate-x-1 transition-all inline-flex items-center gap-1">
+                        Acessar galeria →
+                      </span>
+                    </div>
                   </div>
-
-                  <div className="mt-6 pt-4 border-t border-[#5E7F8C]/15 flex items-center justify-between text-xs text-[#5A6872]">
-                    <span>{col.totalItems} fotografias</span>
-                    <span className="font-semibold text-[#11161B] group-hover:text-[#5E7F8C] group-hover:translate-x-1 transition-all inline-flex items-center gap-1">
-                      Acessar galeria →
-                    </span>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
+                </article>
+              );
+            })}
+          </div>
         )}
       </main>
 
@@ -150,32 +201,78 @@ export function PhotographerHomePage({
   );
 }
 
-function CollectionCoverThumbnail({ coverUrl, title }: { coverUrl?: string; title: string }) {
-  const [hasError, setHasError] = useState(false);
+function CollectionCoverThumbnail({
+  coverUrl,
+  fallbackPhotoUrl,
+  title,
+  priority = false,
+}: {
+  coverUrl?: string;
+  fallbackPhotoUrl?: string;
+  title: string;
+  priority?: boolean;
+}) {
+  const [stage, setStage] = useState<'primary' | 'drive-thumb' | 'fallback-first' | 'failed'>('primary');
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const fileId = extractDriveFileId(coverUrl) || extractDriveFileId(fallbackPhotoUrl);
+  const driveThumbUrl = fileId ? `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000` : undefined;
+
+  let activeSrc: string | undefined = coverUrl;
+  if (stage === 'drive-thumb') {
+    activeSrc = driveThumbUrl || fallbackPhotoUrl;
+  } else if (stage === 'fallback-first') {
+    activeSrc = fallbackPhotoUrl;
+  } else if (stage === 'failed') {
+    activeSrc = undefined;
+  }
+
+  const handleImageError = () => {
+    if (stage === 'primary' && driveThumbUrl && driveThumbUrl !== coverUrl) {
+      setStage('drive-thumb');
+    } else if (stage !== 'fallback-first' && fallbackPhotoUrl && fallbackPhotoUrl !== activeSrc) {
+      setStage('fallback-first');
+    } else {
+      setStage('failed');
+    }
+  };
 
   return (
-    <div className="aspect-[16/10] overflow-hidden bg-[#EEF1F3] relative select-none">
-      {coverUrl && !hasError ? (
+    <div className="aspect-[16/10] overflow-hidden bg-[#11161B] relative select-none">
+      {!isLoaded && activeSrc && stage !== 'failed' && (
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#121A20] via-[#1C2830] to-[#121A20]"
+        />
+      )}
+
+      {activeSrc && stage !== 'failed' ? (
         <img
-          src={coverUrl}
+          src={activeSrc}
           alt={title}
-          onError={() => setHasError(true)}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-          loading="lazy"
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+          referrerPolicy="no-referrer"
+          onLoad={() => setIsLoaded(true)}
+          onError={handleImageError}
+          className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-500 ease-out ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
         />
       ) : (
+        /* Placeholder Institucional Escuro com Monograma V (Auditoria 3.3.2) */
         <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#050A0D] to-[#121A20] text-white p-4 text-center">
-          <div className="w-10 h-10 rounded-full bg-[#5E7F8C]/20 border border-[#5E7F8C]/40 flex items-center justify-center mb-2 shadow-xs">
-            <span className="font-['Outfit'] font-bold text-xs tracking-wider text-[#5E7F8C]">
-              {title.slice(0, 2).toUpperCase()}
+          <div className="w-11 h-11 rounded-full bg-[#5E7F8C]/15 border border-[#5E7F8C]/40 flex items-center justify-center mb-2.5 shadow-xs">
+            <span className="font-['Outfit'] font-bold text-sm tracking-[0.2em] text-[#5E7F8C]">
+              V
             </span>
           </div>
-          <span className="text-[11px] font-medium text-white/75 tracking-wide font-['DM_Sans']">
-            Galeria Digital Versa
+          <span className="text-[10px] uppercase font-semibold text-white/70 tracking-[0.2em] font-['DM_Sans']">
+            Versa Collection
           </span>
         </div>
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
     </div>
   );
 }

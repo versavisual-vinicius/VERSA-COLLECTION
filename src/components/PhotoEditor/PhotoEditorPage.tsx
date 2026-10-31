@@ -1,5 +1,9 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
-import { availableCollections, getCollectionData } from '../../data/collectionsRegistry';
+import {
+  availableCollections,
+  getActiveCollectionEntries,
+  getCollectionData,
+} from '../../data/collectionsRegistry';
 import { useCullingHotkeys } from '../../hooks/useCullingHotkeys';
 import {
   loadCullingState,
@@ -23,7 +27,14 @@ export function PhotoEditorPage({
   onNavigateHome,
   onNavigateDashboard,
 }: PhotoEditorPageProps) {
-  const collectionKeys = Object.keys(availableCollections);
+  const activeEntries = useMemo(() => getActiveCollectionEntries(), []);
+  const collectionKeys = useMemo(
+    () =>
+      activeEntries.length > 0
+        ? activeEntries.map(([slug]) => slug)
+        : Object.keys(availableCollections),
+    [activeEntries],
+  );
   const defaultSlug =
     initialSlug && availableCollections[initialSlug]
       ? initialSlug
@@ -135,11 +146,12 @@ export function PhotoEditorPage({
   };
 
   const collectionsList = useMemo(() => {
-    return Object.entries(availableCollections).map(([slug, data]) => ({
+    const entries = activeEntries.length > 0 ? activeEntries : Object.entries(availableCollections);
+    return entries.map(([slug, data]) => ({
       slug,
       title: data.collection?.title || slug,
     }));
-  }, []);
+  }, [activeEntries]);
 
   return (
     <div

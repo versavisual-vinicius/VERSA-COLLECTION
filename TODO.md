@@ -333,5 +333,26 @@
 - [x] **Restauração do Design System & Code Splitting**:
   - Expurgo de 263 linhas de sobrescritas CSS invasivas ("MONO") em `src/index.css` e restauração da `PhotographerHomePage.tsx` canônica da Versa Visual.
   - Divisão de chunks no `vite.config.ts` (`vendor-react`, `vendor-jszip`, `collection-[slug]`), reduzindo o bundle principal `index.js` de 9.4 MB para ~203 kB (50.8 kB gzip).
+- [x] **Unificação de Totais e Auditoria Visual das Rotas (Issues #4 e #5)**:
+  - Criação do seletor canônico `getActiveCollectionEntries` em `src/data/collectionsRegistry.ts`, unificando a contagem de coleções e fotos entre Catálogo Público (`/`), Studio Hub (`/dashboard`), Biblioteca Central (`/photos`) e Editor (`/editor`) sem vazamento de `fixture` (`25 coleções` / `6.582 fotografias`).
+  - Ordenação de imagens válidas antes de metadados `._*` em `collectionsRegistry.ts` e atualização de `40-ranniele` (`750` itens) em `src/data/collections/index.json`.
+  - Adição de teste de regressão de paridade em `src/test/Fase15_PhotoLibrary.test.tsx` (23 suítes, 136 testes 100% verdes).
+
+---
+
+## Fase 19: Higiene de Build, Sanitização de Permissões & Unificação Canônica
+
+- [x] **Correção de Tipos e Autenticação (`api/_lib/auth.ts`)**:
+  - Migrado import para `cookieValue` de `./http.js` com extração direta do cookie `versa_admin_sid`.
+- [x] **Saneamento ESLint (`src/lib/backend.ts` e `api/_lib/auth.ts`)**:
+  - Eliminados erros de `no-useless-assignment` para passar `eslint . --max-warnings 0`.
+- [x] **Normalização de Permissões de Arquivo**:
+  - Restaurado `chmod 644` em todos os arquivos de código/configuração e `chmod 755` em pastas, expurgando 228 falsos positivos de modo executável no Git.
+- [x] **Validação e Build 100% Verdes (`pnpm check`)**:
+  - `pnpm lint`, `pnpm typecheck`, `pnpm test` (136 testes, 23 suítes) e `pnpm build` (781ms) aprovados sem avisos nem quebras.
+- [x] **Expurgo Seguro de Duplicação**:
+  - Pasta temporária `VERSA-COLLECTION - Original` removida com sucesso após validação total, preservando `/Users/viniciuscunha/3_DEV/VERSA-COLLECTION` como único repositório canônico.
+
+
 
 

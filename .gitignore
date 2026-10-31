@@ -6,6 +6,8 @@ dist-server
 .vercel
 .firebase/
 coverage
+test-results/
+playwright-report/
 *.log
 *.local
 .env*

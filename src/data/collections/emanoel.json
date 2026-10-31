@@ -2,7 +2,7 @@
   "collection": {
     "id": "col-emanoel",
     "slug": "emanoel",
-    "title": "Emanoel",
+    "title": "EMANOEL",
     "businessName": "Versa Visual",
     "businessUrl": "https://instagram.com/v1ncsc",
     "cover": {
@@ -30,7 +30,7 @@
           "format": "jpeg"
         },
         {
-          "url": "https://lh3.googleusercontent.com/d/17rHNeGrEpcCqveBYQrziBLKaUcfMFFJB=s0",
+          "url": "https://lh3.googleusercontent.com/d/17rHNeGrEpcCqveBYQrziBLKaUcfMFFJB=w2400",
           "width": 2325,
           "height": 1550,
           "format": "jpeg"
@@ -67,7 +67,7 @@
       "bodyFont": "DM Sans, sans-serif",
       "foreground": "#f5f5f4",
       "background": "#050A0D",
-      "gridGapDesktop": 6,
+      "gridGapDesktop": 8,
       "gridGapMobile": 4,
       "coverOverlayOpacity": 0.65
     }
@@ -104,7 +104,7 @@
           "format": "jpeg"
         },
         {
-          "url": "https://lh3.googleusercontent.com/d/17rHNeGrEpcCqveBYQrziBLKaUcfMFFJB=s0",
+          "url": "https://lh3.googleusercontent.com/d/17rHNeGrEpcCqveBYQrziBLKaUcfMFFJB=w2400",
           "width": 2325,
           "height": 1550,
           "format": "jpeg"
